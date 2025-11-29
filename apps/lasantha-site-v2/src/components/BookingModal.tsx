@@ -56,7 +56,8 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
 
     try {
       // Call the appointment booking API
-      const response = await fetch('http://localhost:8585/api/appointments/book', {
+      const apiUrl = process.env.NEXT_PUBLIC_BOT_API_URL || 'http://localhost:8585'
+      const response = await fetch(`${apiUrl}/api/appointments/book`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
