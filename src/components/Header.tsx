@@ -1,14 +1,16 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { Phone, Mail, Clock, Menu, X, ChevronRight } from 'lucide-react'
+import { Phone, Mail, Clock, Menu, X, ChevronRight, Calendar } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import BookingModal from './BookingModal'
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isBookingOpen, setIsBookingOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -108,17 +110,16 @@ export default function Header() {
                 </Link>
               ))}
               
-              <motion.a
+              <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                href="https://wa.me/94721222509?text=Hi,%20I%20need%20a%20tyre%20quote"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="ml-4 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 shadow-lg shadow-green-500/20"
+                type="button"
+                onClick={() => setIsBookingOpen(true)}
+                className="ml-4 bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-500 hover:to-primary-400 text-white px-6 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 shadow-lg shadow-primary-900/20"
               >
-                <Phone className="w-4 h-4" />
-                <span>WhatsApp</span>
-              </motion.a>
+                <Calendar className="w-4 h-4" />
+                <span>Book VIP Service</span>
+              </motion.button>
             </motion.div>
 
             {/* Mobile Menu Button */}
@@ -154,19 +155,23 @@ export default function Header() {
                 </Link>
               ))}
               
-              <a
-                href="https://wa.me/94721222509?text=Hi,%20I%20need%20a%20tyre%20quote"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 w-full bg-green-500 text-white p-4 rounded-xl font-bold flex items-center justify-center gap-2"
+              <button
+                type="button"
+                onClick={() => {
+                  setIsBookingOpen(true)
+                  setIsMobileMenuOpen(false)
+                }}
+                className="mt-4 w-full bg-primary-600 hover:bg-primary-500 text-white p-4 rounded-xl font-bold flex items-center justify-center gap-2"
               >
-                <Phone className="w-5 h-5" />
-                Chat on WhatsApp
-              </a>
+                <Calendar className="w-5 h-5" />
+                Book VIP Service
+              </button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      <BookingModal isOpen={isBookingOpen} onClose={() => setIsBookingOpen(false)} />
     </>
   )
 }
