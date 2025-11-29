@@ -55,9 +55,8 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
     setNotification(null)
 
     try {
-      // Call the appointment booking API
-      const apiUrl = process.env.NEXT_PUBLIC_BOT_API_URL || 'http://localhost:8585'
-      const response = await fetch(`${apiUrl}/api/appointments/book`, {
+      // Use Next.js API route (same as price request) - Vercel server routes to bot
+      const response = await fetch('/api/appointments', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -75,7 +74,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
 
       const data = await response.json()
 
-      if (data.ok) {
+      if (data.success) {
         setNotification({
           type: 'success',
           message: `✅ Appointment booked! Reference: ${data.referenceNo}. Check your WhatsApp for confirmation.`
@@ -98,7 +97,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
       } else {
         setNotification({
           type: 'error',
-          message: `❌ ${data.error || 'Failed to book appointment. Please try again.'}`
+          message: `❌ ${data.message || 'Failed to book appointment. Please try again.'}`
         })
       }
 
