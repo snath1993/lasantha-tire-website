@@ -147,7 +147,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                 <h2 className="text-3xl font-bold text-gray-900">
                   Book <span className="text-primary-600">VIP Service</span>
                 </h2>
-                <p className="text-gray-600 mt-2">Skip the queue. Schedule your visit now.</p>
+                <p className="text-gray-600 mt-2">Skip the queue. Book your appointment instantly.</p>
               </div>
 
               {notification && (
