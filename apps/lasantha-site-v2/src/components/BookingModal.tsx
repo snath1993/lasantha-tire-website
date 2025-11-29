@@ -55,7 +55,8 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
     setNotification(null)
 
     try {
-      const response = await fetch('https://bot.lasanthatyre.com/api/appointments/book', {
+      // Call the appointment booking API
+      const response = await fetch('http://localhost:8585/api/appointments/book', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -63,11 +64,11 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
         body: JSON.stringify({
           customerName: formData.name,
           phoneNumber: formData.phone,
-          vehicleNumber: formData.vehicleNo,
+          vehicleNumber: formData.vehicleNo || null,
           serviceType: formData.service,
           appointmentDate: formData.date,
           timeSlot: formData.time,
-          notes: formData.message
+          notes: formData.message || null
         })
       })
 
@@ -76,7 +77,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
       if (data.ok) {
         setNotification({
           type: 'success',
-          message: `✅ Appointment Confirmed! Ref: ${data.referenceNo}`
+          message: `✅ Appointment booked! Reference: ${data.referenceNo}. Check your WhatsApp for confirmation.`
         })
         
         setFormData({
@@ -94,13 +95,17 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
           setNotification(null)
         }, 5000)
       } else {
-        throw new Error(data.error || 'Booking failed')
+        setNotification({
+          type: 'error',
+          message: `❌ ${data.error || 'Failed to book appointment. Please try again.'}`
+        })
       }
 
-    } catch (err: any) {
+    } catch (error) {
+      console.error('Appointment booking error:', error)
       setNotification({
         type: 'error',
-        message: `❌ ${err.message || 'Something went wrong. Please try again.'}`
+        message: '❌ Connection error. Please check your internet and try again.'
       })
     } finally {
       setLoading(false)
@@ -267,7 +272,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                   {loading ? (
                     <>
                       <Loader2 className="w-5 h-5 animate-spin" />
-                      Processing...
+                      Booking Appointment...
                     </>
                   ) : (
                     <>
