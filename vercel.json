@@ -1,5 +1,0 @@
-{
-  "buildCommand": "cd apps/lasantha-site-v2 && npm run build",
-  "outputDirectory": "apps/lasantha-site-v2/.next",
-  "installCommand": "cd apps/lasantha-site-v2 && npm install"
-}
