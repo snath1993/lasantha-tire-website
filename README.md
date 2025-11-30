@@ -69,7 +69,7 @@ lasantha-site-v2/
    ```
 
 4. **Open browser**:
-   Visit [http://localhost:3001](http://localhost:3001)
+   Visit [http://localhost:3025](http://localhost:3025)
 
 ## 📡 API Integration
 
@@ -194,7 +194,7 @@ WHATSAPP_BOT_URL=https://your-bot-domain.com
 
 ## 📝 Notes
 
-- Port 3001 (website) must be different from 3100 (bot)
+- Port 3025 (website) must be different from 3100 (bot)
 - Bot must be running for WhatsApp features to work
 - Database connection required for price requests
 - Original website at `apps/lasantha-site` remains unchanged
@@ -202,7 +202,7 @@ WHATSAPP_BOT_URL=https://your-bot-domain.com
 ## 🐛 Troubleshooting
 
 ### Website not loading
-- Check if port 3001 is available
+- Check if port 3025 is available
 - Verify Node.js version (v18+)
 - Clear `.next` cache: `rm -rf .next`
 
