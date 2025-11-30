@@ -8,6 +8,7 @@ Modern, animated website for Lasantha Tire Center built with Next.js 15, React 1
 - 📱 **Fully Responsive** - Optimized for all devices
 - 🎨 **Beautiful UI** - Gradient backgrounds, animated elements
 - 💬 **WhatsApp Integration** - Direct price requests via WhatsApp bot
+- 📅 **VIP Appointments** - Book service appointments instantly
 - 🔍 **Smart Price System** - Integrates with existing TyrePriceReplyJob
 - ⚡ **Fast Performance** - Built on Next.js 15 with App Router
 
@@ -59,7 +60,7 @@ lasantha-site-v2/
 2. **Configure environment variables**:
    Create `.env.local` file:
    ```env
-   WHATSAPP_BOT_URL=http://localhost:3100
+   WHATSAPP_BOT_URL=http://localhost:8585
    ```
 
 3. **Run development server**:
@@ -81,6 +82,16 @@ lasantha-site-v2/
 5. Triggers `TyrePriceReplyJob` to send price via WhatsApp
 6. Customer receives price directly on WhatsApp
 
+### Appointment Booking Flow
+
+1. Customer clicks "Book VIP Service"
+2. Fills details (Name, Phone, Service, Date, Time, Vehicle)
+3. Form submits to `/api/appointments` (Next.js Proxy)
+4. Proxy forwards to Bot API (`/api/appointments/book`)
+5. Bot saves to SQL Database (`Appointments` table)
+6. Bot sends WhatsApp confirmation to Customer
+7. Bot notifies Shop Management Group
+
 ### Database Setup
 
 Run the SQL script to create the required table:
@@ -101,6 +112,7 @@ The website uses these bot API endpoints:
 
 - `POST /api/check-whatsapp` - Verify WhatsApp registration
 - `POST /api/send-price-request` - Send price request to customer
+- `POST /api/appointments/book` - Book a new appointment
 
 ## 🎨 Components
 
