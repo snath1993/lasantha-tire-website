@@ -1,0 +1,285 @@
+@import "tailwindcss";
+
+:root {
+  /* Base Colors - Premium Zinc/White Theme */
+  --background: #f3f4f6; /* Very light gray, not stark white */
+  --foreground: #18181b; /* Zinc-900 */
+  
+  /* Brand Colors - Vivid & Modern */
+  --primary: #4f46e5; /* Indigo-600 */
+  --primary-foreground: #ffffff;
+  
+  --secondary: #ffffff;
+  --secondary-foreground: #18181b;
+  
+  --accent: #8b5cf6; /* Violet-500 */
+  --accent-foreground: #ffffff;
+  
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a; /* Zinc-500 */
+  
+  --card: #ffffff;
+  --card-foreground: #18181b;
+  
+  --border: #e4e4e7; /* Zinc-200 */
+  --input: #e4e4e7;
+  
+  /* Modern UI Variables */
+  --radius: 1.5rem; /* Very rounded (24px) */
+  --shadow-soft: 0 20px 40px -10px rgba(0,0,0,0.05);
+  --shadow-glow: 0 0 20px rgba(79, 70, 229, 0.15);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #09090b; /* Zinc-950 */
+    --foreground: #fafafa; /* Zinc-50 */
+    
+    --primary: #6366f1; /* Indigo-500 */
+    --primary-foreground: #ffffff;
+    
+    --secondary: #18181b; /* Zinc-900 */
+    --secondary-foreground: #fafafa;
+    
+    --card: #18181b;
+    --card-foreground: #fafafa;
+    
+    --border: #27272a;
+    --input: #27272a;
+    
+    --shadow-soft: 0 20px 40px -10px rgba(0,0,0,0.5);
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  /* Subtle mesh gradient background */
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(79, 70, 229, 0.03) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.03) 0px, transparent 50%);
+  background-attachment: fixed;
+}
+
+/* Bento Grid / Modern Card Style */
+.bento-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 1px solid rgba(0,0,0,0.02);
+  box-shadow: var(--shadow-soft);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark .bento-card {
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.bento-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.08);
+}
+
+/* Floating Navigation Pill */
+.nav-pill {
+  border-radius: 1rem;
+  transition: all 0.2s ease;
+}
+
+.nav-pill.active {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: white;
+  box-shadow: var(--shadow-glow);
+}
+
+/* Smooth Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--muted-foreground);
+  border-radius: 10px;
+  opacity: 0.2;
+}
+
+:root {
+  /* WhatsApp Official Colors */
+  --wa-green: #25d366;
+  --wa-green-dark: #128c7e;
+  --wa-green-light: #dcf8c6;
+  --wa-teal: #075e54;
+  --wa-teal-dark: #054d44;
+  --wa-blue: #34b7f1;
+  --wa-gray-bg: #e5ddd5;
+  --wa-gray-chat: #ece5dd;
+  --wa-panel-bg: #f8f9fa;
+  --wa-border: #d1d7db;
+  --wa-text-primary: #111b21;
+  --wa-text-secondary: #667781;
+  --wa-text-light: #8696a0;
+  
+  /* Dark mode colors */
+  --wa-dark-bg: #111b21;
+  --wa-dark-panel: #202c33;
+  --wa-dark-hover: #2a3942;
+  --wa-dark-input: #2a3942;
+  --wa-dark-border: #313d45;
+}
+
+/* WhatsApp Style Input Fields */
+.wa-input {
+  background-color: var(--wa-panel-bg);
+  border: 1px solid var(--wa-border);
+  color: var(--wa-text-primary);
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.2s ease;
+}
+
+.wa-input:focus {
+  outline: none;
+  border-color: var(--wa-green);
+  box-shadow: 0 0 0 2px rgba(37, 211, 102, 0.2);
+}
+
+/* WhatsApp Style Buttons */
+.wa-button {
+  background-color: var(--wa-green);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wa-button:hover {
+  background-color: var(--wa-green-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+}
+
+.wa-button:active {
+  transform: translateY(0);
+}
+
+.wa-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* WhatsApp Style Card/Panel */
+.wa-panel {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--wa-border);
+}
+
+/* WhatsApp Style Header */
+.wa-header {
+  background-color: var(--wa-teal);
+  color: white;
+  padding: 16px 24px;
+  border-radius: 12px 12px 0 0;
+}
+
+/* WhatsApp Chat Bubble Styles */
+.wa-message-sent {
+  background-color: var(--wa-green-light);
+  border-radius: 8px;
+  padding: 8px 12px;
+  max-width: 65%;
+  margin-left: auto;
+  margin-right: 8px;
+}
+
+.wa-message-received {
+  background-color: white;
+  border-radius: 8px;
+  padding: 8px 12px;
+  max-width: 65%;
+  margin-left: 8px;
+  margin-right: auto;
+}
+
+/* WhatsApp Login Page Background Pattern */
+.wa-bg-pattern {
+  background-color: var(--wa-gray-bg);
+  background-image: 
+    linear-gradient(45deg, rgba(0, 0, 0, 0.02) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(0, 0, 0, 0.02) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(0, 0, 0, 0.02) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(0, 0, 0, 0.02) 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
+/* WhatsApp Status Badge */
+.wa-status-online {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: var(--wa-green);
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.wa-status-offline {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: var(--wa-text-light);
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+/* Custom Scrollbar Styles - WhatsApp Style (Always Visible) */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(30, 41, 51, 0.5);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(75, 85, 99, 0.8);
+  border-radius: 4px;
+  border: 2px solid rgba(30, 41, 51, 0.5);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 1);
+}
+
+/* Firefox scrollbar */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(75, 85, 99, 0.8) rgba(30, 41, 51, 0.5);
+}
+
+/* Force scrollbar to always show */
+.custom-scrollbar {
+  overflow-y: scroll !important;
+}

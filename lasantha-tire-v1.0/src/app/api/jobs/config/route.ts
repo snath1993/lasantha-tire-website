@@ -1,0 +1,424 @@
+import { NextResponse } from 'next/server';
+import fs from 'fs/promises';
+import path from 'path';
+
+const CONFIG_FILE = path.join(process.cwd(), 'config', 'jobs.json');
+
+// Default configuration matching the frontend structure
+const JOB_DEFAULTS: Record<string, any> = {
+  // ============ AUTO-REPLY JOBS ============
+  TyrePriceReplyJob: {
+    name: 'Tyre Price Reply',
+    description: 'Auto-reply with tyre prices to customer queries',
+    schedule: 'Real-time',
+    type: 'auto-reply',
+    allowEveryone: true,
+    contactNumbers: [],
+    enabled: true,
+    icon: { path: "M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z", color: "#3b82f6" },
+    settings: {
+      baseRoundStep: 100,
+      publicBaseMarkup: 1500,
+      publicExtraBuffer: 500,
+      allowedDefaultMarkup: 500,
+      motorbikeExtra: 500,
+      maxxisPublicMarkup: 2500,
+      minimumUnitCost: 3000
+    }
+  },
+  CostPriceReplyJob: {
+    name: 'Cost Price Reply',
+    description: 'Reply with cost prices (authorized contacts only)',
+    schedule: 'Real-time',
+    type: 'auto-reply',
+    allowEveryone: false,
+    contactNumbers: [],
+    enabled: true,
+    icon: { path: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z", color: "#10b981" },
+    settings: {
+      allowedCostContacts: ['0777078700', '0777311770', '0771222509']
+    }
+  },
+  TyreQtyReplyJob: {
+    name: 'Tyre Qty Reply',
+    description: 'Reply with available stock quantities',
+    schedule: 'Real-time',
+    type: 'auto-reply',
+    allowEveryone: true,
+    contactNumbers: [],
+    enabled: true,
+    icon: { path: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4", color: "#8b5cf6" },
+    settings: {}
+  },
+  TyrePhotoReplyJob: {
+    name: 'Tyre Photo Reply',
+    description: 'Send tyre product images to customers',
+    schedule: 'Real-time',
+    type: 'auto-reply',
+    allowEveryone: true,
+    contactNumbers: [],
+    enabled: true,
+    icon: { path: "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z", color: "#f59e0b" },
+    settings: {
+      imageDirectory: 'images/tyres',
+      supportedFormats: ['jpg', 'jpeg', 'png', 'webp']
+    }
+  },
+  VehicleDetailsReplyJob: {
+    name: 'Vehicle Details Reply',
+    description: 'Reply with vehicle invoice history',
+    schedule: 'Real-time',
+    type: 'auto-reply',
+    allowEveryone: false,
+    contactNumbers: [],
+    enabled: true,
+    icon: { path: "M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z", color: "#ef4444" },
+    settings: {}
+  },
+  VehicleInvoiceReplyJob: {
+    name: 'Vehicle Invoice Reply',
+    description: 'Reply with detailed vehicle invoice data',
+    schedule: 'Real-time',
+    type: 'auto-reply',
+    allowEveryone: false,
+    contactNumbers: [],
+    enabled: true,
+    icon: { path: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z", color: "#6366f1" },
+    settings: {}
+  },
+
+  // ============ PDF GENERATION JOBS ============
+  TyreQuotationPDFJob: {
+    name: 'Tyre Quotation PDF (Basic)',
+    description: 'Generate quotation PDFs (basic version)',
+    schedule: 'Real-time',
+    type: 'pdf-generation',
+    allowEveryone: false,
+    contactNumbers: [],
+    enabled: true,
+    icon: { path: "M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z", color: "#ec4899" },
+    settings: {
+      baseRoundStep: 50,
+      allowedDefaultMarkup: 1500,
+      minimumUnitCost: 3000
+    }
+  },
+  TyreQuotationPDFLibJob: {
+    name: 'Tyre Quotation PDF (Advanced)',
+    description: 'Generate professional quotation PDFs with branding',
+    schedule: 'Real-time',
+    type: 'pdf-generation',
+    allowEveryone: false,
+    contactNumbers: [],
+    enabled: true,
+    icon: { path: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z", color: "#d946ef" },
+    settings: {
+      baseRoundStep: 50,
+      allowedDefaultMarkup: 1500,
+      creditMarkup: 500,
+      minimumUnitCost: 3000,
+      alignmentRoundStep: 50,
+      balancingPrice: 600
+    }
+  },
+  TyreQuotationPDFLibJobPublic: {
+    name: 'Tyre Quotation PDF (Public)',
+    description: 'Generate quotation PDFs for public customers',
+    schedule: 'Real-time',
+    type: 'pdf-generation',
+    allowEveryone: true,
+    contactNumbers: [],
+    enabled: true,
+    icon: { path: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z", color: "#a855f7" },
+    settings: {
+      baseRoundStep: 50,
+      publicBaseMarkup: 1500,
+      publicExtraBuffer: 500,
+      maxxisPublicMarkup: 500,
+      minimumUnitCost: 3000,
+      alignmentRoundStep: 50,
+      balancingPrice: 600
+    }
+  },
+
+  // ============ SALES REPORTING JOBS ============
+  DailyTyreSalesReportJob: {
+    name: 'Daily Sales Report',
+    description: 'Incremental sales reports every 2 hours + full summary',
+    schedule: 'Every 2 hours',
+    fullDayReportTime: '23:37',
+    type: 'reporting',
+    allowEveryone: false,
+    contactNumbers: ['0777078700', '0777311770'],
+    enabled: true,
+    icon: { path: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z", color: "#22c55e" },
+    settings: {
+      includeProfit: true,
+      useSQLite: true,
+      reportIncludeProfit: true
+    }
+  },
+  WeeklyTyreSalesReportJob: {
+    name: 'Weekly Sales Report',
+    description: 'Weekly sales summary report every Sunday',
+    schedule: 'Sunday 8:00 AM',
+    type: 'reporting',
+    allowEveryone: false,
+    contactNumbers: ['0777078700', '0777311770'],
+    enabled: true,
+    icon: { path: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z", color: "#16a34a" },
+    settings: {
+      includeProfit: true,
+      includeBrandBreakdown: true
+    }
+  },
+  MonthlyTyreSalesReportJob: {
+    name: 'Monthly Sales Report',
+    description: 'Monthly sales summary on 1st of each month',
+    schedule: '1st of month, 8:00 AM',
+    type: 'reporting',
+    allowEveryone: false,
+    contactNumbers: ['0777078700', '0777311770'],
+    enabled: true,
+    icon: { path: "M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z", color: "#15803d" },
+    settings: {
+      includeProfit: true,
+      includeCategoryBreakdown: true
+    }
+  },
+  MonthlySalesPDFReportJob: {
+    name: 'Monthly Sales PDF Report',
+    description: 'Generate professional PDF monthly sales reports',
+    schedule: '1st of month, 9:00 AM',
+    type: 'reporting',
+    allowEveryone: false,
+    contactNumbers: ['0777078700', '0777311770'],
+    enabled: true,
+    icon: { path: "M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z", color: "#166534" },
+    settings: {
+      includeCharts: true,
+      includeCategoryBreakdown: true,
+      includeProfitAnalysis: true
+    }
+  },
+
+  // ============ MONITORING JOBS ============
+  WatchedItemRealtimeJob: {
+    name: 'Watched Item Monitor',
+    description: 'Real-time alerts for specific tyre pattern sales',
+    schedule: 'Every 60 seconds',
+    type: 'monitoring',
+    allowEveryone: false,
+    contactNumbers: ['0777078700', '0777311770'],
+    enabled: true,
+    icon: { path: "M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z", color: "#eab308" },
+    settings: {
+      watchIntervalSeconds: 60,
+      patterns: ['MICHELIN', 'YOKOHAMA', 'DURATURN'],
+      minQty: 1
+    }
+  },
+
+  // ============ SYSTEM/BACKGROUND JOBS ============
+  DeletionQueueProcessorJob: {
+    name: 'Deletion Queue Processor',
+    description: 'Process pending invoice deletions from queue',
+    schedule: 'Every 1 minute',
+    type: 'system',
+    allowEveryone: false,
+    contactNumbers: ['0777078700', '0777311770', '0771222509'],
+    enabled: true,
+    icon: { path: "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16", color: "#ef4444" },
+    settings: {
+      processingIntervalSeconds: 60,
+      maxRetries: 3,
+      notifyOnFailure: true,
+      notifyAdmins: ['0777078700', '0777311770', '0771222509']
+    }
+  },
+  InvoiceDeletionJob: {
+    name: 'Invoice Deletion Handler',
+    description: 'Delete invoice rows and create void placeholders with backup',
+    schedule: 'Triggered by Queue',
+    type: 'system',
+    allowEveryone: false,
+    contactNumbers: ['0777078700', '0777311770', '0771222509'],
+    enabled: true,
+    icon: { path: "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z", color: "#dc2626" },
+    settings: {
+      deletionDelaySeconds: 120,
+      backupEnabled: true,
+      createVoidPlaceholder: true,
+      preserveAllColumns: true,
+      notifyOnCompletion: true
+    }
+  },
+
+  // ============ FACEBOOK AUTOMATION JOBS ============
+  DailyFacebookPostJob: {
+    name: 'Facebook Daily Post',
+    description: 'AI-generated daily Facebook posts (Claude/Gemini) or fallback captions',
+    schedule: '8:30 AM daily',
+    type: 'social-media',
+    allowEveryone: false,
+    contactNumbers: [],
+    enabled: true,
+    icon: { path: "M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z", color: "#1877f2" },
+    settings: {
+      useAI: true,
+      aiProvider: 'gemini',
+      useFallbackOnly: false,
+      approvalMode: 'auto',
+      publishMode: 'draft',
+      localPreviewOnly: false
+    }
+  },
+  FacebookCommentResponderJob: {
+    name: 'Facebook Comment Responder',
+    description: 'AI-powered smart replies to Facebook comments',
+    schedule: 'Every 45 seconds',
+    type: 'social-media',
+    allowEveryone: false,
+    contactNumbers: [],
+    enabled: true,
+    icon: { path: "M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z", color: "#2563eb" },
+    settings: {
+      scanIntervalSeconds: 45,
+      replyLanguage: 'si',
+      dmWhatsAppFallback: true,
+      enablePhoneExtraction: true
+    }
+  },
+  FacebookCommentMonitorJob: {
+    name: 'Facebook Comment Monitor (Deprecated)',
+    description: 'Monitor Facebook comments (old version - use Responder instead)',
+    schedule: 'Every 30 minutes',
+    type: 'social-media',
+    allowEveryone: false,
+    contactNumbers: [],
+    enabled: false,
+    icon: { path: "M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z", color: "#64748b" },
+    settings: {
+      scanIntervalMinutes: 30,
+      autoReplyEnabled: false
+    }
+  },
+  FacebookMessengerResponderJob: {
+    name: 'Facebook Messenger Responder',
+    description: 'AI-powered replies to Facebook Messenger conversations',
+    schedule: 'Every 60 seconds',
+    type: 'social-media',
+    allowEveryone: false,
+    contactNumbers: [],
+    enabled: true,
+    icon: { path: "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z", color: "#0084ff" },
+    settings: {
+      scanIntervalSeconds: 60,
+      replyLanguage: 'si',
+      enablePriceQuotes: true
+    }
+  },
+  TokenRefreshJob: {
+    name: 'Facebook Token Refresh',
+    description: 'Monitor and refresh Facebook access tokens',
+    schedule: 'Every 6 hours',
+    type: 'maintenance',
+    allowEveryone: false,
+    contactNumbers: [],
+    enabled: true,
+    icon: { path: "M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15", color: "#9333ea" },
+    settings: {
+      warningThresholdDays: 7,
+      criticalThresholdDays: 3,
+      autoRefreshEnabled: false
+    }
+  },
+  ScheduledMediaPublisherJob: {
+    name: 'Scheduled Media Publisher',
+    description: 'Daily 5:15 PM auto-post with WhatsApp reports & history tracking',
+    schedule: '5:15 PM daily (17:15)',
+    type: 'social-media',
+    allowEveryone: false,
+    contactNumbers: ['0771222509'],
+    enabled: true,
+    icon: { path: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z", color: "#db2777" },
+    settings: {
+      enabled: true,
+      publishTime: '17:15',
+      whatsappLink: 'https://wa.me/94771222509',
+      adminWhatsAppNumber: '94771222509',
+      publishMode: 'draft',
+      postFolder: 'C:/whatsapp-sql-api/post',
+      captionsFolder: 'C:/whatsapp-sql-api/post/captions',
+      processedFolder: 'C:/whatsapp-sql-api/post/processed',
+      historyFile: 'publish-history.json',
+      addWhatsAppLink: true,
+      trackHistory: true,
+      preventDuplicates: true,
+      sendAdminReports: true
+    }
+  }
+};
+
+export async function GET() {
+  try {
+    // Try to read existing config
+    try {
+      const data = await fs.readFile(CONFIG_FILE, 'utf-8');
+      const config = JSON.parse(data);
+      
+      // Merge with defaults to ensure new jobs appear
+      const merged = { ...JOB_DEFAULTS, ...config };
+      
+      // If new jobs were added, save the merged config
+      if (Object.keys(merged).length > Object.keys(config).length) {
+        await fs.writeFile(CONFIG_FILE, JSON.stringify(merged, null, 2));
+      }
+      
+      return NextResponse.json(merged);
+    } catch (error) {
+      // If file doesn't exist, create it with defaults
+      await fs.mkdir(path.dirname(CONFIG_FILE), { recursive: true });
+      await fs.writeFile(CONFIG_FILE, JSON.stringify(JOB_DEFAULTS, null, 2));
+      return NextResponse.json(JOB_DEFAULTS);
+    }
+  } catch (error) {
+    console.error('Error reading job config:', error);
+    return NextResponse.json({ error: 'Failed to load configuration' }, { status: 500 });
+  }
+}
+
+export async function POST(request: Request) {
+  try {
+    const { jobId, config } = await request.json();
+    
+    if (!jobId || !config) {
+      return NextResponse.json({ error: 'Missing jobId or config' }, { status: 400 });
+    }
+
+    // Read current config
+    let currentConfig = { ...JOB_DEFAULTS };
+    try {
+      const data = await fs.readFile(CONFIG_FILE, 'utf-8');
+      currentConfig = JSON.parse(data);
+    } catch (error) {
+      // Ignore error, use defaults
+    }
+
+    // Update config
+    currentConfig[jobId] = {
+      ...currentConfig[jobId],
+      ...config,
+      updatedAt: new Date().toISOString()
+    };
+
+    // Save to file
+    await fs.mkdir(path.dirname(CONFIG_FILE), { recursive: true });
+    await fs.writeFile(CONFIG_FILE, JSON.stringify(currentConfig, null, 2));
+
+    return NextResponse.json(currentConfig);
+  } catch (error) {
+    console.error('Error saving job config:', error);
+    return NextResponse.json({ error: 'Failed to save configuration' }, { status: 500 });
+  }
+}

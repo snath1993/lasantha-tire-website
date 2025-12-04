@@ -1,0 +1,306 @@
+{
+  "version": "2025-12-02",
+  "source": "Sage 50 / Peachtree 2012",
+  "notes": [
+    "Schema map derived from Sage 50 data dictionary + field discovery",
+    "RecordNumber columns (e.g. CustomerRecordNumber) are numeric PKs used in JrnlRow links",
+    "Balance columns represent point-in-time values; transactional truth lives in JrnlHdr/JrnlRow"
+  ],
+  "tables": [
+    {
+      "name": "Customers",
+      "module": "AccountsReceivable",
+      "description": "Master data for customers including billing info, contacts, credit terms, and running balance",
+      "primaryKey": "CustomerRecordNumber",
+      "businessKey": "CustomerID",
+      "fields": [
+        "CustomerID",
+        "Customer_Bill_Name",
+        "Contact",
+        "Phone_Number",
+        "Terms_CreditLimit",
+        "Balance",
+        "CustomerIsInactive",
+        "SalesRepID",
+        "TaxID"
+      ],
+      "relationships": [
+        {
+          "to": "JrnlRow",
+          "type": "1:M",
+          "localKey": "CustomerRecordNumber",
+          "foreignKey": "CustomerRecordNumber"
+        }
+      ]
+    },
+    {
+      "name": "Vendors",
+      "module": "AccountsPayable",
+      "description": "Supplier master file with contact info, terms, running AP balance, GL defaults",
+      "primaryKey": "VendorRecordNumber",
+      "businessKey": "VendorID",
+      "fields": [
+        "VendorID",
+        "Name",
+        "PhoneNumber",
+        "Email",
+        "Balance",
+        "DiscountPercent",
+        "DueDays",
+        "IsInactive",
+        "GLAcntNumber"
+      ],
+      "relationships": [
+        {
+          "to": "JrnlRow",
+          "type": "1:M",
+          "localKey": "VendorRecordNumber",
+          "foreignKey": "VendorRecordNumber"
+        }
+      ]
+    },
+    {
+      "name": "Chart",
+      "module": "GeneralLedger",
+      "description": "Chart of Accounts storing balance buckets (Balance0Net .. Balance23Net) for each fiscal period",
+      "primaryKey": "GLAcntNumber",
+      "businessKey": "AccountID",
+      "fields": [
+        "AccountID",
+        "AccountDescription",
+        "AccountType",
+        "Balance0Net",
+        "Balance1Net",
+        "Inactive",
+        "CashFlowGroup"
+      ],
+      "relationships": [
+        {
+          "to": "JrnlRow",
+          "type": "1:M",
+          "localKey": "GLAcntNumber",
+          "foreignKey": "GLAcntNumber"
+        }
+      ]
+    },
+    {
+      "name": "JrnlHdr",
+      "module": "GeneralLedger",
+      "description": "Journal entry headers (document level) with posting status, reference, totals",
+      "primaryKey": "JournalKey",
+      "businessKey": "GUID",
+      "fields": [
+        "Journal",
+        "TransactionDate",
+        "PostDate",
+        "Reference",
+        "TotalDebit",
+        "TotalCredit",
+        "FiscalYear",
+        "Period",
+        "Posted",
+        "GUID"
+      ],
+      "relationships": [
+        {
+          "to": "JrnlRow",
+          "type": "1:M",
+          "localKey": "JournalKey",
+          "foreignKey": "JournalKey"
+        }
+      ]
+    },
+    {
+      "name": "JrnlRow",
+      "module": "GeneralLedger",
+      "description": "Detailed journal lines containing account, entity linkage, amounts, quantities",
+      "primaryKey": "RowNumber",
+      "fields": [
+        "JournalKey",
+        "GLAcntNumber",
+        "CustomerRecordNumber",
+        "VendorRecordNumber",
+        "RowDate",
+        "RowDescription",
+        "Amount",
+        "Quantity",
+        "RowType",
+        "InvNumForThisTrx"
+      ],
+      "relationships": [
+        {
+          "to": "Customers",
+          "type": "M:1",
+          "localKey": "CustomerRecordNumber",
+          "foreignKey": "CustomerRecordNumber"
+        },
+        {
+          "to": "Vendors",
+          "type": "M:1",
+          "localKey": "VendorRecordNumber",
+          "foreignKey": "VendorRecordNumber"
+        },
+        {
+          "to": "Chart",
+          "type": "M:1",
+          "localKey": "GLAcntNumber",
+          "foreignKey": "GLAcntNumber"
+        }
+      ]
+    },
+    {
+      "name": "LineItem",
+      "module": "SalesPurchasing",
+      "description": "Invoice / purchase line items including item numbers, quantities, unit costs",
+      "primaryKey": "LineItemGUID",
+      "fields": [
+        "GUID",
+        "JournalKey",
+        "ItemID",
+        "Quantity",
+        "UnitPrice",
+        "TaxType",
+        "ShipDate",
+        "WarehouseID"
+      ],
+      "relationships": [
+        {
+          "to": "Inventory",
+          "type": "M:1",
+          "localKey": "ItemID",
+          "foreignKey": "ItemID"
+        }
+      ]
+    },
+    {
+      "name": "Inventory",
+      "module": "Inventory",
+      "description": "Stock master (tire SKUs) storing costing method, quantity on hand, reorder levels",
+      "primaryKey": "InventoryRecordNumber",
+      "businessKey": "ItemID",
+      "fields": [
+        "ItemID",
+        "Description",
+        "ItemClass",
+        "CostMethod",
+        "QuantityOnHand",
+        "QuantityCommitted",
+        "QuantityOnPO",
+        "LastUnitCost",
+        "GLSalesAccount",
+        "GLInventoryAccount"
+      ],
+      "relationships": [
+        {
+          "to": "LineItem",
+          "type": "1:M",
+          "localKey": "ItemID",
+          "foreignKey": "ItemID"
+        }
+      ]
+    },
+    {
+      "name": "Jobs",
+      "module": "JobCosting",
+      "description": "Job/project master file with customer link, contract value, start/finish dates",
+      "primaryKey": "JobRecordNumber",
+      "businessKey": "JobID",
+      "fields": [
+        "JobID",
+        "Description",
+        "CustomerRecordNumber",
+        "Level",
+        "Status",
+        "ExpectedStartDate",
+        "ExpectedEndDate",
+        "ProjectedTotalCost",
+        "ProjectedRevenue"
+      ],
+      "relationships": [
+        {
+          "to": "Phase",
+          "type": "1:M",
+          "localKey": "JobRecordNumber",
+          "foreignKey": "JobRecordNumber"
+        },
+        {
+          "to": "JrnlRow",
+          "type": "1:M",
+          "localKey": "JobRecordNumber",
+          "foreignKey": "JobRecordNumber"
+        }
+      ]
+    },
+    {
+      "name": "Employee",
+      "module": "Payroll",
+      "description": "Employee master with pay rates, tax profile, deduction links",
+      "primaryKey": "EmployeeRecordNumber",
+      "businessKey": "EmployeeID",
+      "fields": [
+        "EmployeeID",
+        "FirstName",
+        "LastName",
+        "SSN",
+        "DepartmentID",
+        "PayFrequency",
+        "DefaultPayRate",
+        "HireDate",
+        "Inactive"
+      ],
+      "relationships": [
+        {
+          "to": "EarningSummary",
+          "type": "1:M",
+          "localKey": "EmployeeRecordNumber",
+          "foreignKey": "EmployeeRecordNumber"
+        }
+      ]
+    },
+    {
+      "name": "EarningSummary",
+      "module": "Payroll",
+      "description": "Payroll history table storing year-to-date earnings, deductions, taxes by pay code",
+      "primaryKey": "EarningRecordNumber",
+      "fields": [
+        "EmployeeRecordNumber",
+        "FiscalYear",
+        "PayPeriod",
+        "EarningType",
+        "Hours",
+        "Amount",
+        "TaxableAmount"
+      ],
+      "relationships": [
+        {
+          "to": "Employee",
+          "type": "M:1",
+          "localKey": "EmployeeRecordNumber",
+          "foreignKey": "EmployeeRecordNumber"
+        }
+      ]
+    },
+    {
+      "name": "CashFlowTransaction",
+      "module": "CashManagement",
+      "description": "Detailed cash in/out transactions mapped to cash flow categories",
+      "primaryKey": "CashFlowTransGUID",
+      "fields": [
+        "GLAcntNumber",
+        "CashFlowAccount",
+        "Amount",
+        "TransactionDate",
+        "Description",
+        "JournalKey"
+      ],
+      "relationships": [
+        {
+          "to": "Chart",
+          "type": "M:1",
+          "localKey": "GLAcntNumber",
+          "foreignKey": "GLAcntNumber"
+        }
+      ]
+    }
+  ]
+}
