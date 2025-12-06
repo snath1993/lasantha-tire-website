@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, Clock, User, Phone, Check, AlertCircle, ChevronDown, ChevronRight, Loader2, Car } from 'lucide-react';
+import { Clock, User, Phone, Check, AlertCircle, ChevronDown, ChevronRight, Loader2 } from 'lucide-react';
 
 // Types
 interface QuotationItem {
@@ -36,7 +36,6 @@ function BookingContent() {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>(null);
-  const [quantity, setQuantity] = useState(2);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -163,7 +162,8 @@ function BookingContent() {
   const isAlignmentTime = (t: string) => {
     // Parse time string (e.g., "07:30 AM")
     const [timePart, modifier] = t.split(' ');
-    let [hours, minutes] = timePart.split(':').map(Number);
+    const [hoursRaw, minutes] = timePart.split(':').map(Number);
+    let hours = hoursRaw;
     
     if (hours === 12) {
       hours = modifier === 'PM' ? 12 : 0;
