@@ -5,8 +5,8 @@ const sqlConfig = {
     user: process.env.SQL_USER || '',
     password: process.env.SQL_PASSWORD || '',
     server: process.env.SQL_SERVER || '',
-    database: 'WhatsAppAI',
-    port: parseInt(process.env.SQL_PORT || '1433'),
+    database: process.env.SQL_DATABASE || 'LasanthaTire',
+    port: parseInt(process.env.SQL_PORT || '1433') || undefined,
     options: {
         encrypt: false,
         trustServerCertificate: true
