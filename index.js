@@ -232,6 +232,7 @@ let qrCodeTimestamp = null;
 
 // --- Express App Setup ---
 const app = express();
+app.set('trust proxy', 1);
 
 // For signature verification, we need access to raw body
 // Apply raw body parser ONLY to Facebook webhook
@@ -593,16 +594,15 @@ app.get('/api/quotations/:refId', async (req, res) => {
     }
 
     try {
-        await aiPoolConnect;
-        
-        const request = new sql.Request(aiPool);
-        request.input('RefID', sql.Int, parseInt(refId));
-        
-        const result = await request.query(`
-            SELECT RefID, ItemsJson, CustomerName, CustomerPhone, CreatedAt
-            FROM QuotationLinks
-            WHERE RefID = @RefID
-        `);
+        const pool = mainPool && mainPool.connected ? mainPool : await sql.connect(sqlConfig);
+
+        const result = await pool.request()
+            .input('RefID', sql.Int, parseInt(refId, 10))
+            .query(`
+                SELECT RefID, ItemsJson, CustomerName, CustomerPhone, CreatedAt
+                FROM QuotationLinks
+                WHERE RefID = @RefID
+            `);
 
         if (result.recordset.length === 0) {
             return res.status(404).json({ ok: false, error: 'Quotation not found' });
@@ -1567,111 +1567,6 @@ app.get('/sse', (req, res) => {
     });
 });
 
-// Quotation Details Endpoint
-app.get('/api/quotations/:refId', async (req, res) => {
-    try {
-        const refId = req.params.refId;
-        // Always create fresh connection for reliability
-        let pool;
-        try {
-            pool = mainPool && mainPool.connected ? mainPool : await sql.connect(sqlConfig);
-        } catch (connErr) {
-            console.error('[Quotation API] Connection error:', connErr);
-            return res.status(500).json({ ok: false, error: 'Database connection failed' });
-        }
-        
-        const result = await pool.request()
-            .input('refId', sql.Int, refId)
-            .query(`
-                SELECT RefID, ItemsJson, CustomerName, CustomerPhone, CreatedAt 
-                FROM QuotationLinks 
-                WHERE RefID = @refId
-            `);
-
-        if (result.recordset.length > 0) {
-            const quote = result.recordset[0];
-            // Parse ItemsJson if it's a string
-            if (typeof quote.ItemsJson === 'string') {
-                try {
-                    quote.ItemsJson = JSON.parse(quote.ItemsJson);
-                } catch (e) {
-                    console.error('Error parsing ItemsJson:', e);
-                    quote.ItemsJson = [];
-                }
-            }
-            res.json({ ok: true, data: quote });
-        } else {
-            res.status(404).json({ ok: false, error: 'Quotation not found' });
-        }
-    } catch (error) {
-        console.error('Error fetching quotation:', error);
-        res.status(500).json({ ok: false, error: 'Internal Server Error' });
-    }
-});
-
-// Book Appointment Endpoint
-app.post('/api/appointments/book', async (req, res) => {
-    try {
-        const { refId, selectedItemIndex, name, phone, date, time, notes } = req.body;
-
-        // Validate required fields
-        if (!name || !phone || !date || !time) {
-            return res.status(400).json({ 
-                success: false, 
-                error: 'Name, phone, date, and time are required' 
-            });
-        }
-
-        const pool = mainPool || await sql.connect(sqlConfig);
-        
-        // Create appointments table if not exists
-        await pool.request().query(`
-            IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Appointments')
-            BEGIN
-                CREATE TABLE Appointments (
-                    AppointmentID INT IDENTITY(1,1) PRIMARY KEY,
-                    RefID INT,
-                    CustomerName NVARCHAR(200) NOT NULL,
-                    CustomerPhone NVARCHAR(20) NOT NULL,
-                    AppointmentDate DATE NOT NULL,
-                    AppointmentTime NVARCHAR(10) NOT NULL,
-                    SelectedItemIndex INT,
-                    SpecialRequests NVARCHAR(MAX),
-                    Status NVARCHAR(20) DEFAULT 'Pending',
-                    CreatedAt DATETIME DEFAULT GETDATE()
-                )
-            END
-        `);
-
-        // Insert appointment
-        await pool.request()
-            .input('RefID', sql.Int, refId)
-            .input('CustomerName', sql.NVarChar(200), name)
-            .input('CustomerPhone', sql.NVarChar(20), phone)
-            .input('AppointmentDate', sql.Date, date)
-            .input('AppointmentTime', sql.NVarChar(10), time)
-            .input('SelectedItemIndex', sql.Int, selectedItemIndex)
-            .input('SpecialRequests', sql.NVarChar(sql.MAX), notes || '')
-            .query(`
-                INSERT INTO Appointments 
-                (RefID, CustomerName, CustomerPhone, AppointmentDate, AppointmentTime, SelectedItemIndex, SpecialRequests, Status, CreatedAt)
-                VALUES 
-                (@RefID, @CustomerName, @CustomerPhone, @AppointmentDate, @AppointmentTime, @SelectedItemIndex, @SpecialRequests, 'Pending', GETDATE())
-            `);
-
-        res.json({ 
-            success: true, 
-            message: 'Appointment booked successfully' 
-        });
-
-    } catch (error) {
-        console.error('Error booking appointment:', error);
-        res.status(500).json({ 
-            success: false, 
-            error: error.message || 'Internal server error' 
-        });
-    }
-});
 
 // Job Details
 app.get('/api/jobs/:jobName', (req, res) => {
