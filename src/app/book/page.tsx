@@ -125,10 +125,21 @@ function BookingContent() {
   ];
 
   const isAlignmentTime = (t: string) => {
-    // Parse time string to compare
-    // Simple check: 7:30 AM to 5:30 PM
-    // This is just for the notification logic
-    return true; 
+    // Parse time string (e.g., "07:30 AM")
+    const [timePart, modifier] = t.split(' ');
+    let [hours, minutes] = timePart.split(':').map(Number);
+    
+    if (hours === 12) {
+      hours = modifier === 'PM' ? 12 : 0;
+    } else if (modifier === 'PM') {
+      hours += 12;
+    }
+
+    const totalMinutes = hours * 60 + minutes;
+    const startMinutes = 7 * 60 + 30; // 7:30 AM
+    const endMinutes = 17 * 60 + 30;  // 5:30 PM
+
+    return totalMinutes >= startMinutes && totalMinutes <= endMinutes;
   };
 
   if (loading) {
@@ -305,18 +316,19 @@ function BookingContent() {
 
               {/* Smart Notification for Alignment */}
               <AnimatePresence>
-                {time && (
+                {time && !isAlignmentTime(time) && (
                   <motion.div 
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     className="overflow-hidden"
                   >
-                    <div className="bg-blue-900/20 border border-blue-500/30 rounded-xl p-4 flex gap-3 items-start">
-                      <AlertCircle className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
+                    <div className="bg-amber-900/20 border border-amber-500/30 rounded-xl p-4 flex gap-3 items-start mt-4">
+                      <AlertCircle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
                       <div className="text-sm text-slate-300">
-                        <p className="font-semibold text-blue-400 mb-1">Planning for Wheel Alignment?</p>
-                        <p>Please ensure you arrive between <span className="text-white font-bold">7:30 AM</span> and <span className="text-white font-bold">5:30 PM</span> for alignment services.</p>
+                        <p className="font-semibold text-amber-400 mb-1">Wheel Alignment Hours</p>
+                        <p>Our Wheel Alignment service is available between <span className="text-white font-bold">7:30 AM</span> and <span className="text-white font-bold">5:30 PM</span>. You selected {time}.</p>
+                        <p className="mt-1 text-xs text-slate-400">You can still book for other services, or please choose a different time for alignment.</p>
                       </div>
                     </div>
                   </motion.div>
