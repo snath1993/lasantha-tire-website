@@ -106,13 +106,49 @@ function BookingContent() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
     
-    setIsSuccess(true);
-    setIsSubmitting(false);
+    // Validation
+    if (!name || !phone || !date || !time) {
+      setError('Please fill all required fields');
+      return;
+    }
+    
+    if (quotation && quotation.ItemsJson.length > 1 && selectedItemIndex === null) {
+      setError('Please select an item from the quotation');
+      return;
+    }
+    
+    setIsSubmitting(true);
+    setError('');
+
+    try {
+      const response = await fetch('/api/appointments/book', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          refId: quotation?.RefID || refId,
+          selectedItemIndex,
+          name,
+          phone,
+          date,
+          time,
+          notes: ''
+        })
+      });
+
+      const data = await response.json();
+      
+      if (data.success) {
+        setIsSuccess(true);
+      } else {
+        setError(data.error || 'Failed to book appointment');
+        setIsSubmitting(false);
+      }
+    } catch (err) {
+      console.error('Booking error:', err);
+      setError('Network error. Please try again.');
+      setIsSubmitting(false);
+    }
   };
 
   // Time Slots Logic
@@ -337,9 +373,17 @@ function BookingContent() {
             </div>
 
             {/* Submit Button */}
+            {/* Validation Error Display */}
+            {error && !loading && (
+              <div className="bg-red-900/20 border border-red-500/30 rounded-xl p-4 flex gap-3 items-start">
+                <AlertCircle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
+                <p className="text-sm text-red-300">{error}</p>
+              </div>
+            )}
+
             <button 
               type="submit" 
-              disabled={isSubmitting}
+              disabled={isSubmitting || !name || !phone || !date || !time}
               className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-900/20 active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
             >
               {isSubmitting ? (
