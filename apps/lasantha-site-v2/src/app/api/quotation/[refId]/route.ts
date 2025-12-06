@@ -5,7 +5,8 @@ export async function GET(
   { params }: { params: { refId: string } }
 ) {
   const refId = params.refId;
-  const botUrl = process.env.WHATSAPP_BOT_URL || 'http://localhost:8585';
+  // Use the public Cloudflare Tunnel URL by default if env var is not set
+  const botUrl = process.env.WHATSAPP_BOT_URL || 'https://bot.lasanthatyre.com';
 
   try {
     const res = await fetch(`${botUrl}/api/quotations/${refId}`, {
