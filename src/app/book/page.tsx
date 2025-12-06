@@ -8,10 +8,12 @@ import { Clock, User, Phone, Check, AlertCircle, ChevronDown, ChevronRight, Load
 // Types
 interface QuotationItem {
   description: string;
-  brand: string;
-  size: string;
-  price: number;
+  brand?: string;
+  size?: string;
+  price?: number;
+  unitPrice?: number;
   quantity: number;
+  total?: number;
   category?: string;
 }
 
@@ -248,32 +250,42 @@ function BookingContent() {
               <h2 className="text-xl font-bold text-white mb-4">Select Your Package</h2>
               
               <div className="space-y-3">
-                {quotation.ItemsJson.map((item, idx) => (
-                  <div 
-                    key={idx}
-                    onClick={() => setSelectedItemIndex(idx)}
-                    className={`p-4 rounded-xl border transition-all cursor-pointer relative group ${
-                      selectedItemIndex === idx 
-                        ? 'bg-blue-600/10 border-blue-500 shadow-lg shadow-blue-900/10' 
-                        : 'bg-slate-900 border-slate-700 hover:border-slate-600'
-                    }`}
-                  >
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <h3 className="font-bold text-white">{item.description}</h3>
-                        <p className="text-sm text-slate-400 mt-1">{item.brand} • {item.size}</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-lg font-bold text-emerald-400">Rs. {item.price.toLocaleString()}</p>
-                        {selectedItemIndex === idx && (
-                          <span className="text-xs text-blue-400 font-medium flex items-center justify-end gap-1 mt-1">
-                            <Check className="w-3 h-3" /> Selected
-                          </span>
-                        )}
+                {quotation.ItemsJson.map((item, idx) => {
+                  const rawPrice = item.price ?? item.unitPrice ?? item.total ?? 0;
+                  const priceValue = typeof rawPrice === 'number' ? rawPrice : Number(rawPrice) || 0;
+                  const subtitleParts = [item.brand, item.size].filter(Boolean);
+                  const quantityLabel = item.quantity ?? 1;
+                  const subtitle = subtitleParts.length
+                    ? subtitleParts.join(' • ')
+                    : `Qty: ${quantityLabel}`;
+
+                  return (
+                    <div 
+                      key={idx}
+                      onClick={() => setSelectedItemIndex(idx)}
+                      className={`p-4 rounded-xl border transition-all cursor-pointer relative group ${
+                        selectedItemIndex === idx 
+                          ? 'bg-blue-600/10 border-blue-500 shadow-lg shadow-blue-900/10' 
+                          : 'bg-slate-900 border-slate-700 hover:border-slate-600'
+                      }`}
+                    >
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h3 className="font-bold text-white">{item.description}</h3>
+                          <p className="text-sm text-slate-400 mt-1">{subtitle}</p>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-lg font-bold text-emerald-400">Rs. {priceValue.toLocaleString()}</p>
+                          {selectedItemIndex === idx && (
+                            <span className="text-xs text-blue-400 font-medium flex items-center justify-end gap-1 mt-1">
+                              <Check className="w-3 h-3" /> Selected
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           )}
