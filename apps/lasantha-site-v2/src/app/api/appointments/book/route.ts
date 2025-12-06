@@ -2,9 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import sql from 'mssql';
 
 const sqlConfig = {
-    user: process.env.SQL_USER,
-    password: process.env.SQL_PASSWORD,
-    server: process.env.SQL_SERVER,
+    user: process.env.SQL_USER || '',
+    password: process.env.SQL_PASSWORD || '',
+    server: process.env.SQL_SERVER || '',
     database: 'WhatsAppAI',
     port: parseInt(process.env.SQL_PORT || '1433'),
     options: {
