@@ -1571,8 +1571,14 @@ app.get('/sse', (req, res) => {
 app.get('/api/quotations/:refId', async (req, res) => {
     try {
         const refId = req.params.refId;
-        // Use mainPool if available, otherwise connect
-        const pool = mainPool || await sql.connect(sqlConfig);
+        // Always create fresh connection for reliability
+        let pool;
+        try {
+            pool = mainPool && mainPool.connected ? mainPool : await sql.connect(sqlConfig);
+        } catch (connErr) {
+            console.error('[Quotation API] Connection error:', connErr);
+            return res.status(500).json({ ok: false, error: 'Database connection failed' });
+        }
         
         const result = await pool.request()
             .input('refId', sql.Int, refId)
