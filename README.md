@@ -10,94 +10,146 @@ Unified WhatsApp-driven tyre quotation, pricing, vehicle invoice lookup, quotati
 
 📄 **See [SECURITY_CONFIGURATION.md](./SECURITY_CONFIGURATION.md)** for complete security details and firewall setup instructions.
 
-## Components
-- WhatsApp Bot (`index.js`): Parses tyre sizes & vehicle numbers, sends price/qty replies, builds quotation PDFs.
-- Pricing Engine (`jobs/TyrePriceReplyJob.js` + `utils/pricingConfig.js`): Centralized markups & rounding.
-- Daily Incremental Sales Report (`jobs/DailyTyreSalesReportJob.js` + `scheduler.js`): De-duplicates and persists invoices to SQLite.
-- Watched Item Realtime Monitor (`jobs/WatchedItemRealtimeJob.js`): Multi-pattern polling & admin alerts.
-- IPC Command Layer (`utils/ipcCommandWatcher.js`): Dashboard → Bot commands (sales report, scheduler restart, send 2FA code).
-- 2FA & Auth (`dashboard/src/app/api/auth/2fa/*`, `lib/auth.ts`, `middleware.ts`): Username/password + WhatsApp-delivered one-time code.
-- Job Status Tracking (`utils/jobStatus.js` + `job-status.json`): Status for daily report & watch job.
-- Persistence: MSSQL (operational), SQLite (reported invoices), filesystem (PDFs), JSON state (watch state, sent reports, 2FA pending).
-- **Appointment Booking System**:
-  - Database: `Appointments` table in SQL Server.
-  - API: `/api/appointments/book` (Bot) and `/api/appointments` (Next.js Proxy).
-  - Features: Reference number generation, WhatsApp confirmations, Group notifications.
+## 🚀 Quick Start (Windows)
 
-## Dashboard (Next.js)
-Located in `dashboard/` with API routes that read logs, quotations, invoices (SQLite), job status, and send commands via IPC.
+The easiest way to run the system is using the **System Tray Launcher**.
 
-Key routes:
-```
-/api/stats
-/api/invoices
-/api/quotations
-/api/logs
-/api/job-status
-/api/jobs (POST action=trigger_sales_report|restart_scheduler)
-```
+1.  Go to the `c:\whatsapp-sql-api` folder.
+2.  Right-click `lasantha-tire-launcher.ps1` and select **Run with PowerShell**.
+3.  A system tray icon (Application Icon) will appear.
+4.  **Right-click** the icon to:
+    *   🚀 **Start All Services**: Starts Bot (PM2), Bridge, and Dashboards.
+    *   🌐 **Open Dashboard**: Opens the legacy dashboard (Port 3000).
+    *   🆕 **Open Dashboard V1.0**: Opens the new dashboard (Port 3026).
+    *   📊 **Service Status**: Check if services are running.
+    *   ⏹️ **Stop All Services**: Stops everything.
 
-## Environment Configuration
+### Automatic Startup
+The bot is configured to start automatically on Windows login using **PM2**.
+The launcher shortcut is also added to the Windows Startup folder.
+
+## 📂 Project Structure
+
+| Folder | Description |
+|--------|-------------|
+| `lasantha-tire-v1.0/` | **New Dashboard** (Next.js App Router). Runs on Port 3026. |
+| `lasantha-tire/` | **Legacy Dashboard** (Next.js Pages Router). Runs on Port 3000. |
+| `jobs/` | Background jobs (pricing, reports, watch). |
+| `utils/` | Utility functions (IPC, pricing, formatting). |
+| `logs/` | Application logs. |
+| `scripts/` | Maintenance and startup scripts. |
+
+## 🧩 Components
+
+### 1. WhatsApp Bot (`index.js`)
+- Parses tyre sizes & vehicle numbers.
+- Sends price/qty replies.
+- Builds quotation PDFs.
+- Managed by **PM2** (`ecosystem.config.js`).
+
+### 2. Dashboards
+- **Lasantha Tire V1.0** (`lasantha-tire-v1.0`): The modern, active dashboard.
+- **Lasantha Tire** (`lasantha-tire`): The previous version, currently running in parallel.
+
+### 3. Pricing Engine
+- `jobs/TyrePriceReplyJob.js` + `utils/pricingConfig.js`.
+- Centralized markups & rounding.
+
+### 4. Daily Incremental Sales Report
+- `jobs/DailyTyreSalesReportJob.js` + `scheduler.js`.
+- De-duplicates and persists invoices to SQLite.
+
+### 5. Watched Item Realtime Monitor
+- `jobs/WatchedItemRealtimeJob.js`.
+- Multi-pattern polling & admin alerts.
+
+### 6. IPC Command Layer
+- `utils/ipcCommandWatcher.js`.
+- Dashboard → Bot commands (sales report, scheduler restart, send 2FA code).
+
+### 7. Royal Smart Booking System 👑
+A complete flow for generating quotations and booking appointments.
+- **Mobile App**: Generates a unique link (`?ref=ID`) for each quotation.
+- **Database**: Stores quotation details in `QuotationLinks` table.
+- **Website**: Hosted on Vercel (`lasantha-tire-website.vercel.app/book`).
+- **Cloudflare Tunnel**: Securely connects the public website to the local bot API.
+- **Features**:
+  - Smart Item Selection (hides total if multiple options).
+  - Auto-fill customer details.
+  - **Alignment Warning**: Notifies user if selected time is outside 7:30 AM - 5:30 PM.
+
+## ⚙️ Configuration
+
 Copy `.env.example` → `.env` and adjust.
 
 | Variable | Purpose |
 |----------|---------|
-| SQL_USER / SQL_PASSWORD / SQL_SERVER / SQL_DATABASE | MSSQL connectivity |
-| QUOTE_DIR | Folder for generated PDFs + SQLite DB |
-| ADMIN_NUMBERS | Admin numbers (raw; code appends @c.us) |
-| REPORT_NUMBERS or DAILY_REPORT_NUMBERS | Recipients of scheduled sales report |
-| LOG_MAX_BYTES | Rotate bot log after exceeding bytes |
-| WATCH_INTERVAL_SECONDS | Poll interval for watched item job |
-| INVOICE_FILTER_TYRE_ONLY | 1 to filter invoice lines to tyre items only |
-| COST_ADD_BASE / COST_ADD_CREDIT / MIN_TYRE_COST | Pricing adjustments |
-| DASHBOARD_PROTECT | 1 enable auth, 0 disable (dev) |
-| ADMIN_USER / ADMIN_PASS | Primary credential pair |
-| TWO_FA_RATE_LIMIT_SECONDS | Min seconds between 2FA code generations |
-| TWO_FA_EXP_MINUTES | 2FA code lifetime |
-| TWO_FA_TARGET | Number receiving the 2FA code (WhatsApp) |
-| DAILY_FULL_REPORT_TIME | HH:MM 24h time for full-day tyre summary (default 20:29) |
-| DASHBOARD_KEY | Optional extra auth key (future use) |
-| **ADVANCED PROFIT CALCULATION** | |
-| REPORT_INCLUDE_PROFIT | 1 enable advanced profit calculation for daily reports |
-| REPORT_PROFIT_DEBUG | 1 enable detailed profit calculation logging |
-| REPORT_SHOW_COST | 1 show cost details in reports |
-| MONTHLY_PROFIT_INCLUDE | 1 enable advanced profit calculation for monthly reports |
-| MONTHLY_PROFIT_DEBUG | 1 enable monthly profit calculation debugging |
-| MONTHLY_SHOW_COST | 1 show cost details in monthly reports |
-| SHOP_MANAGEMENT_GROUP_ID | WhatsApp Group ID for management notifications (no bot replies) |
-| WHATSAPP_BOT_URL | URL for the bot API (e.g., https://bot.lasanthatyre.com) |
+| `DEFAULT_ADMIN_PASSWORD` | Password for Dashboard V1.0 |
+| `SQL_USER` / `SQL_PASSWORD` | MSSQL connectivity |
+| `ADMIN_NUMBERS` | Admin numbers (raw; code appends @c.us) |
+| `REPORT_NUMBERS` | Recipients of scheduled sales report |
+| `WATCH_INTERVAL_SECONDS` | Poll interval for watched item job |
+| `DASHBOARD_PROTECT` | 1 enable auth, 0 disable (dev) |
+| `ADMIN_USER` / `ADMIN_PASS` | Legacy Dashboard credentials |
 
-## Run
+## 🛠️ Manual Commands
 
-Bot only:
-```
-npm run bot
+If you prefer not to use the launcher:
+
+**Start Bot (PM2):**
+```powershell
+pm2 start ecosystem.config.js
 ```
 
-Dashboard only:
-```
-npm run dashboard
-```
-
-Run both (Windows PowerShell – simple parallel):
-```
-npm run dev:all
+**Start Dashboard V1.0:**
+```powershell
+cd lasantha-tire-v1.0
+npm run dev
 ```
 
-Scan the QR presented in terminal to authenticate WhatsApp session.
+**Start Legacy Dashboard:**
+```powershell
+cd lasantha-tire
+npm run dev
+```
 
-Dashboard URL: http://localhost:3000
+## 📊 Advanced Profit Calculation System
 
-## Manual Sales Report Trigger
-Admin WhatsApp: send `salesreport` (case/space insensitive).
+The system includes sophisticated profit calculation capabilities for enhanced business intelligence:
 
-Dashboard button → IPC command file → bot processes within ~5s.
+### Daily Reports (DailyTyreSalesReportJob.js)
+- **Size Token Extraction**: Automatically extracts tyre sizes (195/65R15, 165/70/14, etc.) from item descriptions
+- **Intelligent Cost Lookup**: Queries `tblItemMaster` table for accurate cost data using extracted size patterns
+- **Smart Matching Algorithm**: 
+  - +3 points for exact size matches
+  - +2 points for brand/model word matches
+  - Prioritizes higher cost items when scores are equal
+- **Caching System**: Optimizes performance with `_COST_CACHE` to store lookup results
+- **Fallback Strategy**: Uses SQL-based `CostPrrice` if advanced lookup fails
 
-## Key Files
+### Environment Control
+```bash
+# Enable advanced profit calculation
+REPORT_INCLUDE_PROFIT=1          # Daily reports
+MONTHLY_PROFIT_INCLUDE=1         # Monthly reports
+
+# Enable debugging output
+REPORT_PROFIT_DEBUG=1            # Daily debug logs
+MONTHLY_PROFIT_DEBUG=1           # Monthly debug logs
+
+# Show cost details in reports
+REPORT_SHOW_COST=1               # Daily cost visibility
+MONTHLY_SHOW_COST=1              # Monthly cost visibility
+```
+
+## 📝 Key Files
 | Path | Description |
 |------|-------------|
 | `index.js` | WhatsApp client + message routing |
 | `scheduler.js` | Cron + watch interval starter |
+| `lasantha-tire-launcher.ps1` | **System Tray Launcher Script** |
+| `ecosystem.config.js` | PM2 Configuration |
+| `jobs-config.json` | Job configuration settings |
 | `jobs/` | All discrete jobs (pricing, qty, invoices, reports, watch) |
 | `utils/ipcCommandWatcher.js` | Reads dashboard-commands.json and dispatches actions |
 | `utils/jobStatus.js` | File-based status updates |
