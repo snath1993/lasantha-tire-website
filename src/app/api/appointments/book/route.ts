@@ -70,11 +70,12 @@ export async function POST(req: NextRequest) {
             message: 'Appointment booked successfully'
         });
 
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error('Error booking appointment:', error);
+        const errorMessage = error instanceof Error ? error.message : 'Internal server error';
         return NextResponse.json({ 
             success: false, 
-            error: error.message || 'Internal server error'
+            error: errorMessage
         }, { status: 500 });
     }
 }
