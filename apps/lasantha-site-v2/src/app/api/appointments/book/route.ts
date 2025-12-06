@@ -1,17 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import sql from 'mssql';
-
-const sqlConfig = {
-    user: process.env.SQL_USER || '',
-    password: process.env.SQL_PASSWORD || '',
-    server: process.env.SQL_SERVER || '',
-    database: process.env.SQL_DATABASE || 'LasanthaTire',
-    port: parseInt(process.env.SQL_PORT || '1433') || undefined,
-    options: {
-        encrypt: false,
-        trustServerCertificate: true
-    }
-};
 
 export async function POST(req: NextRequest) {
     try {
@@ -26,49 +13,36 @@ export async function POST(req: NextRequest) {
             }, { status: 400 });
         }
 
-        const pool = await sql.connect(sqlConfig);
-        
-        // Create appointments table if not exists
-        await pool.request().query(`
-            IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Appointments')
-            BEGIN
-                CREATE TABLE Appointments (
-                    AppointmentID INT IDENTITY(1,1) PRIMARY KEY,
-                    RefID INT,
-                    CustomerName NVARCHAR(100),
-                    CustomerPhone NVARCHAR(50),
-                    AppointmentDate DATE,
-                    AppointmentTime NVARCHAR(20),
-                    SelectedItemIndex INT,
-                    Notes NVARCHAR(500),
-                    Status NVARCHAR(50) DEFAULT 'Pending',
-                    CreatedAt DATETIME DEFAULT GETDATE()
-                )
-            END
-        `);
+        // Use the bot API URL from environment variable
+        const botUrl = process.env.WHATSAPP_BOT_URL || 'https://bot.lasanthatyre.com';
 
-        // Insert appointment
-        const result = await pool.request()
-            .input('RefID', sql.Int, refId || null)
-            .input('CustomerName', sql.NVarChar(100), name)
-            .input('CustomerPhone', sql.NVarChar(50), phone)
-            .input('AppointmentDate', sql.Date, date)
-            .input('AppointmentTime', sql.NVarChar(20), time)
-            .input('SelectedItemIndex', sql.Int, selectedItemIndex !== null ? selectedItemIndex : null)
-            .input('Notes', sql.NVarChar(500), notes || '')
-            .query(`
-                INSERT INTO Appointments (RefID, CustomerName, CustomerPhone, AppointmentDate, AppointmentTime, SelectedItemIndex, Notes)
-                OUTPUT INSERTED.AppointmentID
-                VALUES (@RefID, @CustomerName, @CustomerPhone, @AppointmentDate, @AppointmentTime, @SelectedItemIndex, @Notes)
-            `);
-
-        const appointmentId = result.recordset[0].AppointmentID;
-
-        return NextResponse.json({ 
-            success: true, 
-            appointmentId,
-            message: 'Appointment booked successfully'
+        // Forward the request to bot API
+        const response = await fetch(`${botUrl}/api/appointments/book`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                refId,
+                selectedItemIndex,
+                name,
+                phone,
+                date,
+                time,
+                notes
+            })
         });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            return NextResponse.json({ 
+                success: false, 
+                error: result.error || 'Failed to book appointment'
+            }, { status: response.status });
+        }
+
+        return NextResponse.json(result);
 
     } catch (error: unknown) {
         console.error('Error booking appointment:', error);
