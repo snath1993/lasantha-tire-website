@@ -2,9 +2,9 @@ import { NextResponse } from 'next/server';
 
 export async function GET(
   request: Request,
-  { params }: { params: { refId: string } }
+  { params }: { params: Promise<{ refId: string }> }
 ) {
-  const refId = params.refId;
+  const { refId } = await params;
   // Use the public Cloudflare Tunnel URL by default if env var is not set
   const botUrl = process.env.WHATSAPP_BOT_URL || 'https://bot.lasanthatyre.com';
 
