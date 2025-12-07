@@ -536,7 +536,8 @@ export default function QuotationView() {
 
     // 2. Save to Database & Get Short Link
     try {
-        const response = await authenticatedFetch('/api/quotations/create-link', {
+        const botApiUrl = process.env.NEXT_PUBLIC_BOT_API_URL || 'http://localhost:8585';
+        const response = await fetch(`${botApiUrl}/api/quotations/create-link`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

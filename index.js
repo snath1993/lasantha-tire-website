@@ -586,6 +586,40 @@ app.post('/api/appointments/book', async (req, res) => {
 // ========================================
 // QUOTATION LINK API
 // ========================================
+
+// Create new quotation link
+app.post('/api/quotations/create-link', async (req, res) => {
+    try {
+        const { items, customerName, customerPhone } = req.body;
+
+        if (!items || !Array.isArray(items) || items.length === 0) {
+            return res.status(400).json({ success: false, error: 'Items required' });
+        }
+
+        const pool = mainPool && mainPool.connected ? mainPool : await sql.connect(sqlConfig);
+
+        const result = await pool.request()
+            .input('ItemsJson', sql.NVarChar(sql.MAX), JSON.stringify(items))
+            .input('CustomerName', sql.NVarChar(100), customerName || '')
+            .input('CustomerPhone', sql.NVarChar(50), customerPhone || '')
+            .query(`
+                INSERT INTO QuotationLinks (ItemsJson, CustomerName, CustomerPhone)
+                OUTPUT INSERTED.RefID
+                VALUES (@ItemsJson, @CustomerName, @CustomerPhone)
+            `);
+
+        const refId = result.recordset[0].RefID;
+        console.log(`[QuotationLink] Created RefID: ${refId} for customer: ${customerName || 'N/A'}`);
+
+        res.json({ success: true, refId });
+
+    } catch (error) {
+        console.error('Error creating quotation link:', error);
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// Get quotation by RefID
 app.get('/api/quotations/:refId', async (req, res) => {
     const { refId } = req.params;
 
