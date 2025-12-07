@@ -8,6 +8,7 @@ import {
 import NumericKeypad from './NumericKeypad';
 import { useModal } from '@/contexts/ModalContext';
 import { useToast } from '@/contexts/ToastContext';
+import { authenticatedFetch } from '@/lib/client-auth';
 
 interface TireProduct {
   ItemId: string;
@@ -102,52 +103,70 @@ export default function TireSearch({ onAddToQuote, quoteItems = [] }: { onAddToQ
     // Try standard metric first: 175/70R13
     const metricMatch = size.match(/(\d+)\/(\d+)R(\d+)/);
     if (metricMatch) {
-        setWidth(metricMatch[1]);
-        setProfile(metricMatch[2]);
-        setRim(metricMatch[3]);
+        const w = metricMatch[1];
+        const p = metricMatch[2];
+        const r = metricMatch[3];
+        setWidth(w);
+        setProfile(p);
+        setRim(r);
         setSearchInput(size); // Show full formatted size
         setSuggestions([]);
-        
-        // Trigger search immediately
-        setTimeout(() => {
-            // We need to manually trigger search since state updates are async
-            // But handleSearch uses current state. 
-            // A better way is to pass params directly or wait for effect.
-            // For now, let's rely on the effect in the component that watches [width, profile, rim]
-        }, 100);
+        handleSearch(w, p, r).then(() => {
+            setShowResultsModal(true);
+            setIsResultsModalOpen(true);
+        });
         return;
     }
 
     // Try commercial/van: 195R15
     const vanMatch = size.match(/(\d+)R(\d+)/);
     if (vanMatch) {
-        setWidth(vanMatch[1]);
+        const w = vanMatch[1];
+        const r = vanMatch[2];
+        setWidth(w);
         setProfile(''); // Often implied 80
-        setRim(vanMatch[2]);
+        setRim(r);
         setSearchInput(size);
         setSuggestions([]);
+        handleSearch(w, '', r).then(() => {
+            setShowResultsModal(true);
+            setIsResultsModalOpen(true);
+        });
         return;
     }
 
     // Try bias/three-wheel: 4.00-8
     const biasMatch = size.match(/(\d+\.?\d*)-(\d+)/);
     if (biasMatch) {
-        setWidth(biasMatch[1]);
+        const w = biasMatch[1];
+        const r = biasMatch[2];
+        setWidth(w);
         setProfile('');
-        setRim(biasMatch[2]);
+        setRim(r);
         setSearchInput(size);
         setSuggestions([]);
+        handleSearch(w, '', r).then(() => {
+            setShowResultsModal(true);
+            setIsResultsModalOpen(true);
+        });
         return;
     }
     
     // Fallback for motorcycle metric: 90/90-17
     const motoMatch = size.match(/(\d+)\/(\d+)-(\d+)/);
     if (motoMatch) {
-        setWidth(motoMatch[1]);
-        setProfile(motoMatch[2]);
-        setRim(motoMatch[3]);
+        const w = motoMatch[1];
+        const p = motoMatch[2];
+        const r = motoMatch[3];
+        setWidth(w);
+        setProfile(p);
+        setRim(r);
         setSearchInput(size);
         setSuggestions([]);
+        handleSearch(w, p, r).then(() => {
+            setShowResultsModal(true);
+            setIsResultsModalOpen(true);
+        });
         return;
     }
   };
@@ -200,7 +219,7 @@ export default function TireSearch({ onAddToQuote, quoteItems = [] }: { onAddToQ
 
     setLoading(true);
     try {
-        const res = await fetch(`/api/erp/inventory?type=services&itemId=${itemId}`);
+        const res = await authenticatedFetch(`/api/erp/inventory?type=services&itemId=${itemId}`);
         const data = await res.json();
         
         if (data.success && data.data && data.data.length > 0) {
@@ -329,19 +348,23 @@ export default function TireSearch({ onAddToQuote, quoteItems = [] }: { onAddToQ
     }
   };
 
-  const handleSearch = async () => {
-    if (!width || !rim) return;
+  const handleSearch = async (w?: string, p?: string, r?: string) => {
+    const qWidth = w !== undefined ? w : width;
+    const qProfile = p !== undefined ? p : profile;
+    const qRim = r !== undefined ? r : rim;
+
+    if (!qWidth || !qRim) return;
     
     setLoading(true);
     try {
       // Construct query params
       const params = new URLSearchParams();
       params.append('type', 'search');
-      if (width) params.append('width', width);
-      if (profile) params.append('profile', profile);
-      if (rim) params.append('rim', rim);
+      if (qWidth) params.append('width', qWidth);
+      if (qProfile) params.append('profile', qProfile);
+      if (qRim) params.append('rim', qRim);
 
-      const res = await fetch(`/api/erp/inventory?${params.toString()}`);
+      const res = await authenticatedFetch(`/api/erp/inventory?${params.toString()}`);
       if (res.ok) {
         const data = await res.json();
         // Trust the backend search results
@@ -356,7 +379,6 @@ export default function TireSearch({ onAddToQuote, quoteItems = [] }: { onAddToQ
 
   // Voice Search Logic
   const startListening = () => {
-    console.log('Voice button clicked');
     setMicError('');
 
     // Check for browser support first
@@ -398,7 +420,6 @@ export default function TireSearch({ onAddToQuote, quoteItems = [] }: { onAddToQ
       // inside a user gesture (which we are in).
       
       recognition.onstart = () => {
-        console.log('Recognition started');
         setIsListening(true);
         setTranscript('Listening...');
       };
@@ -411,7 +432,6 @@ export default function TireSearch({ onAddToQuote, quoteItems = [] }: { onAddToQ
         setTranscript(currentTranscript);
 
         if (event.results[0].isFinal) {
-          console.log('Final result:', currentTranscript);
           setSearchInput(currentTranscript);
           parseInput(currentTranscript);
           // Small delay to let user see the result before closing overlay
@@ -698,7 +718,8 @@ export default function TireSearch({ onAddToQuote, quoteItems = [] }: { onAddToQ
         
         {/* Display Section */}
         <div className="flex flex-col justify-end p-6 pb-3 relative" style={{height: '35vh'}}>
-            <div className="text-right">
+            
+            <div className="text-right mb-12">
                 <span className="text-slate-500 text-xs font-bold uppercase tracking-wider block mb-2">Tyre Size</span>
                 <input
                 type="text"
@@ -711,55 +732,48 @@ export default function TireSearch({ onAddToQuote, quoteItems = [] }: { onAddToQ
             
             {/* Controls (Voice & Clear) */}
             <div className="absolute left-6 bottom-4 flex items-center gap-3 z-50">
-                {searchInput && (
-                    <button
-                        onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            handleKeypadClear();
-                        }}
-                        type="button"
-                        className="p-3 text-slate-400 hover:text-white bg-slate-800 rounded-full transition-colors hover:bg-slate-700 active:scale-95"
-                    >
-                        <X className="w-5 h-5" />
-                    </button>
-                )}
+                {/* Clear button removed as requested */}
                 {micError && (
                   <span className="ml-2 text-xs text-rose-400">{micError}</span>
                 )}
             </div>
 
+
+
         </div>
 
-        {/* Suggestions Strip */}
-        {suggestions.length > 0 && (
-            <div className="w-full px-2 py-2 bg-slate-900/80 backdrop-blur-md z-40 animate-in slide-in-from-bottom-4 duration-300 border-t border-white/5">
-                <div className="flex gap-3 justify-end overflow-x-auto no-scrollbar px-2 py-1">
-                    {suggestions.map((size, index) => (
-                        <button
-                            key={size}
-                            onClick={() => handleSuggestionClick(size)}
-                            style={{ animationDelay: `${index * 50}ms` }}
-                            className="px-6 py-3 bg-gradient-to-br from-indigo-500 to-violet-600 text-white text-base font-bold rounded-2xl shadow-lg shadow-indigo-500/25 border border-white/10 animate-in zoom-in-50 fade-in slide-in-from-bottom-2 active:scale-95 transition-all whitespace-nowrap"
-                        >
-                            {size}
-                        </button>
-                    ))}
-                </div>
-            </div>
-        )}
+
 
         {/* Divider */}
         <div className="h-px bg-gradient-to-r from-transparent via-slate-800 to-transparent w-full opacity-50" />
 
         {/* Keypad Section */}
-        <div className="flex-1 px-3 py-4 bg-slate-900 flex items-center">
-            <NumericKeypad
-            onKeyPress={handleKeypadPress}
-            onBackspace={handleKeypadBackspace}
-            onClear={handleKeypadClear}
-            onDone={handleKeypadDone}
-            />
+        <div className="flex-1 px-3 py-4 bg-slate-900 flex items-center justify-center">
+            <div className="w-full relative">
+                {/* Floating Suggestions Island - Pinned to Keypad */}
+                {suggestions.length > 0 && (
+                    <div className="absolute bottom-full left-0 right-0 mb-3 z-50 flex justify-center items-center animate-in slide-in-from-bottom-2 duration-300 pointer-events-none">
+                        <div className="bg-slate-800/95 backdrop-blur-xl border border-white/10 rounded-3xl p-2 shadow-2xl shadow-black/50 flex gap-3 overflow-x-auto no-scrollbar max-w-[100%] pointer-events-auto">
+                            {suggestions.map((size, index) => (
+                                <button
+                                    key={size}
+                                    onClick={() => handleSuggestionClick(size)}
+                                    className="px-6 py-3 bg-slate-700/50 text-white text-lg font-bold rounded-2xl active:scale-95 transition-all whitespace-nowrap hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-600/20 flex items-center gap-2"
+                                >
+                                    {size}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                <NumericKeypad
+                onKeyPress={handleKeypadPress}
+                onBackspace={handleKeypadBackspace}
+                onClear={handleKeypadClear}
+                onDone={handleKeypadDone}
+                />
+            </div>
         </div>
       </div>
       )}
@@ -1138,25 +1152,57 @@ export default function TireSearch({ onAddToQuote, quoteItems = [] }: { onAddToQ
                     </button>
                     
                     <button
-                        onClick={() => {
-                            // Generate share text
-                            const items = results.filter(r => selectedItems.has(r.ItemId));
-                            
-                            // Header
-                            let text = `🏢 *LASANTHA TYRE TRADERS*\n`;
-                            text += `🚀 *Go Smart with Lasantha Tyre Traders*\n\n`;
+                        onClick={async () => {
+                            try {
+                                // Generate share text with Smart Link
+                                const items = results.filter(r => selectedItems.has(r.ItemId));
+                                
+                                // Create smart quotation link
+                                let refId = null;
+                                try {
+                                    const sizeStr = (width && rim) ? (profile ? `${width}/${profile}R${rim}` : `${width}R${rim}`) : '';
+                                    const response = await authenticatedFetch('/api/quotations/create-link', {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({
+                                            items: items.map(i => {
+                                                const price = calculatePrice(i);
+                                                const isFoc = focItems.has(i.ItemId);
+                                                return {
+                                                    description: `${sizeStr || 'Tyre'} - ${i.Description}`,
+                                                    brand: i.Brand || '',
+                                                    size: sizeStr,
+                                                    price: isFoc ? 0 : price,
+                                                    quantity: 1
+                                                };
+                                            }),
+                                            customerName: '',
+                                            customerPhone: ''
+                                        })
+                                    });
+                                    const data = await response.json();
+                                    refId = data.success ? data.refId : null;
+                                } catch (apiError) {
+                                    console.error('Failed to create smart link:', apiError);
+                                }
+                                
+                                // Header
+                                let text = `🏢 *LASANTHA TYRE TRADERS*\n`;
+                                text += `🚀 *Go Smart with Lasantha Tyre Traders*\n\n`;
 
-                            // Size Header
-                            if (width && rim) {
-                                const sizeStr = profile ? `${width}/${profile}R${rim}` : `${width}R${rim}`;
-                                text += `📏 *Size:* ${sizeStr}\n\n`;
-                            }
+                            // Size Header (Removed as per new format request)
+                            // if (width && rim) {
+                            //    const sizeStr = profile ? `${width}/${profile}R${rim}` : `${width}R${rim}`;
+                            //    text += `📏 *Size:* ${sizeStr}\n\n`;
+                            // }
+
+                            const sizeStr = (width && rim) ? (profile ? `${width}/${profile}R${rim}` : `${width}R${rim}`) : '';
 
                             // Items
                             text += items.map(i => {
                                 const price = calculatePrice(i);
                                 const isFoc = focItems.has(i.ItemId);
-                                const priceDisplay = isFoc ? 'FOC' : `Rs ${price.toLocaleString()}`;
+                                const priceDisplay = isFoc ? 'FOC' : `Rs. ${price.toLocaleString()}`;
                                 
                                 let desc = i.Description;
                                 // Remove size from description
@@ -1185,15 +1231,20 @@ export default function TireSearch({ onAddToQuote, quoteItems = [] }: { onAddToQ
                                     desc = desc.replace(/\s{2,}/g, ' ');
                                 }
 
-                                return `🚗 *${desc}*\n   ${priceDisplay}`;
+                                // New Professional Format
+                                return `🛠️ ${sizeStr || 'Tyre'}\n🏷️ ${desc}\n💰 ${priceDisplay}/=`;
                             }).join('\n\n');
 
                             // Footer Info
                             text += `\n\n------------------------\n\n`;
                             
-                            // Booking Link
-                            text += `⏳ *Skip the Queue! Book Now:*\n`;
-                            text += `https://www.lasanthatyre.com/booking\n\n`;
+                            // Booking Link (smart link if available)
+                            if (refId) {
+                                text += `📅 *Book your appointment now:*\nhttps://lasanthatyre.com/book?ref=${refId}\n\nRef: #${refId}\n\n`;
+                            } else {
+                                text += `⏳ *Skip the Queue! Book Now:*\n`;
+                                text += `https://www.lasanthatyre.com/booking\n\n`;
+                            }
 
                             // Opening Hours
                             text += `🕒 *Opening Hours:*\n`;
@@ -1205,19 +1256,23 @@ export default function TireSearch({ onAddToQuote, quoteItems = [] }: { onAddToQ
                             text += `🛡️ *Authorized Dealer with Genuine Warranty*\n\n`;
 
                             // Location
-                            text += `📍 *Location:*\n`;
+                            text += `� *Location:*\n`;
                             text += `Lasantha Tyre Traders\n`;
                             text += `https://maps.app.goo.gl/7tEg3juSbtBqFgd98?g_st=ipc`;
                             
-                            if (navigator.share) {
-                                navigator.share({
-                                    title: 'Tire Quotation',
-                                    text: text
-                                }).catch(console.error);
-                            } else {
-                                // Fallback copy to clipboard
-                                navigator.clipboard.writeText(text);
-                                alert('Copied to clipboard!');
+                                if (navigator.share) {
+                                    navigator.share({
+                                        title: 'Tire Quotation',
+                                        text: text
+                                    }).catch(console.error);
+                                } else {
+                                    // Fallback copy to clipboard
+                                    navigator.clipboard.writeText(text);
+                                    alert('Copied to clipboard!');
+                                }
+                            } catch (error) {
+                                console.error('Share error:', error);
+                                alert('Failed to share. Please try again.');
                             }
                         }}
                         className="flex-1 py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold shadow-lg shadow-emerald-600/20 transition-all active:scale-95 flex items-center justify-center gap-2"

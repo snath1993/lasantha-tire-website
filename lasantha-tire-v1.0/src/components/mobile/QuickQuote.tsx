@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Send, Trash2, FileText, X, Share2, Wrench, Disc } from 'lucide-react';
+import { authenticatedFetch } from '@/lib/client-auth';
 
 const SERVICE_IDS = ['120', '121', '161', '144', '122', '114'];
 
@@ -75,9 +76,15 @@ export default function QuickQuote({
         tyreItems.forEach((item) => {
             const qty = getItemQuantity(item.originalIdx);
             const price = getPrice(item);
-            message += `${item.Brand} ${item.Description}\n`;
-            message += `Qty: ${qty} x Rs ${price.toLocaleString()}\n`;
-            message += `Amount: Rs ${(price * qty).toLocaleString()}\n\n`;
+            
+            message += `🛠️ ${item.Description}\n`;
+            message += `🏷️ ${item.Brand}\n`;
+            message += `💰 Rs. ${price.toLocaleString()}/=\n`;
+            
+            if (qty > 1) {
+                message += `Qty: ${qty} | Total: Rs ${(price * qty).toLocaleString()}\n`;
+            }
+            message += `\n`;
         });
     }
 
@@ -99,23 +106,97 @@ export default function QuickQuote({
   };
 
   const handleShare = async () => {
-    const message = generateMessage();
-    if (navigator.share) {
-      try {
+    try {
+      // 1. Create smart quotation link
+      const response = await authenticatedFetch('/api/quotations/create-link', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          items: items.map((item, idx) => {
+            const qty = getItemQuantity(idx);
+            const price = getPrice(item);
+            return {
+              description: item.Description,
+              brand: item.Brand || '',
+              size: '',
+              price: price,
+              quantity: qty
+            };
+          }),
+          customerName,
+          customerPhone: phone
+        })
+      });
+
+      const data = await response.json();
+      const refId = data.success ? data.refId : null;
+
+      // 2. Generate message with smart link
+      let message = `*Lasantha Tyre Traders - Quotation*\n\n`;
+      
+      const tyreItems = items.map((item, idx) => ({...item, originalIdx: idx})).filter(i => !SERVICE_IDS.includes(i.ItemId));
+      const serviceItems = items.map((item, idx) => ({...item, originalIdx: idx})).filter(i => SERVICE_IDS.includes(i.ItemId));
+
+      if (tyreItems.length > 0) {
+          tyreItems.forEach((item) => {
+              const qty = getItemQuantity(item.originalIdx);
+              const price = getPrice(item);
+              
+              message += `🛠️ ${item.Description}\n`;
+              message += `🏷️ ${item.Brand}\n`;
+              message += `💰 Rs. ${price.toLocaleString()}/=\n`;
+              
+              if (qty > 1) {
+                  message += `Qty: ${qty} | Total: Rs. ${(price * qty).toLocaleString()}\n`;
+              }
+              message += `\n`;
+          });
+      }
+
+      if (serviceItems.length > 0) {
+          serviceItems.forEach((item) => {
+              const qty = getItemQuantity(item.originalIdx);
+              const price = getPrice(item);
+              message += `${item.Description}\n`;
+              message += `Qty: ${qty} x Rs. ${price.toLocaleString()}\n`;
+              message += `Amount: Rs. ${(price * qty).toLocaleString()}\n\n`;
+          });
+      }
+      
+      // Show total only if <=1 tyre
+      if (tyreItems.length <= 1) {
+          message += `------------------------\n`;
+          message += `*Total: Rs. ${total.toLocaleString()}*\n\n`;
+      }
+
+      // Add smart booking link if available
+      if (refId) {
+          message += `📅 *Book your appointment now:*\n`;
+          message += `https://lasanthatyre.com/book?ref=${refId}\n\n`;
+          message += `Ref: #${refId}`;
+      } else {
+          message += `\nThank you!`;
+      }
+
+      // 3. Share
+      if (navigator.share) {
         await navigator.share({
           title: 'Lasantha Tire Quotation',
           text: message,
         });
-      } catch (err) {
-        console.error('Error sharing:', err);
-      }
-    } else {
-      // Fallback for desktop or unsupported browsers
-      try {
+      } else {
         await navigator.clipboard.writeText(message);
         alert('Quotation copied to clipboard!');
-      } catch (err) {
-        alert('Sharing not supported');
+      }
+    } catch (err) {
+      console.error('Error sharing:', err);
+      // Fallback: share without smart link
+      const message = generateMessage();
+      if (navigator.share) {
+        await navigator.share({ title: 'Lasantha Tire Quotation', text: message });
+      } else {
+        await navigator.clipboard.writeText(message);
+        alert('Quotation copied to clipboard!');
       }
     }
   };
