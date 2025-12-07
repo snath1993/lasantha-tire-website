@@ -232,7 +232,6 @@ let qrCodeTimestamp = null;
 
 // --- Express App Setup ---
 const app = express();
-app.set('trust proxy', 1);
 
 // For signature verification, we need access to raw body
 // Apply raw body parser ONLY to Facebook webhook
@@ -505,7 +504,7 @@ app.post('/api/test/facebook', (req, res) => {
 // APPOINTMENT BOOKING API
 // ========================================
 app.post('/api/appointments/book', async (req, res) => {
-    const { customerName, phoneNumber, vehicleNumber, serviceType, appointmentDate, timeSlot, notes } = req.body;
+    const { customerName, phoneNumber, vehicleNumber, serviceType, appointmentDate, timeSlot, notes, quotationRefCode, quotationItems } = req.body;
 
     if (!customerName || !phoneNumber || !serviceType || !appointmentDate || !timeSlot) {
         return res.status(400).json({ ok: false, error: 'Missing required fields' });
@@ -545,6 +544,8 @@ app.post('/api/appointments/book', async (req, res) => {
                             `📅 Date: ${appointmentDate}\n` +
                             `⏰ Time: ${timeSlot}\n` +
                             `🔢 Ref No: *${referenceNo}*\n\n` +
+                            `🔍 *Track Status & History:*\n` +
+                            `https://lasanthatyre.com/portal\n\n` +
                             `Thank you for choosing Lasantha Tyre!`;
             
             try {
@@ -557,15 +558,34 @@ app.post('/api/appointments/book', async (req, res) => {
             // Send Notification to Shop Management Group
             const SHOP_MANAGEMENT_GROUP_ID = process.env.SHOP_MANAGEMENT_GROUP_ID;
             if (SHOP_MANAGEMENT_GROUP_ID) {
-                const adminMsg = `🆕 *New Appointment Alert* 🆕\n\n` +
-                                 `👤 Customer: ${customerName}\n` +
-                                 `📞 Phone: ${phoneNumber}\n` +
-                                 `🚗 Vehicle: ${vehicleNumber || 'N/A'}\n` +
-                                 `🔧 Service: ${serviceType}\n` +
-                                 `📅 Date: ${appointmentDate}\n` +
-                                 `⏰ Time: ${timeSlot}\n` +
-                                 `📝 Notes: ${notes || 'None'}\n` +
-                                 `🔢 Ref: ${referenceNo}`;
+                // Build enhanced notification with quotation details
+                let adminMsg = quotationRefCode 
+                    ? `👑 *ROYAL BOOKING* 👑\n(From Quotation ${quotationRefCode})\n\n`
+                    : `🆕 *New Appointment Alert* 🆕\n\n`;
+                
+                adminMsg += `👤 Customer: ${customerName}\n`;
+                adminMsg += `📞 Phone: ${phoneNumber}\n`;
+                adminMsg += `🚗 Vehicle: ${vehicleNumber || 'N/A'}\n`;
+                adminMsg += `🔧 Service: ${serviceType}\n`;
+                adminMsg += `📅 Date: ${appointmentDate}\n`;
+                adminMsg += `⏰ Time: ${timeSlot}\n`;
+                
+                // Add quotation items if available
+                if (quotationItems && Array.isArray(quotationItems) && quotationItems.length > 0) {
+                    adminMsg += `\n📦 *Items to Prepare:*\n`;
+                    let totalAmount = 0;
+                    quotationItems.forEach((item, idx) => {
+                        const itemTotal = (item.price || 0) * (item.quantity || 1);
+                        totalAmount += itemTotal;
+                        adminMsg += `  ${idx + 1}. ${item.description || item.Description}\n`;
+                        adminMsg += `     ${item.brand || item.Brand} × ${item.quantity || 1} = Rs ${itemTotal.toLocaleString()}\n`;
+                    });
+                    adminMsg += `\n💰 *Total: Rs ${totalAmount.toLocaleString()}*\n`;
+                }
+                
+                adminMsg += `\n📝 Notes: ${notes || 'None'}\n`;
+                adminMsg += `🔢 Ref: ${referenceNo}`;
+                
                 try {
                     await global.whatsappClient.sendMessage(SHOP_MANAGEMENT_GROUP_ID, adminMsg);
                     console.log(`Notification sent to management group: ${SHOP_MANAGEMENT_GROUP_ID}`);
@@ -584,78 +604,865 @@ app.post('/api/appointments/book', async (req, res) => {
 });
 
 // ========================================
-// QUOTATION LINK API
+// QUOTATIONS API - Save & Retrieve Quotations
 // ========================================
 
-// Create new quotation link
-app.post('/api/quotations/create-link', async (req, res) => {
-    try {
-        const { items, customerName, customerPhone } = req.body;
+// Generate a short unique RefCode (4-char alphanumeric)
+function generateRefCode() {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // Exclude confusing chars like O/0, I/1
+    let code = '';
+    for (let i = 0; i < 4; i++) {
+        code += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return code;
+}
 
-        if (!items || !Array.isArray(items) || items.length === 0) {
-            return res.status(400).json({ success: false, error: 'Items required' });
+// Generate quotation number (QT-YYYYMMDD-XXXX format)
+async function generateQuotationNumber() {
+    try {
+        const today = new Date();
+        const dateStr = today.toISOString().slice(0, 10).replace(/-/g, '');
+        const prefix = `QT-${dateStr}-`;
+        
+        // Get the last quotation number for today
+        const request = new sql.Request(aiPool);
+        request.input('Prefix', sql.NVarChar(50), `${prefix}%`);
+        const result = await request.query(`
+            SELECT TOP 1 QuotationNumber 
+            FROM Quotations 
+            WHERE QuotationNumber LIKE @Prefix 
+            ORDER BY QuotationNumber DESC
+        `);
+        
+        let sequence = 1;
+        if (result.recordset.length > 0) {
+            const lastNumber = result.recordset[0].QuotationNumber;
+            const lastSeq = parseInt(lastNumber.split('-')[2]);
+            sequence = lastSeq + 1;
+        }
+        
+        return `${prefix}${sequence.toString().padStart(4, '0')}`;
+    } catch (error) {
+        console.error('Error generating quotation number:', error);
+        // Fallback to timestamp-based number
+        const timestamp = Date.now().toString().slice(-8);
+        return `QT-${timestamp}`;
+    }
+}
+
+// POST /api/quotations - Save a quotation and get RefCode
+app.post('/api/quotations', async (req, res) => {
+    const { customerPhone, customerName, tyreSize, items, totalAmount, messageContent, vehicleNumber, source } = req.body;
+
+    if (!items || !Array.isArray(items) || items.length === 0) {
+        return res.status(400).json({ ok: false, error: 'Items array is required' });
+    }
+
+    try {
+        await aiPoolConnect;
+
+        // Generate unique RefCode
+        let refCode = generateRefCode();
+        let attempts = 0;
+        const maxAttempts = 10;
+
+        // Check if RefCode exists and regenerate if needed
+        while (attempts < maxAttempts) {
+            const checkRequest = new sql.Request(aiPool);
+            checkRequest.input('RefCode', sql.NVarChar(10), refCode);
+            const checkResult = await checkRequest.query('SELECT COUNT(*) as count FROM Quotations WHERE RefCode = @RefCode');
+            
+            if (checkResult.recordset[0].count === 0) break;
+            refCode = generateRefCode();
+            attempts++;
         }
 
-        const pool = mainPool && mainPool.connected ? mainPool : await sql.connect(sqlConfig);
+        if (attempts >= maxAttempts) {
+            return res.status(500).json({ ok: false, error: 'Could not generate unique reference code' });
+        }
 
-        const result = await pool.request()
-            .input('ItemsJson', sql.NVarChar(sql.MAX), JSON.stringify(items))
-            .input('CustomerName', sql.NVarChar(100), customerName || '')
-            .input('CustomerPhone', sql.NVarChar(50), customerPhone || '')
-            .query(`
-                INSERT INTO QuotationLinks (ItemsJson, CustomerName, CustomerPhone)
-                OUTPUT INSERTED.RefID
-                VALUES (@ItemsJson, @CustomerName, @CustomerPhone)
-            `);
+        // Generate quotation number
+        const quotationNumber = await generateQuotationNumber();
 
-        const refId = result.recordset[0].RefID;
-        console.log(`[QuotationLink] Created RefID: ${refId} for customer: ${customerName || 'N/A'}`);
+        // Calculate expiry date (7 days from now)
+        const expiryDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
-        res.json({ success: true, refId });
+        // Insert quotation with all new fields
+        const request = new sql.Request(aiPool);
+        request.input('RefCode', sql.NVarChar(10), refCode);
+        request.input('QuotationNumber', sql.NVarChar(50), quotationNumber);
+        request.input('TyreSize', sql.NVarChar(50), tyreSize || null);
+        request.input('Items', sql.NVarChar(sql.MAX), JSON.stringify(items));
+        request.input('CustomerPhone', sql.NVarChar(20), customerPhone || null);
+        request.input('CustomerName', sql.NVarChar(100), customerName || null);
+        request.input('VehicleNumber', sql.NVarChar(20), vehicleNumber || null);
+        request.input('TotalAmount', sql.Decimal(10, 2), totalAmount || null);
+        request.input('MessageContent', sql.NVarChar(sql.MAX), messageContent || null);
+        request.input('ExpiryDate', sql.DateTime, expiryDate);
+        request.input('ExpiresAt', sql.DateTime, expiryDate); // Keep for backward compatibility
+        request.input('Source', sql.NVarChar(50), source || 'QuickQuote');
+        request.input('IsBooked', sql.Bit, 0);
+        request.input('IsExpired', sql.Bit, 0);
+
+        const result = await request.query(`
+            INSERT INTO Quotations (
+                RefCode, QuotationNumber, TyreSize, Items, CustomerPhone, CustomerName, 
+                VehicleNumber, TotalAmount, MessageContent, ExpiryDate, ExpiresAt, Source, IsBooked, IsExpired
+            )
+            OUTPUT INSERTED.Id
+            VALUES (
+                @RefCode, @QuotationNumber, @TyreSize, @Items, @CustomerPhone, @CustomerName,
+                @VehicleNumber, @TotalAmount, @MessageContent, @ExpiryDate, @ExpiresAt, @Source, @IsBooked, @IsExpired
+            )
+        `);
+
+        const insertedId = result.recordset[0].Id;
+        console.log(`✅ Quotation saved: RefCode=${refCode}, QuotationNumber=${quotationNumber}, Id=${insertedId}`);
+
+        res.json({ 
+            ok: true, 
+            refCode,
+            quotationNumber,
+            id: insertedId,
+            bookingUrl: `https://lasanthatyre.com/book?ref=${quotationNumber}`,
+            expiryDate: expiryDate.toISOString()
+        });
 
     } catch (error) {
-        console.error('Error creating quotation link:', error);
-        res.status(500).json({ success: false, error: error.message });
+        console.error('Save quotation error:', error);
+        res.status(500).json({ ok: false, error: error.message });
     }
 });
 
-// Get quotation by RefID
-app.get('/api/quotations/:refId', async (req, res) => {
-    const { refId } = req.params;
+// GET /api/quotations/:refCode - Get quotation by RefCode or QuotationNumber
+app.get('/api/quotations/:refCode', async (req, res) => {
+    const { refCode } = req.params;
 
-    if (!refId) {
-        return res.status(400).json({ ok: false, error: 'Missing Ref ID' });
+    if (!refCode || refCode.length < 4) {
+        return res.status(400).json({ ok: false, error: 'Valid reference code is required' });
     }
 
     try {
-        const pool = mainPool && mainPool.connected ? mainPool : await sql.connect(sqlConfig);
+        await aiPoolConnect;
 
-        const result = await pool.request()
-            .input('RefID', sql.Int, parseInt(refId, 10))
-            .query(`
-                SELECT RefID, ItemsJson, CustomerName, CustomerPhone, CreatedAt
-                FROM QuotationLinks
-                WHERE RefID = @RefID
-            `);
+        const request = new sql.Request(aiPool);
+        const reference = refCode.toUpperCase();
+        request.input('Reference', sql.NVarChar(50), reference);
+
+        // Support both RefCode (ABCD) and QuotationNumber (QT-20251207-0001)
+        const result = await request.query(`
+            SELECT Id, RefCode, QuotationNumber, TyreSize, Items, CustomerPhone, CustomerName, 
+                   VehicleNumber, TotalAmount, MessageContent, CreatedAt, ExpiryDate, ExpiresAt, 
+                   IsExpired, IsBooked, BookingReference, Source, Status, BookingRef
+            FROM Quotations 
+            WHERE RefCode = @Reference OR QuotationNumber = @Reference
+        `);
 
         if (result.recordset.length === 0) {
             return res.status(404).json({ ok: false, error: 'Quotation not found' });
         }
 
-        const quote = result.recordset[0];
-        // Parse ItemsJson if it's a string
-        try {
-            if (typeof quote.ItemsJson === 'string') {
-                quote.ItemsJson = JSON.parse(quote.ItemsJson);
-            }
-        } catch (e) {
-            console.error('Error parsing ItemsJson:', e);
+        const quotation = result.recordset[0];
+        
+        // Check if expired (use ExpiryDate if available, fallback to ExpiresAt)
+        const expiryDate = quotation.ExpiryDate || quotation.ExpiresAt;
+        if (expiryDate && new Date(expiryDate) < new Date()) {
+            return res.status(410).json({ ok: false, error: 'Quotation has expired', quotation });
         }
 
-        res.json({ ok: true, data: quote });
+        // Parse items JSON
+        try {
+            quotation.Items = JSON.parse(quotation.Items);
+        } catch (e) {
+            quotation.Items = [];
+        }
+
+        res.json({ ok: true, quotation });
 
     } catch (error) {
-        console.error('Error fetching quotation:', error);
+        console.error('Get quotation error:', error);
+        res.status(500).json({ ok: false, error: error.message });
+    }
+});
+
+// POST /api/quotations/:refCode/booked - Mark quotation as booked
+app.post('/api/quotations/:refCode/booked', async (req, res) => {
+    const { refCode } = req.params;
+    const { bookingRef } = req.body;
+
+    try {
+        await aiPoolConnect;
+
+        const request = new sql.Request(aiPool);
+        request.input('RefCode', sql.NVarChar(10), refCode.toUpperCase());
+        request.input('BookingRef', sql.NVarChar(50), bookingRef || null);
+        request.input('Status', sql.NVarChar(20), 'Booked');
+
+        await request.query(`
+            UPDATE Quotations 
+            SET Status = @Status, BookingRef = @BookingRef, IsBooked = 1, BookingReference = @BookingRef
+            WHERE RefCode = @RefCode OR QuotationNumber = @RefCode
+        `);
+
+        res.json({ ok: true, message: 'Quotation marked as booked' });
+
+    } catch (error) {
+        console.error('Update quotation error:', error);
+        res.status(500).json({ ok: false, error: error.message });
+    }
+});
+
+// GET /api/quotations/analytics/stats - Get quotation analytics
+app.get('/api/quotations/analytics/stats', async (req, res) => {
+    try {
+        await aiPoolConnect;
+        const request = new sql.Request(aiPool);
+
+        // Get overall statistics
+        const statsResult = await request.query(`
+            SELECT 
+                COUNT(*) as totalQuotations,
+                SUM(CASE WHEN IsBooked = 1 THEN 1 ELSE 0 END) as bookedQuotations,
+                SUM(CASE WHEN IsExpired = 1 THEN 1 ELSE 0 END) as expiredQuotations,
+                SUM(TotalAmount) as totalValue,
+                SUM(CASE WHEN IsBooked = 1 THEN TotalAmount ELSE 0 END) as bookedValue,
+                AVG(TotalAmount) as averageQuotation
+            FROM Quotations
+            WHERE CreatedAt >= DATEADD(day, -30, GETDATE())
+        `);
+
+        // Get conversion rate
+        const stats = statsResult.recordset[0];
+        const conversionRate = stats.totalQuotations > 0 
+            ? ((stats.bookedQuotations / stats.totalQuotations) * 100).toFixed(2)
+            : 0;
+
+        // Get daily trend (last 7 days)
+        const trendResult = await request.query(`
+            SELECT 
+                CAST(CreatedAt AS DATE) as date,
+                COUNT(*) as quotations,
+                SUM(CASE WHEN IsBooked = 1 THEN 1 ELSE 0 END) as booked
+            FROM Quotations
+            WHERE CreatedAt >= DATEADD(day, -7, GETDATE())
+            GROUP BY CAST(CreatedAt AS DATE)
+            ORDER BY date ASC
+        `);
+
+        // Get source breakdown
+        const sourceResult = await request.query(`
+            SELECT 
+                Source,
+                COUNT(*) as count,
+                SUM(CASE WHEN IsBooked = 1 THEN 1 ELSE 0 END) as booked
+            FROM Quotations
+            WHERE CreatedAt >= DATEADD(day, -30, GETDATE())
+            GROUP BY Source
+        `);
+
+        res.json({
+            ok: true,
+            stats: {
+                total: stats.totalQuotations || 0,
+                booked: stats.bookedQuotations || 0,
+                expired: stats.expiredQuotations || 0,
+                pending: (stats.totalQuotations || 0) - (stats.bookedQuotations || 0) - (stats.expiredQuotations || 0),
+                conversionRate: parseFloat(conversionRate),
+                totalValue: stats.totalValue || 0,
+                bookedValue: stats.bookedValue || 0,
+                averageQuotation: stats.averageQuotation || 0
+            },
+            trend: trendResult.recordset,
+            sources: sourceResult.recordset
+        });
+
+    } catch (error) {
+        console.error('Get analytics error:', error);
+        res.status(500).json({ ok: false, error: error.message });
+    }
+});
+
+// GET /api/quotations/analytics/items - Get popular items
+app.get('/api/quotations/analytics/items', async (req, res) => {
+    try {
+        await aiPoolConnect;
+        const request = new sql.Request(aiPool);
+
+        const result = await request.query(`
+            SELECT TOP 20
+                JSON_VALUE(item.value, '$.description') as description,
+                JSON_VALUE(item.value, '$.brand') as brand,
+                COUNT(*) as quotationCount,
+                SUM(CAST(JSON_VALUE(item.value, '$.quantity') AS INT)) as totalQuantity,
+                AVG(CAST(JSON_VALUE(item.value, '$.price') AS FLOAT)) as averagePrice
+            FROM Quotations
+            CROSS APPLY OPENJSON(Items) as item
+            WHERE CreatedAt >= DATEADD(day, -30, GETDATE())
+            GROUP BY JSON_VALUE(item.value, '$.description'), JSON_VALUE(item.value, '$.brand')
+            ORDER BY quotationCount DESC
+        `);
+
+        res.json({
+            ok: true,
+            items: result.recordset
+        });
+
+    } catch (error) {
+        console.error('Get popular items error:', error);
+        res.status(500).json({ ok: false, error: error.message });
+    }
+});
+
+// GET /api/quotations/customer/:phone - Get customer quotation history
+app.get('/api/quotations/customer/:phone', async (req, res) => {
+    try {
+        const { phone } = req.params;
+        await aiPoolConnect;
+
+        const request = new sql.Request(aiPool);
+        request.input('Phone', sql.NVarChar(20), phone.replace(/\D/g, ''));
+
+        const result = await request.query(`
+            SELECT 
+                Id, RefCode, QuotationNumber, CustomerName, VehicleNumber,
+                TyreSize, TotalAmount, CreatedAt, ExpiryDate, IsBooked, 
+                IsExpired, BookingReference, Source
+            FROM Quotations
+            WHERE CustomerPhone = @Phone
+            ORDER BY CreatedAt DESC
+        `);
+
+        res.json({
+            ok: true,
+            quotations: result.recordset
+        });
+
+    } catch (error) {
+        console.error('Get customer quotations error:', error);
+        res.status(500).json({ ok: false, error: error.message });
+    }
+});
+
+// GET /api/quotations/templates - Get quotation templates
+app.get('/api/quotations/templates', async (req, res) => {
+    try {
+        await aiPoolConnect;
+        const request = new sql.Request(aiPool);
+
+        const result = await request.query(`
+            SELECT Id, TemplateName, Description, Items, CreatedAt
+            FROM QuotationTemplates
+            ORDER BY CreatedAt DESC
+        `);
+
+        const templates = result.recordset.map(t => ({
+            ...t,
+            Items: JSON.parse(t.Items || '[]')
+        }));
+
+        res.json({ ok: true, templates });
+
+    } catch (error) {
+        console.error('Get templates error:', error);
+        res.status(500).json({ ok: false, error: error.message });
+    }
+});
+
+// POST /api/quotations/templates - Save quotation as template
+app.post('/api/quotations/templates', async (req, res) => {
+    try {
+        const { templateName, description, items } = req.body;
+
+        if (!templateName || !items || items.length === 0) {
+            return res.status(400).json({ ok: false, error: 'Template name and items required' });
+        }
+
+        await aiPoolConnect;
+        const request = new sql.Request(aiPool);
+        request.input('TemplateName', sql.NVarChar(100), templateName);
+        request.input('Description', sql.NVarChar(500), description || '');
+        request.input('Items', sql.NVarChar(sql.MAX), JSON.stringify(items));
+
+        await request.query(`
+            INSERT INTO QuotationTemplates (TemplateName, Description, Items, CreatedAt)
+            VALUES (@TemplateName, @Description, @Items, GETDATE())
+        `);
+
+        res.json({ ok: true, message: 'Template saved successfully' });
+
+    } catch (error) {
+        console.error('Save template error:', error);
+        res.status(500).json({ ok: false, error: error.message });
+    }
+});
+
+// DELETE /api/quotations/templates/:id - Delete template
+app.delete('/api/quotations/templates/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await aiPoolConnect;
+
+        const request = new sql.Request(aiPool);
+        request.input('Id', sql.Int, parseInt(id));
+
+        await request.query(`
+            DELETE FROM QuotationTemplates WHERE Id = @Id
+        `);
+
+        res.json({ ok: true, message: 'Template deleted' });
+
+    } catch (error) {
+        console.error('Delete template error:', error);
+        res.status(500).json({ ok: false, error: error.message });
+    }
+});
+
+// GET /api/customers/vehicles/:phone - Get customer vehicles
+app.get('/api/customers/vehicles/:phone', async (req, res) => {
+    try {
+        const { phone } = req.params;
+        await aiPoolConnect;
+
+        const request = new sql.Request(aiPool);
+        request.input('Phone', sql.NVarChar(20), phone.replace(/\D/g, ''));
+
+        const result = await request.query(`
+            SELECT VehicleNumber, VehicleType, LastServiceDate, TotalQuotations
+            FROM CustomerVehicles
+            WHERE CustomerPhone = @Phone
+            ORDER BY LastServiceDate DESC
+        `);
+
+        res.json({ ok: true, vehicles: result.recordset });
+
+    } catch (error) {
+        console.error('Get vehicles error:', error);
+        res.status(500).json({ ok: false, error: error.message });
+    }
+});
+
+// POST /api/customers/vehicles - Add/Update customer vehicle
+app.post('/api/customers/vehicles', async (req, res) => {
+    try {
+        const { customerPhone, customerName, vehicleNumber, vehicleType } = req.body;
+
+        if (!customerPhone || !vehicleNumber) {
+            return res.status(400).json({ ok: false, error: 'Phone and vehicle number required' });
+        }
+
+        await aiPoolConnect;
+        const request = new sql.Request(aiPool);
+        request.input('Phone', sql.NVarChar(20), customerPhone.replace(/\D/g, ''));
+        request.input('Name', sql.NVarChar(100), customerName || 'Customer');
+        request.input('VehicleNumber', sql.NVarChar(20), vehicleNumber.toUpperCase());
+        request.input('VehicleType', sql.NVarChar(50), vehicleType || 'Car');
+
+        await request.query(`
+            MERGE CustomerVehicles AS target
+            USING (SELECT @Phone AS CustomerPhone, @VehicleNumber AS VehicleNumber) AS source
+            ON (target.CustomerPhone = source.CustomerPhone AND target.VehicleNumber = source.VehicleNumber)
+            WHEN MATCHED THEN
+                UPDATE SET LastServiceDate = GETDATE(), TotalQuotations = TotalQuotations + 1
+            WHEN NOT MATCHED THEN
+                INSERT (CustomerPhone, CustomerName, VehicleNumber, VehicleType, LastServiceDate, TotalQuotations)
+                VALUES (@Phone, @Name, @VehicleNumber, @VehicleType, GETDATE(), 1);
+        `);
+
+        res.json({ ok: true, message: 'Vehicle info updated' });
+
+    } catch (error) {
+        console.error('Update vehicle error:', error);
+        res.status(500).json({ ok: false, error: error.message });
+    }
+});
+
+// POST /api/quotations/send-email - Send quotation via email
+app.post('/api/quotations/send-email', async (req, res) => {
+    try {
+        const { quotationNumber, customerEmail } = req.body;
+
+        if (!quotationNumber || !customerEmail) {
+            return res.status(400).json({ ok: false, error: 'Quotation number and email required' });
+        }
+
+        // Initialize email service if not done
+        const emailService = require('./services/emailService');
+        await emailService.initialize();
+
+        // Fetch quotation details
+        await aiPoolConnect;
+        const request = new sql.Request(aiPool);
+        request.input('Reference', sql.NVarChar(50), quotationNumber.toUpperCase());
+
+        const result = await request.query(`
+            SELECT 
+                QuotationNumber, CustomerName, Items, TotalAmount, 
+                ExpiryDate, RefCode
+            FROM Quotations
+            WHERE QuotationNumber = @Reference OR RefCode = @Reference
+        `);
+
+        if (result.recordset.length === 0) {
+            return res.status(404).json({ ok: false, error: 'Quotation not found' });
+        }
+
+        const quotation = result.recordset[0];
+        const items = JSON.parse(quotation.Items || '[]');
+        const bookingUrl = `https://lasanthatyre.com/book?ref=${quotation.QuotationNumber || quotation.RefCode}`;
+
+        // Send email
+        const emailResult = await emailService.sendQuotationEmail({
+            customerName: quotation.CustomerName,
+            customerEmail: customerEmail,
+            quotationNumber: quotation.QuotationNumber,
+            items: items,
+            totalAmount: quotation.TotalAmount,
+            bookingUrl: bookingUrl,
+            expiryDate: quotation.ExpiryDate
+        });
+
+        if (emailResult.success) {
+            res.json({ ok: true, message: 'Email sent successfully' });
+        } else {
+            res.status(500).json({ ok: false, error: emailResult.error });
+        }
+
+    } catch (error) {
+        console.error('Send email error:', error);
+        res.status(500).json({ ok: false, error: error.message });
+    }
+});
+
+// OTP System - In-memory storage (for production, use Redis or database)
+const otpStore = new Map(); // { phone: { otp, expiresAt, attempts } }
+
+// POST /api/auth/send-otp - Send OTP via WhatsApp
+app.post('/api/auth/send-otp', async (req, res) => {
+    try {
+        const { phone } = req.body;
+
+        if (!phone || phone.length < 9) {
+            return res.status(400).json({ ok: false, error: 'Valid phone number required' });
+        }
+
+        const cleanPhone = phone.replace(/\D/g, '');
+
+        // Generate 6-digit OTP
+        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+        const expiresAt = Date.now() + (5 * 60 * 1000); // 5 minutes
+
+        // Store OTP
+        otpStore.set(cleanPhone, {
+            otp,
+            expiresAt,
+            attempts: 0
+        });
+
+        // Send OTP via WhatsApp
+        if (client && client.info) {
+            try {
+                const chatId = `94${cleanPhone.startsWith('0') ? cleanPhone.substring(1) : cleanPhone}@c.us`;
+                const message = `🔐 *Lasantha Tire - Verification Code*\n\nYour OTP is: *${otp}*\n\n⏰ Valid for 5 minutes\n\n_Do not share this code with anyone._`;
+                
+                await client.sendMessage(chatId, message);
+                console.log(`[OTP] Sent to ${cleanPhone}: ${otp}`);
+            } catch (whatsappError) {
+                console.error('[OTP] WhatsApp send failed:', whatsappError.message);
+                // Continue anyway - OTP is stored
+            }
+        }
+
+        // For development - log OTP to console
+        console.log(`[OTP] Generated for ${cleanPhone}: ${otp}`);
+
+        res.json({ 
+            ok: true, 
+            message: 'OTP sent via WhatsApp',
+            expiresIn: 300 // seconds
+        });
+
+    } catch (error) {
+        console.error('Send OTP error:', error);
+        res.status(500).json({ ok: false, error: error.message });
+    }
+});
+
+// POST /api/auth/verify-otp - Verify OTP
+app.post('/api/auth/verify-otp', async (req, res) => {
+    try {
+        const { phone, otp } = req.body;
+
+        if (!phone || !otp) {
+            return res.status(400).json({ ok: false, error: 'Phone and OTP required' });
+        }
+
+        const cleanPhone = phone.replace(/\D/g, '');
+        const storedData = otpStore.get(cleanPhone);
+
+        if (!storedData) {
+            return res.status(400).json({ ok: false, error: 'OTP not found or expired. Request a new one.' });
+        }
+
+        // Check expiry
+        if (Date.now() > storedData.expiresAt) {
+            otpStore.delete(cleanPhone);
+            return res.status(400).json({ ok: false, error: 'OTP expired. Request a new one.' });
+        }
+
+        // Check attempts
+        if (storedData.attempts >= 3) {
+            otpStore.delete(cleanPhone);
+            return res.status(400).json({ ok: false, error: 'Too many failed attempts. Request a new OTP.' });
+        }
+
+        // Verify OTP
+        if (storedData.otp !== otp) {
+            storedData.attempts++;
+            return res.status(400).json({ 
+                ok: false, 
+                error: 'Invalid OTP',
+                attemptsLeft: 3 - storedData.attempts
+            });
+        }
+
+        // Success - remove OTP and generate session token
+        otpStore.delete(cleanPhone);
+
+        const sessionToken = Buffer.from(`${cleanPhone}:${Date.now()}`).toString('base64');
+
+        res.json({
+            ok: true,
+            message: 'OTP verified successfully',
+            sessionToken,
+            phone: cleanPhone
+        });
+
+    } catch (error) {
+        console.error('Verify OTP error:', error);
+        res.status(500).json({ ok: false, error: error.message });
+    }
+});
+
+// ==============================================
+// Email Configuration API
+// ==============================================
+
+// GET /api/config/email - Get current email configuration
+app.get('/api/config/email', async (req, res) => {
+    try {
+        const config = {
+            provider: process.env.EMAIL_PROVIDER || 'gmail',
+            user: process.env.EMAIL_USER || '',
+            fromName: process.env.EMAIL_FROM_NAME || 'Lasantha Tire Service',
+            isConfigured: !!(process.env.EMAIL_USER && process.env.EMAIL_PASSWORD)
+        };
+
+        res.json({ ok: true, config });
+    } catch (error) {
+        console.error('Get email config error:', error);
+        res.status(500).json({ ok: false, error: error.message });
+    }
+});
+
+// POST /api/config/email - Update email configuration
+app.post('/api/config/email', async (req, res) => {
+    try {
+        const { provider, user, password, fromName } = req.body;
+
+        if (!user || !password) {
+            return res.status(400).json({ ok: false, error: 'Email and password required' });
+        }
+
+        if (!['gmail', 'zoho'].includes(provider)) {
+            return res.status(400).json({ ok: false, error: 'Invalid provider. Use "gmail" or "zoho"' });
+        }
+
+        // Read current .env file
+        const envPath = path.join(__dirname, '.env');
+        let envContent = '';
+        
+        if (fs.existsSync(envPath)) {
+            envContent = fs.readFileSync(envPath, 'utf8');
+        }
+
+        // Update or add email configuration
+        const updateEnvVar = (key, value) => {
+            const regex = new RegExp(`^${key}=.*$`, 'm');
+            if (regex.test(envContent)) {
+                envContent = envContent.replace(regex, `${key}=${value}`);
+            } else {
+                envContent += `\n${key}=${value}`;
+            }
+        };
+
+        updateEnvVar('EMAIL_PROVIDER', provider);
+        updateEnvVar('EMAIL_USER', user);
+        updateEnvVar('EMAIL_PASSWORD', password);
+        updateEnvVar('EMAIL_FROM_NAME', fromName || 'Lasantha Tire Service');
+
+        // Write updated .env file
+        fs.writeFileSync(envPath, envContent);
+
+        // Update process.env (for current session)
+        process.env.EMAIL_PROVIDER = provider;
+        process.env.EMAIL_USER = user;
+        process.env.EMAIL_PASSWORD = password;
+        process.env.EMAIL_FROM_NAME = fromName || 'Lasantha Tire Service';
+
+        // Reinitialize email service with new config
+        const emailService = require('./services/emailService');
+        await emailService.initialize();
+
+        res.json({
+            ok: true,
+            message: 'Email configuration saved successfully',
+            config: { provider, user, fromName, isConfigured: true }
+        });
+
+    } catch (error) {
+        console.error('Update email config error:', error);
+        res.status(500).json({ ok: false, error: error.message });
+    }
+});
+
+// POST /api/config/email/test - Send test email
+app.post('/api/config/email/test', async (req, res) => {
+    try {
+        const { testEmail } = req.body;
+
+        if (!testEmail) {
+            return res.status(400).json({ ok: false, error: 'Test email address required' });
+        }
+
+        // Verify email is configured
+        if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
+            return res.status(400).json({ ok: false, error: 'Email not configured. Please save configuration first.' });
+        }
+
+        // Initialize email service
+        const emailService = require('./services/emailService');
+        await emailService.initialize();
+
+        // Send test email
+        const transporter = emailService.transporter;
+        
+        if (!transporter) {
+            return res.status(500).json({ ok: false, error: 'Email service not initialized' });
+        }
+
+        const testMailOptions = {
+            from: `${process.env.EMAIL_FROM_NAME || 'Lasantha Tire Service'} <${process.env.EMAIL_USER}>`,
+            to: testEmail,
+            subject: '✅ Test Email - Lasantha Tire Service',
+            html: `
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <div style="background: white; border-radius: 10px; padding: 30px;">
+                        <h2 style="color: #667eea; margin-bottom: 20px;">✅ Email Configuration Test</h2>
+                        
+                        <p style="color: #333; line-height: 1.6;">
+                            Congratulations! Your email configuration is working correctly.
+                        </p>
+                        
+                        <div style="background: #f8f9ff; border-left: 4px solid #667eea; padding: 15px; margin: 20px 0;">
+                            <p style="margin: 0; color: #555;"><strong>Provider:</strong> ${process.env.EMAIL_PROVIDER || 'Gmail'}</p>
+                            <p style="margin: 5px 0 0 0; color: #555;"><strong>From:</strong> ${process.env.EMAIL_USER}</p>
+                        </div>
+                        
+                        <p style="color: #666; font-size: 14px; margin-top: 30px;">
+                            You can now send quotations and booking confirmations to your customers.
+                        </p>
+                        
+                        <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;">
+                        
+                        <p style="color: #999; font-size: 12px; text-align: center;">
+                            Lasantha Tire Service - WhatsApp SQL API<br>
+                            Test email sent at ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Colombo' })}
+                        </p>
+                    </div>
+                </div>
+            `
+        };
+
+        await transporter.sendMail(testMailOptions);
+
+        res.json({
+            ok: true,
+            message: 'Test email sent successfully! Check your inbox.',
+            testEmail: testEmail
+        });
+
+    } catch (error) {
+        console.error('Send test email error:', error);
+        res.status(500).json({ 
+            ok: false, 
+            error: error.message,
+            details: error.code || 'Unknown error'
+        });
+    }
+});
+
+// ==============================================
+// Quotation Expiry Job API
+// ==============================================
+
+// POST /api/jobs/expiry/run - Manually trigger expiry job
+app.post('/api/jobs/expiry/run', async (req, res) => {
+    try {
+        const QuotationExpiryJob = require('./jobs/QuotationExpiryJob');
+        const expiryJob = new QuotationExpiryJob();
+        
+        const result = await expiryJob.execute();
+        
+        if (result.success) {
+            res.json({
+                ok: true,
+                message: 'Expiry job completed successfully',
+                expiredCount: result.expiredCount,
+                duration: result.duration
+            });
+        } else {
+            res.status(500).json({
+                ok: false,
+                error: result.error || 'Expiry job failed'
+            });
+        }
+    } catch (error) {
+        console.error('Manual expiry job error:', error);
+        res.status(500).json({ ok: false, error: error.message });
+    }
+});
+
+// GET /api/jobs/expiry/status - Get expiry job status
+app.get('/api/jobs/expiry/status', async (req, res) => {
+    try {
+        await aiPoolConnect;
+        const request = new sql.Request(aiPool);
+        
+        // Get statistics
+        const stats = await request.query(`
+            SELECT 
+                COUNT(*) as TotalQuotations,
+                SUM(CASE WHEN IsExpired = 1 THEN 1 ELSE 0 END) as ExpiredCount,
+                SUM(CASE WHEN IsExpired = 0 AND IsBooked = 0 AND ExpiryDate < GETDATE() THEN 1 ELSE 0 END) as PendingExpiry,
+                SUM(CASE WHEN IsExpired = 0 AND IsBooked = 0 AND ExpiryDate >= GETDATE() THEN 1 ELSE 0 END) as ActiveQuotations
+            FROM Quotations
+        `);
+        
+        const data = stats.recordset[0];
+        
+        res.json({
+            ok: true,
+            jobEnabled: String(process.env.ENABLE_QUOTATION_EXPIRY_JOB || 'true').toLowerCase() === 'true',
+            schedule: '0 * * * *', // Every hour
+            statistics: {
+                total: data.TotalQuotations,
+                expired: data.ExpiredCount,
+                pendingExpiry: data.PendingExpiry,
+                active: data.ActiveQuotations
+            }
+        });
+    } catch (error) {
+        console.error('Expiry job status error:', error);
         res.status(500).json({ ok: false, error: error.message });
     }
 });
@@ -1601,7 +2408,6 @@ app.get('/sse', (req, res) => {
     });
 });
 
-
 // Job Details
 app.get('/api/jobs/:jobName', (req, res) => {
     try {
@@ -2274,6 +3080,36 @@ function setupClientLifecycleHandlers(clientInstance) {
                 }
             } else {
                 logAndSave('ℹ️  Scheduled Media Publisher disabled (ENABLE_SCHEDULED_MEDIA_PUBLISHER=false)');
+            }
+
+            // Quotation Expiry Job (conditional start)
+            if (String(process.env.ENABLE_QUOTATION_EXPIRY_JOB || 'true').toLowerCase() === 'true') {
+                try {
+                    const cron = require('node-cron');
+                    const QuotationExpiryJob = require('./jobs/QuotationExpiryJob');
+                    const expiryJob = new QuotationExpiryJob();
+                    
+                    // Schedule job to run every hour
+                    cron.schedule(expiryJob.schedule, async () => {
+                        try {
+                            await expiryJob.execute();
+                        } catch (err) {
+                            console.error('[QuotationExpiryJob] Scheduled execution error:', err);
+                        }
+                    });
+                    
+                    logAndSave('⏰ Quotation Expiry Job started (runs every hour)');
+                    
+                    // Run once immediately on startup
+                    expiryJob.execute().catch(err => {
+                        console.error('[QuotationExpiryJob] Initial execution error:', err);
+                    });
+                } catch (expiryErr) {
+                    logAndSave(`Warning: Quotation Expiry Job initialization failed: ${expiryErr.message}`);
+                    console.error('Quotation Expiry Job init error:', expiryErr);
+                }
+            } else {
+                logAndSave('ℹ️  Quotation Expiry Job disabled (ENABLE_QUOTATION_EXPIRY_JOB=false)');
             }
 
             if (!ipcWatcherStarted) {

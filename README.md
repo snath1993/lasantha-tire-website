@@ -1,6 +1,6 @@
 # WhatsApp Tyre System
 
-Unified WhatsApp-driven tyre quotation, pricing, vehicle invoice lookup, quotation PDF generation, watched item realtime monitoring, incremental sales reporting, and secured dashboard (username + 2FA) with IPC control.
+Unified WhatsApp-driven tyre quotation, pricing, vehicle invoice lookup, quotation PDF generation, watched item realtime monitoring, incremental sales reporting, secured dashboard (username + 2FA), advanced quotation management system with email integration, and automatic expiry tracking.
 
 ## 🛡️ Security Status
 
@@ -45,10 +45,17 @@ The launcher shortcut is also added to the Windows Startup folder.
 - Parses tyre sizes & vehicle numbers.
 - Sends price/qty replies.
 - Builds quotation PDFs.
+- **NEW:** Advanced quotation tracking with auto-numbering (QT-YYYYMMDD-XXXX).
+- **NEW:** Email quotations via Gmail/Zoho SMTP.
+- **NEW:** Customer portal with OTP authentication.
 - Managed by **PM2** (`ecosystem.config.js`).
 
 ### 2. Dashboards
 - **Lasantha Tire V1.0** (`lasantha-tire-v1.0`): The modern, active dashboard.
+  - **NEW:** Email configuration UI (Gmail/Zoho setup).
+  - **NEW:** Quotation analytics with charts.
+  - **NEW:** Customer portal with OTP authentication.
+  - **NEW:** Template management system.
 - **Lasantha Tire** (`lasantha-tire`): The previous version, currently running in parallel.
 
 ### 3. Pricing Engine
@@ -63,20 +70,23 @@ The launcher shortcut is also added to the Windows Startup folder.
 - `jobs/WatchedItemRealtimeJob.js`.
 - Multi-pattern polling & admin alerts.
 
-### 6. IPC Command Layer
+### 6. **NEW: Quotation Expiry Job** 🆕
+- `jobs/QuotationExpiryJob.js`.
+- Automatic hourly check for expired quotations.
+- Marks expired quotations (IsExpired=1, Status='Expired').
+- Manual trigger via API endpoint.
+- Real-time statistics dashboard.
+
+### 7. **NEW: Email Service** 📧
+- `services/emailService.js`.
+- Gmail & Zoho SMTP support.
+- Professional HTML email templates.
+- Quotation delivery with booking links.
+- Test email functionality.
+
+### 8. IPC Command Layer
 - `utils/ipcCommandWatcher.js`.
 - Dashboard → Bot commands (sales report, scheduler restart, send 2FA code).
-
-### 7. Royal Smart Booking System 👑
-A complete flow for generating quotations and booking appointments.
-- **Mobile App**: Generates a unique link (`?ref=ID`) for each quotation.
-- **Database**: Stores quotation details in `QuotationLinks` table.
-- **Website**: Hosted on Vercel (`lasantha-tire-website.vercel.app/book`).
-- **Cloudflare Tunnel**: Securely connects the public website to the local bot API.
-- **Features**:
-  - Smart Item Selection (hides total if multiple options).
-  - Auto-fill customer details.
-  - **Alignment Warning**: Notifies user if selected time is outside 7:30 AM - 5:30 PM.
 
 ## ⚙️ Configuration
 
@@ -91,6 +101,11 @@ Copy `.env.example` → `.env` and adjust.
 | `WATCH_INTERVAL_SECONDS` | Poll interval for watched item job |
 | `DASHBOARD_PROTECT` | 1 enable auth, 0 disable (dev) |
 | `ADMIN_USER` / `ADMIN_PASS` | Legacy Dashboard credentials |
+| **`EMAIL_PROVIDER`** 🆕 | Email service provider ('gmail' or 'zoho') |
+| **`EMAIL_USER`** 🆕 | Email address for sending quotations |
+| **`EMAIL_PASSWORD`** 🆕 | App password (not regular password) |
+| **`EMAIL_FROM_NAME`** 🆕 | Sender name (default: 'Lasantha Tire Service') |
+| **`ENABLE_QUOTATION_EXPIRY_JOB`** 🆕 | Enable automatic expiry checking (true/false) |
 
 ## 🛠️ Manual Commands
 
@@ -142,15 +157,202 @@ REPORT_SHOW_COST=1               # Daily cost visibility
 MONTHLY_SHOW_COST=1              # Monthly cost visibility
 ```
 
+## 🎯 Advanced Quotation Management System 🆕
+
+Complete quotation lifecycle management with auto-numbering, email delivery, customer portal, and automatic expiry tracking.
+
+### Features
+
+#### 1. **Auto-Numbering System**
+- **Format:** `QT-YYYYMMDD-XXXX` (e.g., QT-20251207-0001)
+- **Date-based:** Resets daily for better organization
+- **Auto-increment:** Generates unique sequential numbers
+- **Dual tracking:** Both RefCode and QuotationNumber support
+
+#### 2. **Email Integration**
+- **Providers:** Gmail & Zoho SMTP support
+- **Templates:** Professional HTML email templates with branding
+- **Content:** Quotation details, items breakdown, total amount
+- **Booking Link:** Direct link to Royal Booking page
+- **Expiry Date:** Clear expiry information
+- **Test Functionality:** Send test emails to verify configuration
+
+#### 3. **Customer Portal (OTP Secured)**
+- **Authentication:** WhatsApp OTP (6-digit code, 5-minute expiry)
+- **History:** View all quotations by phone number
+- **Vehicles:** Track multiple vehicles per customer
+- **Status:** Real-time quotation status (Active/Expired/Booked)
+- **Details:** Full quotation details with items breakdown
+
+#### 4. **Analytics Dashboard**
+- **Statistics:** Total, Booked, Pending, Expired quotations
+- **Conversion Rate:** Real-time booking conversion tracking
+- **Revenue:** Total revenue, booked revenue, average quotation value
+- **Trends:** 7-day quotation trend chart
+- **Source Breakdown:** Track quotations by source (Mobile/Website/WhatsApp)
+- **Popular Items:** Top 10 most quoted items
+
+#### 5. **Template System**
+- **Pre-defined Templates:** Save common quotation configurations
+- **Quick Apply:** One-click template application
+- **Custom Items:** Flexible item combinations
+- **Reusability:** Use templates across multiple quotations
+
+#### 6. **Automatic Expiry Tracking**
+- **Schedule:** Runs every hour automatically
+- **Auto-marking:** Marks expired quotations (IsExpired=1, Status='Expired')
+- **Conditions:** Only marks unbooked quotations past expiry date
+- **Statistics:** Real-time tracking of expired vs. active quotations
+- **Manual Trigger:** API endpoint for on-demand execution
+
+### API Endpoints (45+ endpoints)
+
+#### Quotation Management:
+- `POST /api/quotations` - Create new quotation with auto-numbering
+- `GET /api/quotations/:refCode` - Get quotation by RefCode or QuotationNumber
+- `POST /api/quotations/:refCode/booked` - Mark as booked
+- `POST /api/quotations/send-email` - Email quotation to customer
+
+#### Analytics:
+- `GET /api/quotations/analytics/stats` - Dashboard statistics
+- `GET /api/quotations/analytics/items` - Popular items analysis
+- `GET /api/quotations/customer/:phone` - Customer quotation history
+
+#### OTP Authentication:
+- `POST /api/auth/send-otp` - Send OTP via WhatsApp
+- `POST /api/auth/verify-otp` - Verify OTP and generate session token
+
+#### Template Management:
+- `GET /api/quotations/templates` - List all templates
+- `POST /api/quotations/templates` - Create new template
+- `DELETE /api/quotations/templates/:id` - Delete template
+
+#### Vehicle Tracking:
+- `GET /api/customers/vehicles/:phone` - Get customer vehicles
+- `POST /api/customers/vehicles` - Add new vehicle
+
+#### Email Configuration:
+- `GET /api/config/email` - Get current email configuration
+- `POST /api/config/email` - Update email configuration
+- `POST /api/config/email/test` - Send test email
+
+#### Expiry Job Control:
+- `POST /api/jobs/expiry/run` - Manually trigger expiry job
+- `GET /api/jobs/expiry/status` - Get job status and statistics
+
+### Database Schema
+
+#### Quotations Table (19 columns):
+```sql
+- Id (PK)
+- RefCode (Unique, e.g., REF-1733574123456)
+- QuotationNumber (Unique, e.g., QT-20251207-0001)
+- TyreSize
+- Items (JSON array)
+- CustomerPhone
+- CustomerName
+- VehicleNumber
+- TotalAmount
+- MessageContent
+- CreatedAt
+- ExpiresAt
+- ExpiryDate
+- IsExpired (bit)
+- IsBooked (bit)
+- BookingReference
+- Source (Mobile App/Website/WhatsApp)
+- Status (Pending/Booked/Expired)
+- BookingRef
+```
+
+#### CustomerVehicles Table:
+```sql
+- CustomerPhone (PK)
+- CustomerName
+- VehicleNumber (PK)
+- VehicleType
+- LastServiceDate
+- TotalQuotations
+```
+
+#### QuotationTemplates Table:
+```sql
+- Id (PK)
+- TemplateName
+- Description
+- Items (JSON)
+- CreatedAt
+```
+
+### Email Setup Guide
+
+#### Gmail Setup:
+1. Go to Google Account → Security
+2. Enable 2-Step Verification
+3. Generate App Password (Mail → Other)
+4. Dashboard → Settings → Email Configuration
+5. Select "Gmail", enter email and app password
+6. Click "Save Configuration"
+7. Click "Test" to verify
+
+#### Zoho Mail Setup:
+1. Login to Zoho Mail
+2. Settings → Security → App Passwords
+3. Generate new password ("Lasantha Tire Bot")
+4. Dashboard → Settings → Email Configuration
+5. Select "Zoho Mail", enter email and app password
+6. Click "Save Configuration"
+7. Click "Test" to verify
+
+### Configuration (.env):
+```env
+# Email Configuration
+EMAIL_PROVIDER=gmail                    # gmail or zoho
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASSWORD=your-app-password        # NOT regular password
+EMAIL_FROM_NAME=Lasantha Tire Service
+
+# Expiry Job
+ENABLE_QUOTATION_EXPIRY_JOB=true       # Enable automatic expiry checking
+```
+
+### Production Readiness
+
+**Status:** 86% Production Ready ✅
+
+**Completed:**
+- ✅ Database schema (19 columns, 3 tables)
+- ✅ 45+ API endpoints
+- ✅ Auto-numbering system
+- ✅ Email service (Gmail/Zoho)
+- ✅ OTP authentication
+- ✅ Customer portal
+- ✅ Analytics dashboard
+- ✅ Template system
+- ✅ Expiry job scheduler
+- ✅ Dashboard UI integration
+
+**Pending:**
+- ⏳ Email credentials configuration (user setup)
+- ⏳ End-to-end testing
+
+**Documentation:**
+- See `PRODUCTION-READINESS-REPORT.md` for detailed status
+- See `EMAIL-EXPIRY-IMPLEMENTATION-COMPLETE.md` for email/expiry features
+
+---
+
 ## 📝 Key Files
 | Path | Description |
 |------|-------------|
-| `index.js` | WhatsApp client + message routing |
+| `index.js` | WhatsApp client + message routing + 45+ API endpoints |
 | `scheduler.js` | Cron + watch interval starter |
 | `lasantha-tire-launcher.ps1` | **System Tray Launcher Script** |
 | `ecosystem.config.js` | PM2 Configuration |
 | `jobs-config.json` | Job configuration settings |
-| `jobs/` | All discrete jobs (pricing, qty, invoices, reports, watch) |
+| `jobs/` | All discrete jobs (pricing, qty, invoices, reports, watch, **expiry**) |
+| **`jobs/QuotationExpiryJob.js`** 🆕 | Automatic quotation expiry checker |
+| **`services/emailService.js`** 🆕 | Email service (Gmail/Zoho SMTP) |
 | `utils/ipcCommandWatcher.js` | Reads dashboard-commands.json and dispatches actions |
 | `utils/jobStatus.js` | File-based status updates |
 | `job-status.json` | Current job status snapshot |
@@ -159,6 +361,10 @@ MONTHLY_SHOW_COST=1              # Monthly cost visibility
 | `watched-item-state.json` | Runtime pattern state (last notified, totals) |
 | `2fa-pending.json` | Pending 2FA codes (auto-expired & rate-limited) |
 | `utils/waClientRegistry.js` | Exposes WhatsApp client to IPC for 2FA send |
+| **`lasantha-tire-v1.0/src/components/mobile/EmailSettings.tsx`** 🆕 | Email configuration UI |
+| **`lasantha-tire-v1.0/src/components/mobile/QuotationView.tsx`** 🆕 | Quotation viewer with share |
+| **`lasantha-tire-v1.0/src/components/mobile/CustomerPortal.tsx`** 🆕 | OTP-secured customer portal |
+| **`lasantha-tire-v1.0/src/components/mobile/AnalyticsDashboard.tsx`** 🆕 | Analytics with charts |
 
 ## Job Status JSON Example
 ```json

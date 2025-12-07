@@ -5,7 +5,7 @@ import { Phone, Mail, Clock, Menu, X, ChevronRight, Calendar } from 'lucide-reac
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import BookingModal from './BookingModal'
+import RoyalBookingModal from './RoyalBookingModal'
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -25,6 +25,7 @@ export default function Header() {
     { name: 'Services', href: '/services' },
     { name: 'Gallery', href: '/gallery' },
     { name: 'Contact', href: '/contact' },
+    { name: 'My Account', href: '/portal' },
   ]
 
   return (
@@ -171,7 +172,7 @@ export default function Header() {
         )}
       </AnimatePresence>
 
-      <BookingModal isOpen={isBookingOpen} onClose={() => setIsBookingOpen(false)} />
+      <RoyalBookingModal isOpen={isBookingOpen} onClose={() => setIsBookingOpen(false)} />
     </>
   )
 }

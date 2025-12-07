@@ -3,10 +3,12 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { checkAuth } from '@/lib/client-auth';
-import { Settings, Database, Key, Facebook, MessageSquare, Image, Store, Globe, Save, RotateCcw, CheckCircle, XCircle, Home, Download, Upload, Eye, EyeOff, Search, Clock, Shield, Lock, History, FileText, Copy, Users, UserPlus, Trash2, Edit } from 'lucide-react';
+import { Settings, Database, Key, Facebook, MessageSquare, Image, Store, Globe, Save, RotateCcw, CheckCircle, XCircle, Home, Download, Upload, Eye, EyeOff, Search, Clock, Shield, Lock, History, FileText, Copy, Users, UserPlus, Trash2, Edit, ScanFace, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import ERPConnectionSettings from '@/components/ERPConnectionSettings';
+import EmailSettings from '@/components/mobile/EmailSettings';
+import { startRegistration } from '@simplewebauthn/browser';
 
 interface SystemConfig {
   [key: string]: string;
@@ -23,7 +25,9 @@ interface User {
 
 const SETTINGS_CATEGORIES = [
   { id: 'users', name: 'User Management', icon: Users, color: 'cyan', description: 'Manage users, passwords and permissions', fields: [] },
+  { id: 'security', name: 'Security & Face ID', icon: ScanFace, color: 'emerald', description: 'Manage Face ID and security keys', fields: [] },
   { id: 'erp-connection', name: 'ERP Connection', icon: Database, color: 'cyan', description: 'Choose between SQL Server or Peachtree connection', fields: [] },
+  { id: 'email-settings', name: 'Email Configuration', icon: MessageSquare, color: 'blue', description: 'Configure email service for quotations', fields: [] },
   { id: 'database', name: 'Database Configuration', icon: Database, color: 'blue', description: 'SQL Server connection and security settings', fields: ['SQL_SERVER', 'SQL_USER', 'SQL_PASSWORD', 'SQL_DATABASE', 'SQL_PORT', 'DB_ENCRYPT', 'DB_TRUST_CERT'] },
   { id: 'bot', name: 'Bot & WhatsApp', icon: MessageSquare, color: 'green', description: 'WhatsApp bot configuration', fields: ['BOT_API_PORT', 'ADMIN_NUMBERS', 'ADMIN_WHATSAPP_NUMBER', 'DAILY_REPORT_NUMBERS', 'ALLOWED_NUMBERS', 'SCHEDULER_ENABLED'] },
   { id: 'ai', name: 'AI & API Keys', icon: Key, color: 'purple', description: 'AI and API credentials', fields: ['ENABLE_AI_COPILOT', 'AI_CONTEXT_MESSAGES', 'ANTHROPIC_API_KEY', 'GEMINI_API_KEY', 'FB_POST_AI_PROVIDER'] },
@@ -370,7 +374,7 @@ export default function AdvancedSettings() {
 
     if (meta.type === 'textarea') {
       return (
-        <div key={field} className={`p-4 rounded-2xl border ${changed ? 'border-amber-500/30 bg-amber-500/10' : 'border-white/10 bg-slate-800/50 shadow-sm'}`}>
+        <div key={field} className={`p-4 rounded-2xl border lg:col-span-2 ${changed ? 'border-amber-500/30 bg-amber-500/10' : 'border-white/10 bg-slate-800/50 shadow-sm'}`}>
           <label className="text-sm font-bold text-white block mb-2">{meta.label}</label>
           <p className="text-xs text-slate-400 mb-3">{meta.description}</p>
           <textarea value={value} onChange={(e) => handleChange(field, e.target.value)} rows={3}
@@ -426,23 +430,27 @@ export default function AdvancedSettings() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 p-4 lg:p-6 pb-28 lg:pb-6">
       <div className="max-w-7xl mx-auto mb-6">
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-4">
-            <div className="w-16 h-16 bg-slate-800/50 rounded-2xl shadow-sm flex items-center justify-center border border-white/10 backdrop-blur-xl">
-              <Shield className="w-8 h-8 text-blue-500" />
+        <Link href="/dashboard/control-panel" className="inline-flex lg:hidden items-center gap-2 text-slate-400 hover:text-white transition-colors bg-slate-800/50 hover:bg-slate-800 px-3 py-2 rounded-lg border border-white/5 hover:border-white/10 mb-4">
+          <ArrowLeft className="w-4 h-4" />
+          <span className="text-sm font-medium">Back</span>
+        </Link>
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-6 gap-4">
+          <div className="flex items-center gap-3 lg:gap-4">
+            <div className="w-12 h-12 lg:w-16 lg:h-16 bg-slate-800/50 rounded-2xl shadow-sm flex items-center justify-center border border-white/10 backdrop-blur-xl">
+              <Shield className="w-6 h-6 lg:w-8 lg:h-8 text-blue-500" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-white mb-1 tracking-tight">
+              <h1 className="text-xl lg:text-3xl font-bold text-white mb-1 tracking-tight">
                 Advanced Settings
               </h1>
-              <p className="text-slate-400 text-sm font-medium">Secure configuration with advanced features</p>
+              <p className="text-slate-400 text-[11px] lg:text-sm font-medium">Secure configuration with advanced features</p>
             </div>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-3">
             {lastSaved && (
-              <div className="flex items-center gap-2 px-4 py-2 bg-slate-800/50 rounded-xl border border-white/10 shadow-sm backdrop-blur-xl">
+              <div className="hidden lg:flex items-center gap-2 px-4 py-2 bg-slate-800/50 rounded-xl border border-white/10 shadow-sm backdrop-blur-xl">
                 <Clock className="w-4 h-4 text-emerald-500" />
                 <span className="text-sm text-slate-300 font-medium">Saved: {format(lastSaved, 'MMM d, HH:mm')}</span>
               </div>
@@ -455,32 +463,36 @@ export default function AdvancedSettings() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
-          <div className="flex items-center gap-3 bg-slate-800/50 border border-white/10 rounded-[2rem] p-4 shadow-sm backdrop-blur-xl">
+          {/* Desktop Action Bar */}
+          <div className="hidden lg:flex items-center gap-3 bg-slate-800/50 border border-white/10 rounded-[2rem] p-4 shadow-sm backdrop-blur-xl overflow-x-auto">
             <button onClick={saveConfig} disabled={saving || changedFields.size === 0}
-              className="flex items-center gap-2 px-6 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400/50 disabled:cursor-not-allowed text-white rounded-xl font-bold shadow-lg shadow-blue-600/20 transition-all text-sm">
+              className="flex-shrink-0 flex items-center gap-2 px-6 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400/50 disabled:cursor-not-allowed text-white rounded-xl font-bold shadow-lg shadow-blue-600/20 transition-all text-sm">
               <Save className="w-4 h-4" />
               {saving ? 'Saving...' : changedFields.size > 0 ? `Save (${changedFields.size})` : 'Save Changes'}
             </button>
-            <button onClick={resetDefaults} className="flex items-center gap-2 px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-xl font-medium transition-colors text-sm">
+            <button onClick={resetDefaults} className="flex-shrink-0 flex items-center gap-2 px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-xl font-medium transition-colors text-sm">
               <RotateCcw className="w-4 h-4" />
               Reset
             </button>
           </div>
 
-          <div className="flex items-center gap-3 bg-slate-800/50 border border-white/10 rounded-[2rem] p-4 shadow-sm backdrop-blur-xl">
-            <button onClick={exportConfig} className="flex items-center gap-2 px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-xl font-medium shadow-lg shadow-violet-600/20 transition-all text-sm">
-              <Download className="w-4 h-4" />
-              Export
-            </button>
-            <label className="flex items-center gap-2 px-4 py-2 bg-fuchsia-600 hover:bg-fuchsia-700 text-white rounded-xl cursor-pointer font-medium shadow-lg shadow-fuchsia-600/20 transition-all text-sm">
-              <Upload className="w-4 h-4" />
-              Import
-              <input type="file" accept=".json" onChange={importConfig} className="hidden" />
-            </label>
-            <div className="flex-1 relative">
+          {/* Mobile Search & Actions */}
+          <div className="flex items-center gap-3 bg-slate-800/50 border border-white/10 rounded-[2rem] p-3 lg:p-4 shadow-sm backdrop-blur-xl overflow-x-auto">
+            <div className="hidden lg:flex items-center gap-3">
+              <button onClick={exportConfig} className="flex-shrink-0 flex items-center gap-2 px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-xl font-medium shadow-lg shadow-violet-600/20 transition-all text-sm">
+                <Download className="w-4 h-4" />
+                Export
+              </button>
+              <label className="flex-shrink-0 flex items-center gap-2 px-4 py-2 bg-fuchsia-600 hover:bg-fuchsia-700 text-white rounded-xl cursor-pointer font-medium shadow-lg shadow-fuchsia-600/20 transition-all text-sm">
+                <Upload className="w-4 h-4" />
+                Import
+                <input type="file" accept=".json" onChange={importConfig} className="hidden" />
+              </label>
+            </div>
+            <div className="flex-1 relative min-w-[200px] lg:min-w-[150px]">
               <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
               <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search settings..." className="w-full pl-10 pr-4 py-2 bg-slate-900/50 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all placeholder-slate-500" />
+                placeholder="Search settings..." className="w-full pl-10 pr-4 py-2.5 lg:py-2 bg-slate-900/50 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all placeholder-slate-500" />
             </div>
           </div>
         </div>
@@ -498,29 +510,29 @@ export default function AdvancedSettings() {
         )}
       </div>
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-6">
-        <div className="lg:col-span-1">
-          <div className="bg-slate-800/50 border border-white/10 rounded-[2rem] p-6 sticky top-6 shadow-xl backdrop-blur-xl">
-            <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-              <FileText className="w-5 h-5 text-blue-500" />
+      <div className="max-w-7xl mx-auto flex flex-col lg:grid lg:grid-cols-4 gap-6">
+        <div className="lg:col-span-1 flex justify-center lg:block">
+          <div className="bg-slate-800/50 border border-white/10 rounded-[2rem] p-4 lg:p-6 lg:sticky lg:top-6 shadow-xl backdrop-blur-xl w-full max-w-[380px] lg:max-w-none">
+            <h3 className="text-base lg:text-lg font-bold text-white mb-3 lg:mb-4 flex items-center gap-2 px-2">
+              <FileText className="w-4 h-4 lg:w-5 lg:h-5 text-blue-500" />
               Categories
             </h3>
-            <div className="space-y-2">
+            <div className="grid grid-cols-1 lg:flex lg:flex-col gap-2">
               {SETTINGS_CATEGORIES.map((cat) => {
                 const Icon = cat.icon;
                 const active = activeCategory === cat.id;
                 const changed = cat.fields.filter(f => changedFields.has(f)).length;
                 return (
                   <button key={cat.id} onClick={() => setActiveCategory(cat.id)}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
+                    className={`w-full max-w-[360px] lg:max-w-none mx-auto flex flex-row lg:flex-row items-center lg:items-center gap-3 lg:gap-3 px-4 py-3 lg:px-4 lg:py-3 rounded-xl transition-all ${
                       active ? 'bg-slate-700/50 text-white font-bold shadow-sm border border-white/5' : 'text-slate-400 hover:bg-slate-800/50 hover:text-slate-200'
                     }`}>
-                    <div className={`w-8 h-8 ${active ? 'bg-slate-600' : 'bg-slate-800'} rounded-lg flex items-center justify-center transition-colors`}>
-                      <Icon className={`w-4 h-4 ${active ? 'text-blue-400' : 'text-slate-500'}`} />
+                    <div className={`w-7 h-7 lg:w-8 lg:h-8 flex-shrink-0 ${active ? 'bg-slate-600' : 'bg-slate-800'} rounded-lg flex items-center justify-center transition-colors`}>
+                      <Icon className={`w-3.5 h-3.5 lg:w-4 lg:h-4 ${active ? 'text-blue-400' : 'text-slate-500'}`} />
                     </div>
                     <div className="flex-1 text-left">
-                      <span className="text-sm block">{cat.name}</span>
-                      {changed > 0 && <span className="text-[10px] font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-full mt-1 inline-block border border-amber-500/20">{changed} changed</span>}
+                      <span className="text-xs lg:text-sm block leading-tight">{cat.name}</span>
+                      {changed > 0 && <span className="text-[9px] lg:text-[10px] font-bold text-amber-400 bg-amber-500/10 px-1.5 lg:px-2 py-0.5 rounded-full mt-0.5 inline-block border border-amber-500/20">{changed}</span>}
                     </div>
                   </button>
                 );
@@ -530,19 +542,19 @@ export default function AdvancedSettings() {
         </div>
 
         <div className="lg:col-span-3">
-          <div className="bg-slate-800/50 border border-white/10 rounded-[2rem] p-8 shadow-xl backdrop-blur-xl">
+          <div className="bg-slate-800/50 border border-white/10 rounded-[2rem] p-4 lg:p-8 shadow-xl backdrop-blur-xl pb-24 lg:pb-8">
             {SETTINGS_CATEGORIES.filter(c => c.id === activeCategory).map(cat => {
               const Icon = cat.icon;
               const fields = filterFields(cat.fields);
               return (
                 <div key={cat.id}>
-                  <div className="flex items-center gap-4 mb-8 pb-6 border-b border-white/10">
-                    <div className={`w-16 h-16 ${getColor(cat.color)} rounded-2xl flex items-center justify-center border border-white/5`}>
-                      <Icon className={`w-8 h-8 ${getTextColor(cat.color)}`} />
+                  <div className="flex items-center gap-4 mb-6 lg:mb-8 pb-6 border-b border-white/10">
+                    <div className={`w-12 h-12 lg:w-16 lg:h-16 ${getColor(cat.color)} rounded-2xl flex items-center justify-center border border-white/5`}>
+                      <Icon className={`w-6 h-6 lg:w-8 lg:h-8 ${getTextColor(cat.color)}`} />
                     </div>
                     <div className="flex-1">
-                      <h2 className="text-2xl font-bold text-white">{cat.name}</h2>
-                      <p className="text-sm text-slate-400 font-medium mt-1">{cat.description}</p>
+                      <h2 className="text-xl lg:text-2xl font-bold text-white">{cat.name}</h2>
+                      <p className="text-xs lg:text-sm text-slate-400 font-medium mt-1">{cat.description}</p>
                     </div>
                   </div>
                   
@@ -611,15 +623,82 @@ export default function AdvancedSettings() {
                         )}
                       </div>
                     </div>
+                  ) : cat.id === 'security' ? (
+                    <div className="space-y-6">
+                      <div className="bg-slate-800/50 border border-white/10 rounded-2xl p-4 lg:p-6">
+                        <h3 className="text-lg font-bold text-white mb-4">Face ID & Touch ID</h3>
+                        <p className="text-slate-400 mb-6 text-sm lg:text-base">
+                          Register your device to log in securely without a password using Face ID, Touch ID, or Windows Hello.
+                        </p>
+                        
+                        <button
+                          onClick={async () => {
+                            try {
+                              // 1. Get options from server
+                              const sessionId = sessionStorage.getItem('sessionId') || localStorage.getItem('sessionId');
+                              if (!sessionId) {
+                                alert('Session expired. Please login again.');
+                                return;
+                              }
+
+                              const resp = await fetch('/api/auth/webauthn/register/generate-options', {
+                                headers: { 'x-session-id': sessionId }
+                              });
+                              
+                              if (!resp.ok) {
+                                const err = await resp.json();
+                                throw new Error(err.error || 'Failed to get registration options');
+                              }
+
+                              const options = await resp.json();
+                              
+                              // 2. Pass options to browser authenticator
+                              const attResp = await startRegistration(options);
+                              
+                              // 3. Verify response with server
+                              const verificationResp = await fetch('/api/auth/webauthn/register/verify', {
+                                method: 'POST',
+                                headers: { 
+                                  'Content-Type': 'application/json',
+                                  'x-session-id': sessionId
+                                },
+                                body: JSON.stringify(attResp),
+                              });
+                              
+                              const verificationJSON = await verificationResp.json();
+                              
+                              if (verificationJSON && verificationJSON.verified) {
+                                alert('Device registered successfully!');
+                              } else {
+                                alert('Registration failed: ' + (verificationJSON.error || 'Unknown error'));
+                              }
+                            } catch (error: any) {
+                              console.error(error);
+                              if (error.name === 'NotAllowedError') {
+                                alert('Registration cancelled or not allowed. \n\nIMPORTANT: If you are opening this link from inside an app (like WhatsApp or Facebook), Face ID will NOT work. \n\nPlease open this page in Safari or Chrome.');
+                              } else {
+                                alert('Registration failed: ' + error.message);
+                              }
+                            }
+                          }}
+                          className="flex items-center gap-3 px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold shadow-lg shadow-emerald-600/20 transition-all"
+                        >
+                          <ScanFace className="w-5 h-5" />
+                          Register New Device
+                        </button>
+                      </div>
+                    </div>
                   ) : cat.id === 'erp-connection' ? (
                     <ERPConnectionSettings />
+                  ) : cat.id === 'email-settings' ? (
+                    <EmailSettings />
                   ) : fields.length === 0 ? (
                     <div className="text-center py-12 text-slate-500">
                       <Search className="w-12 h-12 mx-auto mb-3 opacity-50" />
                       <p className="font-medium">No matching settings</p>
                     </div>
                   ) : (
-                    <div className="grid grid-cols-1 gap-4">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                       {fields.map(f => renderField(f))}
                     </div>
                   )}
@@ -751,6 +830,19 @@ export default function AdvancedSettings() {
           </div>
         </div>
       )}
+      {/* Mobile Bottom Action Bar */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 p-4 bg-slate-900/90 backdrop-blur-xl border-t border-white/10 z-40 flex items-center gap-3 pb-safe">
+        <button onClick={saveConfig} disabled={saving || changedFields.size === 0}
+          className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-800 disabled:text-slate-500 disabled:cursor-not-allowed text-white rounded-xl font-bold shadow-lg shadow-blue-600/20 transition-all text-sm">
+          <Save className="w-4 h-4" />
+          {saving ? 'Saving...' : changedFields.size > 0 ? `Save (${changedFields.size})` : 'Save Changes'}
+        </button>
+        {changedFields.size > 0 && (
+          <button onClick={resetDefaults} className="flex-shrink-0 flex items-center justify-center w-12 h-12 bg-slate-800 text-slate-300 rounded-xl border border-white/10">
+            <RotateCcw className="w-5 h-5" />
+          </button>
+        )}
+      </div>
     </div>
   );
 }
