@@ -9,6 +9,7 @@ import {
 import { exportQuotationPDF } from '@/utils/pdfExports';
 import NumericKeypad from './NumericKeypad';
 import { useToast } from '@/contexts/ToastContext';
+import { authenticatedFetch } from '@/lib/client-auth';
 
 interface QuotationItem {
   ItemId: string;
@@ -198,7 +199,7 @@ export default function QuotationView() {
     setLoading(true);
     try {
         // Fetch the specific service item to get its latest price from DB
-        const res = await fetch(`/api/erp/inventory?type=services&itemId=${itemId}`);
+        const res = await authenticatedFetch(`/api/erp/inventory?type=services&itemId=${itemId}`);
         const data = await res.json();
         
         if (data.success && data.data && data.data.length > 0) {
@@ -216,7 +217,7 @@ export default function QuotationView() {
   // Fetch Service Categories
   const fetchServiceCategories = async () => {
       try {
-          const res = await fetch('/api/erp/inventory?type=service_categories');
+          const res = await authenticatedFetch('/api/erp/inventory?type=service_categories');
           const data = await res.json();
           if (data.success) {
               setServiceCategories(data.data);
@@ -236,7 +237,7 @@ export default function QuotationView() {
           if (category) url += `&category=${encodeURIComponent(category)}`;
           if (query) url += `&query=${encodeURIComponent(query)}`;
           
-          const res = await fetch(url);
+          const res = await authenticatedFetch(url);
           const data = await res.json();
           if (data.success) {
               setServiceResults(data.data);
@@ -292,17 +293,30 @@ export default function QuotationView() {
 
   // Search Items
   const searchItems = async (size: string) => {
+    console.log('Searching for:', size);
     if (!size) return;
     setLoading(true);
     setSelectedPopupItems(new Set()); // Clear selection on new search
     try {
-      const res = await fetch(`/api/erp/inventory?type=search&query=${encodeURIComponent(size)}`);
+      console.log('Calling API...');
+      const res = await authenticatedFetch(`/api/erp/inventory?type=search&query=${encodeURIComponent(size)}`);
+      console.log('API Response Status:', res.status);
+      
       const data = await res.json();
+      console.log('API Data:', data);
+
       if (data.data) {
-        setSearchResults(data.data);
-        setShowItemSelectPopup(true);
+        if (data.data.length === 0) {
+            showToast('error', 'No items found');
+        } else {
+            setSearchResults(data.data);
+            setShowItemSelectPopup(true);
+        }
+      } else {
+        showToast('error', 'Invalid response from server');
       }
     } catch (error) {
+      console.error('Search Error:', error);
       showToast('error', 'Failed to search items');
     } finally {
       setLoading(false);
@@ -502,7 +516,7 @@ export default function QuotationView() {
   };
 
   // Generate PDF
-  const handleGeneratePDF = () => {
+  const handleGeneratePDF = async () => {
     if (items.length === 0) {
       showToast('error', 'Add items to generate quotation');
       return;
@@ -516,8 +530,83 @@ export default function QuotationView() {
       quotationNo: `QT-${Date.now().toString().slice(-6)}`
     };
 
+    // 1. Generate PDF
     exportQuotationPDF(quotationDetails, items);
     showToast('success', 'Quotation PDF generated');
+
+    // 2. Save to Database & Get Short Link
+    try {
+        const response = await authenticatedFetch('/api/quotations/create-link', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                items: items.map(i => ({
+                    description: i.Description,
+                    brand: i.Brand,
+                    size: i.Size,
+                    price: i.UnitPrice,
+                    quantity: i.Quantity,
+                    category: i.Category // Pass category to help with logic
+                })),
+                customerName,
+                customerPhone: '' 
+            })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            const refId = data.refId;
+            
+            // 3. Prepare WhatsApp Message with Smart Logic
+            // Logic: Show Total if (Tyre Count <= 1) OR (Only Services)
+            // Tyre Count = Items that are NOT services (assuming Category or ID check)
+            // For simplicity, let's assume if Brand is present, it's a product. Services usually have empty Brand or specific category.
+            
+            const tyreItems = items.filter(i => i.Brand && i.Brand !== 'SERVICE'); // Adjust filter based on your data
+            const serviceItems = items.filter(i => !i.Brand || i.Brand === 'SERVICE');
+            
+            const showTotal = tyreItems.length <= 1;
+            const totalAmount = items.reduce((sum, item) => sum + (item.Quantity * item.UnitPrice), 0);
+
+            let message = `*Lasantha Tyre Traders - Quotation*\n\n`;
+            
+            // Add Items
+            message += items.map(i => {
+                let line = `🛠️ ${i.Description}`;
+                if (i.Brand) line += `\n🏷️ ${i.Brand}`;
+                line += `\n💰 Rs. ${i.UnitPrice.toLocaleString()}/=`;
+                if (i.Quantity > 1) line += `\nQty: ${i.Quantity} | Total: Rs. ${(i.Quantity * i.UnitPrice).toLocaleString()}`;
+                return line;
+            }).join('\n\n');
+
+            // Add Grand Total if applicable
+            if (showTotal) {
+                message += `\n\n------------------------\n*Total: Rs. ${totalAmount.toLocaleString()}*`;
+            }
+
+            // Add Smart Link
+            message += `\n\n📅 *Book your appointment now:*\nhttps://lasanthatyre.com/book?ref=${refId}\n\nRef: #${refId}`;
+
+            // Copy to clipboard or open WhatsApp
+            if (navigator.share) {
+                await navigator.share({
+                    title: 'Quotation',
+                    text: message
+                });
+            } else {
+                // Fallback for desktop
+                await navigator.clipboard.writeText(message);
+                showToast('success', 'Message copied to clipboard!');
+                window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
+            }
+        }
+    } catch (error) {
+        console.error('Error creating smart link:', error);
+        // Fallback: Just share without link if API fails
+        const message = `*Lasantha Tyre Traders - Quotation*\n\n` +
+            items.map(i => `🛠️ ${i.Description}\n🏷️ ${i.Brand}\n💰 Rs. ${i.UnitPrice.toLocaleString()}/=`).join('\n\n');
+        window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
+    }
   };
 
   const totalAmount = items.reduce((sum, item) => sum + (item.Quantity * item.UnitPrice), 0);
