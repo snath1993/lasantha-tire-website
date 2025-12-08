@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { 
   Calendar, X, User, Phone, CheckCircle2, XCircle, Loader2, 
   Package, Crown, Clock, Car, Sparkles, ChevronRight, 
-  Shield, Star, MapPin, MessageSquare, Check, ArrowLeft
+  Shield, Star, MapPin, MessageSquare, Check, ArrowLeft, ShieldCheck
 } from 'lucide-react'
 
 interface QuotationItem {
