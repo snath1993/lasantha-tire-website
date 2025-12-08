@@ -4,9 +4,10 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, Lock, ArrowRight, Loader2, ShieldCheck, Car, FileText, Calendar, Clock, CheckCircle, XCircle, LogOut, History, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
+import { getBotApiUrl } from '@/utils/getBotApiUrl';
 
 // Bot API URL - Use environment variable or default to localhost
-const BOT_API_URL = process.env.NEXT_PUBLIC_BOT_API_URL || 'http://localhost:8585';
+const BOT_API_URL = getBotApiUrl();
 
 interface Quotation {
   QuotationNumber: string;
