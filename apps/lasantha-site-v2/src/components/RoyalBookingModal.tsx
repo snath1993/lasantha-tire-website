@@ -74,7 +74,9 @@ const services = [
   { id: 'suspension', name: 'Suspension Checkup', icon: '🔍', time: '30 min' }
 ]
 
-const BOT_API_URL = process.env.NEXT_PUBLIC_BOT_API_URL || 'http://localhost:8585'
+// Hardcoded for production debugging
+const BOT_API_URL = 'https://bot.lasanthatyre.com'
+// const BOT_API_URL = process.env.NEXT_PUBLIC_BOT_API_URL || 'http://localhost:8585'
 
 export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBookingModalProps) {
   const [step, setStep] = useState(1)
