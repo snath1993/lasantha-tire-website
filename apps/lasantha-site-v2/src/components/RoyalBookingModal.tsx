@@ -7,6 +7,7 @@ import {
   Package, Crown, Clock, Car, Sparkles, ChevronRight, 
   Shield, Star, MapPin, MessageSquare, Check, ArrowLeft, ShieldCheck
 } from 'lucide-react'
+import { getBotApiUrl } from '@/utils/getBotApiUrl'
 
 interface QuotationItem {
   itemId: string
@@ -74,9 +75,7 @@ const services = [
   { id: 'suspension', name: 'Suspension Checkup', icon: '🔍', time: '30 min' }
 ]
 
-// Hardcoded for production debugging
-const BOT_API_URL = 'https://bot.lasanthatyre.com'
-// const BOT_API_URL = process.env.NEXT_PUBLIC_BOT_API_URL || 'http://localhost:8585'
+const BOT_API_URL = getBotApiUrl()
 
 export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBookingModalProps) {
   const [step, setStep] = useState(1)
