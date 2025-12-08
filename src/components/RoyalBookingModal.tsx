@@ -134,8 +134,17 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
   const fetchQuotation = async (code: string) => {
     setLoadingQuotation(true)
     try {
+      console.log(`[RoyalBooking] Fetching quotation: ${BOT_API_URL}/api/quotations/${code}`)
       const response = await fetch(`${BOT_API_URL}/api/quotations/${code}`)
+      
+      console.log(`[RoyalBooking] Response status: ${response.status}`)
+      
+      if (!response.ok) {
+        throw new Error(`API returned ${response.status}: ${response.statusText}`)
+      }
+      
       const data = await response.json()
+      console.log('[RoyalBooking] API Response:', data)
       
       if (data.ok && data.quotation) {
         setQuotation(data.quotation)
@@ -148,9 +157,19 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
         if (data.quotation.Items && Array.isArray(data.quotation.Items)) {
           setSelectedQuotationItems(data.quotation.Items.map((_: QuotationItem, i: number) => String(i)))
         }
+      } else {
+        console.error('[RoyalBooking] Invalid response structure:', data)
+        setNotification({
+          type: 'error',
+          message: data.error || 'Failed to load quotation details. Please fill manually.'
+        })
       }
-    } catch (error) {
-      console.error('Failed to fetch quotation:', error)
+    } catch (error: any) {
+      console.error('[RoyalBooking] Fetch error:', error)
+      setNotification({
+        type: 'error',
+        message: `Failed to load quotation: ${error.message || 'Network error'}`
+      })
     } finally {
       setLoadingQuotation(false)
     }
