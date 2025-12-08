@@ -940,6 +940,21 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
               </div>
             )}
           </motion.div>
+
+          {/* Footer - Debug Info */}
+          <div className="p-4 border-t border-slate-700/50 bg-slate-900/50 rounded-b-2xl">
+            <div className="flex justify-between items-center text-xs text-slate-500">
+              <div className="flex items-center gap-1">
+                <ShieldCheck className="w-3 h-3" />
+                <span>Protected by Royal Security</span>
+              </div>
+              <div className="flex gap-2 opacity-50 hover:opacity-100 transition-opacity">
+                <span>v2.2</span>
+                <span title={BOT_API_URL}>{BOT_API_URL.includes('localhost') ? '⚠️ Local' : '✅ Prod'}</span>
+              </div>
+            </div>
+          </div>
+
         </motion.div>
       )}
     </AnimatePresence>
