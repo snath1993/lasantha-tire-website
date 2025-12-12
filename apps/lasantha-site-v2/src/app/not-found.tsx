@@ -69,13 +69,13 @@ export default function NotFound() {
           transition={{ delay: 0.6 }}
           className="mt-12"
         >
-          <Link
-            href="javascript:history.back()"
-            className="text-gray-400 hover:text-white transition-colors inline-flex items-center gap-2"
+          <button
+            onClick={() => window.history.back()}
+            className="text-gray-400 hover:text-white transition-colors inline-flex items-center gap-2 cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4" />
             Go back to previous page
-          </Link>
+          </button>
         </motion.div>
       </motion.div>
     </div>
