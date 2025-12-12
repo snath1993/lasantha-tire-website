@@ -51,11 +51,13 @@ async function initAiPool() {
     } catch (error) {
         console.error('[AI DB] ❌ Failed to connect:', error.message);
         // Return a mock pool that doesn't crash the app
+        const mockRequest = () => ({
+            input: function() { return this; },
+            query: async () => ({ recordset: [] })
+        });
         return {
-            request: () => ({
-                input: () => ({ query: async () => ({ recordset: [] }) }),
-                query: async () => ({ recordset: [] })
-            })
+            request: mockRequest,
+            query: async () => ({ recordset: [] })
         };
     }
 }
@@ -63,7 +65,13 @@ async function initAiPool() {
 // Initialize on require
 initAiPool();
 
+// Fallback mock for exports
+const mockRequest = () => ({
+    input: function() { return this; },
+    query: async () => ({ recordset: [] })
+});
+
 module.exports = {
-    aiPool: aiPool || { request: () => ({ input: () => ({ query: async () => ({ recordset: [] }) }) }) },
+    aiPool: aiPool || { request: mockRequest, query: async () => ({ recordset: [] }) },
     aiPoolConnect: aiPoolConnect || Promise.resolve()
 };

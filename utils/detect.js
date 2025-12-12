@@ -12,8 +12,7 @@ function extractTyreSizeFlexible(text) {
     
     // Common tyre size patterns: 195/65R15, 195/65/15, 195-65-15, etc.
     const patterns = [
-        /(\d{3})[\s\/\-](\d{2})[\s\/\-]?[rR]?[\s\/\-]?(\d{2})/,  // 195/65R15 or 195/65/15
-        /(\d{3})[\s\/\-](\d{2})[\s\/\-](\d{2})/,                   // 195-65-15
+        /(\d{3})[\s\/\-](\d{2})[\s\/\-]?[rR]?[\s\/\-]?(\d{2})/,  // 195/65R15, 195/65/15, 195-65-15
     ];
     
     for (const pattern of patterns) {
@@ -63,7 +62,7 @@ function extractRequestedQty(text, tyreSize) {
     const qtyPatterns = [
         /(\d+)\s*(pcs|pieces|tyres?|tires?|units?)/i,  // "4 tyres"
         /need\s+(\d+)/i,                                  // "need 4"
-        /(\d+)\s*ක/,                                      // "4 ක" (Sinhala)
+        /(\d+)\s*ක/i,                                     // "4 ක" (Sinhala)
     ];
     
     for (const pattern of qtyPatterns) {
