@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 export async function GET(
-  request: Request,
+  _request: Request,
   { params }: { params: Promise<{ refId: string }> }
 ) {
   const { refId } = await params;

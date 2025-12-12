@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, Lock, ArrowRight, Loader2, ShieldCheck, Car, FileText, Calendar, Clock, CheckCircle, XCircle, LogOut, History, AlertCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Phone, Lock, ArrowRight, Loader2, ShieldCheck, Car, FileText, Calendar, LogOut, History, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 import { getBotApiUrl } from '@/utils/getBotApiUrl';
 
@@ -34,7 +34,7 @@ export default function CustomerPortal() {
   const [step, setStep] = useState<'phone' | 'otp' | 'dashboard'>('phone');
   const [phone, setPhone] = useState('');
   const [otp, setOtp] = useState('');
-  const [sessionToken, setSessionToken] = useState('');
+  const [_sessionToken, setSessionToken] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 

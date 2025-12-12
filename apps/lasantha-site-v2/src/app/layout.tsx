@@ -23,6 +23,15 @@ export const metadata: Metadata = {
   },
   description: 'Get instant tyre prices via WhatsApp. Sri Lanka\'s trusted tyre center offering premium brands, expert installation, wheel alignment, and comprehensive tyre services.',
   keywords: ['tyres sri lanka', 'tyre prices sri lanka', 'wheel alignment colombo', 'tyre shop near me', 'Lasantha Tyre Traders', 'car tyres', 'van tyres', 'suv tyres', 'tyre replacement', 'wheel balancing'],
+  authors: [{ name: 'Lasantha Tyre Traders' }],
+  creator: 'Lasantha Tyre Traders',
+  publisher: 'Lasantha Tyre Traders',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  manifest: '/manifest.json',
   alternates: {
     canonical: '/',
     languages: {
@@ -37,7 +46,7 @@ export const metadata: Metadata = {
     siteName: 'Lasantha Tyre Traders',
     images: [
       {
-        url: '/images/lasantha-logo.png', // Using logo as fallback
+        url: '/images/lasantha-logo.png',
         width: 1200,
         height: 630,
         alt: 'Lasantha Tyre Traders',
@@ -45,6 +54,12 @@ export const metadata: Metadata = {
     ],
     locale: 'en_US',
     type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Lasantha Tyre Traders | Best Tyre Prices in Sri Lanka',
+    description: 'Get instant tyre prices via WhatsApp. Premium brands, expert service.',
+    images: ['/images/lasantha-logo.png'],
   },
   robots: {
     index: true,
@@ -58,7 +73,12 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'your-google-verification-code', // User needs to add this
+    google: 'your-google-verification-code',
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'Lasantha Tyre',
   },
 }
 
@@ -109,12 +129,17 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <meta name="theme-color" content="#dc2626" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${inter.className} ${notoSansSinhala.variable}`} suppressHydrationWarning>{children}</body>
+      <body className={`${inter.className} ${notoSansSinhala.variable}`} suppressHydrationWarning>
+        {children}
+      </body>
     </html>
   )
 }

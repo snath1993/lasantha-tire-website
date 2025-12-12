@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Calculator, Info, X, RotateCcw } from 'lucide-react'
+import TyreDiagram from './TyreDiagram'
 
 interface CalculatorModalProps {
   isOpen: boolean
@@ -245,19 +246,110 @@ export default function CalculatorModal({ isOpen, onClose }: CalculatorModalProp
                     </div>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-4 text-sm">
-                    <div className="border border-gray-200 rounded-lg p-4">
-                      <h4 className="font-bold text-gray-900 mb-3">Original: {size1}</h4>
-                      <div className="space-y-2 text-gray-600">
-                        <div className="flex justify-between"><span>Diameter:</span> <span className="font-medium text-gray-900">{result.size1?.diameter} mm</span></div>
-                        <div className="flex justify-between"><span>Sidewall:</span> <span className="font-medium text-gray-900">{result.size1?.sidewall} mm</span></div>
+                  {/* Detailed Visual Analysis with Tyre Diagrams */}
+                  <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-6 border border-gray-200">
+                    <h3 className="font-bold text-gray-900 mb-6 text-center text-lg">
+                      📊 Detailed Analysis with Visual Representation
+                    </h3>
+                    
+                    <div className="grid md:grid-cols-2 gap-8">
+                      {/* Original Tyre Diagram */}
+                      <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+                        <h4 className="font-bold text-gray-900 mb-4 text-center">Original: {size1}</h4>
+                        
+                        {/* SVG Tyre Cross Section */}
+                        <div className="mb-6 flex justify-center">
+                          <TyreDiagram
+                            width={parseTyreSize(size1)?.width || 0}
+                            aspectRatio={parseTyreSize(size1)?.aspectRatio || 0}
+                            rimDiameter={parseTyreSize(size1)?.rimDiameter || 0}
+                            sidewall={result.size1?.sidewall || 0}
+                            patternId="treadPattern1"
+                          />
+                        </div>
+                        
+                        {/* Specs Table */}
+                        <div className="space-y-2 text-sm">
+                          <div className="flex justify-between items-center p-2 bg-red-50 rounded">
+                            <span className="text-gray-600">Width:</span>
+                            <span className="font-bold text-red-700">{parseTyreSize(size1)?.width} mm</span>
+                          </div>
+                          <div className="flex justify-between items-center p-2 bg-blue-50 rounded">
+                            <span className="text-gray-600">Aspect Ratio:</span>
+                            <span className="font-bold text-blue-700">{parseTyreSize(size1)?.aspectRatio}%</span>
+                          </div>
+                          <div className="flex justify-between items-center p-2 bg-green-50 rounded">
+                            <span className="text-gray-600">Rim Diameter:</span>
+                            <span className="font-bold text-green-700">{parseTyreSize(size1)?.rimDiameter}"</span>
+                          </div>
+                          <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
+                            <span className="text-gray-600">Sidewall Height:</span>
+                            <span className="font-bold text-gray-900">{result.size1?.sidewall} mm</span>
+                          </div>
+                          <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
+                            <span className="text-gray-600">Overall Diameter:</span>
+                            <span className="font-bold text-gray-900">{result.size1?.diameter} mm</span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* New Tyre Diagram */}
+                      <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+                        <h4 className="font-bold text-gray-900 mb-4 text-center">New: {size2}</h4>
+                        
+                        {/* SVG Tyre Cross Section */}
+                        <div className="mb-6 flex justify-center">
+                          <TyreDiagram
+                            width={parseTyreSize(size2)?.width || 0}
+                            aspectRatio={parseTyreSize(size2)?.aspectRatio || 0}
+                            rimDiameter={parseTyreSize(size2)?.rimDiameter || 0}
+                            sidewall={result.size2?.sidewall || 0}
+                            patternId="treadPattern2"
+                          />
+                        </div>
+                        
+                        {/* Specs Table */}
+                        <div className="space-y-2 text-sm">
+                          <div className="flex justify-between items-center p-2 bg-red-50 rounded">
+                            <span className="text-gray-600">Width:</span>
+                            <span className="font-bold text-red-700">{parseTyreSize(size2)?.width} mm</span>
+                          </div>
+                          <div className="flex justify-between items-center p-2 bg-blue-50 rounded">
+                            <span className="text-gray-600">Aspect Ratio:</span>
+                            <span className="font-bold text-blue-700">{parseTyreSize(size2)?.aspectRatio}%</span>
+                          </div>
+                          <div className="flex justify-between items-center p-2 bg-green-50 rounded">
+                            <span className="text-gray-600">Rim Diameter:</span>
+                            <span className="font-bold text-green-700">{parseTyreSize(size2)?.rimDiameter}"</span>
+                          </div>
+                          <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
+                            <span className="text-gray-600">Sidewall Height:</span>
+                            <span className="font-bold text-gray-900">{result.size2?.sidewall} mm</span>
+                          </div>
+                          <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
+                            <span className="text-gray-600">Overall Diameter:</span>
+                            <span className="font-bold text-gray-900">{result.size2?.diameter} mm</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div className="border border-gray-200 rounded-lg p-4">
-                      <h4 className="font-bold text-gray-900 mb-3">New: {size2}</h4>
-                      <div className="space-y-2 text-gray-600">
-                        <div className="flex justify-between"><span>Diameter:</span> <span className="font-medium text-gray-900">{result.size2?.diameter} mm</span></div>
-                        <div className="flex justify-between"><span>Sidewall:</span> <span className="font-medium text-gray-900">{result.size2?.sidewall} mm</span></div>
+                    
+                    {/* Legend */}
+                    <div className="mt-6 pt-4 border-t border-gray-300">
+                      <p className="text-sm text-gray-600 text-center mb-3 font-semibold">Measurement Guide:</p>
+                      <div className="flex flex-wrap justify-center gap-4 text-xs">
+                        <div className="flex items-center gap-2">
+                          <div className="w-4 h-1 bg-red-600"></div>
+                          <span className="text-gray-700">Width (Section Width)</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-4 h-1 bg-blue-600"></div>
+                          <span className="text-gray-700">Sidewall Height</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-4 h-1 bg-green-600"></div>
+                          <span className="text-gray-700">Rim Diameter</span>
+                        </div>
                       </div>
                     </div>
                   </div>
