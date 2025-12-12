@@ -3924,10 +3924,12 @@ ${dest}\n\n${caption}`);
         }
 
         // --- Intelligent Triage ---
-        if (AI_ENABLED && !isSimpleRequest(text)) {
-        // --- Complex Request: AI Workflow ---
+        // ✅ FIX: Handle ALL requests with AI when enabled (both simple and complex)
+        if (AI_ENABLED) {
+        // --- AI Workflow (handles both simple and complex requests) ---
         try {
-            logAndSave(`[AI] Complex request from ${senderNumber}. Starting AI workflow.`);
+            const requestType = isSimpleRequest(text) ? 'Simple' : 'Complex';
+            logAndSave(`[AI] ${requestType} request from ${senderNumber}. Starting AI workflow.`);
 
             // Check for known query (skip for now - feature coming soon)
             let analysis = null;
@@ -4149,8 +4151,8 @@ ${dest}\n\n${caption}`);
         }
         }
 
-        // --- Simple Request or AI Disabled: Legacy Workflow ---
-        logAndSave(`[Legacy] Simple request from ${senderNumber}. Using legacy jobs.`);
+        // --- AI Disabled: Legacy Workflow ---
+        logAndSave(`[Legacy] AI disabled. Using legacy jobs for ${senderNumber}.`);
         
         // If message is ONLY a vehicle number, trigger combined invoice job
         const vehicleNumber = extractVehicleNumber(text);
