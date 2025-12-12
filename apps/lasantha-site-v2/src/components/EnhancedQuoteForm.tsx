@@ -19,16 +19,10 @@ const quoteFormSchema = z.object({
       /^\d{3}\/\d{2}[A-Z]?\d{2}$/,
       'Invalid tire size format (e.g., 195/65R15)'
     ),
-  quantity: z
-    .string()
-    .optional()
-    .transform((val) => (val ? parseInt(val) : undefined))
-    .refine((val) => !val || (val >= 1 && val <= 10), 'Quantity must be between 1 and 10'),
+  quantity: z.string().optional(),
   includeVehicle: z.boolean().default(false),
   vehicle: z.string().max(100).optional(),
 })
-
-type QuoteFormData = z.infer<typeof quoteFormSchema>
 
 interface Notification {
   type: 'success' | 'error' | 'warning'
@@ -46,7 +40,7 @@ export default function EnhancedQuoteForm() {
     reset,
     watch,
     formState: { errors, isSubmitting },
-  } = useForm<QuoteFormData>({
+  } = useForm({
     resolver: zodResolver(quoteFormSchema),
     defaultValues: {
       name: '',
@@ -60,7 +54,7 @@ export default function EnhancedQuoteForm() {
 
   const includeVehicle = watch('includeVehicle')
 
-  const onSubmit = async (data: QuoteFormData) => {
+  const onSubmit = async (data: unknown) => {
     setNotification(null)
 
     try {
