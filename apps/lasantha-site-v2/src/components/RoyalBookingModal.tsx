@@ -134,9 +134,17 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
 
   const fetchQuotation = async (code: string) => {
     setLoadingQuotation(true)
+    setNotification(null)
     try {
       console.log(`[RoyalBooking] Fetching quotation: ${BOT_API_URL}/api/quotations/${code}`)
-      const response = await fetch(`${BOT_API_URL}/api/quotations/${code}`)
+      
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second timeout
+      
+      const response = await fetch(`${BOT_API_URL}/api/quotations/${code}`, {
+        signal: controller.signal
+      })
+      clearTimeout(timeoutId)
       
       console.log(`[RoyalBooking] Response status: ${response.status}`)
       
@@ -149,6 +157,7 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
       
       if (data.ok && data.quotation) {
         setQuotation(data.quotation)
+        // Safely set form data with fallback to empty strings
         setFormData(prev => ({
           ...prev,
           name: data.quotation.CustomerName || '',
@@ -169,7 +178,9 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
       console.error('[RoyalBooking] Fetch error:', error)
       setNotification({
         type: 'error',
-        message: `Failed to load quotation: ${error.message || 'Network error'}`
+        message: error.name === 'AbortError'
+          ? 'Request timeout. Please check your connection and try again.'
+          : `Failed to load quotation: ${error.message || 'Network error'}`
       })
     } finally {
       setLoadingQuotation(false)
@@ -520,7 +531,7 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
                         <input
                           type="text"
                           name="name"
-                          value={formData.name}
+                          value={formData.name || ''}
                           onChange={handleChange}
                           placeholder="Enter your name"
                           className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-all"
@@ -535,7 +546,7 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
                         <input
                           type="tel"
                           name="phone"
-                          value={formData.phone}
+                          value={formData.phone || ''}
                           onChange={handleChange}
                           placeholder="077 123 4567"
                           className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-all"
@@ -550,7 +561,7 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
                         <input
                           type="text"
                           name="vehicleNo"
-                          value={formData.vehicleNo}
+                          value={formData.vehicleNo || ''}
                           onChange={handleChange}
                           placeholder="CAB-1234"
                           className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-all"
@@ -655,7 +666,7 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
                       name="date"
                       min={today}
                       max={maxDate}
-                      value={formData.date}
+                      value={formData.date || ''}
                       onChange={handleChange}
                       className="w-full px-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-all [color-scheme:dark]"
                     />
@@ -748,7 +759,7 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
                     <textarea
                       name="message"
                       rows={2}
-                      value={formData.message}
+                      value={formData.message || ''}
                       onChange={handleChange}
                       placeholder="Any specific requirements?"
                       className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-all resize-none"
