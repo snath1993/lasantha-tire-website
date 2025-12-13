@@ -180,10 +180,15 @@ export default function BookingModal({ isOpen, onClose, refCode }: BookingModalP
   }, [formData.service, isWheelAlignment])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
+    const { name, value } = e.target
+    
+    // Format phone number: allow only digits, spaces, and hyphens
+    if (name === 'phone') {
+      const cleaned = value.replace(/[^\d\s-]/g, '')
+      setFormData({ ...formData, [name]: cleaned })
+    } else {
+      setFormData({ ...formData, [name]: value })
+    }
   }
 
   const toggleQuotationItem = (idx: string) => {
@@ -198,6 +203,16 @@ export default function BookingModal({ isOpen, onClose, refCode }: BookingModalP
     e.preventDefault()
     setLoading(true)
     setNotification(null)
+
+    // Validate that at least one quotation item is selected if quotation exists
+    if (quotation && quotation.Items && quotation.Items.length > 0 && selectedQuotationItems.length === 0) {
+      setNotification({
+        type: 'error',
+        message: 'Please select at least one item from your quotation to proceed with booking.'
+      })
+      setLoading(false)
+      return
+    }
 
     // Build notes with selected quotation items
     let notes = formData.message || ''
@@ -397,12 +412,33 @@ export default function BookingModal({ isOpen, onClose, refCode }: BookingModalP
                       </label>
                     ))}
                   </div>
-                  <div className="mt-3 pt-3 border-t border-amber-200 flex justify-between items-center">
-                    <span className="font-medium text-amber-800">Total:</span>
-                    <span className="text-xl font-bold text-amber-700">
-                      Rs {quotation.TotalAmount?.toLocaleString() || 0}
-                    </span>
-                  </div>
+                  {selectedQuotationItems.length > 0 && (
+                    <div className="mt-3 pt-3 border-t border-amber-200">
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="text-sm font-medium text-amber-700">
+                          Selected ({selectedQuotationItems.length} item{selectedQuotationItems.length !== 1 ? 's' : ''})
+                        </span>
+                        <span className="text-lg font-bold text-amber-700">
+                          Rs {selectedQuotationItems.reduce((sum, idx) => {
+                            const item = quotation.Items[parseInt(idx)]
+                            return sum + (item ? item.price * item.quantity : 0)
+                          }, 0).toLocaleString()}
+                        </span>
+                      </div>
+                      {selectedQuotationItems.length < quotation.Items.length && (
+                        <p className="text-xs text-amber-600 mt-2">
+                          ℹ️ Unselected items won't be included in your booking
+                        </p>
+                      )}
+                    </div>
+                  )}
+                  {selectedQuotationItems.length === 0 && (
+                    <div className="mt-3 pt-3 border-t border-amber-200">
+                      <p className="text-sm text-red-600 font-medium">
+                        ⚠️ Please select at least one item to proceed
+                      </p>
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -434,6 +470,8 @@ export default function BookingModal({ isOpen, onClose, refCode }: BookingModalP
                         required
                         value={formData.phone || ''}
                         onChange={handleChange}
+                        pattern="[\d\s-]{10,15}"
+                        title="Please enter a valid phone number (10-15 digits)"
                         className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 outline-none"
                         placeholder="077 123 4567"
                       />
