@@ -3,6 +3,7 @@ import { Header } from "@/components/layout/Header";
 import { ModalProvider } from "@/contexts/ModalContext";
 import { ToastProvider } from "@/contexts/ToastContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import SmartBookingPopup from "@/components/mobile/SmartBookingPopup";
 
 export default function DashboardLayout({
   children,
@@ -24,6 +25,7 @@ export default function DashboardLayout({
             </div>
           </main>
         </div>
+        <SmartBookingPopup />
       </div>
         </ModalProvider>
       </ToastProvider>
