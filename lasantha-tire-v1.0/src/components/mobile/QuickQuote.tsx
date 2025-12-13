@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Send, Trash2, FileText, X, Share2, Wrench, Disc } from 'lucide-react';
-import { authenticatedFetch } from '@/lib/client-auth';
+import { Send, Trash2, FileText, X, Share2, Wrench, Disc, Calendar } from 'lucide-react';
+import { useBooking } from '@/contexts/BookingContext';
 
 const SERVICE_IDS = ['120', '121', '161', '144', '122', '114'];
 
@@ -24,6 +24,7 @@ export default function QuickQuote({
   onRemoveItem: (index: number) => void,
   onClear: () => void 
 }) {
+  const { openBookingPopup } = useBooking();
   const [isOpen, setIsOpen] = useState(false);
   const [phone, setPhone] = useState('');
   const [customerName, setCustomerName] = useState('');
@@ -424,14 +425,31 @@ export default function QuickQuote({
               </button>
             </div>
             
-            <button
-              onClick={handleSendWhatsApp}
-              disabled={items.length === 0 || !phone}
-              className="w-full px-4 py-3 bg-green-600 hover:bg-green-700 disabled:bg-slate-700 disabled:text-slate-500 text-white rounded-xl font-bold transition-colors flex items-center justify-center gap-2"
-            >
-              <Send className="w-5 h-5" />
-              Send WhatsApp
-            </button>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                onClick={handleSendWhatsApp}
+                disabled={items.length === 0 || !phone}
+                className="px-4 py-3 bg-green-600 hover:bg-green-700 disabled:bg-slate-700 disabled:text-slate-500 text-white rounded-xl font-bold transition-colors flex items-center justify-center gap-2"
+              >
+                <Send className="w-5 h-5" />
+                WhatsApp
+              </button>
+              <button
+                onClick={() => {
+                  const itemsWithQty = items.map((item, idx) => ({
+                    ...item,
+                    Quantity: getItemQuantity(idx)
+                  }));
+                  openBookingPopup(itemsWithQty, undefined, { name: customerName, phone });
+                  setIsOpen(false);
+                }}
+                disabled={items.length === 0}
+                className="px-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 disabled:bg-slate-700 disabled:text-slate-500 text-white rounded-xl font-bold transition-all flex items-center justify-center gap-2 shadow-lg shadow-blue-500/20"
+              >
+                <Calendar className="w-5 h-5" />
+                Book
+              </button>
+            </div>
           </div>
         </div>
       </div>
