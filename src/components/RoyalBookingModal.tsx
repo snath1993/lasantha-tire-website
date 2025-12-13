@@ -8,6 +8,7 @@ import {
   Shield, Star, MapPin, MessageSquare, Check, ArrowLeft, ShieldCheck
 } from 'lucide-react'
 import { getBotApiUrl } from '@/utils/getBotApiUrl'
+import { formatPhoneNumber } from '@/utils/phoneUtils'
 
 interface QuotationItem {
   itemId: string
@@ -202,10 +203,9 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     
-    // Format phone number: allow only digits, spaces, and hyphens
+    // Format phone number using utility function
     if (name === 'phone') {
-      const cleaned = value.replace(/[^\d\s-]/g, '')
-      setFormData({ ...formData, [name]: cleaned })
+      setFormData({ ...formData, [name]: formatPhoneNumber(value) })
     } else {
       setFormData({ ...formData, [name]: value })
     }
@@ -305,11 +305,12 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
 
   const totalSteps = quotation ? 4 : 3
 
-  // Get selected items total
+  // Get selected items total with safe array access
   const selectedTotal = quotation && selectedQuotationItems.length > 0
     ? selectedQuotationItems.reduce((sum, idx) => {
-        const item = quotation.Items[parseInt(idx)]
-        return sum + (item ? item.price * item.quantity : 0)
+        const index = parseInt(idx)
+        const item = quotation.Items?.[index]
+        return sum + (item?.price && item?.quantity ? item.price * item.quantity : 0)
       }, 0)
     : 0
 
