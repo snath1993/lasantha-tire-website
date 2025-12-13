@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { 
   Calendar, X, User, Phone, CheckCircle2, XCircle, Loader2, 
   Package, Crown, Clock, Car, Sparkles, ChevronRight, 
-  Shield, Star, MapPin, MessageSquare, Check, ArrowLeft, ShieldCheck
+  Shield, Star, MapPin, MessageSquare, Check, ArrowLeft
 } from 'lucide-react'
 import { getBotApiUrl } from '@/utils/getBotApiUrl'
 
@@ -120,15 +120,28 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
     }
   }, [isOpen])
 
-  // Lock body scroll when modal is open
+  // Lock body scroll when modal is open - enhanced for mobile
   useEffect(() => {
     if (isOpen) {
+      // Prevent scroll on body and html
       document.body.style.overflow = 'hidden'
+      document.body.style.position = 'fixed'
+      document.body.style.width = '100%'
+      document.body.style.height = '100%'
+      document.documentElement.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = ''
+      document.body.style.position = ''
+      document.body.style.width = ''
+      document.body.style.height = ''
+      document.documentElement.style.overflow = ''
     }
     return () => {
       document.body.style.overflow = ''
+      document.body.style.position = ''
+      document.body.style.width = ''
+      document.body.style.height = ''
+      document.documentElement.style.overflow = ''
     }
   }, [isOpen])
 
@@ -291,7 +304,8 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center"
+          className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center touch-none"
+          style={{ height: '100dvh' }}
         >
           {/* Backdrop with blur */}
           <motion.div
@@ -309,14 +323,14 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: '100%' }}
             transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-            className="relative w-full h-[100dvh] sm:h-auto sm:max-h-[90vh] sm:max-w-lg sm:rounded-3xl overflow-hidden bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 shadow-2xl"
+            className="relative w-full h-full sm:h-auto sm:max-h-[90vh] sm:max-w-lg sm:rounded-3xl overflow-hidden bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 shadow-2xl flex flex-col"
           >
             {/* Decorative gradient orbs */}
             <div className="absolute top-0 left-1/4 w-64 h-64 bg-amber-500/20 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-primary-500/20 rounded-full blur-3xl pointer-events-none" />
 
             {/* Header */}
-            <div className="relative z-10 px-4 pt-4 pb-3 sm:px-6 sm:pt-6">
+            <div className="relative z-10 flex-shrink-0 px-4 pt-4 pb-3 sm:px-6 sm:pt-6">
               <div className="flex items-center justify-between">
                 {step > 1 && !bookingComplete ? (
                   <button 
@@ -370,7 +384,7 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
             </div>
 
             {/* Scrollable Content */}
-            <div className="relative z-10 h-[calc(100dvh-140px)] sm:h-auto sm:max-h-[calc(90vh-180px)] overflow-y-auto overscroll-contain px-4 pb-4 sm:px-6 sm:pb-6">
+            <div className="relative z-10 flex-1 overflow-y-auto overscroll-contain px-4 pb-4 sm:px-6 sm:pb-6 sm:max-h-[calc(90vh-180px)]" style={{ WebkitOverflowScrolling: 'touch' }}>
               
               {/* Loading Quotation */}
               {loadingQuotation && (
@@ -843,7 +857,7 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
 
             {/* Footer - Fixed at bottom */}
             {!loadingQuotation && !bookingComplete && (
-              <div className="relative z-10 px-4 py-4 sm:px-6 border-t border-white/10 bg-slate-900/80 backdrop-blur-sm">
+              <div className="relative z-10 flex-shrink-0 px-4 py-4 sm:px-6 border-t border-white/10 bg-slate-900/80 backdrop-blur-sm">
                 {step === 1 && (
                   <button
                     onClick={() => setStep(2)}
@@ -941,20 +955,6 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
               </div>
             )}
           </motion.div>
-
-          {/* Footer - Debug Info */}
-          <div className="p-4 border-t border-slate-700/50 bg-slate-900/50 rounded-b-2xl">
-            <div className="flex justify-between items-center text-xs text-slate-500">
-              <div className="flex items-center gap-1">
-                <ShieldCheck className="w-3 h-3" />
-                <span>Protected by Royal Security</span>
-              </div>
-              <div className="flex gap-2 opacity-50 hover:opacity-100 transition-opacity">
-                <span>v2.2</span>
-                <span title={BOT_API_URL}>{BOT_API_URL.includes('localhost') ? '⚠️ Local' : '✅ Prod'}</span>
-              </div>
-            </div>
-          </div>
 
         </motion.div>
       )}
