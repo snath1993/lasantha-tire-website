@@ -8,6 +8,7 @@ import {
   Shield, Star, MapPin, MessageSquare, Check, ArrowLeft, ShieldCheck
 } from 'lucide-react'
 import { getBotApiUrl } from '@/utils/getBotApiUrl'
+import { formatPhoneNumber } from '@/utils/phoneUtils'
 
 interface QuotationItem {
   itemId: string
@@ -134,9 +135,17 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
 
   const fetchQuotation = async (code: string) => {
     setLoadingQuotation(true)
+    setNotification(null)
     try {
       console.log(`[RoyalBooking] Fetching quotation: ${BOT_API_URL}/api/quotations/${code}`)
-      const response = await fetch(`${BOT_API_URL}/api/quotations/${code}`)
+      
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second timeout
+      
+      const response = await fetch(`${BOT_API_URL}/api/quotations/${code}`, {
+        signal: controller.signal
+      })
+      clearTimeout(timeoutId)
       
       console.log(`[RoyalBooking] Response status: ${response.status}`)
       
@@ -149,6 +158,7 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
       
       if (data.ok && data.quotation) {
         setQuotation(data.quotation)
+        // Safely set form data with fallback to empty strings
         setFormData(prev => ({
           ...prev,
           name: data.quotation.CustomerName || '',
@@ -169,7 +179,9 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
       console.error('[RoyalBooking] Fetch error:', error)
       setNotification({
         type: 'error',
-        message: `Failed to load quotation: ${error.message || 'Network error'}`
+        message: error.name === 'AbortError'
+          ? 'Request timeout. Please check your connection and try again.'
+          : `Failed to load quotation: ${error.message || 'Network error'}`
       })
     } finally {
       setLoadingQuotation(false)
@@ -189,7 +201,14 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
   }, [formData.service, isWheelAlignment])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
+    const { name, value } = e.target
+    
+    // Format phone number using utility function
+    if (name === 'phone') {
+      setFormData({ ...formData, [name]: formatPhoneNumber(value) })
+    } else {
+      setFormData({ ...formData, [name]: value })
+    }
   }
 
   const toggleQuotationItem = (idx: string) => {
@@ -205,6 +224,16 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
   const handleSubmit = async () => {
     setLoading(true)
     setNotification(null)
+
+    // Validate that at least one quotation item is selected if quotation exists
+    if (quotation && quotation.Items && quotation.Items.length > 0 && selectedQuotationItems.length === 0) {
+      setNotification({
+        type: 'error',
+        message: 'Please select at least one item from your quotation to proceed with booking.'
+      })
+      setLoading(false)
+      return
+    }
 
     let notes = formData.message || ''
     if (quotation && selectedQuotationItems.length > 0) {
@@ -276,11 +305,12 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
 
   const totalSteps = quotation ? 4 : 3
 
-  // Get selected items total
+  // Get selected items total with safe array access
   const selectedTotal = quotation && selectedQuotationItems.length > 0
     ? selectedQuotationItems.reduce((sum, idx) => {
-        const item = quotation.Items[parseInt(idx)]
-        return sum + (item ? item.price * item.quantity : 0)
+        const index = parseInt(idx)
+        const item = quotation.Items?.[index]
+        return sum + (item?.price && item?.quantity ? item.price * item.quantity : 0)
       }, 0)
     : 0
 
@@ -520,7 +550,7 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
                         <input
                           type="text"
                           name="name"
-                          value={formData.name}
+                          value={formData.name || ''}
                           onChange={handleChange}
                           placeholder="Enter your name"
                           className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-all"
@@ -535,8 +565,10 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
                         <input
                           type="tel"
                           name="phone"
-                          value={formData.phone}
+                          value={formData.phone || ''}
                           onChange={handleChange}
+                          pattern="[\d\s-]{10,15}"
+                          title="Please enter a valid phone number (10-15 digits)"
                           placeholder="077 123 4567"
                           className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-all"
                         />
@@ -550,7 +582,7 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
                         <input
                           type="text"
                           name="vehicleNo"
-                          value={formData.vehicleNo}
+                          value={formData.vehicleNo || ''}
                           onChange={handleChange}
                           placeholder="CAB-1234"
                           className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-all"
@@ -655,7 +687,7 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
                       name="date"
                       min={today}
                       max={maxDate}
-                      value={formData.date}
+                      value={formData.date || ''}
                       onChange={handleChange}
                       className="w-full px-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-all [color-scheme:dark]"
                     />
@@ -748,7 +780,7 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
                     <textarea
                       name="message"
                       rows={2}
-                      value={formData.message}
+                      value={formData.message || ''}
                       onChange={handleChange}
                       placeholder="Any specific requirements?"
                       className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-all resize-none"

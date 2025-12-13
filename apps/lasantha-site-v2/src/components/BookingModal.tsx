@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Calendar, X, User, Phone, CheckCircle2, XCircle, Loader2, Package, Crown, Clock } from 'lucide-react'
 import { getBotApiUrl } from '@/utils/getBotApiUrl'
+import { formatPhoneNumber } from '@/utils/phoneUtils'
 
 interface QuotationItem {
   itemId: string
@@ -21,6 +22,7 @@ interface Quotation {
   Items: QuotationItem[]
   CustomerPhone: string
   CustomerName: string
+  VehicleNumber?: string
   TotalAmount: number
 }
 
@@ -82,6 +84,24 @@ export default function BookingModal({ isOpen, onClose, refCode }: BookingModalP
     message: ''
   })
 
+  // Reset form when modal closes
+  useEffect(() => {
+    if (!isOpen) {
+      setFormData({
+        name: '',
+        phone: '',
+        service: '',
+        date: '',
+        time: '',
+        vehicleNo: '',
+        message: ''
+      })
+      setNotification(null)
+      setQuotation(null)
+      setSelectedQuotationItems([])
+    }
+  }, [isOpen])
+
   const [loading, setLoading] = useState(false)
   const [loadingQuotation, setLoadingQuotation] = useState(false)
   const [quotation, setQuotation] = useState<Quotation | null>(null)
@@ -100,25 +120,49 @@ export default function BookingModal({ isOpen, onClose, refCode }: BookingModalP
 
   const fetchQuotation = async (code: string) => {
     setLoadingQuotation(true)
+    setNotification(null)
     try {
-      const response = await fetch(`${BOT_API_URL}/api/quotations/${code}`)
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second timeout
+      
+      const response = await fetch(`${BOT_API_URL}/api/quotations/${code}`, {
+        signal: controller.signal
+      })
+      clearTimeout(timeoutId)
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch quotation: ${response.status} ${response.statusText}`)
+      }
+      
       const data = await response.json()
       
       if (data.ok && data.quotation) {
         setQuotation(data.quotation)
-        // Auto-fill customer info
+        // Auto-fill customer info with fallback to empty strings
         setFormData(prev => ({
           ...prev,
           name: data.quotation.CustomerName || '',
-          phone: data.quotation.CustomerPhone || ''
+          phone: data.quotation.CustomerPhone || '',
+          vehicleNo: data.quotation.VehicleNumber || prev.vehicleNo
         }))
         // Select all quotation items by default
         if (data.quotation.Items && Array.isArray(data.quotation.Items)) {
           setSelectedQuotationItems(data.quotation.Items.map((_: QuotationItem, i: number) => String(i)))
         }
+      } else {
+        setNotification({
+          type: 'error',
+          message: data.error || 'Could not load quotation details. Please enter your information manually.'
+        })
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to fetch quotation:', error)
+      setNotification({
+        type: 'error',
+        message: error.name === 'AbortError' 
+          ? 'Request timeout. Please check your connection and try again.'
+          : 'Unable to load quotation details. Please enter your information manually.'
+      })
     } finally {
       setLoadingQuotation(false)
     }
@@ -138,10 +182,14 @@ export default function BookingModal({ isOpen, onClose, refCode }: BookingModalP
   }, [formData.service, isWheelAlignment])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
+    const { name, value } = e.target
+    
+    // Format phone number using utility function
+    if (name === 'phone') {
+      setFormData({ ...formData, [name]: formatPhoneNumber(value) })
+    } else {
+      setFormData({ ...formData, [name]: value })
+    }
   }
 
   const toggleQuotationItem = (idx: string) => {
@@ -156,6 +204,16 @@ export default function BookingModal({ isOpen, onClose, refCode }: BookingModalP
     e.preventDefault()
     setLoading(true)
     setNotification(null)
+
+    // Validate that at least one quotation item is selected if quotation exists
+    if (quotation && quotation.Items && quotation.Items.length > 0 && selectedQuotationItems.length === 0) {
+      setNotification({
+        type: 'error',
+        message: 'Please select at least one item from your quotation to proceed with booking.'
+      })
+      setLoading(false)
+      return
+    }
 
     // Build notes with selected quotation items
     let notes = formData.message || ''
@@ -355,12 +413,34 @@ export default function BookingModal({ isOpen, onClose, refCode }: BookingModalP
                       </label>
                     ))}
                   </div>
-                  <div className="mt-3 pt-3 border-t border-amber-200 flex justify-between items-center">
-                    <span className="font-medium text-amber-800">Total:</span>
-                    <span className="text-xl font-bold text-amber-700">
-                      Rs {quotation.TotalAmount?.toLocaleString() || 0}
-                    </span>
-                  </div>
+                  {selectedQuotationItems.length > 0 && (
+                    <div className="mt-3 pt-3 border-t border-amber-200">
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="text-sm font-medium text-amber-700">
+                          Selected ({selectedQuotationItems.length} item{selectedQuotationItems.length !== 1 ? 's' : ''})
+                        </span>
+                        <span className="text-lg font-bold text-amber-700">
+                          Rs {selectedQuotationItems.reduce((sum, idx) => {
+                            const index = parseInt(idx)
+                            const item = quotation.Items?.[index]
+                            return sum + (item?.price && item?.quantity ? item.price * item.quantity : 0)
+                          }, 0).toLocaleString()}
+                        </span>
+                      </div>
+                      {selectedQuotationItems.length < quotation.Items.length && (
+                        <p className="text-xs text-amber-600 mt-2">
+                          ℹ️ Unselected items won't be included in your booking
+                        </p>
+                      )}
+                    </div>
+                  )}
+                  {selectedQuotationItems.length === 0 && (
+                    <div className="mt-3 pt-3 border-t border-amber-200">
+                      <p className="text-sm text-red-600 font-medium">
+                        ⚠️ Please select at least one item to proceed
+                      </p>
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -374,7 +454,7 @@ export default function BookingModal({ isOpen, onClose, refCode }: BookingModalP
                         type="text"
                         name="name"
                         required
-                        value={formData.name}
+                        value={formData.name || ''}
                         onChange={handleChange}
                         className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 outline-none"
                         placeholder="John Doe"
@@ -390,8 +470,10 @@ export default function BookingModal({ isOpen, onClose, refCode }: BookingModalP
                         type="tel"
                         name="phone"
                         required
-                        value={formData.phone}
+                        value={formData.phone || ''}
                         onChange={handleChange}
+                        pattern="[\d\s-]{10,15}"
+                        title="Please enter a valid phone number (10-15 digits)"
                         className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 outline-none"
                         placeholder="077 123 4567"
                       />
@@ -403,7 +485,7 @@ export default function BookingModal({ isOpen, onClose, refCode }: BookingModalP
                     <select
                       name="service"
                       required
-                      value={formData.service}
+                      value={formData.service || ''}
                       onChange={handleChange}
                       className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 outline-none"
                     >
@@ -417,7 +499,7 @@ export default function BookingModal({ isOpen, onClose, refCode }: BookingModalP
                     <input
                       type="text"
                       name="vehicleNo"
-                      value={formData.vehicleNo}
+                      value={formData.vehicleNo || ''}
                       onChange={handleChange}
                       className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 outline-none"
                       placeholder="CAB-1234"
@@ -431,7 +513,7 @@ export default function BookingModal({ isOpen, onClose, refCode }: BookingModalP
                       name="date"
                       required
                       min={today}
-                      value={formData.date}
+                      value={formData.date || ''}
                       onChange={handleChange}
                       className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 outline-none"
                     />
@@ -493,7 +575,7 @@ export default function BookingModal({ isOpen, onClose, refCode }: BookingModalP
                   <textarea
                     name="message"
                     rows={2}
-                    value={formData.message}
+                    value={formData.message || ''}
                     onChange={handleChange}
                     className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 outline-none resize-none"
                     placeholder="Any specific requirements?"
