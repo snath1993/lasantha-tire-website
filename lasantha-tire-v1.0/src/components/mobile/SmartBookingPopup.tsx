@@ -264,6 +264,37 @@ export default function SmartBookingPopup() {
             {SERVICES.map((service) => {
               const isSelected = selectedServices.includes(service.id);
               const Icon = service.icon;
+              
+              // Static class mappings for Tailwind purge
+              const colorClasses = {
+                blue: {
+                  border: 'border-blue-500',
+                  bg: 'bg-blue-500/10',
+                  iconBg: 'bg-blue-500/20',
+                  iconText: 'text-blue-400'
+                },
+                indigo: {
+                  border: 'border-indigo-500',
+                  bg: 'bg-indigo-500/10',
+                  iconBg: 'bg-indigo-500/20',
+                  iconText: 'text-indigo-400'
+                },
+                purple: {
+                  border: 'border-purple-500',
+                  bg: 'bg-purple-500/10',
+                  iconBg: 'bg-purple-500/20',
+                  iconText: 'text-purple-400'
+                },
+                cyan: {
+                  border: 'border-cyan-500',
+                  bg: 'bg-cyan-500/10',
+                  iconBg: 'bg-cyan-500/20',
+                  iconText: 'text-cyan-400'
+                }
+              };
+              
+              const colors = colorClasses[service.color as keyof typeof colorClasses] || colorClasses.blue;
+              
               return (
                 <button
                   key={service.id}
@@ -276,13 +307,13 @@ export default function SmartBookingPopup() {
                   }}
                   className={`w-full bg-slate-800 border-2 rounded-2xl p-5 transition-all ${
                     isSelected 
-                      ? `border-${service.color}-500 bg-${service.color}-500/10` 
+                      ? `${colors.border} ${colors.bg}` 
                       : 'border-slate-700 hover:border-slate-600'
                   }`}
                 >
                   <div className="flex items-center gap-4">
-                    <div className={`w-14 h-14 rounded-xl bg-${service.color}-500/20 flex items-center justify-center`}>
-                      <Icon className={`w-7 h-7 text-${service.color}-400`} />
+                    <div className={`w-14 h-14 rounded-xl ${colors.iconBg} flex items-center justify-center`}>
+                      <Icon className={`w-7 h-7 ${colors.iconText}`} />
                     </div>
                     <div className="flex-1 text-left">
                       <div className="text-white font-bold text-lg">{service.name}</div>
@@ -293,7 +324,7 @@ export default function SmartBookingPopup() {
                     </div>
                     <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all ${
                       isSelected 
-                        ? `border-${service.color}-500 bg-${service.color}-500` 
+                        ? `${colors.border} ${colors.border.replace('border-', 'bg-')}` 
                         : 'border-slate-600'
                     }`}>
                       {isSelected && <Check className="w-5 h-5 text-white" />}

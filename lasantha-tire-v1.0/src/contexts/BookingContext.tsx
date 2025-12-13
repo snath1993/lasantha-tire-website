@@ -11,6 +11,12 @@ interface BookingItem {
   Quantity: number;
 }
 
+interface CustomerInfo {
+  name: string;
+  phone: string;
+  vehicleNumber?: string;
+}
+
 interface BookingContextType {
   isBookingPopupOpen: boolean;
   setIsBookingPopupOpen: (isOpen: boolean) => void;
@@ -18,13 +24,9 @@ interface BookingContextType {
   setBookingItems: (items: BookingItem[]) => void;
   bookingRefCode: string | null;
   setBookingRefCode: (refCode: string | null) => void;
-  customerInfo: {
-    name: string;
-    phone: string;
-    vehicleNumber?: string;
-  };
-  setCustomerInfo: (info: { name: string; phone: string; vehicleNumber?: string }) => void;
-  openBookingPopup: (items: BookingItem[], refCode?: string, customerInfo?: any) => void;
+  customerInfo: CustomerInfo;
+  setCustomerInfo: (info: CustomerInfo) => void;
+  openBookingPopup: (items: BookingItem[], refCode?: string, customerInfo?: Partial<CustomerInfo>) => void;
   closeBookingPopup: () => void;
 }
 
@@ -40,7 +42,7 @@ export function BookingProvider({ children }: { children: ReactNode }) {
     vehicleNumber: ''
   });
 
-  const openBookingPopup = (items: BookingItem[], refCode?: string, info?: any) => {
+  const openBookingPopup = (items: BookingItem[], refCode?: string, info?: Partial<CustomerInfo>) => {
     setBookingItems(items);
     if (refCode) setBookingRefCode(refCode);
     if (info) {
