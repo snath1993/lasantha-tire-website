@@ -200,7 +200,15 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
   }, [formData.service, isWheelAlignment])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
+    const { name, value } = e.target
+    
+    // Format phone number: allow only digits, spaces, and hyphens
+    if (name === 'phone') {
+      const cleaned = value.replace(/[^\d\s-]/g, '')
+      setFormData({ ...formData, [name]: cleaned })
+    } else {
+      setFormData({ ...formData, [name]: value })
+    }
   }
 
   const toggleQuotationItem = (idx: string) => {
@@ -216,6 +224,16 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
   const handleSubmit = async () => {
     setLoading(true)
     setNotification(null)
+
+    // Validate that at least one quotation item is selected if quotation exists
+    if (quotation && quotation.Items && quotation.Items.length > 0 && selectedQuotationItems.length === 0) {
+      setNotification({
+        type: 'error',
+        message: 'Please select at least one item from your quotation to proceed with booking.'
+      })
+      setLoading(false)
+      return
+    }
 
     let notes = formData.message || ''
     if (quotation && selectedQuotationItems.length > 0) {
@@ -548,6 +566,8 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
                           name="phone"
                           value={formData.phone || ''}
                           onChange={handleChange}
+                          pattern="[\d\s-]{10,15}"
+                          title="Please enter a valid phone number (10-15 digits)"
                           placeholder="077 123 4567"
                           className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-all"
                         />

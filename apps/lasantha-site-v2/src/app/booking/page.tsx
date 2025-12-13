@@ -39,10 +39,15 @@ export default function BookingPage() {
   } | null>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
+    const { name, value } = e.target
+    
+    // Format phone number: allow only digits, spaces, and hyphens
+    if (name === 'phone') {
+      const cleaned = value.replace(/[^\d\s-]/g, '')
+      setFormData({ ...formData, [name]: cleaned })
+    } else {
+      setFormData({ ...formData, [name]: value })
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -171,6 +176,8 @@ export default function BookingPage() {
                       required
                       value={formData.phone || ''}
                       onChange={handleChange}
+                      pattern="[\d\s-]{10,15}"
+                      title="Please enter a valid phone number (10-15 digits)"
                       className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 outline-none"
                       placeholder="077 123 4567"
                     />
