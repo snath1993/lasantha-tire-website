@@ -105,17 +105,20 @@ export default function BookingModal({ isOpen, onClose, refCode }: BookingModalP
       document.body.style.position = 'fixed'
       document.body.style.width = '100%'
       document.body.style.height = '100%'
+      document.documentElement.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = ''
       document.body.style.position = ''
       document.body.style.width = ''
       document.body.style.height = ''
+      document.documentElement.style.overflow = ''
     }
     return () => {
       document.body.style.overflow = ''
       document.body.style.position = ''
       document.body.style.width = ''
       document.body.style.height = ''
+      document.documentElement.style.overflow = ''
     }
   }, [isOpen])
 
