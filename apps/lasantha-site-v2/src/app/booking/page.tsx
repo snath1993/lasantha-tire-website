@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Calendar, User, Phone, CheckCircle2, XCircle, Loader2, ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
+import { formatPhoneNumber } from '@/utils/phoneUtils'
 
 const timeSlots = [
   '08:00 AM', '09:00 AM', '10:00 AM', '11:00 AM',
@@ -41,10 +42,9 @@ export default function BookingPage() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     
-    // Format phone number: allow only digits, spaces, and hyphens
+    // Format phone number using utility function
     if (name === 'phone') {
-      const cleaned = value.replace(/[^\d\s-]/g, '')
-      setFormData({ ...formData, [name]: cleaned })
+      setFormData({ ...formData, [name]: formatPhoneNumber(value) })
     } else {
       setFormData({ ...formData, [name]: value })
     }

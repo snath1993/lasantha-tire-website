@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Calendar, X, User, Phone, CheckCircle2, XCircle, Loader2, Package, Crown, Clock } from 'lucide-react'
 import { getBotApiUrl } from '@/utils/getBotApiUrl'
+import { formatPhoneNumber } from '@/utils/phoneUtils'
 
 interface QuotationItem {
   itemId: string
@@ -21,6 +22,7 @@ interface Quotation {
   Items: QuotationItem[]
   CustomerPhone: string
   CustomerName: string
+  VehicleNumber?: string
   TotalAmount: number
 }
 
@@ -182,10 +184,9 @@ export default function BookingModal({ isOpen, onClose, refCode }: BookingModalP
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     
-    // Format phone number: allow only digits, spaces, and hyphens
+    // Format phone number using utility function
     if (name === 'phone') {
-      const cleaned = value.replace(/[^\d\s-]/g, '')
-      setFormData({ ...formData, [name]: cleaned })
+      setFormData({ ...formData, [name]: formatPhoneNumber(value) })
     } else {
       setFormData({ ...formData, [name]: value })
     }
@@ -420,8 +421,9 @@ export default function BookingModal({ isOpen, onClose, refCode }: BookingModalP
                         </span>
                         <span className="text-lg font-bold text-amber-700">
                           Rs {selectedQuotationItems.reduce((sum, idx) => {
-                            const item = quotation.Items[parseInt(idx)]
-                            return sum + (item ? item.price * item.quantity : 0)
+                            const index = parseInt(idx)
+                            const item = quotation.Items?.[index]
+                            return sum + (item?.price && item?.quantity ? item.price * item.quantity : 0)
                           }, 0).toLocaleString()}
                         </span>
                       </div>
