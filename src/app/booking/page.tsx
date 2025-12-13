@@ -153,7 +153,7 @@ export default function BookingPage() {
                       type="text"
                       name="name"
                       required
-                      value={formData.name}
+                      value={formData.name || ''}
                       onChange={handleChange}
                       className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 outline-none"
                       placeholder="John Doe"
@@ -169,7 +169,7 @@ export default function BookingPage() {
                       type="tel"
                       name="phone"
                       required
-                      value={formData.phone}
+                      value={formData.phone || ''}
                       onChange={handleChange}
                       className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 outline-none"
                       placeholder="077 123 4567"
@@ -182,7 +182,7 @@ export default function BookingPage() {
                   <select
                     name="service"
                     required
-                    value={formData.service}
+                    value={formData.service || ''}
                     onChange={handleChange}
                     className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 outline-none"
                   >
@@ -196,7 +196,7 @@ export default function BookingPage() {
                   <input
                     type="text"
                     name="vehicleNo"
-                    value={formData.vehicleNo}
+                    value={formData.vehicleNo || ''}
                     onChange={handleChange}
                     className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 outline-none"
                     placeholder="CAB-1234"
@@ -210,7 +210,7 @@ export default function BookingPage() {
                     name="date"
                     required
                     min={today}
-                    value={formData.date}
+                    value={formData.date || ''}
                     onChange={handleChange}
                     className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 outline-none"
                   />
@@ -221,7 +221,7 @@ export default function BookingPage() {
                   <select
                     name="time"
                     required
-                    value={formData.time}
+                    value={formData.time || ''}
                     onChange={handleChange}
                     className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 outline-none"
                   >
@@ -236,7 +236,7 @@ export default function BookingPage() {
                 <textarea
                   name="message"
                   rows={2}
-                  value={formData.message}
+                  value={formData.message || ''}
                   onChange={handleChange}
                   className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 outline-none resize-none"
                   placeholder="Any specific requirements?"
