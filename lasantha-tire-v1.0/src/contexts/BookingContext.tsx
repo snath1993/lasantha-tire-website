@@ -43,7 +43,13 @@ export function BookingProvider({ children }: { children: ReactNode }) {
   const openBookingPopup = (items: BookingItem[], refCode?: string, info?: any) => {
     setBookingItems(items);
     if (refCode) setBookingRefCode(refCode);
-    if (info) setCustomerInfo(info);
+    if (info) {
+      setCustomerInfo({
+        name: info.name || '',
+        phone: info.phone || '',
+        vehicleNumber: info.vehicleNumber || ''
+      });
+    }
     setIsBookingPopupOpen(true);
   };
 

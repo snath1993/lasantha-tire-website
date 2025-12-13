@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { Send, Trash2, FileText, X, Share2, Wrench, Disc, Calendar } from 'lucide-react';
-import { authenticatedFetch } from '@/lib/client-auth';
 import { useBooking } from '@/contexts/BookingContext';
 
 const SERVICE_IDS = ['120', '121', '161', '144', '122', '114'];
