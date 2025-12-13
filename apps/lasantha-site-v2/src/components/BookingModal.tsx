@@ -98,6 +98,30 @@ export default function BookingModal({ isOpen, onClose, refCode }: BookingModalP
     }
   }, [refCode, isOpen])
 
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+      document.body.style.position = 'fixed'
+      document.body.style.width = '100%'
+      document.body.style.height = '100%'
+      document.documentElement.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+      document.body.style.position = ''
+      document.body.style.width = ''
+      document.body.style.height = ''
+      document.documentElement.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+      document.body.style.position = ''
+      document.body.style.width = ''
+      document.body.style.height = ''
+      document.documentElement.style.overflow = ''
+    }
+  }, [isOpen])
+
   const fetchQuotation = async (code: string) => {
     setLoadingQuotation(true)
     try {
@@ -253,7 +277,7 @@ export default function BookingModal({ isOpen, onClose, refCode }: BookingModalP
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto"
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto touch-none"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
