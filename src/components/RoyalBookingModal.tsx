@@ -9,6 +9,7 @@ import {
 } from 'lucide-react'
 import { getBotApiUrl } from '@/utils/getBotApiUrl'
 import { formatPhoneNumber } from '@/utils/phoneUtils'
+import { CalendarView } from './CalendarView'
 
 interface QuotationItem {
   itemId: string
@@ -161,7 +162,7 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
         // Safely set form data with fallback to empty strings
         setFormData(prev => ({
           ...prev,
-          name: data.quotation.CustomerName || '',
+          name: (data.quotation.CustomerName && data.quotation.CustomerName !== 'Website Customer' && data.quotation.CustomerName !== 'Customer') ? data.quotation.CustomerName : '',
           phone: data.quotation.CustomerPhone || '',
           vehicleNo: data.quotation.VehicleNumber || ''
         }))
@@ -682,14 +683,9 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
                   {/* Date Picker */}
                   <div>
                     <label className="block text-sm font-medium text-gray-400 mb-2">Select Date</label>
-                    <input
-                      type="date"
-                      name="date"
-                      min={today}
-                      max={maxDate}
-                      value={formData.date || ''}
-                      onChange={handleChange}
-                      className="w-full px-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-all [color-scheme:dark]"
+                    <CalendarView 
+                      selectedDate={formData.date}
+                      onSelectDate={(date) => setFormData(prev => ({ ...prev, date, time: '' }))}
                     />
                   </div>
 
@@ -715,6 +711,20 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
                     
                     <div className="grid grid-cols-4 sm:grid-cols-5 gap-2">
                       {allTimeSlots.map((slot) => {
+                        const todayStr = new Date().toISOString().split('T')[0]
+                        if (formData.date < todayStr) return null
+                        
+                        const isToday = formData.date === todayStr
+                        if (isToday) {
+                            const now = new Date()
+                            const currentMinutes = now.getHours() * 60 + now.getMinutes()
+                            const slotMinutes = slot.hour * 60 + slot.minute
+                            // Add 60 min buffer
+                            if (slotMinutes < currentMinutes + 60) {
+                                return null
+                            }
+                        }
+
                         const isRestricted = isWheelAlignment && !isWheelAlignmentAvailable(slot.hour, slot.minute)
                         const isSelected = formData.time === slot.time
                         

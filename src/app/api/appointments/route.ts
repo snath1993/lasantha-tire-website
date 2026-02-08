@@ -6,7 +6,7 @@ const BOT_API_URL = process.env.WHATSAPP_BOT_URL || 'http://localhost:8585'
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { customerName, phoneNumber, serviceType, appointmentDate, timeSlot, vehicleNumber, notes, quotationRefCode, quotationItems } = body
+    const { customerName, phoneNumber, serviceType, appointmentDate, timeSlot, vehicleNumber, notes } = body
 
     // Validate required fields
     if (!customerName || !phoneNumber || !serviceType || !appointmentDate || !timeSlot) {
@@ -27,9 +27,7 @@ export async function POST(request: NextRequest) {
         appointmentDate,
         timeSlot,
         vehicleNumber: vehicleNumber || '',
-        notes: notes || '',
-        quotationRefCode: quotationRefCode || null,
-        quotationItems: quotationItems || null
+        notes: notes || ''
       })
     })
 
