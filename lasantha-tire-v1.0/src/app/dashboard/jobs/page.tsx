@@ -676,10 +676,10 @@ function JobsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen bg-[#f3f4f6] flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-slate-400 text-sm font-medium">Loading Jobs...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto mb-4"></div>
+          <p className="text-zinc-500 text-sm font-medium">Loading Jobs...</p>
         </div>
       </div>
     );
@@ -690,12 +690,12 @@ function JobsPage() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-white tracking-tight">
+          <h1 className="text-3xl font-bold text-zinc-900 tracking-tight">
             {category === 'facebook' && 'Facebook Jobs'}
             {category === 'whatsapp' && 'WhatsApp Jobs'}
             {!category && 'Job Management'}
           </h1>
-          <p className="text-slate-400 mt-1">
+          <p className="text-zinc-500 mt-1">
             {category === 'facebook' && `Manage ${jobEntries.length} Facebook automation tasks`}
             {category === 'whatsapp' && `Manage ${jobEntries.length} WhatsApp automation tasks`}
             {!category && `Configure and monitor ${Object.keys(jobs).length} active automation jobs`}
@@ -704,7 +704,7 @@ function JobsPage() {
         <div className="flex items-center gap-3">
           <Link
             href="/dashboard"
-            className="px-4 py-2 bg-slate-800/50 hover:bg-slate-700/50 text-white rounded-xl transition-colors border border-white/10 text-sm font-medium shadow-sm backdrop-blur-sm"
+            className="px-4 py-2 bg-white hover:bg-zinc-50 text-zinc-700 rounded-xl transition-colors border border-zinc-200 text-sm font-medium shadow-sm"
           >
             Back to Home
           </Link>
@@ -713,13 +713,13 @@ function JobsPage() {
 
       {/* Category Filter Tabs */}
       {!editingJob && (
-        <div className="flex gap-3 p-1 bg-slate-800/50 rounded-2xl w-fit border border-white/10 backdrop-blur-sm">
+        <div className="flex gap-3 p-1 bg-zinc-100 rounded-2xl w-fit">
           <Link
             href="/dashboard/jobs"
             className={`px-6 py-2.5 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${
               !category 
-                ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' 
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
+                ? 'bg-white text-zinc-900 shadow-sm' 
+                : 'text-zinc-500 hover:text-zinc-700 hover:bg-zinc-200/50'
             }`}
           >
             <List size={16} />
@@ -729,8 +729,8 @@ function JobsPage() {
             href="/dashboard/jobs?category=whatsapp"
             className={`px-6 py-2.5 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${
               category === 'whatsapp'
-                ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/20' 
-                : 'text-slate-400 hover:text-emerald-400 hover:bg-white/5'
+                ? 'bg-white text-emerald-600 shadow-sm' 
+                : 'text-zinc-500 hover:text-emerald-600 hover:bg-zinc-200/50'
             }`}
           >
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -742,8 +742,8 @@ function JobsPage() {
             href="/dashboard/jobs?category=facebook"
             className={`px-6 py-2.5 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${
               category === 'facebook'
-                ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' 
-                : 'text-slate-400 hover:text-blue-400 hover:bg-white/5'
+                ? 'bg-white text-blue-600 shadow-sm' 
+                : 'text-zinc-500 hover:text-blue-600 hover:bg-zinc-200/50'
             }`}
           >
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -758,8 +758,8 @@ function JobsPage() {
       {message && (
         <div className={`flex items-center gap-3 px-4 py-3 rounded-xl border ${
           message.type === 'success' 
-            ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' 
-            : 'bg-rose-500/10 border-rose-500/20 text-rose-400'
+            ? 'bg-emerald-50 border-emerald-100 text-emerald-700' 
+            : 'bg-rose-50 border-rose-100 text-rose-700'
         }`}>
           {message.type === 'success' ? <CheckCircle size={18} /> : <XCircle size={18} />}
           <span className="text-sm font-medium">{message.text}</span>
@@ -769,18 +769,18 @@ function JobsPage() {
       {/* Job Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {jobEntries.length === 0 ? (
-          <div className="col-span-full text-center py-12 bg-slate-800/50 backdrop-blur-xl rounded-[2rem] border border-white/10 shadow-sm">
-            <div className="w-16 h-16 bg-slate-700/50 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Search className="w-8 h-8 text-slate-400" />
+          <div className="col-span-full text-center py-12 bg-white rounded-[2rem] border border-zinc-100 shadow-sm">
+            <div className="w-16 h-16 bg-zinc-50 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Search className="w-8 h-8 text-zinc-300" />
             </div>
-            <p className="text-slate-400 text-lg font-medium">No jobs found in this category</p>
-            <p className="text-slate-500 text-sm mt-1">Try selecting a different category or check back later.</p>
+            <p className="text-zinc-500 text-lg font-medium">No jobs found in this category</p>
+            <p className="text-zinc-400 text-sm mt-1">Try selecting a different category or check back later.</p>
           </div>
         ) : (
           jobEntries.map(([jobId, job]) => (
           <div
             key={jobId}
-            className="bg-slate-800/50 backdrop-blur-xl rounded-[2rem] p-6 shadow-lg shadow-black/20 border border-white/10 hover:border-blue-500/30 hover:shadow-blue-500/10 transition-all group"
+            className="bg-white rounded-[2rem] p-6 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.05)] border border-zinc-100 hover:border-indigo-100 hover:shadow-lg transition-all group"
           >
             {/* Job Header */}
             <div className="flex items-start justify-between mb-4">
@@ -797,7 +797,7 @@ function JobsPage() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-white leading-tight">{job.name}</h3>
+                  <h3 className="text-lg font-bold text-zinc-900 leading-tight">{job.name}</h3>
                   <span className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider mt-1 ${getJobTypeColor(job.type)}`}>
                     {job.type}
                   </span>
@@ -809,8 +809,8 @@ function JobsPage() {
                 onClick={() => handleToggleEnabled(jobId)}
                 className={`p-2 rounded-xl transition-colors ${
                   job.enabled
-                    ? 'bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20'
-                    : 'bg-slate-700/50 text-slate-400 hover:bg-slate-600/50'
+                    ? 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100'
+                    : 'bg-zinc-100 text-zinc-400 hover:bg-zinc-200'
                 }`}
                 title={job.enabled ? 'Disable job' : 'Enable job'}
               >
@@ -819,28 +819,28 @@ function JobsPage() {
             </div>
 
             {/* Job Description */}
-            <p className="text-slate-400 text-sm mb-6 line-clamp-2 h-10">
+            <p className="text-zinc-500 text-sm mb-6 line-clamp-2 h-10">
               {job.description || 'No description available'}
             </p>
 
             {/* Job Info */}
             <div className="space-y-3 mb-6">
-              <div className="flex items-center gap-3 text-sm p-2 bg-slate-900/50 rounded-xl border border-white/5">
-                <Clock className="w-4 h-4 text-blue-400" />
-                <span className="text-slate-300 font-medium">{formatSchedule(job)}</span>
+              <div className="flex items-center gap-3 text-sm p-2 bg-zinc-50 rounded-xl">
+                <Clock className="w-4 h-4 text-indigo-500" />
+                <span className="text-zinc-600 font-medium">{formatSchedule(job)}</span>
               </div>
               
               {job.contactNumbers && job.contactNumbers.length > 0 && (
-                <div className="flex items-center gap-3 text-sm p-2 bg-slate-900/50 rounded-xl border border-white/5">
-                  <Users className="w-4 h-4 text-violet-400" />
-                  <span className="text-slate-300 font-medium">{job.contactNumbers.length} contacts</span>
+                <div className="flex items-center gap-3 text-sm p-2 bg-zinc-50 rounded-xl">
+                  <Users className="w-4 h-4 text-violet-500" />
+                  <span className="text-zinc-600 font-medium">{job.contactNumbers.length} contacts</span>
                 </div>
               )}
               
               {job.fullDayReportTime && (
-                <div className="flex items-center gap-3 text-sm p-2 bg-slate-900/50 rounded-xl border border-white/5">
-                  <FileText className="w-4 h-4 text-emerald-400" />
-                  <span className="text-slate-300 font-medium">Full report: {job.fullDayReportTime}</span>
+                <div className="flex items-center gap-3 text-sm p-2 bg-zinc-50 rounded-xl">
+                  <FileText className="w-4 h-4 text-emerald-500" />
+                  <span className="text-zinc-600 font-medium">Full report: {job.fullDayReportTime}</span>
                 </div>
               )}
             </div>
@@ -849,7 +849,7 @@ function JobsPage() {
             <div className="flex gap-2">
               <button
                 onClick={() => handleEditJob(jobId)}
-                className="flex-1 px-4 py-2.5 bg-slate-900 hover:bg-black text-white rounded-xl transition-colors flex items-center justify-center gap-2 text-sm font-medium shadow-lg shadow-black/20 border border-white/10"
+                className="flex-1 px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-white rounded-xl transition-colors flex items-center justify-center gap-2 text-sm font-medium shadow-lg shadow-zinc-900/10"
               >
                 <Settings className="w-4 h-4" />
                 Configure
@@ -858,7 +858,7 @@ function JobsPage() {
               {jobId === 'WatchedItemRealtimeJob' && (
                 <button
                   onClick={() => handleOpenItemList(jobId)}
-                  className="px-4 py-2.5 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 rounded-xl transition-colors flex items-center justify-center gap-2 border border-amber-500/20"
+                  className="px-4 py-2.5 bg-amber-50 hover:bg-amber-100 text-amber-600 rounded-xl transition-colors flex items-center justify-center gap-2"
                   title="Manage watched items"
                 >
                   <List className="w-4 h-4" />
@@ -871,19 +871,19 @@ function JobsPage() {
 
       {/* Edit Modal */}
       {mounted && editingJob && editForm && createPortal(
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-6 z-[100]">
-          <div className="bg-slate-900 rounded-[2rem] max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-white/10">
+        <div className="fixed inset-0 bg-zinc-900/20 backdrop-blur-sm flex items-center justify-center p-6 z-[100]">
+          <div className="bg-white rounded-[2rem] max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-zinc-100">
             {/* Modal Header */}
-            <div className="sticky top-0 bg-slate-900/80 backdrop-blur-md border-b border-white/10 p-6 flex items-center justify-between z-10">
+            <div className="sticky top-0 bg-white/80 backdrop-blur-md border-b border-zinc-100 p-6 flex items-center justify-between z-10">
               <div>
-                <h2 className="text-2xl font-bold text-white mb-1">
+                <h2 className="text-2xl font-bold text-zinc-900 mb-1">
                   Configure {editForm.name}
                 </h2>
-                <p className="text-slate-400 text-sm font-mono bg-slate-800 px-2 py-0.5 rounded-md inline-block">{editingJob}</p>
+                <p className="text-zinc-500 text-sm font-mono bg-zinc-100 px-2 py-0.5 rounded-md inline-block">{editingJob}</p>
               </div>
               <button
                 onClick={handleCancelEdit}
-                className="p-2 hover:bg-slate-800 rounded-full transition-colors text-slate-400 hover:text-white"
+                className="p-2 hover:bg-zinc-100 rounded-full transition-colors text-zinc-400 hover:text-zinc-600"
               >
                 <X className="w-6 h-6" />
               </button>
@@ -893,39 +893,39 @@ function JobsPage() {
             <div className="p-8 space-y-8">
               {/* Basic Info */}
               <div className="space-y-6">
-                <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                  <div className="w-1 h-6 bg-blue-500 rounded-full"></div>
+                <h3 className="text-lg font-bold text-zinc-900 flex items-center gap-2">
+                  <div className="w-1 h-6 bg-indigo-500 rounded-full"></div>
                   Basic Information
                 </h3>
                 
                 <div className="grid grid-cols-1 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-slate-400 mb-2">
+                    <label className="block text-sm font-medium text-zinc-700 mb-2">
                       Job Name
                     </label>
                     <input
                       type="text"
                       value={editForm.name}
                       onChange={(e) => updateFormField('name', e.target.value)}
-                      className="w-full px-4 py-3 bg-slate-800/50 border border-white/10 rounded-xl text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all"
+                      className="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-xl text-zinc-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-slate-400 mb-2">
+                    <label className="block text-sm font-medium text-zinc-700 mb-2">
                       Description
                     </label>
                     <textarea
                       value={editForm.description}
                       onChange={(e) => updateFormField('description', e.target.value)}
                       rows={3}
-                      className="w-full px-4 py-3 bg-slate-800/50 border border-white/10 rounded-xl text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all resize-none"
+                      className="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-xl text-zinc-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all resize-none"
                     />
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-medium text-slate-400 mb-2">
+                      <label className="block text-sm font-medium text-zinc-700 mb-2">
                         Schedule
                       </label>
                       <input
@@ -933,9 +933,9 @@ function JobsPage() {
                         value={editForm.schedule}
                         onChange={(e) => updateFormField('schedule', e.target.value)}
                         placeholder="e.g., 0 */2 * * * or Real-time"
-                        className="w-full px-4 py-3 bg-slate-800/50 border border-white/10 rounded-xl text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all"
+                        className="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-xl text-zinc-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all"
                       />
-                      <p className="text-xs text-slate-500 mt-2 flex items-center gap-1">
+                      <p className="text-xs text-zinc-500 mt-2 flex items-center gap-1">
                         <Clock size={12} />
                         Examples: "Every 2 hours", "8:30 AM daily", "Real-time"
                       </p>
@@ -943,20 +943,20 @@ function JobsPage() {
 
                     {editForm.fullDayReportTime !== null && (
                       <div>
-                        <label className="block text-sm font-medium text-slate-400 mb-2">
+                        <label className="block text-sm font-medium text-zinc-700 mb-2">
                           Full Report Time
                         </label>
                         <input
                           type="time"
                           value={editForm.fullDayReportTime || ''}
                           onChange={(e) => updateFormField('fullDayReportTime', e.target.value)}
-                          className="w-full px-4 py-3 bg-slate-800/50 border border-white/10 rounded-xl text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all"
+                          className="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-xl text-zinc-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all"
                         />
                       </div>
                     )}
                   </div>
 
-                  <div className="flex flex-col gap-3 p-4 bg-slate-800/30 rounded-xl border border-white/5">
+                  <div className="flex flex-col gap-3 p-4 bg-zinc-50 rounded-xl border border-zinc-100">
                     <label className="flex items-center gap-3 cursor-pointer group">
                       <div className="relative flex items-center">
                         <input
@@ -965,9 +965,9 @@ function JobsPage() {
                           onChange={(e) => updateFormField('enabled', e.target.checked)}
                           className="peer sr-only"
                         />
-                        <div className="w-11 h-6 bg-slate-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-500/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        <div className="w-11 h-6 bg-zinc-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
                       </div>
-                      <span className="text-sm font-medium text-slate-300 group-hover:text-white">Job Enabled</span>
+                      <span className="text-sm font-medium text-zinc-700 group-hover:text-zinc-900">Job Enabled</span>
                     </label>
 
                     <label className="flex items-center gap-3 cursor-pointer group">
@@ -978,9 +978,9 @@ function JobsPage() {
                           onChange={(e) => updateFormField('allowEveryone', e.target.checked)}
                           className="peer sr-only"
                         />
-                        <div className="w-11 h-6 bg-slate-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-500/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        <div className="w-11 h-6 bg-zinc-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
                       </div>
-                      <span className="text-sm font-medium text-slate-300 group-hover:text-white">Allow Everyone (Public Access)</span>
+                      <span className="text-sm font-medium text-zinc-700 group-hover:text-zinc-900">Allow Everyone (Public Access)</span>
                     </label>
                   </div>
                 </div>
@@ -989,13 +989,13 @@ function JobsPage() {
               {/* Contact Numbers */}
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                  <h3 className="text-lg font-bold text-zinc-900 flex items-center gap-2">
                     <div className="w-1 h-6 bg-violet-500 rounded-full"></div>
                     Contact Numbers
                   </h3>
                   <button
                     onClick={addContactNumber}
-                    className="px-4 py-2 bg-violet-500/10 hover:bg-violet-500/20 text-violet-400 rounded-xl text-sm font-medium transition-colors flex items-center gap-2 border border-violet-500/20"
+                    className="px-4 py-2 bg-violet-50 hover:bg-violet-100 text-violet-600 rounded-xl text-sm font-medium transition-colors flex items-center gap-2"
                   >
                     <Plus size={16} />
                     Add Contact
@@ -1003,9 +1003,9 @@ function JobsPage() {
                 </div>
 
                 {editForm.contactNumbers.length === 0 ? (
-                  <div className="text-center py-8 bg-slate-800/30 rounded-xl border border-white/10 border-dashed">
-                    <Users className="w-8 h-8 text-slate-500 mx-auto mb-2" />
-                    <p className="text-slate-400 text-sm">No contacts configured</p>
+                  <div className="text-center py-8 bg-zinc-50 rounded-xl border border-zinc-100 border-dashed">
+                    <Users className="w-8 h-8 text-zinc-300 mx-auto mb-2" />
+                    <p className="text-zinc-500 text-sm">No contacts configured</p>
                   </div>
                 ) : (
                   <div className="space-y-3">
@@ -1016,11 +1016,11 @@ function JobsPage() {
                           value={contact}
                           onChange={(e) => updateContactNumber(index, e.target.value)}
                           placeholder="e.g., 0777078700"
-                          className="flex-1 px-4 py-3 bg-slate-800/50 border border-white/10 rounded-xl text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all"
+                          className="flex-1 px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-xl text-zinc-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all"
                         />
                         <button
                           onClick={() => removeContactNumber(index)}
-                          className="px-4 py-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 rounded-xl transition-colors border border-rose-500/20"
+                          className="px-4 py-2 bg-rose-50 hover:bg-rose-100 text-rose-500 rounded-xl transition-colors"
                         >
                           <Trash2 className="w-5 h-5" />
                         </button>
@@ -1033,15 +1033,15 @@ function JobsPage() {
               {/* Settings */}
               {editForm.settings && Object.keys(editForm.settings).length > 0 && (
                 <div className="space-y-6">
-                  <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                  <h3 className="text-lg font-bold text-zinc-900 flex items-center gap-2">
                     <div className="w-1 h-6 bg-emerald-500 rounded-full"></div>
                     Advanced Settings
                   </h3>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-slate-800/30 rounded-2xl border border-white/5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-zinc-50 rounded-2xl border border-zinc-100">
                     {Object.entries(editForm.settings).map(([key, value]) => (
                       <div key={key}>
-                        <label className="block text-sm font-medium text-slate-400 mb-2 capitalize">
+                        <label className="block text-sm font-medium text-zinc-700 mb-2 capitalize">
                           {key.replace(/([A-Z])/g, ' $1').trim()}
                         </label>
                         
@@ -1054,9 +1054,9 @@ function JobsPage() {
                                 onChange={(e) => updateSettingsField(key, e.target.checked)}
                                 className="peer sr-only"
                               />
-                              <div className="w-11 h-6 bg-slate-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-500/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                              <div className="w-11 h-6 bg-zinc-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
                             </div>
-                            <span className="text-sm font-medium text-slate-300 group-hover:text-white">
+                            <span className="text-sm font-medium text-zinc-600 group-hover:text-zinc-900">
                               {value ? 'Enabled' : 'Disabled'}
                             </span>
                           </label>
@@ -1065,14 +1065,14 @@ function JobsPage() {
                             type="number"
                             value={value}
                             onChange={(e) => updateSettingsField(key, Number(e.target.value))}
-                            className="w-full px-4 py-2 bg-slate-800/50 border border-white/10 rounded-xl text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all"
+                            className="w-full px-4 py-2 bg-white border border-zinc-200 rounded-xl text-zinc-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all"
                           />
                         ) : Array.isArray(value) ? (
                           <textarea
                             value={value.join(', ')}
                             onChange={(e) => updateSettingsField(key, e.target.value.split(',').map(v => v.trim()))}
                             rows={2}
-                            className="w-full px-4 py-2 bg-slate-800/50 border border-white/10 rounded-xl text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all"
+                            className="w-full px-4 py-2 bg-white border border-zinc-200 rounded-xl text-zinc-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all"
                             placeholder="Comma-separated values"
                           />
                         ) : (
@@ -1080,7 +1080,7 @@ function JobsPage() {
                             type="text"
                             value={String(value)}
                             onChange={(e) => updateSettingsField(key, e.target.value)}
-                            className="w-full px-4 py-2 bg-slate-800/50 border border-white/10 rounded-xl text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all"
+                            className="w-full px-4 py-2 bg-white border border-zinc-200 rounded-xl text-zinc-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all"
                           />
                         )}
                       </div>
@@ -1091,10 +1091,10 @@ function JobsPage() {
             </div>
 
             {/* Modal Footer */}
-            <div className="sticky bottom-0 bg-slate-900 border-t border-white/10 p-6 flex items-center justify-between rounded-b-[2rem]">
+            <div className="sticky bottom-0 bg-white border-t border-zinc-100 p-6 flex items-center justify-between rounded-b-[2rem]">
               <button
                 onClick={() => handleResetJob(editingJob)}
-                className="px-4 py-2.5 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 rounded-xl transition-colors flex items-center gap-2 text-sm font-medium border border-amber-500/20"
+                className="px-4 py-2.5 bg-amber-50 hover:bg-amber-100 text-amber-600 rounded-xl transition-colors flex items-center gap-2 text-sm font-medium"
               >
                 <RotateCcw className="w-4 h-4" />
                 Reset to Default
@@ -1103,14 +1103,14 @@ function JobsPage() {
               <div className="flex gap-3">
                 <button
                   onClick={handleCancelEdit}
-                  className="px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl transition-colors text-sm font-medium border border-white/10"
+                  className="px-6 py-2.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-700 rounded-xl transition-colors text-sm font-medium"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleSaveJob}
                   disabled={saving}
-                  className="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl transition-colors flex items-center gap-2 text-sm font-medium shadow-lg shadow-blue-600/20 disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl transition-colors flex items-center gap-2 text-sm font-medium shadow-lg shadow-indigo-600/20 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   {saving ? (
                     <>
@@ -1132,21 +1132,21 @@ function JobsPage() {
 
       {/* Watched Items List Modal */}
       {mounted && showItemList && createPortal(
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-6 z-[100]">
-          <div className="bg-slate-900 rounded-[2rem] max-w-2xl w-full max-h-[80vh] overflow-hidden flex flex-col shadow-2xl border border-white/10">
+        <div className="fixed inset-0 bg-zinc-900/20 backdrop-blur-sm flex items-center justify-center p-6 z-[100]">
+          <div className="bg-white rounded-[2rem] max-w-2xl w-full max-h-[80vh] overflow-hidden flex flex-col shadow-2xl border border-zinc-100">
             {/* Modal Header */}
-            <div className="bg-slate-900 border-b border-white/10 p-6 flex items-center justify-between">
+            <div className="bg-white border-b border-zinc-100 p-6 flex items-center justify-between">
               <div>
-                <h2 className="text-2xl font-bold text-white mb-1">
+                <h2 className="text-2xl font-bold text-zinc-900 mb-1">
                   Watched Items List
                 </h2>
-                <p className="text-slate-400 text-sm">
+                <p className="text-zinc-500 text-sm">
                   Manage tyre patterns to monitor in real-time
                 </p>
               </div>
               <button
                 onClick={handleCloseItemList}
-                className="p-2 hover:bg-slate-800 rounded-full transition-colors text-slate-400 hover:text-white"
+                className="p-2 hover:bg-zinc-100 rounded-full transition-colors text-zinc-400 hover:text-zinc-600"
               >
                 <X className="w-6 h-6" />
               </button>
@@ -1155,8 +1155,8 @@ function JobsPage() {
             {/* Modal Content */}
             <div className="flex-1 overflow-y-auto p-6">
               {/* Add New Item */}
-              <div className="mb-6 p-4 bg-slate-800/30 border border-white/5 rounded-2xl">
-                <label className="block text-sm font-medium text-slate-400 mb-2">
+              <div className="mb-6 p-4 bg-zinc-50 border border-zinc-100 rounded-2xl">
+                <label className="block text-sm font-medium text-zinc-700 mb-2">
                   {editingItemIndex !== null ? 'Edit Item' : 'Add New Item'}
                 </label>
                 <div className="flex gap-2">
@@ -1170,21 +1170,21 @@ function JobsPage() {
                       }
                     }}
                     placeholder="e.g., 195/65R15 MICHELIN PRIMACY 4"
-                    className="flex-1 px-4 py-2.5 bg-slate-800/50 border border-white/10 rounded-xl text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all"
+                    className="flex-1 px-4 py-2.5 bg-white border border-zinc-200 rounded-xl text-zinc-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all"
                   />
                   {editingItemIndex !== null ? (
                     <>
                       <button
                         onClick={handleUpdateItem}
                         disabled={!newItemName.trim()}
-                        className="px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-lg shadow-blue-600/20"
+                        className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-lg shadow-indigo-600/20"
                       >
                         <Save className="w-4 h-4" />
                         Update
                       </button>
                       <button
                         onClick={handleCancelItemEdit}
-                        className="px-4 py-2.5 bg-slate-700 hover:bg-slate-600 text-white rounded-xl transition-colors"
+                        className="px-4 py-2.5 bg-zinc-200 hover:bg-zinc-300 text-zinc-700 rounded-xl transition-colors"
                       >
                         Cancel
                       </button>
@@ -1193,14 +1193,14 @@ function JobsPage() {
                     <button
                       onClick={handleAddItem}
                       disabled={!newItemName.trim()}
-                      className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-lg shadow-emerald-600/20"
+                      className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-lg shadow-emerald-600/20"
                     >
                       <Plus className="w-4 h-4" />
                       Add
                     </button>
                   )}
                 </div>
-                <p className="text-xs text-slate-500 mt-2">
+                <p className="text-xs text-zinc-500 mt-2">
                   Enter full item description (e.g., size + brand + pattern)
                 </p>
               </div>
@@ -1208,21 +1208,21 @@ function JobsPage() {
               {/* Items List */}
               <div className="space-y-3">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-lg font-bold text-white">
+                  <h3 className="text-lg font-bold text-zinc-900">
                     Monitored Items ({watchedItems.length})
                   </h3>
                   {watchedItems.length > 0 && (
-                    <span className="text-xs font-medium bg-emerald-500/10 text-emerald-400 px-2 py-1 rounded-full">
+                    <span className="text-xs font-medium bg-emerald-50 text-emerald-600 px-2 py-1 rounded-full">
                       Active
                     </span>
                   )}
                 </div>
 
                 {watchedItems.length === 0 ? (
-                  <div className="text-center py-12 bg-slate-800/30 rounded-2xl border border-white/10 border-dashed">
-                    <List className="w-12 h-12 text-slate-500 mx-auto mb-3" />
-                    <p className="text-slate-400 font-medium mb-1">No items being monitored</p>
-                    <p className="text-sm text-slate-500">
+                  <div className="text-center py-12 bg-zinc-50 rounded-2xl border border-zinc-100 border-dashed">
+                    <List className="w-12 h-12 text-zinc-300 mx-auto mb-3" />
+                    <p className="text-zinc-500 font-medium mb-1">No items being monitored</p>
+                    <p className="text-sm text-zinc-400">
                       Add items above to start receiving real-time alerts
                     </p>
                   </div>
@@ -1233,21 +1233,21 @@ function JobsPage() {
                         key={index}
                         className={`p-4 rounded-xl border transition-all ${
                           editingItemIndex === index
-                            ? 'bg-blue-500/10 border-blue-500/30'
-                            : 'bg-slate-800/50 border-white/5 hover:border-white/10 shadow-sm'
+                            ? 'bg-indigo-50 border-indigo-200'
+                            : 'bg-white border-zinc-100 hover:border-zinc-300 shadow-sm'
                         }`}
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex-1">
                             <div className="flex items-center gap-3">
-                              <span className="w-8 h-8 bg-amber-500/10 rounded-lg flex items-center justify-center text-amber-500 font-bold text-sm">
+                              <span className="w-8 h-8 bg-amber-50 rounded-lg flex items-center justify-center text-amber-600 font-bold text-sm">
                                 {index + 1}
                               </span>
                               <div>
-                                <p className="text-white font-medium">
+                                <p className="text-zinc-900 font-medium">
                                   {item}
                                 </p>
-                                <p className="text-xs text-slate-500 mt-0.5">
+                                <p className="text-xs text-zinc-500 mt-0.5">
                                   Monitored in real-time • Alerts on sale
                                 </p>
                               </div>
@@ -1258,7 +1258,7 @@ function JobsPage() {
                             <button
                               onClick={() => handleEditItem(index)}
                               disabled={editingItemIndex !== null && editingItemIndex !== index}
-                              className="p-2 bg-slate-700/50 hover:bg-slate-600/50 text-slate-300 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                              className="p-2 bg-zinc-100 hover:bg-zinc-200 text-zinc-600 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                               title="Edit item"
                             >
                               <Edit2 className="w-4 h-4" />
@@ -1266,7 +1266,7 @@ function JobsPage() {
                             <button
                               onClick={() => handleRemoveItem(index)}
                               disabled={editingItemIndex !== null}
-                              className="p-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                              className="p-2 bg-rose-50 hover:bg-rose-100 text-rose-500 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                               title="Remove item"
                             >
                               <Trash2 className="w-4 h-4" />
@@ -1281,13 +1281,13 @@ function JobsPage() {
             </div>
 
             {/* Modal Footer */}
-            <div className="bg-slate-900 border-t border-white/10 p-6 flex items-center justify-between">
-              <div className="text-sm text-slate-500">
+            <div className="bg-white border-t border-zinc-100 p-6 flex items-center justify-between">
+              <div className="text-sm text-zinc-500">
                 <p>Changes are saved automatically</p>
               </div>
               <button
                 onClick={handleCloseItemList}
-                className="px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl transition-colors font-medium shadow-lg shadow-black/20 border border-white/10"
+                className="px-6 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-white rounded-xl transition-colors font-medium shadow-lg shadow-zinc-900/10"
               >
                 Done
               </button>

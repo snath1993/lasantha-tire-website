@@ -1,0 +1,112 @@
+{
+  "metadata": {
+    "type": "QUOTATION",
+    "color": "#e67e22",
+    "legalNote": "This is a computer-generated document. No signature is required. (Quotation only — not a tax invoice)",
+    "currencyLabel": "Rs.",
+    "vatRate": 18,
+    "isVatInvoice": null,
+    "companyDisplayName": "Lasantha Tyre Traders"
+  },
+  "invoice": {
+    "number": "000864",
+    "date": "2026-01-16",
+    "validUntil": "2026-01-23",
+    "customerName": "SRI LANKA RUPAVAHINI CORPORATION",
+    "customerAddress": "COLOMBO 07",
+    "customerTel": "0112501067",
+    "customerFax": "",
+    "vehicleNo": "-",
+    "mileage": "-",
+    "rep": "UDAYA",
+    "paymentMethod": "-",
+    "quotationValidPeriod": "30 Days",
+    "deliveryPeriod": "07 Days",
+    "paymentTerms": "Credit",
+    "availability": "Ex-Stock",
+    "printedAt": "1/16/2026"
+  },
+  "items": [
+    {
+      "index": 1,
+      "code": "195/158PR/GTR/MAXPRO",
+      "description": "195/15 8PR GT MAXMILER PRO INDONESIA",
+      "quantity": 20,
+      "qty": 20,
+      "brand": "GT",
+      "size": "",
+      "price": "33,600.00",
+      "total": "672,000.00",
+      "rawTotal": 672000,
+      "unitPriceExVat": "28,474.58",
+      "lineTotalExVat": "569,491.53",
+      "vatAmount": "102,508.47",
+      "lineTotalInclVat": "672,000.00",
+      "warranty": "40000KM/4YEARS"
+    },
+    {
+      "index": 2,
+      "code": "700/1512PR/ARP/RP112",
+      "description": "700/15 12PR ARPICO RP112 SRI LANKA",
+      "quantity": 2,
+      "qty": 2,
+      "brand": "ARPICO",
+      "size": "700/1512",
+      "price": "32,000.00",
+      "total": "64,000.00",
+      "rawTotal": 64000,
+      "unitPriceExVat": "27,118.64",
+      "lineTotalExVat": "54,237.29",
+      "vatAmount": "9,762.71",
+      "lineTotalInclVat": "64,000.00",
+      "warranty": "40000KM/4YEAR"
+    },
+    {
+      "index": 3,
+      "code": "TB700/750/15 L/V",
+      "description": "700/750/15  L/V TUBE",
+      "quantity": 2,
+      "qty": 2,
+      "brand": "MARUTTI",
+      "size": "",
+      "price": "4,500.00",
+      "total": "9,000.00",
+      "rawTotal": 9000,
+      "unitPriceExVat": "3,813.56",
+      "lineTotalExVat": "7,627.12",
+      "vatAmount": "1,372.88",
+      "lineTotalInclVat": "9,000.00",
+      "warranty": ""
+    }
+  ],
+  "totals": {
+    "subtotal": "745,000.00",
+    "grandTotal": "745,000.00",
+    "subtotalExVat": "631,355.94",
+    "vatTotal": "113,644.06"
+  },
+  "company": {
+    "NAME": "Lasantha Tyre Traders",
+    "ADDRESS": "1035, Pannipitiya Road, Kumaragewattha, Battaramulla",
+    "PHONE": "0112 773 232",
+    "FAX": "0112 773 231",
+    "MOBILE": "0771 222 509",
+    "EMAIL": "lasanthatyretraders@gmail.com",
+    "WEB": "www.lasanthatyre.lk",
+    "BR_NO": "",
+    "VAT_NO": "743321219-7000",
+    "SVAT_NO": "",
+    "WARRANTY_TERMS_BULLETS": [
+      "Company warranty only.",
+      "No warranty for used, repaired, punctured, cut, or burst tires, or for visible flaws caused by wheel alignment or technical issues.",
+      "Alignment is recommended every 5,000 km for better mileage.",
+      "Damage from improper use, overloading, incorrect air pressure, poor maintenance, or third-party installations is not covered.",
+      "Customers must inspect tires upon purchase and raise concerns immediately.",
+      "Returns or exchanges are only for unused tires with the receipt.",
+      "Road hazard damage (potholes, debris, etc.) is excluded.",
+      "By purchasing, customers agree to these terms."
+    ],
+    "COLOR_PRIMARY": "#e67e22",
+    "COLOR_SECONDARY": "#2c3e50"
+  }
+}

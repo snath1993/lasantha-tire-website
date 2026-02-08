@@ -29,13 +29,12 @@ function ensureUsersFile() {
 
   if (!fs.existsSync(USERS_FILE)) {
     // Create default admin user
-    const defaultAdminSecret = process.env.DEFAULT_ADMIN_PASSWORD || 'admin';
     const defaultData: UsersData = {
       users: [
         {
           id: crypto.randomUUID(),
           username: 'admin',
-          password: hashPassword(defaultAdminSecret),
+          password: hashPassword('lasantha@1977'),
           role: 'admin',
           createdAt: new Date().toISOString(),
           active: true
@@ -155,7 +154,7 @@ export async function POST(request: NextRequest) {
 
       // If password provided, update it
       if (user.password) {
-        existingUser['password'] = hashPassword(user.password);
+        existingUser.password = hashPassword(user.password);
       }
 
       // Update role if provided

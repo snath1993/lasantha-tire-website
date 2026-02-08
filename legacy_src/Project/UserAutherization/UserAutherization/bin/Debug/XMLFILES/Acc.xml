@@ -1,0 +1,1544 @@
+<PAW_Accounts xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes"
+xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance"
+xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">10000</ID>
+	<Description>AMBULANCE</Description>
+	<Type>21</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">10010</ID>
+	<Description>CHANNELING</Description>
+	<Type>21</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">10020</ID>
+	<Description>DENTAL</Description>
+	<Type>21</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">10030</ID>
+	<Description>DRESSING</Description>
+	<Type>21</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">10040</ID>
+	<Description>E-CHANNEL</Description>
+	<Type>21</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">10050</ID>
+	<Description>ECG</Description>
+	<Type>21</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">10060</ID>
+	<Description>ECHO</Description>
+	<Type>21</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">10070</ID>
+	<Description>EEG</Description>
+	<Type>21</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">10080</ID>
+	<Description>ENDOSCOPY</Description>
+	<Type>21</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">10090</ID>
+	<Description>FULL BODY CHECK UP</Description>
+	<Type>21</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">10100</ID>
+	<Description>HOLTER MONITORIN</Description>
+	<Type>21</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">10110</ID>
+	<Description>HOMEOPATHY</Description>
+	<Type>21</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">10120</ID>
+	<Description>LAB</Description>
+	<Type>21</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">10130</ID>
+	<Description>MICROBIOLOGY</Description>
+	<Type>21</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">10140</ID>
+	<Description>OPD DRUGS SALE</Description>
+	<Type>21</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">10150</ID>
+	<Description>OPD INCOME</Description>
+	<Type>21</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">10160</ID>
+	<Description>PHARMACY INCOME</Description>
+	<Type>21</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">10170</ID>
+	<Description>SCANING</Description>
+	<Type>21</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">10180</ID>
+	<Description>THEATER</Description>
+	<Type>21</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">10190</ID>
+	<Description>VACCINE</Description>
+	<Type>21</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">10200</ID>
+	<Description>WARD FINAL</Description>
+	<Type>21</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">10210</ID>
+	<Description>X RAY</Description>
+	<Type>21</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">10220</ID>
+	<Description>FEE REFUND</Description>
+	<Type>21</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">10230</ID>
+	<Description>SUNDRY INCOME</Description>
+	<Type>21</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">10240</ID>
+	<Description>BP MONITORING</Description>
+	<Type>21</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">20000</ID>
+	<Description>COST OF SALE DENTAL</Description>
+	<Type>23</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">20010</ID>
+	<Description>COST OF SALE DRESSING</Description>
+	<Type>23</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">20020</ID>
+	<Description>COST OF SALE ECG</Description>
+	<Type>23</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">20030</ID>
+	<Description>COST OF SALE ECHO</Description>
+	<Type>23</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">20040</ID>
+	<Description>COST OF SALE EEG</Description>
+	<Type>23</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">20050</ID>
+	<Description>COST OF SALE ENDOSCOPY</Description>
+	<Type>23</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">20060</ID>
+	<Description>COST OF SALE LAB</Description>
+	<Type>23</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">20070</ID>
+	<Description>COST OF SALE OPD</Description>
+	<Type>23</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">20080</ID>
+	<Description>COST OF SALE PHARMACY</Description>
+	<Type>23</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">20090</ID>
+	<Description>COST OF SALE SCANNING</Description>
+	<Type>23</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">20100</ID>
+	<Description>COST OF SALE THEATER</Description>
+	<Type>23</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">20110</ID>
+	<Description>COST OF SALE VACCINE</Description>
+	<Type>23</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">20120</ID>
+	<Description>COST OF SALE WARD</Description>
+	<Type>23</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">20130</ID>
+	<Description>COST OF SALE XRAY</Description>
+	<Type>23</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">20140</ID>
+	<Description>COST OF SALE SUNDRY</Description>
+	<Type>23</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">20150</ID>
+	<Description>COST OF SALE MAIN</Description>
+	<Type>23</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">20160</ID>
+	<Description>COST OF SALE HOME</Description>
+	<Type>23</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30000</ID>
+	<Description>Amin:Exe:ANNUAL HOSPITAL REG F</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30010</ID>
+	<Description>Amin:Exe:CLEANING</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30020</ID>
+	<Description>Amin:Exe:DIRECTOR REMUNATION</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30030</ID>
+	<Description>Amin:Exe:DR CHATHURA SALARY</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30040</ID>
+	<Description>Amin:Exe:EPF</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30050</ID>
+	<Description>Amin:Exe:ETF</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30060</ID>
+	<Description>Amin:Exe:FIRE SERVICES</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30070</ID>
+	<Description>Amin:Exe:HOSTAL EXPENSES</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30080</ID>
+	<Description>Amin:Exe:HOSTAL RENT</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30090</ID>
+	<Description>Amin:Exe:INTERNET</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30110</ID>
+	<Description>Amin:Exe:PRINT &amp; STATIONARY</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30120</ID>
+	<Description>Amin:Exe:RATE &amp; TAXES</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30130</ID>
+	<Description>Amin:Exe &amp; Sal:Wage</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30140</ID>
+	<Description>Amin:Exe &amp; Sal:Wage:ATTENDENCE</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30150</ID>
+	<Description>Amin:Exe &amp; Sal:Wage:NO PAY</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30160</ID>
+	<Description>Amin:Exe &amp; Sal:Wage:ON CALL IN</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30170</ID>
+	<Description>Amin:Exe &amp; Sal:Wage:OVER TIME</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30180</ID>
+	<Description>Amin:Exe &amp; Sal:Wage:PH ALLOWEN</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30190</ID>
+	<Description>Amin:Exe &amp; Sal:Wage:SALES INSE</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30200</ID>
+	<Description>Amin:Exe &amp; Sal:Wage:SEAL &amp; CER</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30210</ID>
+	<Description>Amin:Exe &amp; Sal:Wage:THEATRE IN</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30220</ID>
+	<Description>Amin:Exe &amp; Sal:Wage:TRAVELLING</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30230</ID>
+	<Description>Amin:Exe:SOFTWARE PAYMENT</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30240</ID>
+	<Description>Amin:Exe:UTILITY:WATER EXPENSE</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30250</ID>
+	<Description>ADVERTISING &amp; PROMOTION</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30260</ID>
+	<Description>AMBULANCE EXPENSES</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30270</ID>
+	<Description>CHANNELING EXPENSES</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30280</ID>
+	<Description>COMMISION:CLEANNING</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30290</ID>
+	<Description>COMMISION:CREDIT CARD</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30300</ID>
+	<Description>COMMISION:DENTAL COMMISION</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30310</ID>
+	<Description>COMMISION:DR RIYAZ</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30320</ID>
+	<Description>COMMISION:LAB COMMISION</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30330</ID>
+	<Description>COMMISION:NIGHT ALLOWANCE</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30340</ID>
+	<Description>COMMISION:OTHER COMMISSION</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30350</ID>
+	<Description>COMMISION:PHARMACY</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30360</ID>
+	<Description>COMMISION:TRANSPORT</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30370</ID>
+	<Description>COMMISION:WARD ALLOWANCE</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30380</ID>
+	<Description>DENTAL EXPENSES</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30390</ID>
+	<Description>DEPRECIATION EXPENSE</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30400</ID>
+	<Description>Main :AIR CONDITION REPAIR</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30410</ID>
+	<Description>Main :CAMERA REPAIR</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30420</ID>
+	<Description>Main :COMPUTER REPAIR</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30430</ID>
+	<Description>Main :GENERATOR SERVICE</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30440</ID>
+	<Description>Main :HOSPITAL Main</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30450</ID>
+	<Description>Main :LOCAL SOFT WARE</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30460</ID>
+	<Description>Main :LIFT SERVICE</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30470</ID>
+	<Description>Main :MACHINERY &amp; OTHER</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30480</ID>
+	<Description>Main :PRINTER Main</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30490</ID>
+	<Description>Main :TELEPHONE REPAIR</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30500</ID>
+	<Description>Main :VEHICAL Main</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30510</ID>
+	<Description>Main :X RAY MACHINE REPAIR</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30520</ID>
+	<Description>DISCOUNT</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30530</ID>
+	<Description>DOCTORS HAMPER</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30540</ID>
+	<Description>DONATION</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30550</ID>
+	<Description>EEG TECHNETIEN FEE</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30560</ID>
+	<Description>ELECTRICITY EXPENSES</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30570</ID>
+	<Description>PANALTY &amp; SURCHARGE</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30580</ID>
+	<Description>Fin: Othe:BANK CHARGERS</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30590</ID>
+	<Description>Fin: Othe:CQ BOOK CHARGERS</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30600</ID>
+	<Description>Fin: Othe:DR.KUMARANAYAKA</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30610</ID>
+	<Description>Fin: Othe:HOME</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30620</ID>
+	<Description>Fin: Othe:LEASE INTEREST</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30630</ID>
+	<Description>Fin: Othe:LEGAL FEE</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30640</ID>
+	<Description>Fin: Othe:LOAN INT-UNION BANK</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30650</ID>
+	<Description>Fin: Othe:LOAN INT 81671011</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30660</ID>
+	<Description>Fin: Othe:LOAN INT 81671125</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30670</ID>
+	<Description>Fin: Othe:LOAN INT 81671280</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30680</ID>
+	<Description>Fin: Othe:OD-INTEREST</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30690</ID>
+	<Description>Fin: Othe:PENALTY &amp; SURCHARGE</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30700</ID>
+	<Description>Fin: Othe:SHORT &amp; EXESES</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30701</ID>
+	<Description>Fin:NDB Loan Int</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30710</ID>
+	<Description>INSURANCE EXPENSES</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30720</ID>
+	<Description>LAB EXPENSES:DR.ALWIS</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30730</ID>
+	<Description>LAB EXPENSES:DR.MODINI</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30740</ID>
+	<Description>LAB EXPENSES:LAB MAINTANANCE</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30750</ID>
+	<Description>LAB EXPENSES:LANKA HOSPITAL</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30760</ID>
+	<Description>LAB EXPENSES:OUT LAB TEST</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30780</ID>
+	<Description>LAB EXPENSES</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30790</ID>
+	<Description>LAB EXPENSE:DR SHERIN</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30800</ID>
+	<Description>DR VISAKA RATNAMALALA</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">30990</ID>
+	<Description>PHAMACY EXPENSES:LICENSE FEE</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">31000</ID>
+	<Description>PHAMACY EXPENSES:PHARMACY RENT</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">31010</ID>
+	<Description>PHAMACY EXPENSES:OTHER EXPENSE</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">31020</ID>
+	<Description>POSTAGE &amp; DELIVERY</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">31030</ID>
+	<Description>AUDIT FEE</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">31040</ID>
+	<Description>SECRETARY FEE</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">31050</ID>
+	<Description>STAFF WELFEAR</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">31060</ID>
+	<Description>TELEPHONE EXPENSES</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">31070</ID>
+	<Description>THEATER EXPENSES:THEATER EXPEN</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">31080</ID>
+	<Description>THEATER EXPENSES:THEATER TECHN</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">31090</ID>
+	<Description>TRAVELING &amp; TRANPORT:TRANSPORT</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">31100</ID>
+	<Description>TRAVELING &amp; TRANPORT:FUEL</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">31950</ID>
+	<Description>WARD EXPENSES:BLOOD BANK</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">31960</ID>
+	<Description>WARD EXPENSES:COUNCIL FEE</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">31970</ID>
+	<Description>WARD EXPENSES:KITCHEN</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">31980</ID>
+	<Description>WARD EXPENSES:OUT TEST</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">31990</ID>
+	<Description>WARD EXPENSES:OXYGEN</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">32000</ID>
+	<Description>WARD EXPENSES:WARD EXPENSES</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">32010</ID>
+	<Description>X RAY TECHNETIEN FEE</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">32020</ID>
+	<Description>X-RAY EXPENSES</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">32030</ID>
+	<Description>X RAY REPORTING</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">32040</ID>
+	<Description>BP MONITORING CHARGE</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">32060</ID>
+	<Description>LEAVE BALANCE</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">32080</ID>
+	<Description>CAR PARK RENT</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">32100</ID>
+	<Description>HOLTER MONITORING TECHNETIEN</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">32105</ID>
+	<Description>TRAINING EXPENSES</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">32110</ID>
+	<Description>ECONOMIC SERVICE CHARGE</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">32120</ID>
+	<Description>GRATIVITY</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">32130</ID>
+	<Description>NURSING HOMES MEMBERSHIP FEE</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">32140</ID>
+	<Description>SECRETARY FEE</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">32150</ID>
+	<Description>COMMUNICATION EXPENSES</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">32160</ID>
+	<Description>TRADE LICENSE FEE</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">36230</ID>
+	<Description>BIOCHEMISTRY ANALYSER</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">36240</ID>
+	<Description>WHT</Description>
+	<Type>24</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">39003</ID>
+	<Description>Dividends Paid</Description>
+	<Type>19</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">39004</ID>
+	<Description>Common Stock</Description>
+	<Type>16</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">39005</ID>
+	<Description>Retained Earnings</Description>
+	<Type>18</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60000</ID>
+	<Description>BUILDING W.I.P</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60010</ID>
+	<Description>F &amp; E:Air conditioner</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60020</ID>
+	<Description>F &amp; E:Air conditioner:DEP-Air</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60030</ID>
+	<Description>F &amp; E:Anaesthesia Machine</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60040</ID>
+	<Description>F &amp; E:Anaesthesia Machine:DEP-</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60050</ID>
+	<Description>F &amp; E:Computer &amp; Printer</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60060</ID>
+	<Description>F &amp; E:Computer &amp; Printer:Compu</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60070</ID>
+	<Description>F &amp; E:Computer &amp; Printer:Compu</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60080</ID>
+	<Description>F &amp; E:Computer &amp; Printer:Compu</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60090</ID>
+	<Description>F &amp; E:Computer &amp; Printer:Comut</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60100</ID>
+	<Description>F &amp; E:Computer &amp; Printer:DEP-C</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60110</ID>
+	<Description>F &amp; E:Dental  Machines</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60120</ID>
+	<Description>F &amp; E:Dental  Machines:DEP-Den</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60130</ID>
+	<Description>F &amp; E:Display Board</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60140</ID>
+	<Description>F &amp; E:Display Board:DEP-Displa</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60150</ID>
+	<Description>F &amp; E:Furniture &amp; Fitting</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60160</ID>
+	<Description>F &amp; E:Furniture &amp; Fitting:DEP-</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60170</ID>
+	<Description>F &amp; E:Generator</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60180</ID>
+	<Description>F &amp; E:Generator:DEP-Generator</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60190</ID>
+	<Description>F &amp; E:Kitchen Equipment</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60200</ID>
+	<Description>F &amp; E:Kitchen Equipment:DEP-Ki</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60210</ID>
+	<Description>F &amp; E:Lab Machinery</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60220</ID>
+	<Description>F &amp; E:Lab Machinery:DEP-Lab Ma</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60230</ID>
+	<Description>F &amp; E:Scanner Machine</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60240</ID>
+	<Description>F &amp; E:Scanner Machine:DEP-Scan</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60250</ID>
+	<Description>F &amp; E:TP System</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60260</ID>
+	<Description>F &amp; E:TP System:DEP-TP System</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60270</ID>
+	<Description>F &amp; E:TP System:Software</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60280</ID>
+	<Description>F &amp; E:TP System:Software:DEP-S</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60290</ID>
+	<Description>F &amp; E:Television</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60300</ID>
+	<Description>F &amp; E:Television:DEP-Televisio</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60310</ID>
+	<Description>F &amp; E:Theater Equipment</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60320</ID>
+	<Description>F &amp; E:Theater Equipment:DEP-Th</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60330</ID>
+	<Description>F &amp; E:X-Ray CR System</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60340</ID>
+	<Description>F &amp; E:X-Ray CR System:DEP-X-Ra</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60350</ID>
+	<Description>PP &amp; E:Biochemestri</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60360</ID>
+	<Description>PP &amp; E:Biochemestri:DEP-Bioche</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60370</ID>
+	<Description>PP &amp; E:Buildings</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60380</ID>
+	<Description>PP &amp; E:Buildings:DEP-Buildings</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60390</ID>
+	<Description>PP &amp; E:ECG Machine</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60400</ID>
+	<Description>PP &amp; E:ECG Machine:DEP-ECG Mac</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60410</ID>
+	<Description>PP &amp; E:Endoscopy</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60420</ID>
+	<Description>PP &amp; E:Endoscopy:DEP-Endoscopy</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60430</ID>
+	<Description>PP &amp; E:Hormone Analyzer</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60440</ID>
+	<Description>PP &amp; E:Hormone Analyzer:DEP-Ho</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60450</ID>
+	<Description>PP &amp; E:Land</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60460</ID>
+	<Description>PP &amp; E:Machinery &amp; Other</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60470</ID>
+	<Description>PP &amp; E:Machinery &amp; Other:DEP:M</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60480</ID>
+	<Description>PP &amp; E:Mobile Phone</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60490</ID>
+	<Description>PP &amp; E:Mobile Phone:DEP-Mobile</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60500</ID>
+	<Description>PP &amp; E:Motor Vehicle</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60510</ID>
+	<Description>PP &amp; E:Motor Vehicle:DEP-Motor</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60520</ID>
+	<Description>PP &amp; E:Motor Vehicle:Ambulance</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60530</ID>
+	<Description>PP &amp; E:Motor Vehicle:DEP-Ambul</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60540</ID>
+	<Description>PP &amp; E:Multi Media Monitor</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60550</ID>
+	<Description>PP &amp; E:Multi Media Monitor:DEP</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60560</ID>
+	<Description>PP &amp; E:Name Board</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60570</ID>
+	<Description>PP &amp; E:Name Board:DEP-Name Boa</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60580</ID>
+	<Description>PP &amp; E:New Building</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60590</ID>
+	<Description>PP &amp; E:New Building:DEP-New Bu</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60600</ID>
+	<Description>PP &amp; E:T.I.P sk 6001</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60610</ID>
+	<Description>PP &amp; E:T.I.P sk 6001:DEP-T.I.P</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60620</ID>
+	<Description>PP &amp; E:W.I.P SK-600II</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60630</ID>
+	<Description>PP &amp; E:W.I.P SK-600II:DEP-Ward</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60640</ID>
+	<Description>PP &amp; E:Washing Machine</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60650</ID>
+	<Description>PP &amp; E:Washing Machine:DEP-Was</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60660</ID>
+	<Description>PP &amp; E:Water Filter</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60670</ID>
+	<Description>PP &amp; E:Water Filter:DEP-Water</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60680</ID>
+	<Description>PP &amp; E:Wheel Chairs</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60690</ID>
+	<Description>PP &amp; EWheel Chairs:DEP-Wheel C</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60700</ID>
+	<Description>SCALE MACHINE</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60710</ID>
+	<Description>SCALE MACHINE-DEP</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">60720</ID>
+	<Description>PP &amp; E: ULTRASOUND TRANSDUCER</Description>
+	<Type>5</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">65000</ID>
+	<Description>TREADE DEBTORS</Description>
+	<Type>1</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">70000</ID>
+	<Description>STOCK</Description>
+	<Type>2</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">70010</ID>
+	<Description>STOCK-CONSUMABLES</Description>
+	<Type>2</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">70030</ID>
+	<Description>STOCK-REGENTS</Description>
+	<Type>2</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">70040</ID>
+	<Description>STOCK-INJECTIONS</Description>
+	<Type>2</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">73000</ID>
+	<Description>WHT RECOVABLE</Description>
+	<Type>4</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">73010</ID>
+	<Description>HOSTAL DEPOSIT OLD</Description>
+	<Type>4</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">73020</ID>
+	<Description>HOSTAL DEPOSIT NEW</Description>
+	<Type>4</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">73030</ID>
+	<Description>CAR PARK DEPOSIT</Description>
+	<Type>4</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">73040</ID>
+	<Description>E - CHANNEL WEB INCOME</Description>
+	<Type>4</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">73050</ID>
+	<Description>FESTIVAL ADVANCE</Description>
+	<Type>4</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">73060</ID>
+	<Description>OXYGEN THEATER</Description>
+	<Type>4</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">73070</ID>
+	<Description>PREPAYMENTS:ANALATICAL INSTRUM</Description>
+	<Type>4</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">73080</ID>
+	<Description>PREPAYMENTS:BIOMEDICA</Description>
+	<Type>4</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">73090</ID>
+	<Description>PREPAYMENTS:GENERATOR SERVICE</Description>
+	<Type>4</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">73100</ID>
+	<Description>PREPAYMENTS:PHARMACY LICENSE F</Description>
+	<Type>4</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">73110</ID>
+	<Description>PREPAYMENTS:SALARY ADVANCE</Description>
+	<Type>4</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">73120</ID>
+	<Description>STAFF LOAN</Description>
+	<Type>4</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">73130</ID>
+	<Description>INTEREST IN SUSPENSE</Description>
+	<Type>4</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">73140</ID>
+	<Description>CREDIT CARD RECEIVABLE</Description>
+	<Type>4</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">73150</ID>
+	<Description>PREPAYMENTS:AE LANKA</Description>
+	<Type>4</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">73160</ID>
+	<Description>BUILDING INSURANCE</Description>
+	<Type>4</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">73180</ID>
+	<Description>PREPAYMENTS:OTHER</Description>
+	<Type>4</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">73200</ID>
+	<Description>DIRECTOR FEE</Description>
+	<Type>4</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">73210</ID>
+	<Description>INSURANCE CASHLESS PAYMENT</Description>
+	<Type>4</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">75000</ID>
+	<Description>C &amp; C E:Cash in Hand</Description>
+	<Type>0</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">75010</ID>
+	<Description>C &amp; C E:Cash in Hand.RE</Description>
+	<Type>0</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">75020</ID>
+	<Description>C &amp; C E:PETTY CASH</Description>
+	<Type>0</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">75030</ID>
+	<Description>C &amp; C E:Commercial Bank-A/C 18</Description>
+	<Type>0</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">75050</ID>
+	<Description>C &amp; C E:NDB BANK</Description>
+	<Type>0</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">75060</ID>
+	<Description>C &amp; C E:SAMPATH BANK</Description>
+	<Type>0</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">75070</ID>
+	<Description>C &amp; C E:DFCC S/A</Description>
+	<Type>0</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">75080</ID>
+	<Description>C &amp; C E:BOC 0080209633</Description>
+	<Type>0</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">75090</ID>
+	<Description>CONSTRUCTION CASH</Description>
+	<Type>0</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">75100</ID>
+	<Description>COMMERCIAL A/C 454</Description>
+	<Type>0</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">80000</ID>
+	<Description>BOC LOAN-81671011</Description>
+	<Type>14</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">80010</ID>
+	<Description>BOC LOAN-81671125</Description>
+	<Type>14</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">80020</ID>
+	<Description>BOC LOAN-81671280</Description>
+	<Type>14</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">80030</ID>
+	<Description>SAMPATH LEASE</Description>
+	<Type>14</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">80040</ID>
+	<Description>UNION BANK-5MN LOAN</Description>
+	<Type>14</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">80050</ID>
+	<Description>NDB LOAN</Description>
+	<Type>14</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">85000</ID>
+	<Description>TRADE CREDITORS</Description>
+	<Type>10</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86000</ID>
+	<Description>DAC/A:Dr.CHATHURA WEERASINGHE</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86010</ID>
+	<Description>DA C/A:Dr.MADHUKA WEERASINGHE</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86020</ID>
+	<Description>DA C/A:Dr.R.P.WEERASINGHE</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86030</ID>
+	<Description>DA C/A:MRS DIANA WEERASINGHE</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86040</ID>
+	<Description>E-CHANNEL PAYBLE</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86050</ID>
+	<Description>ELECTRICITY PAYABALE</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86060</ID>
+	<Description>TELEPHONE PAYABLE</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86070</ID>
+	<Description>WATER PAYABLE</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86080</ID>
+	<Description>VAT PAYABLE</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86090</ID>
+	<Description>EPF PAYABLE</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86100</ID>
+	<Description>ETF PAYABLE</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86110</ID>
+	<Description>COUNCIL FEE PAYABLE</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86120</ID>
+	<Description>COMMISSION PAYABLE</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86130</ID>
+	<Description>BLOOD BANK</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86140</ID>
+	<Description>AUDIT FEE PAYABLE</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86150</ID>
+	<Description>SECRETARY FEE PAYABLE</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86160</ID>
+	<Description>HOSTAL RENT PAYABLE</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86170</ID>
+	<Description>INCOME TAX PAYABLE</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86180</ID>
+	<Description>PAYE TAX PAYABLE</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86190</ID>
+	<Description>PHARMACY RENT PAYABLE</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86200</ID>
+	<Description>SALARY PAYABLE</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86210</ID>
+	<Description>SECUIRITY DEPOSIT</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86220</ID>
+	<Description>GOMEZ HOSPITAL</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86230</ID>
+	<Description>ASSET CREDITOR-BIO CHEMISTRY</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86240</ID>
+	<Description>ASSET CREDITOR-HOMON ANALY</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86250</ID>
+	<Description>CLEANING-SISILI</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86260</ID>
+	<Description>LANKA HOSPITAL</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86280</ID>
+	<Description>STOCK CONTROL</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86290</ID>
+	<Description>WHT PAYABLE</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86300</ID>
+	<Description>ESC PAYABLE</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86310</ID>
+	<Description>PERSONAL LOAN- MRS DIANA</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86320</ID>
+	<Description>NEXTGEN-THEATRE</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86330</ID>
+	<Description>GRTIVITY PROVITION</Description>
+	<Type>12</Type>
+</PAW_Account>
+<PAW_Account xsi:type="paw:account">
+	<ID xsi:type="paw:id">86340</ID>
+	<Description>DELMEGE-MICROSCOPE</Description>
+	<Type>12</Type>
+</PAW_Account>
+</PAW_Accounts>

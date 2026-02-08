@@ -1,0 +1,75 @@
+pdf_path=C:\Users\Cashi\Desktop\q.pdf
+exists=True
+size=79453
+pymupdf_failed:ModuleNotFoundError:No module named 'fitz'
+pdfplumber_failed:ModuleNotFoundError:No module named 'pdfplumber'
+extractor=pdfminer.six
+page1_width=612.0
+page1_height=792.0
+
+=== PAGE 1 TEXT (pdfminer lines) ===
+
+Lasantha Tyre Traders
+INV00063599
+INVOICE NO :
+12:44 PM
+1035 Pannipitiya Rd, Kumaragewatta, Battaramulla.
+1/2/2026
+INVOICE DATE:
+Cash
+TERMS:
+0112773232
+TEL:
+FAX:  0112773231
+PO NO:
+CASH
+CUSTOMER ID:
+CAR-5678
+VEHICLE NO:
+CASH CUSTOMER
+CUSTOMER NAME:
+69247
+M / Reading:
+ADDRESS:
+CHANDANA
+JOB DONE BY:
+UDAYA
+TEL NO:
+ISSUE BY:
+ItemId
+DESCRIPTION
+QTY
+PRICE
+AMOUNT
+245/40/18/DUR/MOZSP
+245/40/18 DURATURN MOZZO SPORT CHINA
+1.00
+36,000.00
+36,000.00
+133
+STICKER WEIGHTS
+20.00
+10.00
+200.00
+122
+WHEEL BALANCING
+1.00
+200.00
+200.00
+120
+WHEEL ALIGNMENT- COMPUTERIZED CARS
+1.00
+1,950.00
+1,950.00
+INVOICE VALUE           :
+38,350.00
+Recived the above goods in good condition /good working order after testing
+Please Represet the Bill for Warrenty Claims.
+Manager Signature
+Customer Signature
+Company warranty only No warranty is provided for used, repaired, punctured, cut, or burst tires, or for visible flaws caused by wheel alignment or technical issues. Alignment is
+recommended every 5,000 km for better mileage. Damage from improper use, overloading, incorrect air pressure, poor maintenance, or third-party installations is not covered.
+Customers must inspect tires upon purchase and raise concerns immediately. Returns or exchanges are only for unused tires with the receipt. Road hazard damage, like potholes or
+debris, is excluded. By purchasing, customers agree to these terms.
+GO SMART WITH LASANTHA TYRE
+1/2/2026   8:01:58PM

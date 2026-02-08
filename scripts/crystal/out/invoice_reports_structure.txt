@@ -1,0 +1,688 @@
+Crystal RPT Structure Dump
+Generated: 1/2/2026 7:28:04 PM
+
+=== CRInvoiceCreditNonVat.rpt ===
+Path: E:\LASANTHA\LastUpdate\SMS\New folder\Debug SMS\REPORTS\New folder (4)\CRInvoiceCreditNonVat.rpt
+Size: 17920 bytes
+Parameters:
+  (none)
+Tables:
+  - DsCustomer @ DsCustomer
+      * CutomerID (StringField)
+      * CustomerName (StringField)
+      * Address1 (StringField)
+      * Address2 (StringField)
+      * Phone1 (StringField)
+      * Custom1 (StringField)
+      * Custom2 (StringField)
+      * Custom3 (StringField)
+      * Custom4 (StringField)
+      * Custom5 (StringField)
+      * ShipToAddress1 (StringField)
+      * ShipToAddress2 (StringField)
+      * Phone2 (StringField)
+      * Fax (StringField)
+      * Email (StringField)
+      * DueDays (StringField)
+  - dtSalesInvoice @ dtSalesInvoice
+      * InvoiceNo (StringField)
+      * CustomerID (StringField)
+      * DeliveryNoteNos (StringField)
+      * InvoiceDate (DateTimeField)
+      * ARAccount (StringField)
+      * NoofDistributions (NumberField)
+      * DistributionNo (NumberField)
+      * ItemID (StringField)
+      * Qty (NumberField)
+      * Description (StringField)
+      * GLAcount (StringField)
+      * UnitPrice (NumberField)
+      * TotalDiscountPercen (NumberField)
+      * Amount (NumberField)
+      * TotalDiscountAmount (NumberField)
+      * Tax1Amount (NumberField)
+      * Tax2Amount (NumberField)
+      * GrossTotal (NumberField)
+      * NetTotal (NumberField)
+      * CurrentDate (StringField)
+      * Time (StringField)
+      * Currentuser (StringField)
+      * IsExport (StringField)
+      * CustomerPO (StringField)
+      * UOM (StringField)
+      * JobID (StringField)
+      * SONO (StringField)
+      * Location (StringField)
+      * TTType1 (StringField)
+      * TTType2 (StringField)
+      * IsReturn (StringField)
+      * TTType3 (StringField)
+      * Tax3Amount (StringField)
+      * RemainQty (StringField)
+      * SalesRep (StringField)
+      * CostPrrice (StringField)
+      * PaymentM (StringField)
+      * ItemClass (StringField)
+      * ItemType (StringField)
+      * IsVoid (StringField)
+      * VoidReson (StringField)
+      * VoidUser (StringField)
+      * Comments (StringField)
+      * Tax1Rate (NumberField)
+      * Tax2Rate (NumberField)
+      * SubValue (StringField)
+      * Tax3Rate (NumberField)
+      * InvType (StringField)
+      * WHID (StringField)
+      * ServiceCharge (StringField)
+      * LineDiscountAmount (StringField)
+      * LineDiscountPercentage (StringField)
+      * IsInclusive (Int16sField)
+      * IsDirect (StringField)
+      * InclusivePrice (StringField)
+      * LineTax (NumberField)
+      * CusName (StringField)
+      * CustomerName (StringField)
+      * ContactNo (StringField)
+      * JobDoneBy (StringField)
+      * VehicleNo (StringField)
+      * CusPoNum (StringField)
+      * FOCQty (StringField)
+      * Mileage (StringField)
+      * PaidAmount (StringField)
+      * WarrentyKm (StringField)
+      * WarrentyYear (StringField)
+      * Remarks (StringField)
+  - tblInvoicePaymentHistory @ tblInvoicePaymentHistory
+      * InvoiceNo (StringField)
+      * InvAmount (StringField)
+      * InvPaid (StringField)
+      * InvBalance (StringField)
+      * PayType (StringField)
+  - tblpaytran @ tblpaytran
+      * InvoiceNo (StringField)
+      * CardType (StringField)
+      * CardNo (StringField)
+      * Amount (StringField)
+  - tblSalesRep @ tblSalesRep
+      * RepCode (StringField)
+      * RepName (StringField)
+  - DtCompaniInfo @ DtCompaniInfo
+      * CompanyName (StringField)
+      * Address1 (StringField)
+      * Address2 (StringField)
+      * City (StringField)
+      * State  (StringField)
+      * Zip (StringField)
+      * Country (StringField)
+      * Telephone (StringField)
+      * Fax (StringField)
+      * WebSite (StringField)
+      * Email (StringField)
+      * StateEmployer (StringField)
+      * FedEmployer (StringField)
+      * StateUnemployer (StringField)
+      * FormOfBussiness (StringField)
+      * Directory (StringField)
+      * IsManufactureCompany (StringField)
+      * Report_Path (StringField)
+FormulaFields:
+  - Date
+  - AMOUNT
+  - GrandTotal
+  - UnitPrice
+  - VAT
+  - NBT
+  - Discount
+  - Discoun1
+  - AmountsInWords
+  - CentsAmounts
+  - CentsAmountsInWords
+  - FinalWords
+  - Qty
+  - InclusiveAmount
+  - DiscountAmount
+  - NBT DES
+  - VATDES
+  - InvoiceType
+  - VatNo
+  - vatnodex
+  - paytype
+  - lindisam
+  - grtot
+  - PaidAmount
+  - Balance
+  - @SERVICECHARGE
+  - LineTotal
+  - LineDisAmount
+  - SellingPrice
+  - LT
+  - FOC
+  - LineTotalNumericFormat
+  - CName
+  - CashCusName
+  - CTel
+  - UsedItems
+  - FOCValue1
+  - Warrenty 
+Sections:
+  - ReportHeaderSection2 (objects: 0)
+  - Section2 (objects: 42)
+  - Section3 (objects: 12)
+  - Section4 (objects: 12)
+  - Section5 (objects: 11)
+
+=== CRInvoiceNonVat.rpt ===
+Path: E:\LASANTHA\LastUpdate\SMS\New folder\Debug SMS\REPORTS\New folder (4)\CRInvoiceNonVat.rpt
+Size: 17920 bytes
+Parameters:
+  (none)
+Tables:
+  - DsCustomer @ DsCustomer
+      * CutomerID (StringField)
+      * CustomerName (StringField)
+      * Address1 (StringField)
+      * Address2 (StringField)
+      * Phone1 (StringField)
+      * Custom1 (StringField)
+      * Custom2 (StringField)
+      * Custom3 (StringField)
+      * Custom4 (StringField)
+      * Custom5 (StringField)
+      * ShipToAddress1 (StringField)
+      * ShipToAddress2 (StringField)
+      * Phone2 (StringField)
+      * Fax (StringField)
+      * Email (StringField)
+      * DueDays (StringField)
+  - dtSalesInvoice @ dtSalesInvoice
+      * InvoiceNo (StringField)
+      * CustomerID (StringField)
+      * DeliveryNoteNos (StringField)
+      * InvoiceDate (DateTimeField)
+      * ARAccount (StringField)
+      * NoofDistributions (NumberField)
+      * DistributionNo (NumberField)
+      * ItemID (StringField)
+      * Qty (NumberField)
+      * Description (StringField)
+      * GLAcount (StringField)
+      * UnitPrice (NumberField)
+      * TotalDiscountPercen (NumberField)
+      * Amount (NumberField)
+      * TotalDiscountAmount (NumberField)
+      * Tax1Amount (NumberField)
+      * Tax2Amount (NumberField)
+      * GrossTotal (NumberField)
+      * NetTotal (NumberField)
+      * CurrentDate (StringField)
+      * Time (StringField)
+      * Currentuser (StringField)
+      * IsExport (StringField)
+      * CustomerPO (StringField)
+      * UOM (StringField)
+      * JobID (StringField)
+      * SONO (StringField)
+      * Location (StringField)
+      * TTType1 (StringField)
+      * TTType2 (StringField)
+      * IsReturn (StringField)
+      * TTType3 (StringField)
+      * Tax3Amount (StringField)
+      * RemainQty (StringField)
+      * SalesRep (StringField)
+      * CostPrrice (StringField)
+      * PaymentM (StringField)
+      * ItemClass (StringField)
+      * ItemType (StringField)
+      * IsVoid (StringField)
+      * VoidReson (StringField)
+      * VoidUser (StringField)
+      * Comments (StringField)
+      * Tax1Rate (NumberField)
+      * Tax2Rate (NumberField)
+      * SubValue (StringField)
+      * Tax3Rate (NumberField)
+      * InvType (StringField)
+      * WHID (StringField)
+      * ServiceCharge (StringField)
+      * LineDiscountAmount (StringField)
+      * LineDiscountPercentage (StringField)
+      * IsInclusive (Int16sField)
+      * IsDirect (StringField)
+      * InclusivePrice (StringField)
+      * LineTax (NumberField)
+      * CusName (StringField)
+      * CustomerName (StringField)
+      * ContactNo (StringField)
+      * JobDoneBy (StringField)
+      * VehicleNo (StringField)
+      * CusPoNum (StringField)
+      * FOCQty (StringField)
+      * Mileage (StringField)
+      * PaidAmount (StringField)
+      * WarrentyKm (StringField)
+      * WarrentyYear (StringField)
+      * Remarks (StringField)
+  - tblInvoicePaymentHistory @ tblInvoicePaymentHistory
+      * InvoiceNo (StringField)
+      * InvAmount (StringField)
+      * InvPaid (StringField)
+      * InvBalance (StringField)
+      * PayType (StringField)
+  - tblpaytran @ tblpaytran
+      * InvoiceNo (StringField)
+      * CardType (StringField)
+      * CardNo (StringField)
+      * Amount (StringField)
+  - tblSalesRep @ tblSalesRep
+      * RepCode (StringField)
+      * RepName (StringField)
+  - DtCompaniInfo @ DtCompaniInfo
+      * CompanyName (StringField)
+      * Address1 (StringField)
+      * Address2 (StringField)
+      * City (StringField)
+      * State  (StringField)
+      * Zip (StringField)
+      * Country (StringField)
+      * Telephone (StringField)
+      * Fax (StringField)
+      * WebSite (StringField)
+      * Email (StringField)
+      * StateEmployer (StringField)
+      * FedEmployer (StringField)
+      * StateUnemployer (StringField)
+      * FormOfBussiness (StringField)
+      * Directory (StringField)
+      * IsManufactureCompany (StringField)
+      * Report_Path (StringField)
+FormulaFields:
+  - Date
+  - AMOUNT
+  - GrandTotal
+  - UnitPrice
+  - VAT
+  - NBT
+  - Discount
+  - Discoun1
+  - AmountsInWords
+  - CentsAmounts
+  - CentsAmountsInWords
+  - FinalWords
+  - Qty
+  - InclusiveAmount
+  - DiscountAmount
+  - NBT DES
+  - VATDES
+  - InvoiceType
+  - VatNo
+  - vatnodex
+  - paytype
+  - lindisam
+  - grtot
+  - PaidAmount
+  - Balance
+  - @SERVICECHARGE
+  - LineTotal
+  - LineDisAmount
+  - SellingPrice
+  - LT
+  - FOC
+  - LineTotalNumericFormat
+  - CName
+  - CashCusName
+  - CTel
+  - UsedItems
+  - FOCValue1
+  - Warrenty 
+Sections:
+  - ReportHeaderSection2 (objects: 0)
+  - Section2 (objects: 44)
+  - Section3 (objects: 6)
+  - Section4 (objects: 12)
+  - Section5 (objects: 10)
+
+=== CRInvoiceWithDiscount.rpt ===
+Path: E:\LASANTHA\LastUpdate\SMS\New folder\Debug SMS\REPORTS\New folder (4)\CRInvoiceWithDiscount.rpt
+Size: 17920 bytes
+Parameters:
+  (none)
+Tables:
+  - DsCustomer @ DsCustomer
+      * CutomerID (StringField)
+      * CustomerName (StringField)
+      * Address1 (StringField)
+      * Address2 (StringField)
+      * Phone1 (StringField)
+      * Custom1 (StringField)
+      * Custom2 (StringField)
+      * Custom3 (StringField)
+      * Custom4 (StringField)
+      * Custom5 (StringField)
+      * ShipToAddress1 (StringField)
+      * ShipToAddress2 (StringField)
+      * Phone2 (StringField)
+      * Fax (StringField)
+      * Email (StringField)
+      * DueDays (StringField)
+  - dtSalesInvoice @ dtSalesInvoice
+      * InvoiceNo (StringField)
+      * CustomerID (StringField)
+      * DeliveryNoteNos (StringField)
+      * InvoiceDate (DateTimeField)
+      * ARAccount (StringField)
+      * NoofDistributions (NumberField)
+      * DistributionNo (NumberField)
+      * ItemID (StringField)
+      * Qty (NumberField)
+      * Description (StringField)
+      * GLAcount (StringField)
+      * UnitPrice (NumberField)
+      * TotalDiscountPercen (NumberField)
+      * Amount (NumberField)
+      * TotalDiscountAmount (NumberField)
+      * Tax1Amount (NumberField)
+      * Tax2Amount (NumberField)
+      * GrossTotal (NumberField)
+      * NetTotal (NumberField)
+      * CurrentDate (StringField)
+      * Time (StringField)
+      * Currentuser (StringField)
+      * IsExport (StringField)
+      * CustomerPO (StringField)
+      * UOM (StringField)
+      * JobID (StringField)
+      * SONO (StringField)
+      * Location (StringField)
+      * TTType1 (StringField)
+      * TTType2 (StringField)
+      * IsReturn (StringField)
+      * TTType3 (StringField)
+      * Tax3Amount (StringField)
+      * RemainQty (StringField)
+      * SalesRep (StringField)
+      * CostPrrice (StringField)
+      * PaymentM (StringField)
+      * ItemClass (StringField)
+      * ItemType (StringField)
+      * IsVoid (StringField)
+      * VoidReson (StringField)
+      * VoidUser (StringField)
+      * Comments (StringField)
+      * Tax1Rate (NumberField)
+      * Tax2Rate (NumberField)
+      * SubValue (StringField)
+      * Tax3Rate (NumberField)
+      * InvType (StringField)
+      * WHID (StringField)
+      * ServiceCharge (StringField)
+      * LineDiscountAmount (StringField)
+      * LineDiscountPercentage (StringField)
+      * IsInclusive (Int16sField)
+      * IsDirect (StringField)
+      * InclusivePrice (StringField)
+      * LineTax (NumberField)
+      * CusName (StringField)
+      * CustomerName (StringField)
+      * ContactNo (StringField)
+      * JobDoneBy (StringField)
+      * VehicleNo (StringField)
+      * CusPoNum (StringField)
+      * FOCQty (StringField)
+      * Mileage (StringField)
+      * PaidAmount (StringField)
+      * WarrentyKm (StringField)
+      * WarrentyYear (StringField)
+      * Remarks (StringField)
+  - tblInvoicePaymentHistory @ tblInvoicePaymentHistory
+      * InvoiceNo (StringField)
+      * InvAmount (StringField)
+      * InvPaid (StringField)
+      * InvBalance (StringField)
+      * PayType (StringField)
+  - tblpaytran @ tblpaytran
+      * InvoiceNo (StringField)
+      * CardType (StringField)
+      * CardNo (StringField)
+      * Amount (StringField)
+  - tblSalesRep @ tblSalesRep
+      * RepCode (StringField)
+      * RepName (StringField)
+  - DtCompaniInfo @ DtCompaniInfo
+      * CompanyName (StringField)
+      * Address1 (StringField)
+      * Address2 (StringField)
+      * City (StringField)
+      * State  (StringField)
+      * Zip (StringField)
+      * Country (StringField)
+      * Telephone (StringField)
+      * Fax (StringField)
+      * WebSite (StringField)
+      * Email (StringField)
+      * StateEmployer (StringField)
+      * FedEmployer (StringField)
+      * StateUnemployer (StringField)
+      * FormOfBussiness (StringField)
+      * Directory (StringField)
+      * IsManufactureCompany (StringField)
+      * Report_Path (StringField)
+FormulaFields:
+  - Date
+  - AMOUNT
+  - GrandTotal
+  - UnitPrice
+  - VAT
+  - NBT
+  - Discount
+  - Discoun1
+  - AmountsInWords
+  - CentsAmounts
+  - CentsAmountsInWords
+  - FinalWords
+  - Qty
+  - InclusiveAmount
+  - DiscountAmount
+  - NBT DES
+  - VATDES
+  - InvoiceType
+  - VatNo
+  - vatnodex
+  - paytype
+  - lindisam
+  - grtot
+  - PaidAmount
+  - Balance
+  - @SERVICECHARGE
+  - LineTotal
+  - LineDisAmount
+  - SellingPrice
+  - LT
+  - FOC
+  - LineTotalNumericFormat
+  - CName
+  - grosstotal
+  - UnPrice
+  - CusName
+  - CTel
+  - UsedItems
+Sections:
+  - ReportHeaderSection2 (objects: 0)
+  - Section2 (objects: 50)
+  - Section3 (objects: 16)
+  - Section4 (objects: 12)
+  - Section5 (objects: 8)
+
+=== CRInvoiceWithDiscountNonVat.rpt ===
+Path: E:\LASANTHA\LastUpdate\SMS\New folder\Debug SMS\REPORTS\New folder (4)\CRInvoiceWithDiscountNonVat.rpt
+Size: 18432 bytes
+Parameters:
+  (none)
+Tables:
+  - DsCustomer @ DsCustomer
+      * CutomerID (StringField)
+      * CustomerName (StringField)
+      * Address1 (StringField)
+      * Address2 (StringField)
+      * Phone1 (StringField)
+      * Custom1 (StringField)
+      * Custom2 (StringField)
+      * Custom3 (StringField)
+      * Custom4 (StringField)
+      * Custom5 (StringField)
+      * ShipToAddress1 (StringField)
+      * ShipToAddress2 (StringField)
+      * Phone2 (StringField)
+      * Fax (StringField)
+      * Email (StringField)
+      * DueDays (StringField)
+  - dtSalesInvoice @ dtSalesInvoice
+      * InvoiceNo (StringField)
+      * CustomerID (StringField)
+      * DeliveryNoteNos (StringField)
+      * InvoiceDate (DateTimeField)
+      * ARAccount (StringField)
+      * NoofDistributions (NumberField)
+      * DistributionNo (NumberField)
+      * ItemID (StringField)
+      * Qty (NumberField)
+      * Description (StringField)
+      * GLAcount (StringField)
+      * UnitPrice (NumberField)
+      * TotalDiscountPercen (NumberField)
+      * Amount (NumberField)
+      * TotalDiscountAmount (NumberField)
+      * Tax1Amount (NumberField)
+      * Tax2Amount (NumberField)
+      * GrossTotal (NumberField)
+      * NetTotal (NumberField)
+      * CurrentDate (StringField)
+      * Time (StringField)
+      * Currentuser (StringField)
+      * IsExport (StringField)
+      * CustomerPO (StringField)
+      * UOM (StringField)
+      * JobID (StringField)
+      * SONO (StringField)
+      * Location (StringField)
+      * TTType1 (StringField)
+      * TTType2 (StringField)
+      * IsReturn (StringField)
+      * TTType3 (StringField)
+      * Tax3Amount (StringField)
+      * RemainQty (StringField)
+      * SalesRep (StringField)
+      * CostPrrice (StringField)
+      * PaymentM (StringField)
+      * ItemClass (StringField)
+      * ItemType (StringField)
+      * IsVoid (StringField)
+      * VoidReson (StringField)
+      * VoidUser (StringField)
+      * Comments (StringField)
+      * Tax1Rate (NumberField)
+      * Tax2Rate (NumberField)
+      * SubValue (StringField)
+      * Tax3Rate (NumberField)
+      * InvType (StringField)
+      * WHID (StringField)
+      * ServiceCharge (StringField)
+      * LineDiscountAmount (StringField)
+      * LineDiscountPercentage (StringField)
+      * IsInclusive (Int16sField)
+      * IsDirect (StringField)
+      * InclusivePrice (StringField)
+      * LineTax (NumberField)
+      * CusName (StringField)
+      * CustomerName (StringField)
+      * ContactNo (StringField)
+      * JobDoneBy (StringField)
+      * VehicleNo (StringField)
+      * CusPoNum (StringField)
+      * FOCQty (StringField)
+      * Mileage (StringField)
+      * PaidAmount (StringField)
+      * WarrentyKm (StringField)
+      * WarrentyYear (StringField)
+      * Remarks (StringField)
+  - tblInvoicePaymentHistory @ tblInvoicePaymentHistory
+      * InvoiceNo (StringField)
+      * InvAmount (StringField)
+      * InvPaid (StringField)
+      * InvBalance (StringField)
+      * PayType (StringField)
+  - tblpaytran @ tblpaytran
+      * InvoiceNo (StringField)
+      * CardType (StringField)
+      * CardNo (StringField)
+      * Amount (StringField)
+  - tblSalesRep @ tblSalesRep
+      * RepCode (StringField)
+      * RepName (StringField)
+  - DtCompaniInfo @ DtCompaniInfo
+      * CompanyName (StringField)
+      * Address1 (StringField)
+      * Address2 (StringField)
+      * City (StringField)
+      * State  (StringField)
+      * Zip (StringField)
+      * Country (StringField)
+      * Telephone (StringField)
+      * Fax (StringField)
+      * WebSite (StringField)
+      * Email (StringField)
+      * StateEmployer (StringField)
+      * FedEmployer (StringField)
+      * StateUnemployer (StringField)
+      * FormOfBussiness (StringField)
+      * Directory (StringField)
+      * IsManufactureCompany (StringField)
+      * Report_Path (StringField)
+FormulaFields:
+  - Date
+  - AMOUNT
+  - GrandTotal
+  - UnitPrice
+  - VAT
+  - NBT
+  - Discount
+  - Discoun1
+  - AmountsInWords
+  - CentsAmounts
+  - CentsAmountsInWords
+  - FinalWords
+  - Qty
+  - InclusiveAmount
+  - DiscountAmount
+  - NBT DES
+  - VATDES
+  - InvoiceType
+  - VatNo
+  - vatnodex
+  - paytype
+  - lindisam
+  - grtot
+  - PaidAmount
+  - Balance
+  - @SERVICECHARGE
+  - LineTotal
+  - LineDisAmount
+  - SellingPrice
+  - LT
+  - FOC
+  - LineTotalNumericFormat
+  - CName
+  - CashCusName
+  - CompanyTel
+  - UsedItems
+  - LineDisPer
+  - FOCValue1
+  - Warrenty 
+Sections:
+  - ReportHeaderSection2 (objects: 0)
+  - Section2 (objects: 46)
+  - Section3 (objects: 16)
+  - Section4 (objects: 14)
+  - Section5 (objects: 8)
+

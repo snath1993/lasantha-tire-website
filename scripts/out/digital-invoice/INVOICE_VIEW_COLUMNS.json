@@ -1,0 +1,500 @@
+[
+  {
+    "COLUMN_NAME": "Expr1",
+    "DATA_TYPE": "datetime",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Expr2",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Expr3",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": -1,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Expr4",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": -1,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Expr5",
+    "DATA_TYPE": "float",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Expr6",
+    "DATA_TYPE": "float",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Expr7",
+    "DATA_TYPE": "numeric",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Expr8",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Expr9",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Expr10",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 250,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Expr11",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 25,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Expr12",
+    "DATA_TYPE": "float",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Categoty",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "UnitCost",
+    "DATA_TYPE": "numeric",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Expr13",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Expr14",
+    "DATA_TYPE": "bit",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Expr15",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 20,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Expr16",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Expr17",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": -1,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Expr18",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Expr19",
+    "DATA_TYPE": "float",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Expr20",
+    "DATA_TYPE": "float",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "GLAcount",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "TotalDiscountPercen",
+    "DATA_TYPE": "float",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "TotalDiscountAmount",
+    "DATA_TYPE": "float",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Tax1Amount",
+    "DATA_TYPE": "float",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Tax2Amount",
+    "DATA_TYPE": "float",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "GrossTotal",
+    "DATA_TYPE": "float",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "NetTotal",
+    "DATA_TYPE": "float",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "CurrentDate",
+    "DATA_TYPE": "datetime",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Time",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Currentuser",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "IsExport",
+    "DATA_TYPE": "bit",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "CustomerPO",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "UOM",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "JobID",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "SONO",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Location",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "TTType1",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "TTType2",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "IsReturn",
+    "DATA_TYPE": "bit",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "TTType3",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Tax3Amount",
+    "DATA_TYPE": "float",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "RemainQty",
+    "DATA_TYPE": "float",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "CostPrrice",
+    "DATA_TYPE": "float",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "ItemClass",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 20,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "ItemType",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": -1,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "VoidReson",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": -1,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "VoidUser",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 20,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Comments",
+    "DATA_TYPE": "nvarchar",
+    "CHARACTER_MAXIMUM_LENGTH": -1,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Tax1Rate",
+    "DATA_TYPE": "float",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Tax2Rate",
+    "DATA_TYPE": "float",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "SubValue",
+    "DATA_TYPE": "float",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Tax3Rate",
+    "DATA_TYPE": "float",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "InvType",
+    "DATA_TYPE": "int",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "WHID",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": -1,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "ServiceCharge",
+    "DATA_TYPE": "numeric",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "LineDiscountAmount",
+    "DATA_TYPE": "numeric",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "IsInclusive",
+    "DATA_TYPE": "int",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "IsDirect",
+    "DATA_TYPE": "bit",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "InclusivePrice",
+    "DATA_TYPE": "numeric",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "LineTax",
+    "DATA_TYPE": "numeric",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "CusName",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 250,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "TempCrInvoiceNo",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "id",
+    "DATA_TYPE": "int",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "NO"
+  },
+  {
+    "COLUMN_NAME": "Ad1",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 250,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Ad2",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 250,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "ContactNo",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 15,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "PaidAmount",
+    "DATA_TYPE": "numeric",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "CusPoNum",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "JobDoneBy",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": -1,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "IsConfirm",
+    "DATA_TYPE": "bit",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "WarrentyKm",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "WarrentyYear",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Remarks",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "TaxInvoiceNo",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "SupplierTIN",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 20,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "BaseAmount",
+    "DATA_TYPE": "decimal",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "VATAmount",
+    "DATA_TYPE": "decimal",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "IsVATInvoice",
+    "DATA_TYPE": "bit",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "VATRate",
+    "DATA_TYPE": "decimal",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "PurchaserTIN",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 20,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "AmountInWords",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 500,
+    "IS_NULLABLE": "YES"
+  }
+]

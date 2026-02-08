@@ -1,0 +1,1595 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="Segoe UI" Size="9" />
+  <Class Name="UserAutherization.AccountingPeriods" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>AccountingPeriods.cs</FileName>
+      <HashCode>AQgAAAAAAAAAEAAAAQAAAABgAAAAAAAAAAAAAEAAAAg=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.Add_Serial_Numbers" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Add Serial Numbers.cs</FileName>
+      <HashCode>BRAJAKEAACCggBEgmpCcAABKABAIBCgAASAABQFCUEA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.Class1" Collapsed="true">
+    <Position X="18" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Class1.cs</FileName>
+      <HashCode>BAAGAAAAIQAAAAAIAAAAAACMAHAMQAIAAAAADAAAARA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.ClassDriiDown" Collapsed="true">
+    <Position X="19.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>ClassDriiDown.cs</FileName>
+      <HashCode>CAIAQAkCIAAAAABCgAAIAIAKQAAaAAAAEACIJIAAghQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.clsDataAccess" Collapsed="true">
+    <Position X="21.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>clsDataAccess.cs</FileName>
+      <HashCode>EAgAAAABIUBAADAAAAADAAhgAxBggQIIAQEBUjAAAAQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.clsPara" Collapsed="true">
+    <Position X="23.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>clsPara.cs</FileName>
+      <HashCode>EAAAAAAAAAAARBAQABAAAACgAAAIAAIRgCBAAIAGESI=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.Connect" Collapsed="true">
+    <Position X="25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Connect.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAEAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.Connector" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Connector.cs</FileName>
+      <HashCode>tHHAYWQIVB2ngMoBioIJJaxAJNthAABQwWgwCYwkIMY=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.CRBeginingBal" Collapsed="true">
+    <Position X="2.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRBeginingBal.cs</FileName>
+      <HashCode>AAgAAABJAAAQAAAAAAAIAAAAAAAAAAAADAABAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.CachedCRBeginingBal" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRBeginingBal.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.CRDeliveryNote" Collapsed="true">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRDeliveryNote.cs</FileName>
+      <HashCode>AAgAAAAJAAAQAAAAAAAIAAAAAAAAAAAACAABAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.CachedCRDeliveryNote" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRDeliveryNote.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.CRDNote" Collapsed="true">
+    <Position X="9.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRDNote.cs</FileName>
+      <HashCode>AAgAAAAJAAAQAAAAAAAIAAAAAAAAAAAACAABAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.CachedCRDNote" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRDNote.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.CRInvoceWiseSales" Collapsed="true">
+    <Position X="16.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRInvoceWiseSales.cs</FileName>
+      <HashCode>AAgAAABJAAAQAAAAAAAIAAAAAAAAAAAADAABAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.CachedCRInvoceWiseSales" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRInvoceWiseSales.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.CRInvoice" Collapsed="true">
+    <Position X="18" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRInvoice.cs</FileName>
+      <HashCode>AAgAAAAJAAAQAAAAAAAIAAAAAAAAAAAACAABAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.CachedCRInvoice" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="19.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRInvoice.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.CRJobActual" Collapsed="true">
+    <Position X="21.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRJobActual.cs</FileName>
+      <HashCode>AAgAAAAJAAAQAAAAAAAIAAAAAAAAAAAACAABAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.CachedCRJobActual" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRJobActual.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.CRJobReturn" Collapsed="true">
+    <Position X="25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRJobReturn.cs</FileName>
+      <HashCode>AAgAAAAJAAAQAAAAAAAIAAAAAAAAAAAACAABAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.CachedCRJobReturn" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRJobReturn.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.CRJobVarience" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRJobVarience.cs</FileName>
+      <HashCode>AAgAAABJAwAQAAAAAAAIAAAAAAAAAAAADwABAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.CachedCRJobVarience" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRJobVarience.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.CRJobVarience1" Collapsed="true">
+    <Position X="4" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRJobVarience1.cs</FileName>
+      <HashCode>ACgBCARJAYBwAAAACAAIKQAAIAAAAAAAjwAAAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.CachedCRJobVarience1" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRJobVarience1.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.CRLocationWiseSales" Collapsed="true">
+    <Position X="5.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRLocationWiseSales.cs</FileName>
+      <HashCode>AAgAAABJAAAQAAAAAAAIAAAAAAAAAAAADAABAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.CachedCRLocationWiseSales" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRLocationWiseSales.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.CRNewInvoice" Collapsed="true">
+    <Position X="9.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRNewInvoice.cs</FileName>
+      <HashCode>AAgAAAAJAAAQAAAAAAAIAAAAAAAAAAAACAABAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.CachedCRNewInvoice" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRNewInvoice.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.CRStockTaking" Collapsed="true">
+    <Position X="14.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRStockTaking.cs</FileName>
+      <HashCode>AAgAAABJAAAQAAAAAAAIAAAAAAAAAAAADAABAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.CachedCRStockTaking" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRStockTaking.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.CRSVATInvoice" Collapsed="true">
+    <Position X="21.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRSVATInvoice.cs</FileName>
+      <HashCode>AAgAAAAJAAAQAAAAAAAIAAAAAAAAAAAACAABAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.CachedCRSVATInvoice" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRSVATInvoice.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.CRTaxInvoice" Collapsed="true">
+    <Position X="23.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRTaxInvoice.cs</FileName>
+      <HashCode>AAgAAAAJAAAQAAAAAAAIAAAAAAAAAAAACAABAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.CachedCRTaxInvoice" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CRTaxInvoice.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.CSInvoiceSerial" Collapsed="true">
+    <Position X="2.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CSInvoiceSerial.cs</FileName>
+      <HashCode>CAIAQAkCIAAAAABCgAAIAIAKQAAaAAAAEACIJIAAAhQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.DSBeginingBal" Collapsed="true">
+    <Position X="5.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>DSBeginingBal.cs</FileName>
+      <HashCode>AAAAAAAAAwAAAAJABAQAQAAAAAgCQBgCAAAAAAkABBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.DSCustomerReturn" Collapsed="true">
+    <Position X="7.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAABCwAAAAJMBAAAQAAAAAgDwBgCAAAAAAEAFBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.DSDeliveryNotes" Collapsed="true">
+    <Position X="9.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>DSDeliveryNotes.cs</FileName>
+      <HashCode>AIAAQAAABwAAAQJMBAIAQAAAAAgDQBhAAAAAAAkAVBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.DSEstimate" Collapsed="true">
+    <Position X="11" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>DSEstimate.cs</FileName>
+      <HashCode>CEBAAIAgAwBAhAJAJWQAxRoAEEgCQRoAAAYAACEBDBQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.DSFGTRanfer" Collapsed="true">
+    <Position X="12.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAwAAAAJQBAAAQAAAAAgCQBiAAAAAAAEABBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.DSGRN" Collapsed="true">
+    <Position X="14.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>DSGRN.cs</FileName>
+      <HashCode>AAAAAAAAAwEAEAJMBIAAQAAABAgDQBgAAAAACAEABBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.DSGRNList" Collapsed="true">
+    <Position X="16.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAwAAAAJABAAAQAAAAAgCQBkIAAAAAAEABBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.DSINV" Collapsed="true">
+    <Position X="18" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAwAAEAJABAAAQAAAAAgCQBgBAAAAAAEABBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.DSInventorymovement" Collapsed="true">
+    <Position X="19.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIACAEwRAAAZABEAEQAABAIgCQBgAAAAAAgEABhA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.DSInvoice" Collapsed="true">
+    <Position X="21.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAwAAAAJMBAAAQAAAAAgDQBgCAAAiAAEAFBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.DsItemWiseSales" Collapsed="true">
+    <Position X="23.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AggAAAAQAwAYAANABABAQAhAkggCUBgAAACAUAGkBBI=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.DSMainReports" Collapsed="true">
+    <Position X="25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAwAAAA5MBAAAQAgAAEkLRBgAAAAAAAMABBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.DSPurchaseOrderList" Collapsed="true">
+    <Position X="0.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAwAAAAJABAAAQAAAAAgCQBgAAgAAAAEABBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.DsSalesOrder" Collapsed="true">
+    <Position X="2.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CABAAAAAAwAAAAJABAAAQAAAAAgCQBhAAAAAAAEABBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.DSSalesOrderLIst" Collapsed="true">
+    <Position X="4" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>DSSalesOrderLIst.cs</FileName>
+      <HashCode>AIAAAAAAAwAAAAJABAAAQAAAAAhCQBwAAAAAAAEBFBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.DsSupplierInvoice" Collapsed="true">
+    <Position X="5.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAwAAAAJMBCQBQAAAAAgDUBgAAAAAAAEARBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.DSTransNoteList" Collapsed="true">
+    <Position X="7.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAgwAAAAJABIAAQAAQMAgCQFgAAAAAAAEEFBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.DSWhuseAndItemList" Collapsed="true">
+    <Position X="9.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>DSWhuseAndItemList.cs</FileName>
+      <HashCode>AAABACAAAwAAIAJABAgAQAAAAEwCQBwCAAgAABEAFBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.DTInvoiceData" Collapsed="true">
+    <Position X="11" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAwAACAJAhAAAQAAAAAgCRBgABAAAQAEABBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmActivities" Collapsed="true">
+    <Position X="12.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmActivities.cs</FileName>
+      <HashCode>AACAAAABACAAghEwAACAAEACAAAIAAwAACCAgAIAAAI=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmAddUser" Collapsed="true">
+    <Position X="14.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmAddUser.cs</FileName>
+      <HashCode>BAAAgIASBCAAgCEAAgCKAEEiAAAIAAggDSKAgAIGABI=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmBeginingBalances" Collapsed="true">
+    <Position X="16.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmBeginingBalances.cs</FileName>
+      <HashCode>cAAAEJogAmjqwJoBIBKoA6AykakICDaYCSAA5ZqAgQE=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmBeginingBalReport" Collapsed="true">
+    <Position X="18" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmBeginingBalReport.cs</FileName>
+      <HashCode>IAAAAIAAACAAgBBIAADAAAACAAgAAAAAACACAAAAABA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmChartofAccount" Collapsed="true">
+    <Position X="19.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmChartofAccount.cs</FileName>
+      <HashCode>AAAAAIAAACCAAAAAAACAIAACAAQIAAAAAEAAAQAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmCopyUserAuthentication" Collapsed="true">
+    <Position X="21.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmCopyUserAuthentication.cs</FileName>
+      <HashCode>BIAAAAAAACAAgABIAACAAAAiAAAgQCAAAKAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmCusReturnList" Collapsed="true">
+    <Position X="23.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmCusReturnList.cs</FileName>
+      <HashCode>AAAAAQAAACIA4BAAAIKAAACCCCAAIgBFDCABIACCQAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmCusReturnSerial" Collapsed="true">
+    <Position X="25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmCusReturnSerial.cs</FileName>
+      <HashCode>BRAJAKAAACCggBEgmpCcEABKABAIBCgAASAABQFSUAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmCustomerReturns" Collapsed="true">
+    <Position X="0.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmCustomerReturns.cs</FileName>
+      <HashCode>8TQwDkfJgDCf+DTDncr0G4CjCz4ac7rwj6IymVqPCHY=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmDefaultSettings" Collapsed="true">
+    <Position X="2.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmDefaultSettings.cs</FileName>
+      <HashCode>/3TU0+ng6e6+9J+R+8Sn47ZHku3eKZ47/fa+R6fzfXw=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmDeiveryNotePrint" Collapsed="true">
+    <Position X="4" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmDeiveryNotePrint.cs</FileName>
+      <HashCode>AAAAAAAAACAAgAAAAACAIAACAAAAAAAAACASAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmDeleteRecords" Collapsed="true">
+    <Position X="5.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmDeleteRecords.cs</FileName>
+      <HashCode>CAACAEAAACADgBAAgASAAABGAAAAQAAAAKAAAYAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmDeliveryNote" Collapsed="true">
+    <Position X="7.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmDeliveryNote.cs</FileName>
+      <HashCode>ICwAgCeJojCPyFCHBNDUChAKIQhMEnhwx+Cp6Wa1gkw=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmDeliveryNoteList" Collapsed="true">
+    <Position X="9.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmDeliveryNoteList.cs</FileName>
+      <HashCode>AEAABQABAiAQ4BAAAISAAAASIAQAYABlACABIBCCAgA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmDespatch" Collapsed="true">
+    <Position X="11" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmDespatch.cs</FileName>
+      <HashCode>FyAwgAAgoDANgBCBERCEAAAKAQAAEDhgAyAAIUaAgBQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmDInvoiceList" Collapsed="true">
+    <Position X="12.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmDinvoiceList.cs</FileName>
+      <HashCode>AAAAQQAAACAQ4BAgAIaAAAACIEAAIAglACABIACCAgA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmDNoteList" Collapsed="true">
+    <Position X="14.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmDNoteList.cs</FileName>
+      <HashCode>AEAAJQAAACAQ4BAAAISAAAASIAAAYABlACABAAiCAgA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmDNotePrint" Collapsed="true">
+    <Position X="16.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmDNotePrint.cs</FileName>
+      <HashCode>AAAAAAAAACAAgAAAAACAIAACAAAAIAAAACASAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmFinishGoodTransfer" Collapsed="true">
+    <Position X="18" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmFinishGoodTransfer.cs</FileName>
+      <HashCode>7wb0gpfNgYrI5RNsVUeGNdEijQ4NyBhiCWyAh0q+gws=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmGRNList" Collapsed="true">
+    <Position X="21.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmGRNList.cs</FileName>
+      <HashCode>AAAAAIAAACAAghBAAACAAAADAAAAYAAAQKAAAQAICAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmGRNListPrint" Collapsed="true">
+    <Position X="23.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmGRNListPrint.cs</FileName>
+      <HashCode>AAAAAAAAACAAgCAAAACAAAACAAAAAAAAACACAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmGRNSetting" Collapsed="true">
+    <Position X="25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmGRNSetting.cs</FileName>
+      <HashCode>AAAAAAAAACAAABAAAACAAAECAEAIAAAAAEAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmImportCustomer" Collapsed="true">
+    <Position X="0.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmImportCustomer.cs</FileName>
+      <HashCode>AAAAAIAAACAAgAAAAACAIAACAAQIAEAAAGAAAQAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmImportItemMaster" Collapsed="true">
+    <Position X="2.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmImportItemMaster.cs</FileName>
+      <HashCode>AAAAAoAAACAAgAAAAACBIAACAAQIAAAEAmQAAQAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmImportVendor" Collapsed="true">
+    <Position X="4" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmImportVendor.cs</FileName>
+      <HashCode>AAAAAIAAACAAgAAAAACAIAACAAQIAAAIAGAAAQAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmInventoryAdjustmentList" Collapsed="true">
+    <Position X="5.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmInventoryAdjustmentList.cs</FileName>
+      <HashCode>AAAAAQAAACAQgFAIAISAAAACIAAAAABFACAAAACCAhA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmInventoryMovement" Collapsed="true">
+    <Position X="7.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmInventoryMovement.cs</FileName>
+      <HashCode>AAIEAIIAACARgBBAQgCBKgATEAgAQgAQQKBAAyBICAQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmInventotyAdjustment" Collapsed="true">
+    <Position X="9.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmInventotyAdjustment.cs</FileName>
+      <HashCode>+YAAAIIqgCggxBABEAyCkEASAwgMABgSSOgFzQKkkEA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmInvMovementPrint" Collapsed="true">
+    <Position X="11" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmInvMovementPrint.cs</FileName>
+      <HashCode>AAAAAAAAACAAgEAAAACQAAACAAAAAAAAACACAAAAACA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmGRN" Collapsed="true">
+    <Position X="19.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmInvoice.cs</FileName>
+      <HashCode>OTRAE2+ppDXP2lCDAca0apgz46wOAnt2UuTt62OxgEw=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmInvoiceList" Collapsed="true">
+    <Position X="12.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmInvoiceList.cs</FileName>
+      <HashCode>AAEAQQAAACAQ4BAgAASAAAACIEAAIAghACABAACCAgA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmInvoiceListPrint" Collapsed="true">
+    <Position X="14.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmInvoiceListPrint.cs</FileName>
+      <HashCode>AAAAAIAAACAAgBBAAACAAAADAAAAQAAAQKAAAAAAIBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmInvoicePrint" Collapsed="true">
+    <Position X="16.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmInvoicePrint.cs</FileName>
+      <HashCode>AAAAAAAAACAAgAAAAACAAAACAAAACAAAACAGAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmInvoices" Collapsed="true">
+    <Position X="18" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmInvoices.cs</FileName>
+      <HashCode>/9b+moeNwStI5ZNsVWeUt9FGT44c0N76rfyHj1K/lzs=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmInvoiceSearch" Collapsed="true">
+    <Position X="19.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmInvoiceSearch.cs</FileName>
+      <HashCode>AAAACQDABCAA4BAAAoCAABQGAAAAIABEBCABIRCCAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmInvoiceSerial" Collapsed="true">
+    <Position X="21.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmInvoiceSerial.cs</FileName>
+      <HashCode>BRAJAKAAACCggBEgnpCcAABKABAIBCgAASAABQFCUAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmInvoiceWiseSales" Collapsed="true">
+    <Position X="23.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmInvoiceWiseSales.cs</FileName>
+      <HashCode>AAAAAAAAACAAghYAgACIQAATAIAABhABACgCAIAAgAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmInvoicing" Collapsed="true">
+    <Position X="25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmInvoicing.cs</FileName>
+      <HashCode>0CQYCmMZiDC73HTLpGyUWhCLU2xOOXrhhuihw3KPiXA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmItemReport" Collapsed="true">
+    <Position X="0.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmItemReport.cs</FileName>
+      <HashCode>/wAAAIYAPQQBgBQAFxaSAAESAKgEJDIIgKQWAAAsiDI=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmJobActual" Collapsed="true">
+    <Position X="2.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmJobActual.cs</FileName>
+      <HashCode>7wb0h5eNgarM5RNvVUfWNdFCDQ5NxBhijWygB0q+gws=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmJobActualSearch" Collapsed="true">
+    <Position X="4" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmJobActualSearch.cs</FileName>
+      <HashCode>AAAACQBEBAAA4BAAAoCAABAHAAAAIABEBCABKRCCAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmJobEstimate" Collapsed="true">
+    <Position X="5.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmJobEstimate.cs</FileName>
+      <HashCode>/1b8h5etlavA/JZtVUfGJdUXzcxdlFhiHeSgRyq/k38=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmJobEstimateSearch" Collapsed="true">
+    <Position X="7.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmJobEstimateSearch.cs</FileName>
+      <HashCode>AAAACQBEBCAA4BAAAoCAABAHAAAAIABEBCABKRCCAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmJobReturn" Collapsed="true">
+    <Position X="9.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmJobReturn.cs</FileName>
+      <HashCode>7wb0h5eNgarM5RNvVWfGNdECDQ5NxBhijWSAB0q+gws=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmJobReturnSearch" Collapsed="true">
+    <Position X="11" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmJobReturnSearch.cs</FileName>
+      <HashCode>AAAACQBEBCAA5BAAAoCAABAHAAAAIABEBCABKRCCAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmJobStatus" Collapsed="true">
+    <Position X="12.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmJobStatus.cs</FileName>
+      <HashCode>AAAAAIAAACgAgBAAAACAAAACAAgAxAAAEKAEAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmLocationWiseSales" Collapsed="true">
+    <Position X="14.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmLocationWiseSales.cs</FileName>
+      <HashCode>AAAAAAAAACAAgBYAAACAAAASAIAABxAAACgCAAAAhAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmLogin" Collapsed="true">
+    <Position X="16.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmLogin.cs</FileName>
+      <HashCode>ABQAAAARALACgCEAAgCAAkICIAgACBAQhCAABABAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmMain" Collapsed="true">
+    <Position X="18" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmMain.cs</FileName>
+      <HashCode>/7/2Ls93V/9l2//zP8/X/kTLF9+F75e7xf/f82PH33s=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmMatrixDesign" Collapsed="true">
+    <Position X="19.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmMatrixDesign.cs</FileName>
+      <HashCode>AAIgJAAgACAAwFQAAACAoAASIAkAARgAQCQCAQLBAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmMaxInvoicelistViewer" Collapsed="true">
+    <Position X="21.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmMaxInvoicelistViewer.cs</FileName>
+      <HashCode>AAAAAAAAECAAgAAAAACCAAACAAAAAAAAACACAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmNewInvoice" Collapsed="true">
+    <Position X="23.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmNewInvoice.cs</FileName>
+      <HashCode>NbQSESeopDHfylODEyaUMhgz46ROAvpkQnDs62ezgEw=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmNewInvoicePrint" Collapsed="true">
+    <Position X="25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmNewInvoicePrint.cs</FileName>
+      <HashCode>AAAAAAAAACAAgAAAAACAAAACAAAAAAABACASAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmOpenCompany" Collapsed="true">
+    <Position X="0.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmOpenCompany.cs</FileName>
+      <HashCode>AoBAAAAAECgCEAAAAACAIAQCAAAACAgAAEAAAICgAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmPOrVariicationPrint" Collapsed="true">
+    <Position X="2.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmPOrVariicationPrint.cs</FileName>
+      <HashCode>AAAAAAAAACAAgAAQAACAAAACAAAAAAAAACACAAAAAAI=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmPriceInquiry" Collapsed="true">
+    <Position X="4" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmPriceInquiry.cs</FileName>
+      <HashCode>AEIgIAAgACABgAQAAACAAAASMCkAAAgBQCQCAABAAgA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmPrintTaxInvoice" Collapsed="true">
+    <Position X="5.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmPrintTaxInvoice.cs</FileName>
+      <HashCode>AACAAAAAACAAgAAAQACAAAACAAAAAAAAACACAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.FrmPurchaseOrderVarification" Collapsed="true">
+    <Position X="7.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>FrmPurchaseOrderVarification.cs</FileName>
+      <HashCode>AAAAAIAAACAAghBAAACAAAAjAAAAQAAAQKAAAYAACAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmRegSettings" Collapsed="true">
+    <Position X="9.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmRegSettings.cs</FileName>
+      <HashCode>AKQAAAAAIOBAABAAgACBCOgCIQCI0AAAAPAAQgAIAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmRepSupInvoice" Collapsed="true">
+    <Position X="11" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmRepSupInvoice.cs</FileName>
+      <HashCode>AAAAAAAAAiAAgAAAAACAAAACAAAQAAAAACACAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmRepSupReturn" Collapsed="true">
+    <Position X="12.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmRepSupReturn.cs</FileName>
+      <HashCode>AAAAAAAAACAAgAAAAACAAAACAAAAKAAAACACAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmReturnNotenew" Collapsed="true">
+    <Position X="14.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmReturnNotenew.cs</FileName>
+      <HashCode>/0Z8ioONgSpI7ZPsVUeEt9ViDwwNkFx6jOSGDxK/kxM=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmReturnNotenewSearch" Collapsed="true">
+    <Position X="16.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmReturnNotenewSearch.cs</FileName>
+      <HashCode>AAAACQDABCAA4BAAAoCAABEGAAAAIABEBCABIRCCAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmSalesInvoice" Collapsed="true">
+    <Position X="18" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmSalesInvoice.cs</FileName>
+      <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.FrmSalesOrderVarification" Collapsed="true">
+    <Position X="19.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>FrmSalesOrderVarification.cs</FileName>
+      <HashCode>ABQAAIAAACAAghBAACCAAAADAAAAQAAAQKAAAQAACAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmSalesVarificationPrint" Collapsed="true">
+    <Position X="21.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmSalesVarificationPrint.cs</FileName>
+      <HashCode>AAAAAAAAACAAgAAAAACAAAACAAAAAAAAACACAAAAEAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmSeachTrans" Collapsed="true">
+    <Position X="23.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmSeachTrans.cs</FileName>
+      <HashCode>IAAACQAABCAA4BAAAoDAABQGAAAAIAAEBCABIRCCAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmSelectItems" Collapsed="true">
+    <Position X="25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmSelectItems.cs</FileName>
+      <HashCode>AABAAIAAgiAgwDAAgACAAQACCAIAIAAgACBhAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmSerialBeginingBal" Collapsed="true">
+    <Position X="0.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmSerialBeginingBal.cs</FileName>
+      <HashCode>BRABAKAAACCggBEgnpCcAABKABAIBCiAASAABSVCUAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmsetDecimalPoint" Collapsed="true">
+    <Position X="2.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmsetDecimalPoint.cs</FileName>
+      <HashCode>QBAAAAQAACAEgRAQCACAAAACAFAIQQQCAGAIIQAACCA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmStockTakingVarience" Collapsed="true">
+    <Position X="4" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmStockTakingVarience.cs</FileName>
+      <HashCode>AAAAAAAAACAAgBIAAACAAAASAIAABxAAACgCAAAAgQA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmSupInvList" Collapsed="true">
+    <Position X="5.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmSupInvList.cs</FileName>
+      <HashCode>AAAAAIAAACAAghBAAACAAAADAAQAQAAAQKAAAQAAKAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmSupInvoice" Collapsed="true">
+    <Position X="7.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmSupInvoice.cs</FileName>
+      <HashCode>+DQQknsRgDG71nTTgEy0eharQw+OoXqgRmSj6XOKzXA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmSupInvoiceList" Collapsed="true">
+    <Position X="9.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmSupInvoiceList.cs</FileName>
+      <HashCode>AAAAAQAACCAQ4BBAAISAAAACKAAAIQBFCCAFIACCEhA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmSupplierReturn" Collapsed="true">
+    <Position X="11" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmSupplierReturn.cs</FileName>
+      <HashCode>8TYQFm/p5DHf2njDks60O5Kzoq5Ko3qkwndv63vTiGw=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmSupplyInvoiceListPrint" Collapsed="true">
+    <Position X="12.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmSupplyInvoiceListPrint.cs</FileName>
+      <HashCode>AAAAAAAAACAAgAAAAACAgAACAAAAAIAAACACAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmSupReturnList" Collapsed="true">
+    <Position X="14.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmSupReturnList.cs</FileName>
+      <HashCode>AAAAAQAAACIA4BAAAIKAAACCCCAAIgDFCCAFIACCQAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmSupReturnSerial" Collapsed="true">
+    <Position X="16.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmSupReturnSerial.cs</FileName>
+      <HashCode>BRAJAKAAACDggBEgmpCcAABKABAIACgAASAABQFCUFA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmSVATPrint" Collapsed="true">
+    <Position X="18" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmSVATPrint.cs</FileName>
+      <HashCode>AAAAAAQAACAAgAAAAACAAAACAAAAAAAAACACAAAAAAQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmTaxDetails" Collapsed="true">
+    <Position X="19.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmTaxDetails.cs</FileName>
+      <HashCode>AAAAgAAAACgAoBAAAACECATCACAIQAgAIOAAASYAAQQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmTransNoteList" Collapsed="true">
+    <Position X="21.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmTransNoteList.cs</FileName>
+      <HashCode>AAAAAAAAACAAwBQCAACAAAACAAAABBAQBCAAAACAgAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmTransNoteListView" Collapsed="true">
+    <Position X="23.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmTransNoteListView.cs</FileName>
+      <HashCode>AAAAAAAAICAAAAAAAACAAAACAAAAAAAQAAACAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmUserAuthentication" Collapsed="true">
+    <Position X="25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmUserAuthentication.cs</FileName>
+      <HashCode>BAIACAAAACAAgAEEAACAAEAiAAEAAJACAiAAAEIAAAM=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmValuation" Collapsed="true">
+    <Position X="0.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmValuation.cs</FileName>
+      <HashCode>AAAAAAoAACACgBAAAACAIgASAQiAABIQQCACwIAAgAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmVersion" Collapsed="true">
+    <Position X="2.25" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmVersion.cs</FileName>
+      <HashCode>MQAAAAQAACAAABAAAACAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmViewActivities" Collapsed="true">
+    <Position X="4" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmViewActivities.cs</FileName>
+      <HashCode>AgAAAQAAACAQgAEgAACAAEACAAAAAAAAACAAAAAQAQQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmViewerCreditNote" Collapsed="true">
+    <Position X="5.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmViewerCreditNote.cs</FileName>
+      <HashCode>AAAAAAAAACAAAAAAAACIAAAKAQAAAAAAAAACAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmViewerCustomerReturn" Collapsed="true">
+    <Position X="7.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmViewerCustomerReturn.cs</FileName>
+      <HashCode>AAAAAAACACAAgAAAAACIAAACAAAAAAAAACACAAAAABA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmViewerFinishgoodsTransfer" Collapsed="true">
+    <Position X="9.25" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmViewerFinishgoodsTransfer.cs</FileName>
+      <HashCode>AAAAAAAAACAAAAAAAACAAAAKAQAAAAAAQAACAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmViewerInvoiceWiseSales" Collapsed="true">
+    <Position X="11" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmViewerInvoiceWiseSales.cs</FileName>
+      <HashCode>AAAAAAAAACAAgAAAAASAAAACAAAAAAAAACACCAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmViewerItemWiseSales" Collapsed="true">
+    <Position X="12.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmViewerItemWiseSales.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIAAAKAQAAAAAAAAACAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmViewerJobActual" Collapsed="true">
+    <Position X="14.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmViewerJobActual.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAABAACAAAAKAAIAAAAAAAACAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmViewerJobEstimate" Collapsed="true">
+    <Position X="16.25" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmViewerJobEstimate.cs</FileName>
+      <HashCode>AAAAAQAAACAAAAEAAACAAAAKAAAAAAAAAAACAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmViewerJobProfitable" Collapsed="true">
+    <Position X="18" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmViewerJobProfitable.cs</FileName>
+      <HashCode>AAAAAAAAACAAAAAAAACAAAAKAAIAABAAAAACAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmViewerJobReturn" Collapsed="true">
+    <Position X="19.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmViewerJobReturn.cs</FileName>
+      <HashCode>AAAAAAAAACAAAAAAAACAAAAKAAIAAAAAAAACAAAAAAE=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmViewerJobVarience" Collapsed="true">
+    <Position X="21.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmViewerJobVarience.cs</FileName>
+      <HashCode>AAAAAAAAACAAAAAAAACAAAAKAAIEAAAAAAACAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmViewerLocationSales" Collapsed="true">
+    <Position X="23.25" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmViewerLocationSales.cs</FileName>
+      <HashCode>AAAAAAAAACAAgAAAAAKAABACAAAAAAAAACACAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmViewerStockTaking" Collapsed="true">
+    <Position X="25" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmViewerStockTaking.cs</FileName>
+      <HashCode>AAAIAAAAACAAgAAAAACAAAACAAAAAQAAACACAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmViewerTransferNotePrint" Collapsed="true">
+    <Position X="0.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmViewerTransferNotePrint.cs</FileName>
+      <HashCode>AAAIAAAAACAAAAAAAACAAAACAAQAAAAAAAACAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmViewerValuations" Collapsed="true">
+    <Position X="2.25" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmViewerValuations.cs</FileName>
+      <HashCode>AAAAAAAAADAAgAAAAACIAAACAAAAAAAAACACAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmViewUsers" Collapsed="true">
+    <Position X="4" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmViewUsers.cs</FileName>
+      <HashCode>AAAAAAAAAiAAgAAAAECBAAgCAAAIAAIAAGAAAAAAAQQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmWareHouse" Collapsed="true">
+    <Position X="5.75" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmWareHouse.cs</FileName>
+      <HashCode>ABQggA4ggCADwBUAgGCQMkBCAAkIgBEkQaADgwISgYY=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmWarehouseSearch" Collapsed="true">
+    <Position X="7.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmWarehouseSearch.cs</FileName>
+      <HashCode>AAACAAAAACEA0BCAAAGAAAACAAAAABASACAAAQCAQAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmWareHouseTrans" Collapsed="true">
+    <Position X="9.25" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmWareHouseTrans.cs</FileName>
+      <HashCode>9wZ0oouNgSpI5RfsUWeEt9FCDQwOgFx6iGSADxq+gwM=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.frmWhseTranList" Collapsed="true">
+    <Position X="11" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>frmWhseTranList.cs</FileName>
+      <HashCode>AAAAAQAAACIA4BAACICAAACCCKAAIABFCCABIBCCQAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.Program" Collapsed="true">
+    <Position X="14.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Program.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.Regisration6" Collapsed="true">
+    <Position X="16.25" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Regisration6.cs</FileName>
+      <HashCode>AAAAAAAAACAAABAAAACAAAACAAAIAAAAAEAAAABAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.Registration" Collapsed="true">
+    <Position X="18" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Registration.cs</FileName>
+      <HashCode>EEAAQBBiBCEAgAgEiOgAIAIgUAAIwDYAACKWAwAAgEA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.Registration2" Collapsed="true">
+    <Position X="19.75" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Registration2.cs</FileName>
+      <HashCode>AAAAgIQAACAAABEAAACAAFACAAAAAAAAAAAAAQAAAQA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.Registration3" Collapsed="true">
+    <Position X="21.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Registration3.cs</FileName>
+      <HashCode>AAAAhAQAACAAABEAAACABNACAAAAAABAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.Registration4" Collapsed="true">
+    <Position X="23.25" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Registration4.cs</FileName>
+      <HashCode>AAQAiAAAACAAgBEAAACAANQCAcAAEgJAACAAAAAgAAM=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.Registration5" Collapsed="true">
+    <Position X="25" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Registration5.cs</FileName>
+      <HashCode>AEAAgAgAACAAgBEAAACAANADCEAAAChAAiBgAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.Search" Collapsed="true">
+    <Position X="18" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Search.cs</FileName>
+      <HashCode>AAAAAQAAAAAkAACAgAAkAAAAAAAAAABAAAAAAgAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.SerialNumber" Collapsed="true">
+    <Position X="19.75" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>SerialNumber.cs</FileName>
+      <HashCode>EAABAUAAQAKgoAAIhAAYgAAA4AAABAACCiAABWMAmAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.user" Collapsed="true">
+    <Position X="23.25" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>user.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACEAAABCAAAAAGAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CRCustomerReturn" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRCustomerReturn.cs</FileName>
+      <HashCode>AAgAAAAJAAAQAAAAAAAIAAAAAAAAAAAACAABAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CachedCRCustomerReturn" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRCustomerReturn.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CRDailyProductionSales" Collapsed="true">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRDailyProductionSales.cs</FileName>
+      <HashCode>ACgBCABBAoBwAAAACAAIAQABIAAAAAAEDgAAAAAABAE=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CachedCRDailyProductionSales" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRDailyProductionSales.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CRGRNList" Collapsed="true">
+    <Position X="12.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRGRNList.cs</FileName>
+      <HashCode>AAgAAAABAAAQAAAAAAAIAAAAAAAAAAAACAAAAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CachedCRGRNList" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRGRNList.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CRInvMovement" Collapsed="true">
+    <Position X="14.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRInvMovement.cs</FileName>
+      <HashCode>AAgAAAABAgAQAAAAAAAIAAAAAAAAAAAACgAAAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CachedCRInvMovement" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRInvMovement.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CRIssueNote" Collapsed="true">
+    <Position X="19.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRIssueNote.cs</FileName>
+      <HashCode>AAgAAAABAAAQAAAAAAAIAAAAAAAAAAAACAAAAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CachedCRIssueNote" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRIssueNote.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CRJobProduct" Collapsed="true">
+    <Position X="23.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRJobProduct.cs</FileName>
+      <HashCode>ACgBCABBAoBwAAAACAAIAQABIAAAAAAEDgAAAAAABAE=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CachedCRJobProduct" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRJobProduct.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CRJobVarience1" Collapsed="true">
+    <Position X="2.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRJobVarience1.cs</FileName>
+      <HashCode>ACgBCARJC4BwAAAACAAIKQABIAAAAAAE7wAAAAAABAE=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CachedCRJobVarience1" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRJobVarience1.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CRMaxInvoiceList" Collapsed="true">
+    <Position X="7.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRMaxInvoiceList.cs</FileName>
+      <HashCode>AAgAAABBAgAQAAAAAAAIAAAAAAAAAAAADgAAAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CachedCRMaxInvoiceList" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRMaxInvoiceList.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CRPOVarification" Collapsed="true">
+    <Position X="11" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRPOVarification.cs</FileName>
+      <HashCode>AAgAAABBAAAQAAAAAAAIAAAAAAAAAAAADAAAAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CachedCRPOVarification" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRPOVarification.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CRSalesOrderVarify" Collapsed="true">
+    <Position X="12.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRSalesOrderVarify.cs</FileName>
+      <HashCode>AAgAAABBAAAQAAAAAAAIAAAAAAAAAAAADAAAAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CachedCRSalesOrderVarify" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRSalesOrderVarify.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CRSupplierInvoice" Collapsed="true">
+    <Position X="16.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRSupplierInvoice.cs</FileName>
+      <HashCode>AAgAAAABAAAQAAAAAAAIAAAAAAAAAAAACAAAAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CachedCRSupplierInvoice" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRSupplierInvoice.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CRSupplierReturn" Collapsed="true">
+    <Position X="18" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRSupplierReturn.cs</FileName>
+      <HashCode>AAgAAAABAAAQAAAAAAAIAAAAAAAAAAAACAAAAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CachedCRSupplierReturn" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="19.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRSupplierReturn.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CRSupplyInvoiceList" Collapsed="true">
+    <Position X="19.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRSupplyInvoiceList.cs</FileName>
+      <HashCode>AAgAAAABAAAQAAAAAAAIAAAAAAAAAAAACAAAAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CachedCRSupplyInvoiceList" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRSupplyInvoiceList.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CRTransferNoteList" Collapsed="true">
+    <Position X="25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRTransferNoteList.cs</FileName>
+      <HashCode>AAgAAABBAgAQAAAAAAAIAAAAAAAAAAAADgAAAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CachedCRTransferNoteList" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRTransferNoteList.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CRValuation" Collapsed="true">
+    <Position X="0.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRValuation.cs</FileName>
+      <HashCode>AAgAAABBAAAQAAAAAAAIAAAAAAAAAAAADAAAAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CachedCRValuation" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\CRValuation.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.rptCreditNote" Collapsed="true">
+    <Position X="4" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\rptCreditNote.cs</FileName>
+      <HashCode>AAgAAAAIEAEAAAAAAAAAAAAAAAAAAAgQAAABAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CachedrptCreditNote" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\rptCreditNote.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.rptCreditNoteSVAT" Collapsed="true">
+    <Position X="5.75" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\rptCreditNoteSVAT.cs</FileName>
+      <HashCode>AAgAAAAIEAEAAAAAAAAAAAAAAAAAAAgQAAABAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CachedrptCreditNoteSVAT" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\rptCreditNoteSVAT.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.rptCreditNoteVAT" Collapsed="true">
+    <Position X="7.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\rptCreditNoteVAT.cs</FileName>
+      <HashCode>AAgAAAAIEAEAAAAAAAAAAAAAAAAAAAgQAAABAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CachedrptCreditNoteVAT" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\rptCreditNoteVAT.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.RptCustomerProfitability" Collapsed="true">
+    <Position X="9.25" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\RptCustomerProfitability.cs</FileName>
+      <HashCode>ACgBCABBAoBwAAAACAAIAQABIAAAAAAEDgAAAAAABAE=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CachedRptCustomerProfitability" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\RptCustomerProfitability.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.rptInvoices" Collapsed="true">
+    <Position X="11" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\rptInvoices.cs</FileName>
+      <HashCode>AAgAAAAAEAEAAAAAAAAAAAAAAAAAAAgQAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CachedrptInvoices" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\rptInvoices.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.RptMaterialAvailableOutstanding" Collapsed="true">
+    <Position X="12.75" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\RptMaterialAvailableOutstanding.cs</FileName>
+      <HashCode>ACgBCARJAYBwAAAACAAIKQABIAAAAAAEjwAAAAAABAE=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CachedRptMaterialAvailableOutstanding" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\RptMaterialAvailableOutstanding.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.rptTransferNote" Collapsed="true">
+    <Position X="16.25" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\rptTransferNote.cs</FileName>
+      <HashCode>AAgAAAAAEAEAAAAAAAAAAAAAAAAAAAgQAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.CachedrptTransferNote" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\rptTransferNote.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.VARNA.CREstimate" Collapsed="true">
+    <Position X="11" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\VARNA\CREstimate.cs</FileName>
+      <HashCode>AAgAAABBAgAQAAAAAAAIAAAAAAAAAAAEDgAAAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.VARNA.CachedCREstimate" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\VARNA\CREstimate.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.VARNA.RptMRN" Collapsed="true">
+    <Position X="14.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\VARNA\RptMRN.cs</FileName>
+      <HashCode>AAgAAABBAgAQAAAAAAAIAAAAAAAAAAAEDgAAAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.bin.Debug.VARNA.CachedRptMRN" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>bin\Debug\VARNA\RptMRN.cs</FileName>
+      <HashCode>AAAAACAAAAAFAEAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MultiColumnComboBoxDemo.DemoForm" Collapsed="true">
+    <Position X="4" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>DemoForm.cs</FileName>
+      <HashCode>AAAAAAAAACAAABAAAACAAEICQAAAAIAAAAAAABABAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MultiColumnComboBoxDemo.MultiColumnComboBox" Collapsed="true">
+    <Position X="12.75" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>MultiColumnComboBox.cs</FileName>
+      <HashCode>AAAgAAAIAAQABAAAAIAAAgAAhAQCAAAAAGBAAAAAAAQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.Properties.Resources" Collapsed="true">
+    <Position X="2.25" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CggUAQAAACBCACQAAqQ5GAgAEQAAAAAEAIAAxICQMIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserAutherization.Properties.Settings" Collapsed="true">
+    <Position X="21.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ImportCosting.RegistrationProcess" Collapsed="true">
+    <Position X="0.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>RegistrationProcess.cs</FileName>
+      <HashCode>AAAAAAAAACAAABAAAACAAAACAAAYAAAAFAAAACBBAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+</ClassDiagram>

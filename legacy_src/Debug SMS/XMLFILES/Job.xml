@@ -1,0 +1,6 @@
+﻿<PAW_Jobs xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes" xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+  <PAW_Job xsi:type="paw:job">
+    <ID xsi:type="paw:id">J003</ID>
+    <Distributions />
+  </PAW_Job>
+</PAW_Jobs>

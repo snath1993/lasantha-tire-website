@@ -1,0 +1,950 @@
+// Daily Facebook Post with WhatsApp Approval
+// 1. Generate content with AI at 8:30 AM
+// 2. Send preview to admin via WhatsApp
+// 3. Wait for "OK" reply
+// 4. Auto-post to Facebook when approved
+const cron = require('node-cron');
+const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
+const ImageGenerator = require('../utils/ImageGenerator');
+
+class DailyFacebookPostJob {
+  constructor(whatsappClient = null) {
+    this.tasks = [];
+    this.imageGen = new ImageGenerator();
+    this.whatsapp = whatsappClient; // WhatsApp client for sending previews
+    
+    this.pageId = process.env.FACEBOOK_PAGE_ID;
+    this.accessToken = process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
+    this.adminWhatsAppNumber = process.env.ADMIN_WHATSAPP_NUMBER; // Admin number for approvals
+    
+    // Gemini AI Setup
+    this.geminiApiKey = process.env.GEMINI_API_KEY;
+    if (this.geminiApiKey) {
+      console.log('✨ Gemini AI is configured and ready!');
+    } else {
+      console.warn('⚠️ GEMINI_API_KEY not set - AI enhancement disabled');
+    }
+
+    // Pending posts waiting for approval
+    this.pendingPosts = new Map(); // postId -> { content, imagePath, timestamp }
+    
+    // Draft storage directory
+    this.draftsDir = path.join(__dirname, '../facebook-drafts');
+    if (!fs.existsSync(this.draftsDir)) {
+      fs.mkdirSync(this.draftsDir, { recursive: true });
+    }
+    
+    if (!this.pageId || !this.accessToken) {
+      console.error('❌ Facebook credentials missing in .env');
+    }
+    
+    if (!this.adminWhatsAppNumber) {
+      console.warn('⚠️ ADMIN_WHATSAPP_NUMBER not set in .env - approval system disabled');
+    }
+  }
+  
+  // Method to set WhatsApp client after initialization
+  setWhatsAppClient(client) {
+    this.whatsapp = client;
+    console.log('✅ WhatsApp client set for DailyFacebookPostJob');
+  }
+  
+  start() {
+    console.log('📅 Starting DailyFacebookPostJob (WhatsApp Approval Mode)...');
+    
+    // Daily Post Generation + WhatsApp Preview - 8:30 AM
+    const dailyPost = cron.schedule('30 8 * * *', () => {
+      this.generateAndSendForApproval();
+    }, {
+      timezone: 'Asia/Colombo'
+    });
+    
+    this.tasks.push(dailyPost);
+    
+    console.log('✅ Facebook post schedule:');
+    console.log('   - Daily Generation: 8:30 AM');
+    console.log('   - Preview sent to Admin via WhatsApp');
+    console.log('   - Admin replies "OK" to approve');
+    console.log('   - Auto-posts to Facebook when approved');
+    console.log(`   - Admin WhatsApp: ${this.adminWhatsAppNumber || 'NOT SET'}`);
+  }
+  
+  stop() {
+    this.tasks.forEach(task => task.stop());
+    console.log('⏹️ DailyFacebookPostJob stopped');
+  }
+  
+  // Generate post and send to admin for approval via WhatsApp
+  async generateAndSendForApproval() {
+    try {
+      console.log('\n📝 Generating Facebook post for approval...');
+      
+      if (!this.whatsapp) {
+        console.error('❌ WhatsApp client not available');
+        return;
+      }
+      
+      if (!this.adminWhatsAppNumber) {
+        console.error('❌ Admin WhatsApp number not configured');
+        return;
+      }
+      
+      // Generate post content and image
+      const post = await this.generatePost();
+      
+      // Create unique post ID
+      const postId = `post_${Date.now()}`;
+      
+      // Store for later approval
+      this.pendingPosts.set(postId, {
+        content: post.content,
+        imagePath: post.imagePath,
+        timestamp: new Date().toISOString()
+      });
+      
+      // Send to admin via WhatsApp
+      await this.sendPreviewToAdmin(postId, post);
+      
+      console.log(`✅ Preview sent to admin. Waiting for approval...`);
+      console.log(`📱 Post ID: ${postId}`);
+      
+    } catch (err) {
+      console.error('❌ Error in generateAndSendForApproval:', err.message);
+    }
+  }
+  
+  // Generate post content with AI
+  async generatePost() {
+    try {
+      console.log('🤖 Generating content with AI...');
+      
+      // Generate content
+      const templates = this.generateContentTemplates();
+      const selectedTemplate = templates[0]; // Pick first one
+      
+      // Enhance with Gemini AI only
+      let finalContent = selectedTemplate.content;
+      if (this.geminiApiKey) {
+        console.log('✨ Enhancing with Gemini AI...');
+        const enhanced = await this.enhanceWithGemini(selectedTemplate);
+        finalContent = enhanced.content;
+      } else {
+        console.log('⚠️ Gemini AI not configured, using template.');
+      }
+      
+      console.log('✅ Content generated');
+      
+      // Generate image
+      console.log('🎨 Generating image...');
+      const imageBuffer = await this.imageGen.generateGenericPromotionalImage(
+        selectedTemplate.type,
+        selectedTemplate.theme
+      );
+      
+      const imagePath = path.join(this.draftsDir, `temp_${Date.now()}.jpg`);
+      fs.writeFileSync(imagePath, imageBuffer);
+      console.log('✅ Image generated');
+      
+      return {
+        content: finalContent,
+        imagePath: imagePath,
+        type: selectedTemplate.type
+      };
+      
+    } catch (err) {
+      console.error('❌ Post generation error:', err.message);
+      throw err;
+    }
+  }
+  
+  // Send preview to admin via WhatsApp
+  async sendPreviewToAdmin(postId, post) {
+    try {
+      // Format number correctly for WhatsApp
+      let chatId = this.adminWhatsAppNumber;
+      
+      // Remove any non-digit characters
+      chatId = chatId.replace(/\D/g, '');
+      
+      // Add country code if not present
+      if (!chatId.startsWith('94')) {
+        if (chatId.startsWith('0')) {
+          chatId = '94' + chatId.substring(1);
+        }
+      }
+      
+      // Add @c.us suffix
+      chatId = chatId + '@c.us';
+      
+      console.log(`📱 Sending preview to ${chatId}`);
+      
+      // Send the image first
+      const { MessageMedia } = require('whatsapp-web.js');
+      const imageData = fs.readFileSync(post.imagePath, { encoding: 'base64' });
+      const mediaFile = new MessageMedia('image/jpeg', imageData, 'preview.jpg');
+      
+      await this.whatsapp.sendMessage(chatId, mediaFile);
+      console.log('✅ Image sent');
+      
+      // Send the text content with instructions
+      const previewMessage = `📢 *Facebook Post Preview*\n\n${post.content}\n\n━━━━━━━━━━━━━━━\n\n✅ *Reply "OK" to publish this post*\n❌ *Reply "CANCEL" to cancel*\n\n📋 Post ID: ${postId}`;
+      
+      await this.whatsapp.sendMessage(chatId, previewMessage);
+      console.log('✅ Text sent');
+      
+      console.log(`✅ Preview sent to ${this.adminWhatsAppNumber}`);
+      
+    } catch (err) {
+      console.error('❌ Error sending preview:', err.message);
+      console.error('Error details:', err);
+      throw err;
+    }
+  }
+  
+  // Handle approval from WhatsApp
+  async handleApproval(postId, approved = true) {
+    try {
+      const post = this.pendingPosts.get(postId);
+      
+      if (!post) {
+        console.error(`❌ Post ${postId} not found`);
+        return false;
+      }
+      
+      if (!approved) {
+        console.log(`❌ Post ${postId} cancelled by admin`);
+        this.pendingPosts.delete(postId);
+        
+        // Clean up temp image
+        if (fs.existsSync(post.imagePath)) {
+          fs.unlinkSync(post.imagePath);
+        }
+        
+        return true;
+      }
+      
+      // Approved - post to Facebook
+      console.log(`✅ Post ${postId} approved. Publishing to Facebook...`);
+      
+      const result = await this.postToFacebook(post.content, post.imagePath);
+      
+      // Clean up
+      this.pendingPosts.delete(postId);
+      if (fs.existsSync(post.imagePath)) {
+        fs.unlinkSync(post.imagePath);
+      }
+      
+      // Notify admin
+      if (this.whatsapp && this.adminWhatsAppNumber) {
+        const chatId = this.adminWhatsAppNumber + '@c.us';
+        await this.whatsapp.sendMessage(
+          chatId,
+          `✅ *Post Published Successfully!*\n\n📋 Facebook Post ID: ${result.id}\n🔗 Your post is now live on your Facebook page!`
+        );
+      }
+      
+      console.log(`✅ Post published: ${result.id}`);
+      return true;
+      
+    } catch (err) {
+      console.error('❌ Error handling approval:', err.message);
+      
+      // Notify admin of error
+      if (this.whatsapp && this.adminWhatsAppNumber) {
+        const chatId = this.adminWhatsAppNumber + '@c.us';
+        await this.whatsapp.sendMessage(
+          chatId,
+          `❌ *Publishing Failed*\n\nError: ${err.message}\n\nPlease check the bot logs.`
+        );
+      }
+      
+      return false;
+    }
+  }
+  
+  // Post directly to Facebook (published immediately)
+  async postToFacebook(content, imagePath) {
+    try {
+      console.log('📤 Publishing to Facebook...');
+      
+      const FormData = require('form-data');
+      const form = new FormData();
+      
+      form.append('message', content);
+      form.append('access_token', this.accessToken);
+      
+      // Add image if available
+      if (imagePath && fs.existsSync(imagePath)) {
+        const imageBuffer = fs.readFileSync(imagePath);
+        form.append('source', imageBuffer, {
+          filename: 'post.jpg',
+          contentType: 'image/jpeg'
+        });
+        
+        const url = `https://graph.facebook.com/v18.0/${this.pageId}/photos`;
+        const response = await axios.post(url, form, {
+          headers: form.getHeaders(),
+          maxContentLength: Infinity,
+          maxBodyLength: Infinity
+        });
+        
+        console.log('✅ Published to Facebook!');
+        return response.data;
+        
+      } else {
+        // Text-only post
+        const url = `https://graph.facebook.com/v18.0/${this.pageId}/feed`;
+        const response = await axios.post(url, {
+          message: content,
+          access_token: this.accessToken
+        });
+        
+        console.log('✅ Published to Facebook!');
+        return response.data;
+      }
+      
+    } catch (err) {
+      console.error('❌ Facebook posting error:', err.message);
+      if (err.response) {
+        console.error('Response:', err.response.data);
+      }
+      throw err;
+    }
+  }
+
+  // Create daily draft (NO SQL, NO auto-posting)
+  async createDailyDraft() {
+    try {
+      console.log('\n📝 Creating daily Facebook draft...');
+      
+      const timestamp = new Date().toISOString().split('T')[0];
+      const draftId = `draft_${Date.now()}`;
+      
+      // Step 1: Generate base content templates (multiple options for admin to choose)
+      const templates = this.generateContentTemplates();
+      console.log(`✅ Generated ${templates.length} content options`);
+      
+      // Step 2: Enhance with Gemini AI only
+      const enhancedTemplates = [];
+      for (const template of templates) {
+        let enhancedTemplate = template;
+        if (this.geminiApiKey) {
+          console.log('✨ Enhancing with Gemini AI...');
+          enhancedTemplate = await this.enhanceWithGemini(template);
+        }
+        enhancedTemplates.push(enhancedTemplate);
+      }
+      if (this.geminiApiKey) {
+        console.log('✅ Content enhanced with Gemini AI');
+      } else {
+        console.log('ℹ️ Gemini AI not configured, using base templates');
+      }
+      
+      // Step 3: Generate sample images for each template
+      console.log('🎨 Generating sample images...');
+      for (const template of enhancedTemplates) {
+        try {
+          // Create generic promotional image (no specific product/price)
+          const imageBuffer = await this.imageGen.generateGenericPromotionalImage(
+            template.type,
+            template.theme
+          );
+          template.imagePath = path.join(this.draftsDir, `${draftId}_${template.type}.jpg`);
+          fs.writeFileSync(template.imagePath, imageBuffer);
+          console.log(`   ✅ Image saved: ${template.type}.jpg`);
+        } catch (err) {
+          console.log(`   ⚠️ Image generation failed for ${template.type}`);
+          template.imagePath = null;
+        }
+      }
+      
+      // Step 4: Save draft to JSON file
+      const draft = {
+        id: draftId,
+        createdAt: new Date().toISOString(),
+        status: 'pending_approval',
+        templates: enhancedTemplates,
+        notes: [
+          '⚠️ NO product details, prices, or stock info included',
+          '✅ Add your own product/pricing manually before posting',
+          '✅ Admin must approve and post manually to Facebook',
+          '💡 Choose one template, edit as needed, then post'
+        ]
+      };
+      
+      const draftPath = path.join(this.draftsDir, `${timestamp}_draft.json`);
+      fs.writeFileSync(draftPath, JSON.stringify(draft, null, 2));
+      
+      console.log(`✅ Draft saved: ${draftPath}`);
+      console.log(`📋 ${enhancedTemplates.length} content options ready for review`);
+      console.log('⏳ Awaiting admin approval...\n');
+      
+      // Step 5: Create summary HTML for easy viewing
+      this.createDraftHTML(draft, timestamp);
+      
+      return draft;
+      
+    } catch (err) {
+      console.error('❌ Draft creation error:', err.message);
+      throw err;
+    }
+  }
+  
+  // Generate multiple content template options (NO SQL, NO specific products)
+  generateContentTemplates() {
+    const templates = [
+      {
+        type: 'general_promotion',
+        theme: 'blue',
+        content: `🎉 විශේෂ දීමනාව අද දින! 🎉
+
+Quality tyres සඳහා විශේෂ මිලගනන්!
+
+[ඔබේ product details මෙහි add කරන්න]
+
+☎️ 077-777-7777
+📍 Lasantha Tyre Traders
+
+#LasanthaTyre #TyreDeals #SriLanka`,
+        contentSinhala: `🎉 විශේෂ දීමනාව අද දින! 🎉
+
+ගුණාත්මක tyres සඳහා විශේෂ මිලගනන්!
+
+[ඔබේ product details මෙහි add කරන්න]
+[මිල details add කරන්න]
+[Stock details add කරන්න]
+
+අමතන්න: 077-777-7777
+Lasantha Tyre Traders
+
+#LasanthaTyre #QualityTyres`
+      },
+      {
+        type: 'tips_and_advice',
+        theme: 'green',
+        content: `💡 Tyre Care Tip of the Day
+
+[ඔබේ tip එක මෙහි add කරන්න]
+
+ඔබේ tyres දිගු කල් පවත්වාගන්න!
+
+වැඩි විස්තර සඳහා:
+☎️ 077-777-7777
+
+#TyreCare #LasanthaTyre #SafetyFirst`,
+        contentSinhala: `💡 අද දින Tyre රැකවරණ උපදෙසක්
+
+[ඔබේ tyre care tip එක add කරන්න]
+
+Expert advice සඳහා:
+📞 077-777-7777
+Lasantha Tyre Traders
+
+#TyreSafety #SriLanka`
+      },
+      {
+        type: 'weekend_special',
+        theme: 'orange',
+        content: `🎊 සති අන්ත විශේෂ දීමනාව! 🎊
+
+[ඔබේ weekend offer details add කරන්න]
+
+මෙම සති අන්තයේ පමණක්!
+
+☎️ 077-777-7777
+📍 Lasantha Tyre Traders
+
+#WeekendSale #LasanthaTyre`,
+        contentSinhala: `🌟 Weekend Special Offer 🌟
+
+[Offer details add කරන්න]
+[Discount % add කරන්න]
+
+This weekend only!
+
+අමතන්න: 077-777-7777
+
+#WeekendDeals #QualityTyres`
+      },
+      {
+        type: 'customer_service',
+        theme: 'blue',
+        content: `👋 සාදරයෙන් පිළිගනිමු!
+
+Lasantha Tyre Traders හි විශේෂ සේවාවන්:
+
+✅ [Service 1]
+✅ [Service 2]  
+✅ [Service 3]
+
+වැඩි විස්තර සඳහා:
+📞 077-777-7777
+
+#CustomerService #LasanthaTyre`,
+        contentSinhala: `අප සමඟ සම්බන්ධ වන්න!
+
+ඔබේ tyres අවශ්‍යතා සඳහා
+විශේෂ expert උපදෙස්
+
+☎️ 077-777-7777
+📧 [Your email]
+📍 [Your location]
+
+#ContactUs #TyreExperts`
+      },
+      {
+        type: 'brand_showcase',
+        theme: 'red',
+        content: `⭐ Top Brand Tyres Available ⭐
+
+[ඔබේ brand list add කරන්න]
+
+විශ්වාසදායක brands
+හොඳම මිලගනන්
+
+☎️ 077-777-7777
+
+#BrandedTyres #LasanthaTyre`,
+        contentSinhala: `🚗 ප්‍රමුඛ Brand Tyres 🚗
+
+[Brands list:]
+- [Brand 1]
+- [Brand 2]
+- [Brand 3]
+
+අමතන්න විස්තර සඳහා:
+077-777-7777
+
+#QualityBrands #SriLanka`
+      }
+    ];
+    
+    return templates;
+  }
+  
+  // Enhance template with Gemini AI
+  async enhanceWithGemini(template) {
+    if (!this.geminiApiKey) {
+      return template;
+    }
+
+    try {
+      const prompt = `You are a creative social media expert for a tyre shop in Sri Lanka called "Lasantha Tyre Traders".
+
+      🎯 **TARGET AUDIENCE:** Sri Lankan vehicle owners (cars, vans, bikes), aged 25-55. They value safety, good deals, and trustworthy service.
+
+      📝 **YOUR TASK:** Rewrite this basic Facebook post into an engaging, creative, and persuasive masterpiece using a friendly, conversational mix of Sinhala and English (Singlish).
+
+      **CREATIVE GUIDELINES:**
+      1.  **HOOK:** Start with a relatable question or a surprising fact to grab attention. (e.g., "මේ වැස්සට පාරේ brake පෑගුවම වාහනේ ලිස්සනවද? 😲", "ඔබේ වාහනේ ටයර් මාරු කරලා කොච්චර කල්ද?")
+      2.  **LANGUAGE:** Use natural Singlish. Be friendly and approachable, not overly formal. (e.g., "check කරගන්න," "සුපිරිම deal," "අදම කතා කරන්න").
+      3.  **EMOJIS:** Use emojis strategically to add visual appeal and emotion (e.g., 🚗, 💨, ✨, ✅, 💯, 👨‍👩‍👧‍👦, 📞).
+      4.  **STRUCTURE:**
+          *   **Catchy Hook:** 1-2 lines.
+          *   **Value/Benefit:** Use bullet points (✅) to highlight what the customer gets.
+          *   **Call to Action (CTA):** Clear and direct instruction (e.g., "වැඩි විස්තර සඳහා අදම කතා කරන්න!", "Visit us today!").
+      5.  **TONE:** Helpful, expert, and trustworthy. Show that you care about the customer's safety.
+      6.  **IMPORTANT:** Keep all placeholders like \`[ඔබේ product details මෙහි add කරන්න]\` exactly as they are. Do NOT add real product names, prices, or stock details.
+
+      **ORIGINAL POST TO REWRITE:**
+      \`\`\`
+      ${template.content}
+      \`\`\`
+
+      **NOW, CREATE THE ENHANCED VERSION (under 150 words):**`;
+
+      // Use REST API directly
+      const response = await axios.post(
+        `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${this.geminiApiKey}`,
+        {
+          contents: [{
+            parts: [{
+              text: prompt
+            }]
+          }]
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
+      const enhancedText = response.data?.candidates?.[0]?.content?.parts?.[0]?.text || template.content;
+
+      return {
+        ...template,
+        content: enhancedText,
+        originalContent: template.content,
+        enhanced: true,
+        aiProvider: 'Gemini'
+      };
+
+    } catch (err) {
+      console.error('❌ Gemini enhancement error:', err.response?.data || err.message);
+      // Fallback to original template
+      return template;
+    }
+  }
+
+  // Generate multiple content template options (NO SQL, NO specific products)
+  generateContentTemplates() {
+    if (!this.hfApiKey) return template;
+
+    try {
+      const prompt = `You are a creative social media expert for a tyre shop in Sri Lanka called "Lasantha Tyre Traders".
+
+Use a friendly Sinhala-English (Singlish) tone that feels local.
+KEEP ALL placeholders like [ඔබේ product details මෙහි add කරන්න] intact.
+Do not invent prices or stock.
+
+Original:
+${template.content}
+
+Rewrite under 150 words with:
+- A catchy hook
+- 2-3 value bullets (✅)
+- Clear CTA with a phone number placeholder
+`;
+
+      const url = `https://api-inference.huggingface.co/models/${encodeURIComponent(this.hfModel)}`;
+      const response = await axios.post(
+        url,
+        {
+          inputs: prompt,
+          parameters: {
+            max_new_tokens: 180,
+            temperature: 0.8,
+            top_p: 0.9,
+            return_full_text: false
+          }
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${this.hfApiKey}`,
+            'Content-Type': 'application/json'
+          },
+          timeout: 30000
+        }
+      );
+
+      let enhancedText = '';
+      if (Array.isArray(response.data) && response.data.length > 0) {
+        enhancedText = response.data[0]?.generated_text || '';
+      } else if (typeof response.data === 'string') {
+        enhancedText = response.data;
+      } else if (response.data?.generated_text) {
+        enhancedText = response.data.generated_text;
+      }
+
+      enhancedText = (enhancedText || '').trim();
+      if (!enhancedText) return template;
+
+      return {
+        ...template,
+        content: enhancedText,
+        originalContent: template.content,
+        enhanced: true,
+        aiProvider: 'HuggingFace'
+      };
+    } catch (err) {
+      const details = err.response?.data || err.message;
+      console.error('❌ Hugging Face enhancement error:', details);
+      return template;
+    }
+  }
+
+  // Enhance template with Ollama (keep it generic, no specific products/prices)
+  async enhanceWithOllama(template) {
+    if (!this.ollama.isAvailable) {
+      return template;
+    }
+    
+    try {
+      const prompt = `You are a creative social media expert for Lasantha Tyre Traders in Sri Lanka.
+
+🎯 TARGET AUDIENCE: Sri Lankan car owners aged 25-50, middle-class families, business owners
+
+📝 YOUR TASK: Transform this Facebook post into an ATTENTION-GRABBING, ENGAGING masterpiece!
+
+✨ CREATIVE GUIDELINES:
+1. START WITH A HOOK - Begin with something that makes people STOP scrolling:
+   - Ask a relatable question (e.g., "මේ දවස් වල වැහි වැහුණම road එකේ යන්න බයයි නේද?")
+   - Share a surprising fact (e.g., "80% accidents happen because of worn out tyres!")
+   - Use emotional triggers (safety, family protection, saving money)
+
+2. LANGUAGE STYLE:
+   - Natural Sinhala-English mix (Singlish) - like talking to a friend
+   - Use conversational tone, not formal/corporate
+   - Examples: "එපා වෙලා" not "අප්‍රසන්න", "check කරන්න" not "පරීක්ෂා කරන්න"
+
+3. EMOJI USAGE (Strategic, not spammy):
+   - 🚗🛞 for tyres/cars
+   - 🏆✨💯 for quality/excellence
+   - 👨‍👩‍👧‍👦💚 for family/safety
+   - 📞☎️ for contact
+   - ⚠️💡✅ for tips/warnings/benefits
+
+4. CONTENT STRUCTURE:
+   - Opening: Catchy hook (1 sentence)
+   - Middle: Key benefits or value (2-3 points, use ✅ or 💡)
+   - Closing: Clear call-to-action + contact info
+
+5. PERSONALITY:
+   - Friendly local expert (not corporate)
+   - Helpful and caring (about customer safety)
+   - Professional but approachable
+   - Use storytelling when possible
+
+6. PLACEHOLDERS:
+   - KEEP all [brackets] and placeholders intact
+   - DO NOT add specific products, prices, or stock numbers
+   - These will be filled by admin later
+
+ORIGINAL POST:
+${template.content}
+
+NOW CREATE: A magnetic, scroll-stopping, engagement-boosting version (under 200 words) that makes people:
+- STOP and read
+- FEEL something (safety, trust, excitement)
+- TAKE ACTION (call, visit, engage)
+
+Enhanced creative version:`;
+
+      const response = await this.ollama.ollama.generate({
+        model: this.ollama.defaultModel,
+        prompt: prompt,
+        stream: false,
+        options: {
+          temperature: 0.8, // Increased for more creativity
+          num_predict: 400, // More tokens for detailed content
+          top_p: 0.9
+        }
+      });
+      
+      const enhanced = response.response || template.content;
+      
+      return {
+        ...template,
+        content: enhanced,
+        originalContent: template.content,
+        enhanced: true
+      };
+      
+    } catch (err) {
+      console.error('Enhancement error:', err.message);
+      return template;
+    }
+  }
+  
+  // Create HTML file for easy viewing of drafts
+  createDraftHTML(draft, timestamp) {
+    const html = `<!DOCTYPE html>
+<html lang="si">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Facebook Draft - ${timestamp}</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .template {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .template-type {
+      display: inline-block;
+      background: #667eea;
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    .content {
+      white-space: pre-wrap;
+      background: #f9f9f9;
+      padding: 15px;
+      border-radius: 5px;
+      border-left: 4px solid #667eea;
+      margin: 15px 0;
+    }
+    .image {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 15px 0;
+    }
+    .notes {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 15px;
+      border-radius: 5px;
+      margin: 20px 0;
+    }
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      margin: 5px 5px 5px 0;
+    }
+    .badge-ai {
+      background: #d4edda;
+      color: #155724;
+    }
+    .badge-template {
+      background: #d1ecf1;
+      color: #0c5460;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>📝 Facebook Draft Created</h1>
+    <p>Created: ${draft.createdAt}</p>
+    <p>Status: <strong>${draft.status}</strong></p>
+    <p>Draft ID: ${draft.id}</p>
+  </div>
+  
+  <div class="notes">
+    <h3>⚠️ වැදගත් සටහන්:</h3>
+    ${draft.notes.map(note => `<p>${note}</p>`).join('')}
+  </div>
+  
+  <h2>Content Options (${draft.templates.length} available):</h2>
+  
+  ${draft.templates.map((template, index) => `
+    <div class="template">
+      <h3>Option ${index + 1}</h3>
+      <span class="template-type">${template.type}</span>
+      ${template.enhanced ? '<span class="badge badge-ai">✨ AI Enhanced</span>' : '<span class="badge badge-template">📄 Template</span>'}
+      
+      <div class="content">${template.content}</div>
+      
+      ${template.contentSinhala ? `
+        <h4>Alternative (Sinhala):</h4>
+        <div class="content">${template.contentSinhala}</div>
+      ` : ''}
+      
+      ${template.imagePath && fs.existsSync(template.imagePath) ? `
+        <h4>Sample Image:</h4>
+        <img src="file:///${template.imagePath}" class="image" alt="Sample image">
+        <p><small>Image path: ${template.imagePath}</small></p>
+      ` : '<p><em>No image generated</em></p>'}
+    </div>
+  `).join('')}
+  
+  <div class="notes">
+    <h3>📋 Next Steps:</h3>
+    <ol>
+      <li>Choose one content option above</li>
+      <li>Add your product details (name, size, brand)</li>
+      <li>Add pricing information</li>
+      <li>Add stock availability</li>
+      <li>Review and edit the text as needed</li>
+      <li>Post manually to Facebook Page</li>
+    </ol>
+  </div>
+  
+  <footer style="text-align: center; margin-top: 40px; color: #666;">
+    <p>Generated by Lasantha Tyre Automation System</p>
+    <p>💰 Cost: Rs. 0 (FREE with Ollama)</p>
+  </footer>
+</body>
+</html>`;
+    
+    const htmlPath = path.join(this.draftsDir, `${timestamp}_draft.html`);
+    fs.writeFileSync(htmlPath, html);
+    console.log(`📄 HTML preview saved: ${htmlPath}`);
+  }
+  
+
+  
+  // Manual trigger for testing (simulates WhatsApp approval flow)
+  async testWithSimulatedApproval() {
+    console.log('🧪 Testing post generation and auto-approval...');
+    
+    // Generate post
+    const post = await this.generatePost();
+    
+    console.log('\n📄 Generated Post:');
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.log(post.content);
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.log(`📷 Image: ${post.imagePath}`);
+    
+    // Simulate approval (auto-post for testing)
+    console.log('\n✅ Auto-approving for test...');
+    const result = await this.postToFacebook(post.content, post.imagePath);
+    
+    // Clean up
+    if (fs.existsSync(post.imagePath)) {
+      fs.unlinkSync(post.imagePath);
+    }
+    
+    console.log(`\n✅ Test complete! Post ID: ${result.id}`);
+    return result;
+  }
+  
+  // Get list of pending drafts
+  getPendingDrafts() {
+    const files = fs.readdirSync(this.draftsDir)
+      .filter(f => f.endsWith('_draft.json'))
+      .map(f => {
+        const content = JSON.parse(fs.readFileSync(path.join(this.draftsDir, f), 'utf8'));
+        return {
+          filename: f,
+          ...content
+        };
+      })
+      .filter(d => d.status === 'pending_approval')
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    
+    return files;
+  }
+}
+
+module.exports = DailyFacebookPostJob;
+
+// Test if run directly: node jobs/DailyFacebookPostJob.js
+if (require.main === module) {
+  require('dotenv').config();
+  const job = new DailyFacebookPostJob();
+  
+  // Test post generation and publishing
+  job.testWithSimulatedApproval()
+    .then(() => {
+      console.log('\n✅ Test complete!');
+      console.log('\n📋 What happened:');
+      console.log('   1. Generated content with AI');
+      console.log('   2. Created promotional image');
+      console.log('   3. Posted directly to Facebook');
+      console.log('\n👉 Check your Facebook Page to see the post!');
+      console.log('\n💡 In production:');
+      console.log('   - Post will be sent to WhatsApp first');
+      console.log('   - Admin replies "OK" to approve');
+      console.log('   - Then it auto-posts to Facebook');
+      process.exit(0);
+    })
+    .catch(err => {
+      console.error('❌ Test failed:', err);
+      process.exit(1);
+    });
+}

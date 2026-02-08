@@ -1,0 +1,16 @@
+<PAW_Costs xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes"
+xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance"
+xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+<PAW_Cost xsi:type="paw:cost">
+	<ID xsi:type="paw:id">C001</ID>
+	<Description>C001</Description>
+	<CostType>Labor</CostType>
+	<IsInactive>FALSE</IsInactive>
+</PAW_Cost>
+<PAW_Cost xsi:type="paw:cost">
+	<ID xsi:type="paw:id">C002</ID>
+	<Description>C002</Description>
+	<CostType>Labor</CostType>
+	<IsInactive>FALSE</IsInactive>
+</PAW_Cost>
+</PAW_Costs>

@@ -1,0 +1,33 @@
+﻿<PAW_Items xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes" xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+  <PAW_Item xsi:type="paw:item">
+    <ID xsi:type="paw:id">185/65/15/GOO/ASSURANCE</ID>
+    <Description>185/65/15 GOODYEAR ASSU TRIPLEMAX2 INDONESIA</Description>
+    <Class>1</Class>
+    <isInactive>False</isInactive>
+    <Description_for_Sales />
+    <Sales_Prices>
+      <Sales_Price_Info Key="1">
+        <Sales_Price>19600.0000</Sales_Price>
+      </Sales_Price_Info>
+      <Sales_Price_Info Key="2">
+        <Sales_Price>0.0000</Sales_Price>
+      </Sales_Price_Info>
+    </Sales_Prices>
+    <Last_Unit_Cost>12810.00</Last_Unit_Cost>
+    <GL_Sales_Account xsi:type="paw:id">1000-01</GL_Sales_Account>
+    <GL_Inventory_Account xsi:type="paw:id">6000-01</GL_Inventory_Account>
+    <GL_COGSSalary_Acct xsi:type="paw:id">2000-02</GL_COGSSalary_Acct>
+    <Type>TYRES</Type>
+    <Stocking_UM>Nos</Stocking_UM>
+    <Tax_Type_Name>Regular</Tax_Type_Name>
+    <CustomFields>
+      <CustomField>
+        <Value Index ="1">185/65/15</Value>
+        <Value Index ="2">INDONESIA</Value>
+        <Value Index ="3">GOOD YEAR</Value>
+        <Value Index ="4">ASSURANCE TRIPLEMAX2</Value>
+        <Value Index ="5">-</Value>
+      </CustomField>
+    </CustomFields>
+  </PAW_Item>
+</PAW_Items>

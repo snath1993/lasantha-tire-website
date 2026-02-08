@@ -1,0 +1,493 @@
+const { replyToComment } = require('./facebookApi');
+const { extractTyreSizeFlexible } = require('./detect');
+const { fetchTyreData } = require('./fetchTyreData');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
+const { storeContext, getContext } = require('./facebookConversationContext');
+const fs = require('fs');
+const path = require('path');
+
+// Use public-facing phone number from environment (falls back to hardcoded if not set)
+const WHATSAPP_NUMBER = process.env.STORE_PHONE || process.env.WHATSAPP_PRIMARY_NUMBER || '0721222509';
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+// Load brand categories from config
+let brandCategoriesConfig = null;
+try {
+    const configPath = path.join(__dirname, '..', 'brand-categories.json');
+    brandCategoriesConfig = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+    console.log('[FB Handler] Loaded brand categories config');
+} catch (error) {
+    console.warn('[FB Handler] Failed to load brand-categories.json, using defaults:', error.message);
+}
+
+// ========================================
+// DUPLICATE REPLY GUARD
+// ========================================
+const processedComments = new Map(); // Map<comment_id, timestamp>
+const PROCESSED_TTL = 60 * 60 * 1000; // 1 hour
+
+function isAlreadyProcessed(commentId) {
+    const now = Date.now();
+    
+    // Cleanup expired entries
+    for (const [id, timestamp] of processedComments.entries()) {
+        if (now - timestamp > PROCESSED_TTL) {
+            processedComments.delete(id);
+        }
+    }
+    
+    // Check if already processed
+    if (processedComments.has(commentId)) {
+        const processedAt = processedComments.get(commentId);
+        const ageMinutes = Math.round((now - processedAt) / 1000 / 60);
+        console.log(`[FB Handler] ⏭️  Comment ${commentId} already processed ${ageMinutes}m ago - skipping`);
+        return true;
+    }
+    
+    return false;
+}
+
+function markAsProcessed(commentId) {
+    processedComments.set(commentId, Date.now());
+}
+
+async function handleFacebookComment(commentEvent, mainPool) {
+    try {
+        const { comment_id, message, from, verb, parent_id } = commentEvent;
+        const FB_PAGE_ID = process.env.FACEBOOK_PAGE_ID || '194559142002903';
+        
+        // Check if already processed (duplicate event)
+        if (isAlreadyProcessed(comment_id)) {
+            return;
+        }
+        
+        if (verb === 'remove' || verb === 'edit') return;
+        if (from.id === FB_PAGE_ID) return;
+        if (!message || message.trim().length === 0) return;
+        
+        // Mark as being processed
+        markAsProcessed(comment_id);
+        
+        console.log(`[FB] Comment from ${from.name}: ${message}`);
+        console.log(`[FB] Parent ID: ${parent_id || 'NONE'}`);
+        
+        const language = detectLanguage(message);
+        
+        // Check if this is a reply to our previous comment (continuation)
+        const parentContext = parent_id ? getContext(parent_id) : null;
+        
+        if (parentContext) {
+            console.log(`[FB Handler] 🔄 Found context! Previous size: ${parentContext.tyreSize}, Brands: ${parentContext.brands?.join(', ')}`);
+            
+            // This is a follow-up question - handle contextually
+            const response = await handleContextualReply(message, parentContext, language, mainPool);
+            await replyToComment(comment_id, response);
+            
+            // Store context for this new reply too (for further continuation)
+            storeContext(comment_id, {
+                tyreSize: parentContext.tyreSize,
+                brands: parentContext.brands,
+                originalQuery: parentContext.originalQuery,
+                followUp: message
+            });
+            
+            console.log('[FB] Contextual response sent');
+            return;
+        }
+        
+        // No parent context - this is a new query
+        const tyreSize = extractTyreSizeFlexible(message);
+        
+        console.log(`[FB Handler] 🔍 Detected language: ${language}`);
+        console.log(`[FB Handler] 🔍 Detected tyre size: ${tyreSize || 'NONE'}`);
+        
+        let response = '';
+        let brandsAvailable = [];
+        
+        if (tyreSize) {
+            console.log(`[FB Handler] ✅ Size detected, querying database for: ${tyreSize}`);
+            try {
+                // Ensure pool is connected before querying
+                await mainPool;
+                
+                const result = await fetchTyreData(mainPool, tyreSize);
+                console.log(`[FB Handler] 📦 Database returned ${result?.tyres?.length || 0} tyres`);
+                
+                if (result && result.tyres && result.tyres.length > 0) {
+                    brandsAvailable = [...new Set(result.tyres.map(t => t.BrandName || t.normBrand || t.brand))].filter(b => b);
+                    response = buildWhatsAppLink(tyreSize, result.tyres, language);
+                    console.log(`[FB Handler] ✅ Built reply with brands`);
+                } else {
+                    console.log(`[FB Handler] ⚠️ No stock, using AI fallback`);
+                    response = await generateAI(message, 'no_stock', tyreSize, language);
+                }
+            } catch (error) {
+                console.error(`[FB Handler] ❌ Database error:`, error.message);
+                response = await generateAI(message, 'error', tyreSize, language);
+            }
+        } else {
+            console.log(`[FB Handler] ℹ️ No size detected, using AI general response`);
+            response = await generateAI(message, 'general', null, language);
+        }
+        
+        await replyToComment(comment_id, response);
+        
+        // Store context for potential follow-up questions
+        if (tyreSize && brandsAvailable.length > 0) {
+            storeContext(comment_id, {
+                tyreSize: tyreSize,
+                brands: brandsAvailable,
+                originalQuery: message
+            });
+            console.log(`[FB Handler] 💾 Stored context for comment ${comment_id}`);
+        }
+        
+        console.log('[FB] Response sent');
+    } catch (error) {
+        console.error('[FB] Error:', error.message);
+    }
+}
+
+function buildWhatsAppLink(size, data, lang) {
+    // Helper function to remove tyre size from description (with regex for variants)
+    const removeSizeFromDescription = (description, tyreSize) => {
+        if (!description) return '';
+        
+        // Create regex patterns for size variants
+        // e.g., 185/65R15, 185/65/15, 185 65 R15, etc.
+        const normalized = tyreSize.replace(/[\/\-\s]/g, '');
+        const patterns = [
+            tyreSize,  // Original format
+            tyreSize.replace(/R/gi, ''),  // Without R
+            tyreSize.replace(/R/gi, '/'),  // R as slash
+            tyreSize.replace(/[\/\-]/g, ' '),  // Spaces instead of separators
+            normalized  // All together
+        ];
+        
+        let cleaned = description;
+        patterns.forEach(pattern => {
+            const regex = new RegExp(pattern.replace(/[\/\-\s]/g, '[\\s\\/\\-]*'), 'gi');
+            cleaned = cleaned.replace(regex, '');
+        });
+        
+        // Clean up extra whitespace
+        return cleaned.replace(/\s+/g, ' ').trim();
+    };
+    
+    // Get brand categories from config or use defaults
+    const categories = brandCategoriesConfig?.categories || {
+        performance: { brands: ['GT', 'MAXXIS', 'MAXXIES', 'MICHELIN', 'BRIDGESTONE', 'GITI'] },
+        valueDurability: { brands: ['DURATURN', 'LANVIGATOR', 'WINDFORCE'] }
+    };
+    
+    const rules = brandCategoriesConfig?.rules || {
+        maxItemsBeforeTruncation: 15,
+        truncationMessage_si: '• (තවත් විකල්ප WhatsApp link එකෙන් බලන්න)',
+        truncationMessage_en: '• (See remaining options via WhatsApp link)'
+    };
+    
+    // Get all unique items with their full descriptions
+    const allItems = data.map(t => ({
+        brand: (t.BrandName || t.normBrand || t.brand || '').toUpperCase(),
+        description: t.ItemDescription || t.Description || ''
+    }));
+    
+    // Remove duplicates based on description
+    const uniqueItems = Array.from(
+        new Map(allItems.map(item => [item.description, item])).values()
+    );
+    
+    // Categorize items based on config
+    const performanceBrands = categories.performance.brands.map(b => b.toUpperCase());
+    const valueDurabilityBrands = categories.valueDurability.brands.map(b => b.toUpperCase());
+    
+    const performanceItems = uniqueItems.filter(item => 
+        performanceBrands.includes(item.brand)
+    );
+    
+    const valueDurabilityItems = uniqueItems.filter(item => 
+        valueDurabilityBrands.includes(item.brand)
+    );
+    
+    const otherItems = uniqueItems.filter(item => 
+        !performanceBrands.includes(item.brand) && !valueDurabilityBrands.includes(item.brand)
+    );
+
+    if (lang === 'si') {
+        // Sinhala Format with full descriptions
+        const link = `https://wa.me/94${WHATSAPP_NUMBER.substring(1)}?text=${encodeURIComponent(`Expert advice for ${size}`)}`;
+        
+        let reply = `✅ ස්තූතියි. ඔබගේ විමසීම පරිදි, ${size} ප්‍රමාණයේ ටයර් සඳහා විකල්ප කිහිපයක් අප සතුව ඇත.\n\n`;
+        
+        reply += `🌟 **අපේ Expert's Choice:**\n\n`;
+        
+        let itemCount = 0;
+        const maxItems = rules.maxItemsBeforeTruncation;
+        let wasTruncated = false;
+        
+        if (performanceItems.length > 0) {
+            reply += `**Performance:**\n`;
+            for (let i = 0; i < performanceItems.length; i++) {
+                if (itemCount >= maxItems) {
+                    wasTruncated = true;
+                    break;
+                }
+                const item = performanceItems[i];
+                const cleanDesc = removeSizeFromDescription(item.description, size);
+                reply += `  • ${cleanDesc}\n`;
+                itemCount++;
+            }
+            reply += `\n`;
+        }
+        
+        if (!wasTruncated && valueDurabilityItems.length > 0) {
+            reply += `**Value & Durability:**\n`;
+            for (let i = 0; i < valueDurabilityItems.length; i++) {
+                if (itemCount >= maxItems) {
+                    wasTruncated = true;
+                    break;
+                }
+                const item = valueDurabilityItems[i];
+                const cleanDesc = removeSizeFromDescription(item.description, size);
+                reply += `  • ${cleanDesc}\n`;
+                itemCount++;
+            }
+            reply += `\n`;
+        }
+        
+        if (!wasTruncated && otherItems.length > 0) {
+            reply += `**තවත් විකල්ප:**\n`;
+            for (let i = 0; i < otherItems.length; i++) {
+                if (itemCount >= maxItems) {
+                    wasTruncated = true;
+                    break;
+                }
+                const item = otherItems[i];
+                const cleanDesc = removeSizeFromDescription(item.description, size);
+                reply += `  • ${cleanDesc}\n`;
+                itemCount++;
+            }
+            reply += `\n`;
+        }
+        
+        if (wasTruncated) {
+            reply += `${rules.truncationMessage_si}\n\n`;
+        }
+        
+        reply += `මිල ගණන් සහ ඔබට අවශ්‍ය ටයරය පිළිබඳ සම්පූර්ණ විස්තර ලබා ගැනීමට, පහත link එක හරහා WhatsApp ඔස්සේ අප සමඟ සම්බන්ධ වන්න.\n\n`;
+        
+        reply += `📲 **Get Expert Advice & Pricing:**\n`;
+        reply += `👉 ${link}\n\n`;
+        reply += `📞 **Call Us:** ${WHATSAPP_NUMBER}\n`;
+        reply += `(Lasantha Tyre Traders - Your Trusted Tyre Partner)`;
+        
+        return reply;
+    }
+
+    // English Format with full descriptions
+    const link = `https://wa.me/94${WHATSAPP_NUMBER.substring(1)}?text=${encodeURIComponent(`Requesting quote for ${size}`)}`;
+    
+    let reply = `Thank you for your inquiry. We confirm that size ${size} is currently available.\n\n`;
+    
+    reply += `**Available Options:**\n\n`;
+    
+    let itemCount = 0;
+    const maxItems = rules.maxItemsBeforeTruncation;
+    let wasTruncated = false;
+    
+    if (performanceItems.length > 0) {
+        reply += `**Performance:**\n`;
+        for (let i = 0; i < performanceItems.length; i++) {
+            if (itemCount >= maxItems) {
+                wasTruncated = true;
+                break;
+            }
+            const item = performanceItems[i];
+            const cleanDesc = removeSizeFromDescription(item.description, size);
+            reply += `  • ${cleanDesc}\n`;
+            itemCount++;
+        }
+        reply += `\n`;
+    }
+    
+    if (!wasTruncated && valueDurabilityItems.length > 0) {
+        reply += `**Value & Durability:**\n`;
+        for (let i = 0; i < valueDurabilityItems.length; i++) {
+            if (itemCount >= maxItems) {
+                wasTruncated = true;
+                break;
+            }
+            const item = valueDurabilityItems[i];
+            const cleanDesc = removeSizeFromDescription(item.description, size);
+            reply += `  • ${cleanDesc}\n`;
+            itemCount++;
+        }
+        reply += `\n`;
+    }
+    
+    if (!wasTruncated && otherItems.length > 0) {
+        reply += `**Other Options:**\n`;
+        for (let i = 0; i < otherItems.length; i++) {
+            if (itemCount >= maxItems) {
+                wasTruncated = true;
+                break;
+            }
+            const item = otherItems[i];
+            const cleanDesc = removeSizeFromDescription(item.description, size);
+            reply += `  • ${cleanDesc}\n`;
+            itemCount++;
+        }
+        reply += `\n`;
+    }
+    
+    if (wasTruncated) {
+        reply += `${rules.truncationMessage_en}\n\n`;
+    }
+    
+    reply += `For complete pricing details and expert advice, please contact us via WhatsApp.\n\n`;
+    
+    reply += `**Contact for Quotation:**\n`;
+    reply += `${link}\n\n`;
+    reply += `**Direct Line:** ${WHATSAPP_NUMBER}`;
+    
+    return reply;
+}
+
+async function generateAI(msg, scenario, size, lang) {
+    try {
+        const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+        let prompt = lang === 'si' 
+            ? `ඔබ Lasantha Tyre Traders AI. WhatsApp: wa.me/94721222509. කෙටි reply (3 lines). Customer: "${msg}"`
+            : `You are Lasantha Tyre Traders AI. WhatsApp: wa.me/94721222509. Short reply (3 lines). Customer: "${msg}"`;
+        
+        const result = await model.generateContent(prompt);
+        return result.response.text();
+    } catch (error) {
+        return lang === 'si' ? `🙏 විස්තර:
+📱 wa.me/94721222509` : `🙏 Details:
+📱 wa.me/94721222509`;
+    }
+}
+
+function detectLanguage(text) {
+    const lowerText = text.toLowerCase();
+    
+    // Check for Sinhala Unicode characters
+    if (/[඀-෿]/.test(text)) {
+        return 'si';
+    }
+    
+    // Common Sinhala/Singlish words and phrases
+    const sinhalaKeywords = [
+        'tyre', 'tire', 'thiyenawada', 'thiyenawada', 'තයර්', 'tayar',
+        'kiyada', 'කීයද', 'මිල', 'mila', 'මොකද්ද', 'mokadda',
+        'thiyeda', 'තියෙද', 'awada', 'ආවද', 'එනවද', 'enavada',
+        'ganna', 'ගන්න', 'දෙන්න', 'denna', 'බලන්න', 'balanna',
+        'kawuda', 'කවුද', 'kohenda', 'කොහෙන්ද', 'kiyada', 'කීයද',
+        'ekak', 'එකක්', 'tikak', 'තිකක්', 'hodai', 'හොඳයි',
+        'onida', 'ඕනිද', 'පුළුවන්ද', 'puluwanda', 'තමයි', 'tamai',
+        'neda', 'නෑද', 'na', 'නෑ', 'ow', 'ඔව්', 'epa', 'එපා',
+        'oya', 'ඔය', 'meka', 'මේක', 'ara', 'අර', 'api', 'අපි',
+        'mama', 'මම', 'mata', 'මට', 'kohomada', 'කොහොමද',
+        'da', 'ද', 'ne', 'නේ', 'no', 'නෝ', 'ekada', 'එකද'
+    ];
+    
+    // Count Singlish/Sinhala keyword matches
+    const matchCount = sinhalaKeywords.filter(keyword => 
+        lowerText.includes(keyword)
+    ).length;
+    
+    // If 2 or more Sinhala keywords found, treat as Sinhala
+    if (matchCount >= 2) {
+        return 'si';
+    }
+    
+    // Check for common pure English patterns
+    const englishPatterns = [
+        /\b(how much|price|cost|available|stock|have|need|want|looking for|interested in)\b/i,
+        /\b(is|are|do|does|can|could|would|should|will)\b.*\b(you|your|there)\b/i
+    ];
+    
+    const hasEnglishPattern = englishPatterns.some(pattern => pattern.test(text));
+    
+    // If clear English pattern and no Sinhala keywords, return English
+    if (hasEnglishPattern && matchCount === 0) {
+        return 'en';
+    }
+    
+    // If single Sinhala keyword found (ambiguous), default to Sinhala for better UX
+    if (matchCount >= 1) {
+        return 'si';
+    }
+    
+    // Default: if no clear indicators, assume English
+    return 'en';
+}
+
+/**
+ * Handle follow-up/contextual replies when user replies to bot's comment
+ */
+async function handleContextualReply(message, context, lang, mainPool) {
+    const { tyreSize, brands } = context;
+    const msgLower = message.toLowerCase();
+    
+    console.log(`[FB Handler] 🤔 Analyzing contextual question: "${message}"`);
+    
+    // Check if asking about specific brand availability
+    const brandMentioned = brands.find(b => msgLower.includes(b.toLowerCase()));
+    
+    if (brandMentioned) {
+        console.log(`[FB Handler] 🏷️ User asking about brand: ${brandMentioned}`);
+        
+        if (lang === 'si') {
+            return `ඔව්, ${brandMentioned.toUpperCase()} brand එක ${tyreSize} size එකේ තියෙනවා! ✅\n\nමිල සහ තොගය පිළිබඳ විස්තර:\n👉 https://wa.me/94${WHATSAPP_NUMBER.substring(1)}?text=${encodeURIComponent(`${brandMentioned} ${tyreSize} price`)}\n\n📞 ${WHATSAPP_NUMBER}`;
+        } else {
+            return `Yes, we have ${brandMentioned.toUpperCase()} in size ${tyreSize}! ✅\n\nFor pricing and stock details:\n👉 https://wa.me/94${WHATSAPP_NUMBER.substring(1)}?text=${encodeURIComponent(`${brandMentioned} ${tyreSize} price`)}\n\n📞 ${WHATSAPP_NUMBER}`;
+        }
+    }
+    
+    // Check if asking which brands are available
+    if (msgLower.includes('brand') || msgLower.includes('බ්‍රෑන්ඩ්') || msgLower.includes('තියෙන්නේ')) {
+        console.log(`[FB Handler] 📋 User asking for brand list`);
+        
+        const brandList = brands.slice(0, 6).join(', ').toUpperCase();
+        const hasMore = brands.length > 6;
+        
+        if (lang === 'si') {
+            return `${tyreSize} size එකේ තියෙන brands:\n\n${brandList}${hasMore ? ` සහ තවත් ${brands.length - 6}ක්` : ''}\n\nවැඩි විස්තර සඳහා:\n👉 https://wa.me/94${WHATSAPP_NUMBER.substring(1)}?text=${encodeURIComponent(`${tyreSize} brands`)}\n\n📞 ${WHATSAPP_NUMBER}`;
+        } else {
+            return `Available brands for ${tyreSize}:\n\n${brandList}${hasMore ? ` and ${brands.length - 6} more` : ''}\n\nFor more details:\n👉 https://wa.me/94${WHATSAPP_NUMBER.substring(1)}?text=${encodeURIComponent(`${tyreSize} brands`)}\n\n📞 ${WHATSAPP_NUMBER}`;
+        }
+    }
+    
+    // Check if asking about prices
+    if (msgLower.includes('price') || msgLower.includes('මිල') || msgLower.includes('කීයද')) {
+        console.log(`[FB Handler] 💰 User asking about prices`);
+        
+        if (lang === 'si') {
+            return `${tyreSize} සඳහා මිල ගණන් brand එකට අනුව වෙනස් වෙනවා.\n\nසියලුම brands සහ මිල:\n👉 https://wa.me/94${WHATSAPP_NUMBER.substring(1)}?text=${encodeURIComponent(`${tyreSize} prices`)}\n\n📞 ${WHATSAPP_NUMBER}\n(Lasantha Tyre Traders)`;
+        } else {
+            return `Prices for ${tyreSize} vary by brand.\n\nFor complete pricing:\n👉 https://wa.me/94${WHATSAPP_NUMBER.substring(1)}?text=${encodeURIComponent(`${tyreSize} prices`)}\n\n📞 ${WHATSAPP_NUMBER}\n(Lasantha Tyre Traders)`;
+        }
+    }
+    
+    // Generic contextual response using AI
+    console.log(`[FB Handler] 🤖 Using AI for contextual reply`);
+    
+    try {
+        const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+        const prompt = lang === 'si'
+            ? `ඔබ Lasantha Tyre Traders AI. Customer විමසීමක් කළා "${tyreSize}" ගැන සහ අපි කිව්වා brands: ${brands.slice(0,3).join(', ')} තියෙනවා කියලා. දැන් customer අහනවා: "${message}". කෙටි, helpful reply එකක් දෙන්න (2-3 lines). WhatsApp: wa.me/94721222509`
+            : `You are Lasantha Tyre Traders AI. Customer asked about "${tyreSize}" and we mentioned brands: ${brands.slice(0,3).join(', ')}. Now customer asks: "${message}". Give a short, helpful reply (2-3 lines). WhatsApp: wa.me/94721222509`;
+        
+        const result = await model.generateContent(prompt);
+        return result.response.text();
+    } catch (error) {
+        // Fallback
+        return lang === 'si'
+            ? `${tyreSize} පිළිබඳ වැඩි විස්තර:\n👉 https://wa.me/94${WHATSAPP_NUMBER.substring(1)}\n📞 ${WHATSAPP_NUMBER}`
+            : `For more details about ${tyreSize}:\n👉 https://wa.me/94${WHATSAPP_NUMBER.substring(1)}\n📞 ${WHATSAPP_NUMBER}`;
+    }
+}
+
+module.exports = { handleFacebookComment };

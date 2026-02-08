@@ -1,0 +1,7 @@
+[Options]
+1=#P0#=1:2:1:1	.
+[Version]
+1=#P0#=2008	.
+[History]
+1=#P0#=ce	#P1#=clsCommon	#P2#=DataAccess|clsCommon	#P3#=clsCommon	#P4#=	#P5#=DataAccess|clsCommon.cs	#P6#=70	#P7#=20110628152315	#P8#=False	#P9#=clsCommon   [clsCommon.cs]	#P10#=9	.
+2=#P0#=ce	#P1#=encryptPassword	#P2#=DataAccess|clsCommon|encryptPassword	#P3#=DataAccess.clsCommon.encryptPassword(string)	#P4#=	#P5#=DataAccess|clsCommon.cs	#P6#=74	#P7#=20110628152243	#P8#=False	#P9#=encryptPassword   [clsCommon.cs]	#P10#=6	.

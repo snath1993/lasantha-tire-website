@@ -1,0 +1,793 @@
+const fs = require('fs');
+const path = require('path');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
+const { executeSafely } = require('../utils/readOnlySafeDb');
+const moment = require('moment');
+const SmartReportGenerator = require('./SmartReportGenerator');
+
+// ============================================================================
+// TITAN v3.0 - ULTIMATE BUSINESS INTELLIGENCE SYSTEM
+// ============================================================================
+
+const GEN_AI_KEY = process.env.GEMINI_API_KEY;
+// Model Priority List: If one hits quota, try next
+const MODEL_PRIORITY = [
+    'gemini-flash-lite-latest',   // Primary - Working Model
+    'gemini-2.0-flash-lite',      // Backup
+    'gemini-2.0-flash',           // Fallback
+];
+let currentModelIndex = 0;
+const LOG_FILE_PATH = path.join(__dirname, '..', 'logs', 'titan_interactions.jsonl');
+
+const ALLOWED_ADMINS = ['0777078700', '0771222509', '0777311770'];
+const JOBS_CONFIG_PATH = path.join(__dirname, '..', 'jobs-config.json');
+
+// Helper to log to file
+const logInteraction = (type, data) => {
+    try {
+        const entry = { timestamp: new Date().toISOString(), type, data };
+        fs.appendFileSync(LOG_FILE_PATH, JSON.stringify(entry) + '\n');
+    } catch (e) {
+        console.error('Failed to write to Titan log:', e);
+    }
+};
+
+// ============================================================================
+// MEGA SYSTEM PROMPT - BUSINESS MASTERMIND
+// ============================================================================
+const SYSTEM_PROMPT = `
+You are **TITAN**, the Supreme Business Intelligence Commander of Lasantha Tyre Traders (Est. 1985).
+
+═══════════════════════════════════════════════════════════════════════════════
+🏢 BUSINESS PROFILE
+═══════════════════════════════════════════════════════════════════════════════
+- Company: Lasantha Tyre Traders (LTT)
+- Location: Panadura, Sri Lanka
+- Industry: Tyre Retail, Wheel Alignment, Balancing Services
+- Established: 1985 (40+ years in business)
+- Specialization: All vehicle types - Cars, Jeeps, Vans, Lorries, Buses, Three-Wheelers, Motorcycles
+
+═══════════════════════════════════════════════════════════════════════════════
+🔐 YOUR CAPABILITIES & RESTRICTIONS
+═══════════════════════════════════════════════════════════════════════════════
+✅ ALLOWED:
+- READ any data from SQL Database (Sales, Stock, Customers, Invoices, GRN, etc.)
+- Analyze trends, predict demand, identify patterns
+- Generate reports (daily, weekly, monthly, yearly, custom periods)
+- Compare brands, categories, time periods
+- Calculate profits, margins, growth rates
+- Send WhatsApp messages to any number
+- Manage background system jobs (Admin only)
+- Answer ANY business question using data
+
+❌ STRICTLY FORBIDDEN:
+- INSERT, UPDATE, DELETE any database records
+- Modify prices, stock levels, or customer data
+- Execute any non-SELECT SQL statement
+- Share sensitive data with unauthorized users
+- NEVER mention WARRANTY TERMS/CONDITIONS unless the user explicitly asks for "warranty", "guarantee", "claim" or "replacement".
+- NEVER hallucinate policies that are not in the database.
+
+═══════════════════════════════════════════════════════════════════════════════
+📊 COMPLETE DATABASE SCHEMA
+═══════════════════════════════════════════════════════════════════════════════
+
+### View: [View_Sales report whatsapp] - MAIN SALES DATA
+| Column    | Meaning           | Notes                                    |
+|-----------|-------------------|------------------------------------------|
+| Expr1     | InvoiceDate       | Date of sale                             |
+| Expr2     | InvoiceNo         | Invoice number                           |
+| Expr4     | ItemName          | Product name (includes size, brand)      |
+| Expr5     | Qty               | Quantity sold                            |
+| Expr6     | UnitPrice         | Price per unit                           |
+| Expr12    | Amount            | Total line amount                        |
+| Expr10    | CustomerName      | Customer name                            |
+| Expr14    | IsVoid            | 0 = Valid, 1 = Voided                    |
+| Categoty  | Category          | Product category (Note: typo in DB)      |
+
+### View: [View_ItemWhse] - INVENTORY/STOCK DATA
+| Column      | Meaning           | Notes                                  |
+|-------------|-------------------|----------------------------------------|
+| ItemId      | Item ID           | Unique identifier                      |
+| Description | Item Name         | Full product description               |
+| Brand       | Brand Name        | CEAT, MAXXIS, DSI, GOODRIDE, etc.      |
+| Quantity    | Current Stock     | Available quantity                     |
+| UnitCost    | Cost Price        | Purchase cost                          |
+| SellingPrice| Selling Price     | Retail price                           |
+| Category    | Category          | Product category                       |
+
+### Table: [GRN_Detail] - GOODS RECEIVED NOTES (Purchases)
+| Column      | Meaning           |
+|-------------|-------------------|
+| GRNNo       | GRN Number        |
+| ItemId      | Item ID           |
+| Qty         | Quantity received |
+| UnitCost    | Cost per unit     |
+| GRNDate     | Date received     |
+
+### Table: [Customers] - CUSTOMER DATABASE
+| Column      | Meaning           |
+|-------------|-------------------|
+| CustId      | Customer ID       |
+| CustName    | Customer Name     |
+| Phone       | Phone Number      |
+| Address     | Address           |
+| VehicleNo   | Vehicle Number    |
+
+═══════════════════════════════════════════════════════════════════════════════
+🎯 BUSINESS INTELLIGENCE CAPABILITIES
+═══════════════════════════════════════════════════════════════════════════════
+
+### SALES ANALYSIS
+- Daily/Weekly/Monthly/Yearly sales reports
+- Compare any two periods (this month vs last month, this year vs last year)
+- Top selling items, brands, categories
+- Sales by customer, by vehicle type
+- Revenue trends and growth rates
+- Average transaction value
+- Sales velocity (items per day)
+
+### INVENTORY INTELLIGENCE  
+- Current stock levels by item, brand, category
+- Low stock alerts (items below threshold)
+- Dead stock identification (items not sold in X days)
+- Stock value calculation
+- Fast-moving vs slow-moving items
+- Reorder recommendations
+
+### BRAND ANALYSIS
+- Brand-wise sales comparison
+- Brand market share
+- Brand profitability
+- Brand trend over time
+- Best performing brands by category
+
+### CUSTOMER INSIGHTS
+- Top customers by revenue
+- Customer purchase frequency
+- Customer vehicle preferences
+- Repeat customer rate
+
+### FINANCIAL METRICS
+- Gross profit margins
+- Revenue vs Cost analysis
+- Average selling price trends
+- Discount impact analysis
+
+### PREDICTIVE ANALYTICS
+- Demand forecasting
+- Seasonal trend identification
+- Stock-out risk prediction
+- Sales target recommendations
+
+═══════════════════════════════════════════════════════════════════════════════
+🗣️ COMMUNICATION STYLE
+═══════════════════════════════════════════════════════════════════════════════
+
+1. **LANGUAGE DETECTION**: 
+   - If user writes in Sinhala → Reply in natural, professional Sinhala
+   - If user writes in English → Reply in English
+   - If mixed → Use the dominant language
+
+2. **RESPONSE FORMAT**:
+   - Always provide DATA + INSIGHT + RECOMMENDATION
+   - Use tables for comparisons
+   - Use bullet points for lists
+   - Include percentages and growth rates
+   - Round numbers appropriately (Rs. 1,234,567 not 1234567.89)
+
+3. **PROACTIVE SUGGESTIONS**:
+   - After answering, suggest related insights
+   - Example: "ඔයා අහපු sales data එක මෙන්න. ඒත් මම දැක්කා MAXXIS brand එක 23% drop වෙලා. ඒක ගැන කතා කරමුද?"
+
+4. **ERROR HANDLING**:
+   - If data not found, suggest alternatives
+   - If query unclear, ask clarifying questions
+   - Never say "I can't do that" - find a way!
+
+═══════════════════════════════════════════════════════════════════════════════
+🔧 ADMIN FUNCTIONS (ONLY FOR: ${ALLOWED_ADMINS.join(', ')})
+═══════════════════════════════════════════════════════════════════════════════
+- list_system_jobs: View all background jobs
+- toggle_job: Enable/disable specific jobs
+
+═══════════════════════════════════════════════════════════════════════════════
+📝 EXAMPLE QUERIES & HOW TO HANDLE
+═══════════════════════════════════════════════════════════════════════════════
+
+User: "අද sales කීයද?"
+→ Query today's sales from [View_Sales report whatsapp]
+→ Show total amount, quantity, top items
+→ Compare with yesterday
+
+User: "CEAT vs MAXXIS"
+→ Query sales for both brands
+→ Show side-by-side comparison
+→ Include quantity, revenue, market share
+
+User: "Stock අඩුයි මොනවද?"
+→ Query [View_ItemWhse] WHERE Quantity < 4
+→ Group by category
+→ Suggest reorder priorities
+
+User: "ගිය අවුරුද්දේ best month කුමක්ද?"
+→ Query monthly totals for last year
+→ Rank by revenue
+→ Analyze why that month performed well
+
+═══════════════════════════════════════════════════════════════════════════════
+⚠️ CRITICAL REMINDERS & DATABASE SYNTAX
+═══════════════════════════════════════════════════════════════════════════════
+1. DATABASE TYPE: Microsoft SQL Server (T-SQL). 
+   - DO NOT USE SQLite functions like STRFTIME, || for concatenation, or PRINTF.
+   - Use YEAR(DateCol), MONTH(DateCol), DAY(DateCol) for date parts.
+   - Use CONCAT(Str1, Str2) or + for concatenation.
+   - Use FORMAT(DateCol, 'yyyy-MM') for formatting dates.
+   - Use TOP N instead of LIMIT.
+
+2. ALWAYS filter out voided invoices: WHERE Expr14 = 0
+3. Use GETDATE() for current date comparisons
+4. Format currency as "Rs. X,XXX,XXX"
+5. When asked about "this month" use MONTH(GETDATE()) and YEAR(GETDATE())
+6. For brand searches, use LIKE '%BrandName%' (case-insensitive matching)
+7. Category column has a TYPO: it's "Categoty" not "Category" in sales view
+8. ALWAYS generate a text response after getting data - NEVER return empty!
+`;
+
+// ============================================================================
+// COMPREHENSIVE TOOL DEFINITIONS
+// ============================================================================
+const tools = [
+    {
+        functionDeclarations: [
+            {
+                name: "query_database",
+                description: `Execute a READ-ONLY SQL SELECT query against the business database. 
+                Available views: [View_Sales report whatsapp] for sales, [View_ItemWhse] for inventory.
+                ONLY SELECT statements allowed. Returns JSON array of results.`,
+                parameters: {
+                    type: "OBJECT",
+                    properties: {
+                        sql_query: {
+                            type: "STRING",
+                            description: "The SQL SELECT query. Must start with SELECT. Use proper column aliases."
+                        },
+                        purpose: {
+                            type: "STRING",
+                            description: "Brief description of what this query is fetching (for logging)."
+                        }
+                    },
+                    required: ["sql_query"]
+                }
+            },
+            {
+                name: "send_whatsapp",
+                description: "Send a WhatsApp text message to any phone number. Use for sending reports, alerts, or responses.",
+                parameters: {
+                    type: "OBJECT",
+                    properties: {
+                        phoneNumber: {
+                            type: "STRING",
+                            description: "Phone number in format 94XXXXXXXXX or 07XXXXXXXX"
+                        },
+                        message: {
+                            type: "STRING",
+                            description: "The message content. Can include emojis and formatting."
+                        }
+                    },
+                    required: ["phoneNumber", "message"]
+                }
+            },
+            {
+                name: "get_current_datetime",
+                description: "Get the current date and time in Sri Lanka timezone. Use for time-based calculations.",
+                parameters: {
+                    type: "OBJECT",
+                    properties: {}
+                }
+            },
+            {
+                name: "calculate_metrics",
+                description: "Perform complex calculations on provided data (growth rate, percentage, average, etc.)",
+                parameters: {
+                    type: "OBJECT",
+                    properties: {
+                        operation: {
+                            type: "STRING",
+                            description: "The operation: 'growth_rate', 'percentage', 'average', 'sum', 'margin'"
+                        },
+                        values: {
+                            type: "STRING",
+                            description: "Comma-separated numbers to calculate"
+                        },
+                        labels: {
+                            type: "STRING",
+                            description: "Optional: Labels for the values"
+                        }
+                    },
+                    required: ["operation", "values"]
+                }
+            },
+            {
+                name: "list_system_jobs",
+                description: "List all background automation jobs and their status. Admin only.",
+                parameters: {
+                    type: "OBJECT",
+                    properties: {}
+                }
+            },
+            {
+                name: "toggle_job",
+                description: "Enable or disable a background job. Admin only.",
+                parameters: {
+                    type: "OBJECT",
+                    properties: {
+                        jobId: {
+                            type: "STRING",
+                            description: "The job identifier"
+                        },
+                        enable: {
+                            type: "BOOLEAN",
+                            description: "true to enable, false to disable"
+                        }
+                    },
+                    required: ["jobId", "enable"]
+                }
+            },
+            {
+                name: "generate_report_summary",
+                description: "Generate a formatted summary report from raw data",
+                parameters: {
+                    type: "OBJECT",
+                    properties: {
+                        reportType: {
+                            type: "STRING",
+                            description: "Type: 'sales', 'inventory', 'brand_comparison', 'customer'"
+                        },
+                        data: {
+                            type: "STRING",
+                            description: "JSON string of the raw data to summarize"
+                        },
+                        title: {
+                            type: "STRING",
+                            description: "Report title"
+                        }
+                    },
+                    required: ["reportType", "data", "title"]
+                }
+            }
+        ]
+    }
+];
+
+// ============================================================================
+// THE TITAN BRAIN CLASS
+// ============================================================================
+class GrandCentralMind {
+    constructor() {
+        if (!GEN_AI_KEY) {
+            console.error('❌ CRITICAL: Gemini API Key missing for TITAN');
+            return;
+        }
+        this.genAI = new GoogleGenerativeAI(GEN_AI_KEY);
+        this.currentModelIndex = 0;
+        this._initModel();
+        this.chatSession = null;
+        console.log('🤖 TITAN v3.0 Initialized - Business Intelligence Ready');
+    }
+
+    _initModel(modelIndex = 0) {
+        const modelName = MODEL_PRIORITY[modelIndex] || MODEL_PRIORITY[0];
+        console.log(`🔄 Loading AI Model: ${modelName}`);
+        this.model = this.genAI.getGenerativeModel({ 
+            model: modelName,
+            tools: tools,
+            systemInstruction: SYSTEM_PROMPT,
+            generationConfig: {
+                temperature: 0.7,
+                topP: 0.95,
+                topK: 40,
+                maxOutputTokens: 8192,
+            }
+        });
+        this.currentModelIndex = modelIndex;
+    }
+
+    async _sendWithRetry(message, maxRetries = 3) {
+        let lastError = null;
+        
+        for (let attempt = 0; attempt < maxRetries; attempt++) {
+            try {
+                return await this.chatSession.sendMessage(message);
+            } catch (error) {
+                lastError = error;
+                
+                // Check if it's a rate limit error (429)
+                if (error.status === 429 || error.message?.includes('429') || error.message?.includes('quota')) {
+                    console.warn(`⚠️ Rate limit hit on model ${MODEL_PRIORITY[this.currentModelIndex]}`);
+                    
+                    // Try next model in priority list
+                    const nextModelIndex = this.currentModelIndex + 1;
+                    if (nextModelIndex < MODEL_PRIORITY.length) {
+                        console.log(`🔄 Switching to fallback model: ${MODEL_PRIORITY[nextModelIndex]}`);
+                        this._initModel(nextModelIndex);
+                        this.chatSession = this.model.startChat({ history: [] });
+                        continue;
+                    }
+                    
+                    // If all models exhausted, wait and retry with first model
+                    const waitTime = 15000; // 15 seconds
+                    console.log(`⏳ All models rate-limited. Waiting ${waitTime/1000}s before retry...`);
+                    await new Promise(resolve => setTimeout(resolve, waitTime));
+                    this._initModel(0);
+                    this.chatSession = this.model.startChat({ history: [] });
+                    continue;
+                }
+                
+                // For other errors, just throw
+                throw error;
+            }
+        }
+        
+        throw lastError;
+    }
+
+    async processOrder(userInstruction, whatsappClient, senderNumber) {
+        console.log(`\n${'═'.repeat(60)}`);
+        console.log(`🧠 TITAN ACTIVATED`);
+        console.log(`📩 From: ${senderNumber}`);
+        console.log(`💬 Query: "${userInstruction}"`);
+        console.log(`${'═'.repeat(60)}`);
+        
+        logInteraction('START', { userInstruction, senderNumber });
+        
+        const cleanSender = senderNumber ? senderNumber.replace(/\D/g, '') : '';
+        const isAdmin = ALLOWED_ADMINS.some(admin => 
+            cleanSender.endsWith(admin) || 
+            cleanSender === admin ||
+            (cleanSender.length > admin.length && cleanSender.endsWith(admin.substring(1)))
+        );
+
+        // ═══════════════════════════════════════════════════════════════════
+        // SMART REPORT ROUTER - Check if this is a standard report request
+        // No AI needed for pre-defined reports = INSTANT + FREE!
+        // ═══════════════════════════════════════════════════════════════════
+        try {
+            // Pass sender number for menu session tracking
+            const reportMatch = SmartReportGenerator.matchReportCommand(userInstruction, cleanSender);
+            
+            if (reportMatch.matched) {
+                console.log(`📊 SMART REPORT MATCH: ${reportMatch.reportType}`);
+                logInteraction('SMART_REPORT', { type: reportMatch.reportType, params: reportMatch.params });
+                
+                // Handle menu request - send report list
+                if (reportMatch.isMenuRequest) {
+                    const menuMessage = SmartReportGenerator.getReportMenu();
+                    SmartReportGenerator.setMenuSession(cleanSender);
+                    
+                    if (whatsappClient) {
+                        let chatId = cleanSender;
+                        if (chatId.startsWith('0')) chatId = '94' + chatId.substring(1);
+                        chatId = chatId + '@c.us';
+                        await whatsappClient.sendMessage(chatId, menuMessage);
+                        console.log(`📋 Report menu sent to: ${cleanSender}`);
+                    }
+                    
+                    logInteraction('MENU_SENT', { to: cleanSender });
+                    return menuMessage;
+                }
+                
+                // Handle invalid menu selection
+                if (reportMatch.isInvalidSelection) {
+                    if (whatsappClient) {
+                        let chatId = cleanSender;
+                        if (chatId.startsWith('0')) chatId = '94' + chatId.substring(1);
+                        chatId = chatId + '@c.us';
+                        await whatsappClient.sendMessage(chatId, reportMatch.message);
+                    }
+                    return reportMatch.message;
+                }
+                
+                // Generate the actual report
+                const reportResult = await SmartReportGenerator.generateReport(
+                    reportMatch.reportType, 
+                    reportMatch.params
+                );
+                
+                // Send the report file if generated
+                if (reportResult.filepath && whatsappClient) {
+                    // BAILEYS MIGRATION: Use wrapper
+                    const { MessageMedia } = require('../utils/baileysWrapper');
+                    const media = MessageMedia.fromFilePath(reportResult.filepath);
+                    
+                    let chatId = cleanSender;
+                    if (chatId.startsWith('0')) chatId = '94' + chatId.substring(1);
+                    chatId = chatId + '@c.us';
+                    
+                    // Send message first
+                    await whatsappClient.sendMessage(chatId, reportResult.message);
+                    // Then send the file
+                    await whatsappClient.sendMessage(chatId, media, { 
+                        caption: `📎 ${reportResult.filename}` 
+                    });
+                    
+                    console.log(`✅ Smart Report sent: ${reportResult.filename}`);
+                    logInteraction('SMART_REPORT_SENT', { filename: reportResult.filename });
+                    return reportResult.message;
+                }
+                
+                // No file, just return the message
+                return reportResult.message;
+            }
+        } catch (smartReportError) {
+            console.error('⚠️ Smart Report Error (falling back to AI):', smartReportError.message);
+            // Continue to AI processing if smart report fails
+        }
+
+        // ═══════════════════════════════════════════════════════════════════
+        // AI PROCESSING - For complex/custom queries
+        // ═══════════════════════════════════════════════════════════════════
+        this.chatSession = this.model.startChat({
+            history: [],
+        });
+        
+        try {
+            let result = await this._sendWithRetry(
+                `[CONTEXT] User Phone: ${senderNumber} | Admin: ${isAdmin} | Time: ${moment().format('YYYY-MM-DD HH:mm:ss')}\n\n[USER REQUEST]\n${userInstruction}`
+            );
+            
+            let maxTurns = 15; // Increased for complex multi-step queries
+            
+            while (maxTurns > 0) {
+                const response = result.response;
+                const functionCalls = response.functionCalls();
+                
+                // If no function calls, return the text response
+                if (!functionCalls || functionCalls.length === 0) {
+                    let text = response.text() || '';
+                    
+                    // Ensure we have a response
+                    if (!text || text.trim() === '') {
+                        text = "මම ඔබේ ඉල්ලීම ක්‍රියාත්මක කළා. තවත් මොනවා හරි දැනගන්න ඕනද?";
+                    }
+                    
+                    console.log(`✅ Final Response: ${text.substring(0, 100)}...`);
+                    logInteraction('RESPONSE', { text });
+                    return text;
+                }
+
+                // Process function calls
+                const functionResponses = [];
+                
+                for (const call of functionCalls) {
+                    const fnName = call.name;
+                    const fnArgs = call.args || {};
+                    
+                    console.log(`🔧 Tool: ${fnName}`);
+                    logInteraction('TOOL_CALL', { fnName, fnArgs });
+
+                    let toolResult = "";
+                    
+                    try {
+                        switch (fnName) {
+                            case "query_database":
+                                let query = fnArgs.sql_query || '';
+                                
+                                // ═══════════════════════════════════════════════════════
+                                // AUTO-CORRECT: Fix ALL AI SQL Hallucinations
+                                // ═══════════════════════════════════════════════════════
+                                
+                                // Fix table name variations
+                                query = query.replace(/View_Sales_report_whatsapp/gi, '[View_Sales report whatsapp]');
+                                query = query.replace(/View_Sales report whatsapp/gi, '[View_Sales report whatsapp]');
+                                query = query.replace(/\[\[/g, '[').replace(/\]\]/g, ']');
+                                
+                                // FIX SQLite → T-SQL Conversions (AI keeps using SQLite syntax!)
+                                // 1. STRFTIME → FORMAT or YEAR/MONTH/DAY
+                                query = query.replace(/STRFTIME\s*\(\s*['"]%Y-%m['"]\s*,\s*(\w+)\s*\)/gi, "FORMAT($1, 'yyyy-MM')");
+                                query = query.replace(/STRFTIME\s*\(\s*['"]%Y['"]\s*,\s*(\w+)\s*\)/gi, 'YEAR($1)');
+                                query = query.replace(/STRFTIME\s*\(\s*['"]%m['"]\s*,\s*(\w+)\s*\)/gi, 'MONTH($1)');
+                                query = query.replace(/STRFTIME\s*\(\s*['"]%d['"]\s*,\s*(\w+)\s*\)/gi, 'DAY($1)');
+                                query = query.replace(/strftime\s*\(\s*['"]%Y-%m['"]\s*,\s*(\w+)\s*\)/gi, "FORMAT($1, 'yyyy-MM')");
+                                
+                                // 2. || concatenation → CONCAT() or +
+                                query = query.replace(/\|\|/g, '+');
+                                
+                                // 3. PRINTF → FORMAT
+                                query = query.replace(/printf\s*\(/gi, 'FORMAT(');
+                                query = query.replace(/PRINTF\s*\(/gi, 'FORMAT(');
+                                
+                                // 4. LIMIT → TOP (move to SELECT)
+                                const limitMatch = query.match(/LIMIT\s+(\d+)/i);
+                                if (limitMatch) {
+                                    const limitNum = limitMatch[1];
+                                    query = query.replace(/LIMIT\s+\d+/i, '');
+                                    query = query.replace(/SELECT\s+/i, `SELECT TOP ${limitNum} `);
+                                }
+                                
+                                // 5. DATE('now') → GETDATE()
+                                query = query.replace(/DATE\s*\(\s*['"]now['"]\s*\)/gi, 'GETDATE()');
+                                
+                                // 6. Fix CAST AS TEXT → CAST AS VARCHAR
+                                query = query.replace(/CAST\s*\(([^)]+)\s+AS\s+TEXT\s*\)/gi, 'CAST($1 AS VARCHAR(50))');
+
+                                console.log(`   📊 SQL: ${query.substring(0, 100)}...`);
+                                
+                                // Security check - only allow SELECT
+                                if (!query.trim().toUpperCase().startsWith('SELECT')) {
+                                    toolResult = "❌ SECURITY BLOCK: Only SELECT queries allowed!";
+                                } else {
+                                    const data = await executeSafely(query);
+                                    if (!data || data.length === 0) {
+                                        toolResult = "No data found for this query.";
+                                    } else if (data.length > 100) {
+                                        toolResult = JSON.stringify(data.slice(0, 100)) + 
+                                            `\n... (Showing 100 of ${data.length} total records)`;
+                                    } else {
+                                        toolResult = JSON.stringify(data);
+                                    }
+                                }
+                                break;
+
+                            case "send_whatsapp":
+                                let target = fnArgs.phoneNumber || '';
+                                const msg = fnArgs.message || '';
+                                
+                                // Format phone number
+                                target = target.replace(/[^0-9]/g, '');
+                                if (target.startsWith('0')) {
+                                    target = '94' + target.substring(1);
+                                }
+                                
+                                if (whatsappClient && msg) {
+                                    try {
+                                        // Attempt to get the correct WhatsApp ID
+                                        // This fixes "No LID for user" errors by verifying the number first
+                                        let chatId = target + '@c.us';
+                                        try {
+                                            const idDetails = await whatsappClient.getNumberId(target);
+                                            if (idDetails && idDetails._serialized) {
+                                                chatId = idDetails._serialized;
+                                            }
+                                        } catch (e) {
+                                            console.warn('Failed to verify number ID, trying direct send...');
+                                        }
+
+                                        await whatsappClient.sendMessage(chatId, msg);
+                                        toolResult = `✅ Message sent to ${fnArgs.phoneNumber}`;
+                                        console.log(`   📤 Sent to: ${chatId}`);
+                                    } catch (sendErr) {
+                                        console.error(`   ❌ Send Failed: ${sendErr.message}`);
+                                        toolResult = `❌ Failed to send WhatsApp: ${sendErr.message}`;
+                                    }
+                                } else {
+                                    toolResult = "❌ WhatsApp client not available";
+                                }
+                                break;
+
+                            case "get_current_datetime":
+                                const now = moment().utcOffset('+05:30');
+                                toolResult = JSON.stringify({
+                                    date: now.format('YYYY-MM-DD'),
+                                    time: now.format('HH:mm:ss'),
+                                    dayOfWeek: now.format('dddd'),
+                                    formatted: now.format('MMMM D, YYYY h:mm A'),
+                                    year: now.year(),
+                                    month: now.month() + 1,
+                                    day: now.date()
+                                });
+                                break;
+
+                            case "calculate_metrics":
+                                const op = fnArgs.operation || '';
+                                const vals = (fnArgs.values || '').split(',').map(v => parseFloat(v.trim())).filter(v => !isNaN(v));
+                                
+                                let calcResult = {};
+                                switch (op) {
+                                    case 'growth_rate':
+                                        if (vals.length >= 2) {
+                                            const growth = ((vals[1] - vals[0]) / vals[0]) * 100;
+                                            calcResult = { growth_rate: growth.toFixed(2) + '%', old: vals[0], new: vals[1] };
+                                        }
+                                        break;
+                                    case 'percentage':
+                                        if (vals.length >= 2) {
+                                            calcResult = { percentage: ((vals[0] / vals[1]) * 100).toFixed(2) + '%' };
+                                        }
+                                        break;
+                                    case 'average':
+                                        calcResult = { average: (vals.reduce((a, b) => a + b, 0) / vals.length).toFixed(2) };
+                                        break;
+                                    case 'sum':
+                                        calcResult = { sum: vals.reduce((a, b) => a + b, 0) };
+                                        break;
+                                    case 'margin':
+                                        if (vals.length >= 2) {
+                                            calcResult = { margin: (((vals[0] - vals[1]) / vals[0]) * 100).toFixed(2) + '%' };
+                                        }
+                                        break;
+                                }
+                                toolResult = JSON.stringify(calcResult);
+                                break;
+
+                            case "list_system_jobs":
+                                if (!isAdmin) {
+                                    toolResult = "❌ Access Denied: Admin privileges required.";
+                                } else if (fs.existsSync(JOBS_CONFIG_PATH)) {
+                                    const jobs = JSON.parse(fs.readFileSync(JOBS_CONFIG_PATH, 'utf8'));
+                                    const summary = Object.keys(jobs).map(k => ({
+                                        id: k,
+                                        name: jobs[k].name,
+                                        enabled: jobs[k].enabled,
+                                        schedule: jobs[k].schedule
+                                    }));
+                                    toolResult = JSON.stringify(summary, null, 2);
+                                } else {
+                                    toolResult = "❌ Jobs config not found";
+                                }
+                                break;
+
+                            case "toggle_job":
+                                if (!isAdmin) {
+                                    toolResult = "❌ Access Denied: Admin privileges required.";
+                                } else if (fs.existsSync(JOBS_CONFIG_PATH)) {
+                                    const jobs = JSON.parse(fs.readFileSync(JOBS_CONFIG_PATH, 'utf8'));
+                                    if (jobs[fnArgs.jobId]) {
+                                        jobs[fnArgs.jobId].enabled = fnArgs.enable;
+                                        fs.writeFileSync(JOBS_CONFIG_PATH, JSON.stringify(jobs, null, 2));
+                                        toolResult = `✅ Job '${fnArgs.jobId}' is now ${fnArgs.enable ? 'ENABLED' : 'DISABLED'}`;
+                                    } else {
+                                        toolResult = `❌ Job '${fnArgs.jobId}' not found`;
+                                    }
+                                } else {
+                                    toolResult = "❌ Jobs config not found";
+                                }
+                                break;
+
+                            case "generate_report_summary":
+                                // AI will handle the formatting, just acknowledge
+                                toolResult = `Report type: ${fnArgs.reportType}, Title: ${fnArgs.title}. Process the data and format nicely.`;
+                                break;
+
+                            default:
+                                toolResult = `❌ Unknown function: ${fnName}`;
+                        }
+                    } catch (err) {
+                        console.error(`   ❌ Error in ${fnName}:`, err.message);
+                        toolResult = `❌ Error: ${err.message}`;
+                    }
+                    
+                    console.log(`   📤 Result: ${toolResult.substring(0, 150)}...`);
+                    logInteraction('TOOL_RESULT', { fnName, result: toolResult.substring(0, 500) });
+                    
+                    functionResponses.push({
+                        functionResponse: {
+                            name: fnName,
+                            response: { result: toolResult }
+                        }
+                    });
+                }
+                
+                // Send function results back to AI (with retry support)
+                result = await this._sendWithRetry(functionResponses);
+                maxTurns--;
+            }
+            
+            logInteraction('COMPLETE', { reason: 'max_turns_reached' });
+            return "✅ සියලුම කාර්යයන් සම්පූර්ණයි.";
+
+        } catch (error) {
+            console.error(`💥 TITAN ERROR:`, error);
+            logInteraction('ERROR', { message: error.message, stack: error.stack });
+            
+            // Provide user-friendly error messages
+            if (error.status === 429 || error.message?.includes('quota')) {
+                return "⚠️ AI service එකට ටිකක් load වැඩියි. තත්පර 30-60ක් ගිහින් ආයෙත් try කරන්න.";
+            }
+            
+            return `⚠️ දෝෂයක් සිදු විය: ${error.message}. කරුණාකර නැවත උත්සාහ කරන්න.`;
+        }
+    }
+}
+
+module.exports = new GrandCentralMind();

@@ -1,0 +1,21 @@
+tunnel: dd9582ea-e265-4524-91e6-94293bfe9161
+credentials-file: C:\Users\Cashi\.cloudflared\dd9582ea-e265-4524-91e6-94293bfe9161.json
+
+# Performance & Reliability Settings
+protocol: quic
+grace-period: 30s
+retries: 5
+loglevel: info
+
+ingress:
+  - hostname: bot.lasanthatyre.com
+    service: http://localhost:8585
+    originRequest:
+      connectTimeout: 30s
+      noTLSVerify: false
+      keepAliveConnections: 100
+      keepAliveTimeout: 90s
+      httpHostHeader: bot.lasanthatyre.com
+      proxyType: ""
+      http2Origin: false
+  - service: http_status:404

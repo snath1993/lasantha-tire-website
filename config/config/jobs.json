@@ -1,0 +1,430 @@
+{
+  "TyrePriceReplyJob": {
+    "name": "TyrePriceReplyJob",
+    "description": "",
+    "schedule": "",
+    "fullDayReportTime": null,
+    "contactNumbers": [],
+    "enabled": true,
+    "type": "unknown",
+    "icon": {
+      "path": "M12.5,8C12.5,7.45 12.05,7 11.5,7H5.5C4.95,7 4.5,7.45 4.5,8V12.5C4.5,13.05 4.95,13.5 5.5,13.5H11.5C12.05,13.5 12.5,13.05 12.5,12.5V8M18.5,4H14.5L9,9.5V14.5L14.5,20H18.5C19.6,20 20.5,19.1 20.5,18V6C20.5,4.9 19.6,4 18.5,4Z",
+      "color": "#4CAF50"
+    },
+    "updatedAt": "2025-10-22T15:38:53.1867250Z",
+    "allowEveryone": true,
+    "settings": {
+      "baseRoundStep": 50,
+      "publicBaseMarkup": 1500,
+      "publicExtraBuffer": 500,
+      "allowedDefaultMarkup": 1500,
+      "motorbikeExtra": 1000,
+      "maxxisPublicMarkup": 500
+    }
+  },
+  "CostPriceReplyJob": {
+    "name": "CostPriceReplyJob",
+    "description": "",
+    "schedule": "",
+    "fullDayReportTime": null,
+    "contactNumbers": [],
+    "enabled": true,
+    "type": "unknown",
+    "icon": {
+      "path": "M12.5,8C12.5,7.45 12.05,7 11.5,7H5.5C4.95,7 4.5,7.45 4.5,8V12.5C4.5,13.05 4.95,13.5 5.5,13.5H11.5C12.05,13.5 12.5,13.05 12.5,12.5V8M18.5,4H14.5L9,9.5V14.5L14.5,20H18.5C19.6,20 20.5,19.1 20.5,18V6C20.5,4.9 19.6,4 18.5,4Z",
+      "color": "#4CAF50"
+    },
+    "updatedAt": "2025-11-03T09:40:46.642Z",
+    "allowEveryone": true,
+    "settings": null
+  },
+  "TyreQtyReplyJob": {
+    "name": "TyreQtyReplyJob",
+    "description": "",
+    "schedule": "",
+    "fullDayReportTime": null,
+    "contactNumbers": [],
+    "enabled": true,
+    "type": "unknown",
+    "icon": {
+      "path": "M2,2H6V6H2V2M10,2H14V6H10V2M18,2H22V6H18V2M2,10H6V14H2V10M10,10H14V14H10V10M18,10H22V14H18V10M2,18H6V22H2V18M10,18H14V22H10V18M18,18H22V22H18V18Z",
+      "color": "#607D8B"
+    },
+    "updatedAt": "2025-10-22T15:38:53.1867374Z",
+    "allowEveryone": true,
+    "settings": null
+  },
+  "TyrePhotoReplyJob": {
+    "name": "Tyre Photo Reply",
+    "description": "Replies with product images for queries",
+    "schedule": "",
+    "fullDayReportTime": null,
+    "contactNumbers": [],
+    "enabled": false,
+    "type": "automation",
+    "icon": {
+      "path": "M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M11,19.93C7.05,19.44 4,16.08 4,12C4,11.38 4.08,10.79 4.21,10.21L9,15V16C9,17.1 9.9,18 11,18V19.93M17.9,17.39C17.64,16.58 16.9,16 16,16H15V13C15,12.45 14.55,12 14,12H8V10H10C10.55,10 11,9.55 11,9V7H13C13.55,7 14,6.55 14,6V5C14,4.45 13.55,4 13,4H11C9.9,4 9,4.9 9,6V9C9,9.55 8.55,10 8,10H6V12H7C7.55,12 8,12.45 8,13V16C8,16.55 7.55,17 7,17H5C4.45,17 4,16.55 4,16V12.5C4,12.22 3.86,11.95 3.63,11.79C3.33,11.58 3,11.26 3,10.9C2.5,11.26 2.09,11.61 1.75,12C1.75,12 1.75,12 1.75,12C1.75,17.52 6.48,22 12,22C14.04,22 15.91,21.39 17.43,20.33L17.9,17.39Z",
+      "color": "#E91E63"
+    },
+    "updatedAt": "2025-12-05T05:25:04.699Z",
+    "allowEveryone": true,
+    "settings": {}
+  },
+  "VehicleDetailsReplyJob": {
+    "name": "VehicleDetailsReplyJob",
+    "description": "",
+    "schedule": "",
+    "fullDayReportTime": null,
+    "contactNumbers": [],
+    "enabled": true,
+    "type": "unknown",
+    "icon": {
+      "path": "M18.92,6.01C18.72,5.42 18.16,5 17.5,5H6.5C5.84,5 5.28,5.42 5.08,6.01L3,12V20C3,20.55 3.45,21 4,21H5C5.55,21 6,20.55 6,20V19H18V20C18,20.55 18.45,21 19,21H20C20.55,21 21,20.55 21,20V12L18.92,6.01M6.85,7H17.14L18.22,10H5.77L6.85,7M19,17H5V12H19V17M7.5,16C8.33,16 9,15.33 9,14.5C9,13.67 8.33,13 7.5,13C6.67,13 6,13.67 6,14.5C6,15.33 6.67,16 7.5,16M16.5,16C17.33,16 18,15.33 18,14.5C18,13.67 17.33,13 16.5,13C15.67,13 15,13.67 15,14.5C15,15.33 15.67,16 16.5,16Z",
+      "color": "#009688"
+    },
+    "updatedAt": "2025-10-22T15:38:53.1867826Z",
+    "allowEveryone": true,
+    "settings": null
+  },
+  "VehicleInvoiceReplyJob": {
+    "name": "VehicleInvoiceReplyJob",
+    "description": "",
+    "schedule": "",
+    "fullDayReportTime": null,
+    "contactNumbers": [],
+    "enabled": true,
+    "type": "unknown",
+    "icon": {
+      "path": "M13.5,10H18V12H13.5V10M13.5,6H18V8H13.5V6M19,2H5C3.9,2 3,2.9 3,4V20C3,21.1 3.9,22 5,22H19C20.1,22 21,21.1 21,20V4C21,2.9 20.1,2 19,2M11.5,16C10.12,16 9,14.88 9,13.5C9,12.12 10.12,11 11.5,11C12.88,11 14,12.12 14,13.5C14,14.88 12.88,16 11.5,16M11.5,12C10.67,12 10,12.67 10,13.5C10,14.33 10.67,15 11.5,15C12.33,15 13,14.33 13,13.5C13,12.67 12.33,12 11.5,12M6,17V18H17V17C17,15.67 14.33,15 11.5,15C8.67,15 6,15.67 6,17Z",
+      "color": "#F44336"
+    },
+    "updatedAt": "2025-10-22T15:38:53.1867882Z",
+    "allowEveryone": true,
+    "settings": null
+  },
+  "TyreQuotationPDFJob": {
+    "name": "TyreQuotationPDFJob",
+    "description": "",
+    "schedule": "",
+    "fullDayReportTime": null,
+    "contactNumbers": [],
+    "enabled": true,
+    "type": "unknown",
+    "icon": {
+      "path": "M14,2H6C4.9,2 4,2.9 4,4V20C4,21.1 4.9,22 6,22H18C19.1,22 20,21.1 20,20V8L14,2M18,20H6V4H13V9H18V20Z",
+      "color": "#E91E63"
+    },
+    "updatedAt": "2025-10-22T15:38:53.1867454Z",
+    "allowEveryone": true,
+    "settings": {
+      "baseRoundStep": 50,
+      "allowedDefaultMarkup": 1500,
+      "minimumUnitCost": 3000
+    }
+  },
+  "TyreQuotationPDFLibJob": {
+    "name": "TyreQuotationPDFLibJob",
+    "description": "",
+    "schedule": "",
+    "fullDayReportTime": null,
+    "contactNumbers": [],
+    "enabled": true,
+    "type": "unknown",
+    "icon": {
+      "path": "M19,2H5C3.9,2 3,2.9 3,4V20C3,21.1 3.9,22 5,22H19C20.1,22 21,21.1 21,20V4C21,2.9 20.1,2 19,2M9,10H7V12H9V10M13,10H11V12H13V10M17,10H15V12H17V10Z",
+      "color": "#9C27B0"
+    },
+    "updatedAt": "2025-10-22T15:38:53.1867639Z",
+    "allowEveryone": true,
+    "settings": {
+      "baseRoundStep": 50,
+      "allowedDefaultMarkup": 1500,
+      "creditMarkup": 500,
+      "minimumUnitCost": 3000,
+      "alignmentRoundStep": 50,
+      "balancingPrice": 600
+    }
+  },
+  "TyreQuotationPDFLibJobPublic": {
+    "name": "TyreQuotationPDFLibJobPublic",
+    "description": "",
+    "schedule": "",
+    "fullDayReportTime": null,
+    "contactNumbers": [],
+    "enabled": true,
+    "type": "unknown",
+    "icon": {
+      "path": "M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M11,19.93C7.05,19.44 4,16.08 4,12C4,11.38 4.08,10.79 4.21,10.21L9,15V16C9,17.1 9.9,18 11,18V19.93M17.9,17.39C17.64,16.58 16.9,16 16,16H15V13C15,12.45 14.55,12 14,12H8V10H10C10.55,10 11,9.55 11,9V7H13C13.55,7 14,6.55 14,6V5C14,4.45 13.55,4 13,4H11C9.9,4 9,4.9 9,6V9C9,9.55 8.55,10 8,10H6V12H7C7.55,12 8,12.45 8,13V16C8,16.55 7.55,17 7,17H5C4.45,17 4,16.55 4,16V12.5C4,12.22 3.86,11.95 3.63,11.79C3.33,11.58 3,11.26 3,10.9C2.5,11.26 2.09,11.61 1.75,12C1.75,12 1.75,12 1.75,12C1.75,17.52 6.48,22 12,22C14.04,22 15.91,21.39 17.43,20.33L17.9,17.39Z",
+      "color": "#3F51B5"
+    },
+    "updatedAt": "2025-10-22T15:38:53.1867791Z",
+    "allowEveryone": true,
+    "settings": {
+      "baseRoundStep": 50,
+      "publicBaseMarkup": 1500,
+      "publicExtraBuffer": 500,
+      "maxxisPublicMarkup": 500,
+      "minimumUnitCost": 3000,
+      "alignmentRoundStep": 50,
+      "balancingPrice": 600
+    }
+  },
+  "DailyTyreSalesReportJob": {
+    "name": "Daily Sales Report",
+    "description": "Every 2 hours + Full summary at 21:15 PM",
+    "schedule": "0 */2 * * *",
+    "fullDayReportTime": "22:00",
+    "contactNumbers": [
+      "0777311770",
+      "0771222509"
+    ],
+    "enabled": true,
+    "type": "daily",
+    "icon": {
+      "path": "M16,18L18,16L22,20V4H2V18H16M4,16V6H20V16.83L18,14.83L16,16.83L13,13.83L9,17.83L4,12.83V16Z",
+      "color": "#2196F3"
+    },
+    "updatedAt": "2025-11-12T16:21:06.276Z",
+    "allowEveryone": false,
+    "settings": {}
+  },
+  "WeeklyTyreSalesReportJob": {
+    "name": "WeeklyTyreSalesReportJob",
+    "description": "",
+    "schedule": "",
+    "fullDayReportTime": null,
+    "contactNumbers": [],
+    "enabled": false,
+    "type": "unknown",
+    "icon": {
+      "path": "M16,18L18,16L22,20V4H2V18H16M4,16V6H20V16.83L18,14.83L16,16.83L13,13.83L9,17.83L4,12.83V16Z",
+      "color": "#03A9F4"
+    },
+    "updatedAt": "2025-10-22T15:38:53.1867922Z",
+    "allowEveryone": true,
+    "settings": null
+  },
+  "MonthlyTyreSalesReportJob": {
+    "name": "Monthly Tyre Sales Report",
+    "description": "Monthly sales summary to admins",
+    "schedule": "0 8 1 * *",
+    "fullDayReportTime": null,
+    "contactNumbers": [],
+    "enabled": false,
+    "type": "monthly",
+    "icon": {
+      "path": "M16,18L18,16L22,20V4H2V18H16M4,16V6H20V16.83L18,14.83L16,16.83L13,13.83L9,17.83L4,12.83V16Z",
+      "color": "#2196F3"
+    },
+    "updatedAt": "2025-11-01T00:00:00.000Z",
+    "allowEveryone": false,
+    "settings": {}
+  },
+  "MonthlySalesPDFReportJob": {
+    "name": "Monthly Sales PDF Report",
+    "description": "Generates a monthly PDF sales report",
+    "schedule": "0 9 1 * *",
+    "fullDayReportTime": null,
+    "contactNumbers": [],
+    "enabled": false,
+    "type": "monthly",
+    "icon": {
+      "path": "M14,2H6C4.9,2 4,2.9 4,4V20C4,21.1 4.9,22 6,22H18C19.1,22 20,21.1 20,20V8L14,2M18,20H6V4H13V9H18V20Z",
+      "color": "#9C27B0"
+    },
+    "updatedAt": "2025-11-01T00:00:00.000Z",
+    "allowEveryone": false,
+    "settings": {}
+  },
+  "WatchedItemRealtimeJob": {
+    "name": "Watched Item Monitor",
+    "description": "Real-time inventory monitoring and alerts",
+    "schedule": "*/5 * * * *",
+    "fullDayReportTime": null,
+    "contactNumbers": [
+      "94777311770",
+      "94771222509",
+      "94777078700"
+    ],
+    "enabled": true,
+    "type": "realtime",
+    "icon": {
+      "path": "M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5M12,17C9.24,17 7,14.76 7,12C7,9.24 9.24,7 12,7C14.76,7 17,9.24 17,12C17,14.76 14.76,17 12,17M12,9C10.34,9 9,10.34 9,12C9,13.66 10.34,15 12,15C13.66,15 15,13.66 15,12C15,10.34 13.66,9 12,9Z",
+      "color": "#FFC107"
+    },
+    "updatedAt": "2025-11-03T16:52:41.190Z",
+    "allowEveryone": true,
+    "settings": null
+  },
+  "DeletionQueueProcessorJob": {
+    "name": "Deletion Queue Processor",
+    "description": "Process pending invoice deletions from queue",
+    "schedule": "*/1 * * * *",
+    "fullDayReportTime": null,
+    "contactNumbers": [
+      "0777078700",
+      "0777311770",
+      "0771222509"
+    ],
+    "enabled": true,
+    "type": "system",
+    "icon": {
+      "path": "M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,5V19H5V5H19M16.5,16.25L13.25,13L16.5,9.75L15.08,8.33L11.83,11.58L8.58,8.33L7.16,9.75L10.41,13L7.16,16.25L8.58,17.67L11.83,14.42L15.08,17.67L16.5,16.25Z",
+      "color": "#F44336"
+    },
+    "updatedAt": "2025-11-05T00:00:00.000Z",
+    "allowEveryone": false,
+    "settings": {
+      "processingIntervalSeconds": 60,
+      "maxRetries": 3,
+      "notifyOnFailure": true,
+      "notifyAdmins": [
+        "0777078700",
+        "0777311770",
+        "0771222509"
+      ]
+    }
+  },
+  "InvoiceDeletionJob": {
+    "name": "Invoice Deletion Handler",
+    "description": "Delete invoice rows and create void placeholders with backup",
+    "schedule": "Triggered",
+    "fullDayReportTime": null,
+    "contactNumbers": [
+      "0777078700",
+      "0777311770",
+      "0771222509"
+    ],
+    "enabled": true,
+    "type": "system",
+    "icon": {
+      "path": "M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20M16,11V18H8V11H16M13,13H11V16H13V13Z",
+      "color": "#D32F2F"
+    },
+    "updatedAt": "2025-11-05T00:00:00.000Z",
+    "allowEveryone": false,
+    "settings": {
+      "deletionDelaySeconds": 120,
+      "backupEnabled": true,
+      "createVoidPlaceholder": true,
+      "preserveAllColumns": true,
+      "notifyOnCompletion": true
+    }
+  },
+  "DailyFacebookPostJob": {
+    "name": "Daily Facebook Post",
+    "description": "AI caption + poster to Facebook Page",
+    "schedule": "00 14 * * *",
+    "fullDayReportTime": null,
+    "contactNumbers": [],
+    "enabled": true,
+    "type": "daily",
+    "icon": {
+      "path": "M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M11,19.93C7.05,19.44 4,16.08 4,12C4,11.38 4.08,10.79 4.21,10.21L9,15V16C9,17.1 9.9,18 11,18V19.93M17.9,17.39C17.64,16.58 16.9,16 16,16H15V13C15,12.45 14.55,12 14,12H8V10H10C10.55,10 11,9.55 11,9V7H13C13.55,7 14,6.55 14,6V5C14,4.45 13.55,4 13,4H11C9.9,4 9,4.9 9,6V9C9,9.55 8.55,10 8,10H6V12H7C7.55,12 8,12.45 8,13V16C8,16.55 7.55,17 7,17H5C4.45,17 4,16.55 4,16V12.5C4,12.22 3.86,11.95 3.63,11.79C3.33,11.58 3,11.26 3,10.9C2.5,11.26 2.09,11.61 1.75,12C1.75,12 1.75,12 1.75,12C1.75,17.52 6.48,22 12,22C14.04,22 15.91,21.39 17.43,20.33L17.9,17.39Z",
+      "color": "#4CAF50"
+    },
+    "updatedAt": "2025-11-13T08:19:46.718Z",
+    "allowEveryone": true,
+    "settings": {
+      "useAI": false,
+      "aiProvider": "gemini",
+      "useFallbackOnly": true
+    }
+  },
+  "FacebookCommentResponderJob": {
+    "name": "Facebook Comment Responder",
+    "description": "Auto-replies to comments based on rules",
+    "schedule": "*/15 * * * *",
+    "fullDayReportTime": null,
+    "contactNumbers": [],
+    "enabled": false,
+    "type": "automation",
+    "icon": {
+      "path": "M12.5,8C12.5,7.45 12.05,7 11.5,7H5.5C4.95,7 4.5,7.45 4.5,8V12.5C4.5,13.05 4.95,13.5 5.5,13.5H11.5C12.05,13.5 12.5,13.05 12.5,12.5V8M18.5,4H14.5L9,9.5V14.5L14.5,20H18.5C19.6,20 20.5,19.1 20.5,18V6C20.5,4.9 19.6,4 18.5,4Z",
+      "color": "#03A9F4"
+    },
+    "updatedAt": "2025-11-01T00:00:00.000Z",
+    "allowEveryone": true,
+    "settings": {}
+  },
+  "FacebookCommentMonitorJob": {
+    "name": "Facebook Comment Monitor",
+    "description": "Real-time comment monitoring and alerts",
+    "schedule": "*/10 * * * *",
+    "fullDayReportTime": null,
+    "contactNumbers": [],
+    "enabled": false,
+    "type": "realtime",
+    "icon": {
+      "path": "M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5M12,17C9.24,17 7,14.76 7,12C7,9.24 9.24,7 12,7C14.76,7 17,9.24 17,12C17,14.76 14.76,17 12,17M12,9C10.34,9 9,10.34 9,12C9,13.66 10.34,15 12,15C13.66,15 15,13.66 15,12C15,10.34 13.66,9 12,9Z",
+      "color": "#FFC107"
+    },
+    "updatedAt": "2025-11-01T00:00:00.000Z",
+    "allowEveryone": true,
+    "settings": {}
+  },
+  "FacebookMessengerResponderJob": {
+    "name": "Facebook Messenger Responder",
+    "description": "Handles Facebook inbox conversations",
+    "schedule": "*/10 * * * *",
+    "fullDayReportTime": null,
+    "contactNumbers": [],
+    "enabled": false,
+    "type": "automation",
+    "icon": {
+      "path": "M2,2H6V6H2V2M10,2H14V6H10V2M18,2H22V6H18V2M2,10H6V14H2V10M10,10H14V14H10V10M18,10H22V14H18V10M2,18H6V22H2V18M10,18H14V22H10V18M18,18H22V22H18V18Z",
+      "color": "#3F51B5"
+    },
+    "updatedAt": "2025-11-01T00:00:00.000Z",
+    "allowEveryone": true,
+    "settings": {}
+  },
+  "TokenRefreshJob": {
+    "name": "Facebook Token Refresh",
+    "description": "Refreshes Facebook long-lived token when due",
+    "schedule": "0 */6 * * *",
+    "fullDayReportTime": null,
+    "contactNumbers": [],
+    "enabled": false,
+    "type": "maintenance",
+    "icon": {
+      "path": "M19,2H5C3.9,2 3,2.9 3,4V20C3,21.1 3.9,22 5,22H19C20.1,22 21,21.1 21,20V4C21,2.9 20.1,2 19,2M9,10H7V12H9V10M13,10H11V12H13V10M17,10H15V12H17V10Z",
+      "color": "#607D8B"
+    },
+    "updatedAt": "2025-11-01T00:00:00.000Z",
+    "allowEveryone": true,
+    "settings": {}
+  },
+  "ScheduledMediaPublisherJob": {
+    "name": "Scheduled Media Publisher",
+    "description": "Daily 5:15 PM auto-post with WhatsApp reports & history tracking",
+    "schedule": "5:15 PM daily (17:15)",
+    "type": "social-media",
+    "allowEveryone": false,
+    "contactNumbers": [
+      "0771222509"
+    ],
+    "enabled": true,
+    "icon": {
+      "path": "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z",
+      "color": "#db2777"
+    },
+    "settings": {
+      "enabled": true,
+      "publishTime": "17:15",
+      "whatsappLink": "https://wa.me/94771222509",
+      "adminWhatsAppNumber": "94771222509",
+      "publishMode": "draft",
+      "postFolder": "C:/whatsapp-sql-api/post",
+      "captionsFolder": "C:/whatsapp-sql-api/post/captions",
+      "processedFolder": "C:/whatsapp-sql-api/post/processed",
+      "historyFile": "publish-history.json",
+      "addWhatsAppLink": true,
+      "trackHistory": true,
+      "preventDuplicates": true,
+      "sendAdminReports": true
+    }
+  },
+  "savedAt": "2025-11-13T08:19:46.718Z",
+  "allowedContacts": []
+}

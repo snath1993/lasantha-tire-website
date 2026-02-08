@@ -1,0 +1,15 @@
+;The comment below contains SFX script commands
+
+Path=C:\whatsapp-sql-api
+SavePath
+Setup=deploy\install.bat
+Silent=1
+Overwrite=1
+Title=WhatsApp Bot Installer
+Text=
+{
+  Lasantha Tyre Bot Installer
+  ===========================
+  This will install the bot to C:\whatsapp-sql-api
+  and register the system services.
+}

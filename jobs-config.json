@@ -1,0 +1,135 @@
+{
+  "ReOrderingJob": {
+    "name": "Advanced Re-Ordering System",
+    "description": "Zero-Miss Re-Ordering System (Target 4 / Sold Qty)",
+    "schedule": "0 20 * * *",
+    "contactNumbers": [],
+    "enabled": true,
+    "type": "daily",
+    "icon": "📦",
+    "settings": {
+      "targetStock": 4,
+      "lookbackHours": 48,
+      "targetGroup": "Re order",
+      "runAtStartup": true,
+      "failSafeTime": "08:00"
+    }
+  },
+  "DailyTyreSalesReportJob": {
+    "name": "Daily Sales Report",
+    "description": "Every 2 hours + Full summary at 11:37 PM",
+    "schedule": "29 20 * * *",
+    "contactNumbers": ["0777311770", "0771222509"],
+    "enabled": true,
+    "type": "daily",
+    "icon": "📊",
+    "settings": {
+      "reportHourRange": 2,
+      "sendFullDayReport": true,
+      "fullDayReportTime": "23:37",
+      "generatePDF": false,
+      "includeCharts": true,
+      "skipWeekends": false,
+      "minSalesThreshold": 0,
+      "ignoreZeroSales": false,
+      "alertOnNoSales": true,
+      "categorizeByBrand": true,
+      "includePriceChanges": true
+    }
+  },
+  "DailyFacebookPostJob": {
+    "name": "Daily Facebook Analysis Post",
+    "description": "Daily Facebook Post with Rotating Captions",
+    "schedule": "35 10 */2 * *",
+    "contactNumbers": [],
+    "enabled": true,
+    "type": "social",
+    "icon": "📱",
+    "settings": {
+      "aiProvider": "gemini",
+      "publishMode": "publish"
+    }
+  },
+  "MonthlyTyreSalesReportJob": {
+    "name": "Monthly Sales Report",
+    "description": "Complete monthly business analytics on 1st of month",
+    "schedule": "0 10 1 * *",
+    "contactNumbers": ["0777311770", "0771222509"],
+    "enabled": true,
+    "type": "monthly",
+    "icon": "📋",
+    "settings": {
+      "generatePDF": true,
+      "includeCharts": true,
+      "compareWithPreviousMonth": true,
+      "includeTopProducts": true,
+      "topProductsLimit": 20,
+      "includeTrends": true,
+      "includeInventoryStatus": true,
+      "categorizeByBrand": true,
+      "includeProfitAnalysis": true,
+      "includeCustomerAnalysis": true
+    }
+  },
+  "WatchedItemRealtimeJob": {
+    "name": "Watched Item Monitor",
+    "description": "Real-time inventory monitoring and alerts",
+    "schedule": "*/5 * * * *",
+    "contactNumbers": [],
+    "enabled": true,
+    "type": "realtime",
+    "icon": "👁️",
+    "settings": {
+      "checkInterval": 300,
+      "alertThreshold": 5,
+      "includePriceChanges": true,
+      "trackStockChanges": true,
+      "notifyOnIncrease": true,
+      "notifyOnDecrease": true,
+      "groupByBrand": true,
+      "minStockThreshold": 3,
+      "maxStockThreshold": 100,
+      "priceChangeThreshold": 1
+    }
+  },
+  "CostPriceReplyJob": {
+    "name": "Cost Price Reply Service",
+    "description": "Automated cost price information service",
+    "schedule": "* * * * *",
+    "contactNumbers": [],
+    "enabled": false,
+    "type": "service",
+    "icon": "💰",
+    "settings": {
+      "autoReply": true,
+      "includeProfitMargin": true,
+      "includeStock": true,
+      "responseFormat": "detailed",
+      "cacheTimeout": 300,
+      "allowedUsers": [],
+      "restrictedBrands": [],
+      "logRequests": true
+    }
+  },
+  "MonthlySalesPDFReportJob": {
+    "name": "Monthly PDF Report Generator",
+    "description": "Generates detailed PDF reports for monthly sales",
+    "schedule": "0 7 1 * *",
+    "contactNumbers": [],
+    "enabled": false,
+    "type": "report",
+    "icon": "📑",
+    "settings": {
+      "generateCharts": true,
+      "includeAnalytics": true,
+      "chartTypes": ["bar", "line", "pie"],
+      "compareWithPrevious": true,
+      "includeInventory": true,
+      "includeProfitAnalysis": true,
+      "pageSize": "A4",
+      "orientation": "portrait",
+      "language": "en",
+      "saveToCloud": false
+    }
+  }
+}

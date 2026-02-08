@@ -1,0 +1,80 @@
+<PAW_Phases xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes"
+xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance"
+xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+<PAW_Phase xsi:type="paw:phases">
+	<ID xsi:type="paw:id">BR001</ID>
+	<Description>BORELLA</Description>
+	<CostType>Labor</CostType>
+	<UseCostCodes>_</UseCostCodes>
+	<isInactive>FALSE</isInactive>
+</PAW_Phase>
+<PAW_Phase xsi:type="paw:phases">
+	<ID xsi:type="paw:id">FIRSTFLOOR</ID>
+	<Description>FIRSTFLOOR</Description>
+	<CostType>Labor</CostType>
+	<UseCostCodes>_</UseCostCodes>
+	<isInactive>FALSE</isInactive>
+</PAW_Phase>
+<PAW_Phase xsi:type="paw:phases">
+	<ID xsi:type="paw:id">GROUNDFLOOR</ID>
+	<Description>GROUNDFLOOR</Description>
+	<CostType>Labor</CostType>
+	<UseCostCodes>_</UseCostCodes>
+	<isInactive>FALSE</isInactive>
+</PAW_Phase>
+<PAW_Phase xsi:type="paw:phases">
+	<ID xsi:type="paw:id">HD001</ID>
+	<Description>HEAD OFFICE</Description>
+	<CostType>Labor</CostType>
+	<UseCostCodes>_</UseCostCodes>
+	<isInactive>FALSE</isInactive>
+</PAW_Phase>
+<PAW_Phase xsi:type="paw:phases">
+	<ID xsi:type="paw:id">NG001</ID>
+	<Description>NUGEGODA</Description>
+	<CostType>Labor</CostType>
+	<UseCostCodes>_</UseCostCodes>
+	<isInactive>FALSE</isInactive>
+</PAW_Phase>
+<PAW_Phase xsi:type="paw:phases">
+	<ID xsi:type="paw:id">P001</ID>
+	<Description>P001</Description>
+	<CostType>Labor</CostType>
+	<UseCostCodes>_</UseCostCodes>
+	<isInactive>FALSE</isInactive>
+</PAW_Phase>
+<PAW_Phase xsi:type="paw:phases">
+	<ID xsi:type="paw:id">P002</ID>
+	<Description>P002</Description>
+	<CostType>Materials</CostType>
+	<isInactive>FALSE</isInactive>
+</PAW_Phase>
+<PAW_Phase xsi:type="paw:phases">
+	<ID xsi:type="paw:id">P003</ID>
+	<Description>P003</Description>
+	<CostType>Labor</CostType>
+	<UseCostCodes>_</UseCostCodes>
+	<isInactive>FALSE</isInactive>
+</PAW_Phase>
+<PAW_Phase xsi:type="paw:phases">
+	<ID xsi:type="paw:id">P004</ID>
+	<Description>P004</Description>
+	<CostType>Labor</CostType>
+	<UseCostCodes>_</UseCostCodes>
+	<isInactive>FALSE</isInactive>
+</PAW_Phase>
+<PAW_Phase xsi:type="paw:phases">
+	<ID xsi:type="paw:id">P005</ID>
+	<Description>GRND FLOW</Description>
+	<CostType>Labor</CostType>
+	<UseCostCodes>_</UseCostCodes>
+	<isInactive>FALSE</isInactive>
+</PAW_Phase>
+<PAW_Phase xsi:type="paw:phases">
+	<ID xsi:type="paw:id">P006</ID>
+	<Description>FIRST FLOW</Description>
+	<CostType>Labor</CostType>
+	<UseCostCodes>_</UseCostCodes>
+	<isInactive>FALSE</isInactive>
+</PAW_Phase>
+</PAW_Phases>

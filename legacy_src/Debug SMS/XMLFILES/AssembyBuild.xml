@@ -1,0 +1,10 @@
+﻿<PAW_Items xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes" xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+  <PAW_Item xsi:type="paw:item">
+    <ID xsi:type="paw:id">M001</ID>
+    <Reference>BOM00000005</Reference>
+    <Date  xsi:type="paw:date">06/18/2013</Date >
+    <Number_of_Distributions >1</Number_of_Distributions >
+    <GLSourceAccount  xsi:type="paw:id">10000-HO-000</GLSourceAccount >
+    <QuantityBuilt>1</QuantityBuilt>
+  </PAW_Item>
+</PAW_Items>

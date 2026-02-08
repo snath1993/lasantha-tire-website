@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DsGRNVatClame" targetNamespace="http://tempuri.org/DsGRNVatClame.xsd" xmlns:mstns="http://tempuri.org/DsGRNVatClame.xsd" xmlns="http://tempuri.org/DsGRNVatClame.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DsGRNVatClame" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DsGRNVatClame" msprop:Generator_UserDSName="DsGRNVatClame">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DtSupplierInvoice" msprop:Generator_TableClassName="DtSupplierInvoiceDataTable" msprop:Generator_TableVarName="tableDtSupplierInvoice" msprop:Generator_TablePropName="DtSupplierInvoice" msprop:Generator_RowDeletingName="DtSupplierInvoiceRowDeleting" msprop:Generator_RowChangingName="DtSupplierInvoiceRowChanging" msprop:Generator_RowEvHandlerName="DtSupplierInvoiceRowChangeEventHandler" msprop:Generator_RowDeletedName="DtSupplierInvoiceRowDeleted" msprop:Generator_UserTableName="DtSupplierInvoice" msprop:Generator_RowChangedName="DtSupplierInvoiceRowChanged" msprop:Generator_RowEvArgName="DtSupplierInvoiceRowChangeEvent" msprop:Generator_RowClassName="DtSupplierInvoiceRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CustomerID" msprop:Generator_ColumnVarNameInTable="columnCustomerID" msprop:Generator_ColumnPropNameInRow="CustomerID" msprop:Generator_ColumnPropNameInTable="CustomerIDColumn" msprop:Generator_UserColumnName="CustomerID" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="SupInvoiceNo" msprop:Generator_ColumnVarNameInTable="columnSupInvoiceNo" msprop:Generator_ColumnPropNameInRow="SupInvoiceNo" msprop:Generator_ColumnPropNameInTable="SupInvoiceNoColumn" msprop:Generator_UserColumnName="SupInvoiceNo" type="xs:string" minOccurs="0" />
+              <xs:element name="InvoiceDate" msprop:Generator_ColumnVarNameInTable="columnInvoiceDate" msprop:Generator_ColumnPropNameInRow="InvoiceDate" msprop:Generator_ColumnPropNameInTable="InvoiceDateColumn" msprop:Generator_UserColumnName="InvoiceDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="GRNNos" msprop:Generator_ColumnVarNameInTable="columnGRNNos" msprop:Generator_ColumnPropNameInRow="GRNNos" msprop:Generator_ColumnPropNameInTable="GRNNosColumn" msprop:Generator_UserColumnName="GRNNos" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DTVendor" msprop:Generator_TableClassName="DTVendorDataTable" msprop:Generator_TableVarName="tableDTVendor" msprop:Generator_TablePropName="DTVendor" msprop:Generator_RowDeletingName="DTVendorRowDeleting" msprop:Generator_RowChangingName="DTVendorRowChanging" msprop:Generator_RowEvHandlerName="DTVendorRowChangeEventHandler" msprop:Generator_RowDeletedName="DTVendorRowDeleted" msprop:Generator_UserTableName="DTVendor" msprop:Generator_RowChangedName="DTVendorRowChanged" msprop:Generator_RowEvArgName="DTVendorRowChangeEvent" msprop:Generator_RowClassName="DTVendorRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VendorID" msprop:Generator_ColumnVarNameInTable="columnVendorID" msprop:Generator_ColumnPropNameInRow="VendorID" msprop:Generator_ColumnPropNameInTable="VendorIDColumn" msprop:Generator_UserColumnName="VendorID" type="xs:string" minOccurs="0" />
+              <xs:element name="VendorName" msprop:Generator_ColumnVarNameInTable="columnVendorName" msprop:Generator_ColumnPropNameInRow="VendorName" msprop:Generator_ColumnPropNameInTable="VendorNameColumn" msprop:Generator_UserColumnName="VendorName" type="xs:string" minOccurs="0" />
+              <xs:element name="VContact" msprop:Generator_ColumnVarNameInTable="columnVContact" msprop:Generator_ColumnPropNameInRow="VContact" msprop:Generator_ColumnPropNameInTable="VContactColumn" msprop:Generator_UserColumnName="VContact" type="xs:string" minOccurs="0" />
+              <xs:element name="VAddress1" msprop:Generator_ColumnVarNameInTable="columnVAddress1" msprop:Generator_ColumnPropNameInRow="VAddress1" msprop:Generator_ColumnPropNameInTable="VAddress1Column" msprop:Generator_UserColumnName="VAddress1" type="xs:string" minOccurs="0" />
+              <xs:element name="VAddress2" msprop:Generator_ColumnVarNameInTable="columnVAddress2" msprop:Generator_ColumnPropNameInRow="VAddress2" msprop:Generator_ColumnPropNameInTable="VAddress2Column" msprop:Generator_UserColumnName="VAddress2" type="xs:string" minOccurs="0" />
+              <xs:element name="CustomField1" msprop:Generator_ColumnVarNameInTable="columnCustomField1" msprop:Generator_ColumnPropNameInRow="CustomField1" msprop:Generator_ColumnPropNameInTable="CustomField1Column" msprop:Generator_UserColumnName="CustomField1" type="xs:string" minOccurs="0" />
+              <xs:element name="CustomField2" msprop:Generator_ColumnVarNameInTable="columnCustomField2" msprop:Generator_ColumnPropNameInRow="CustomField2" msprop:Generator_ColumnPropNameInTable="CustomField2Column" msprop:Generator_UserColumnName="CustomField2" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

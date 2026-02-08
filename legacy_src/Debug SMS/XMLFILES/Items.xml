@@ -1,0 +1,492 @@
+<PAW_Items xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes"
+xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance"
+xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">10/22.5 -14PR/MAX/UR</ID>
+	<Description>10/22.5 -14PR MAXXIS UR 288 TH</Description>
+	<Class>1</Class>
+	<isInactive>FALSE</isInactive>
+	<Sales_Prices>
+	<Sales_Price_Info Key="1">
+	<Sales_Price>0.00000</Sales_Price>
+	</Sales_Price_Info>
+	<Sales_Price_Info Key="2">
+	<Sales_Price>0.00000</Sales_Price>
+	</Sales_Price_Info>
+</Sales_Prices>	<Last_Unit_Cost>-351.50000</Last_Unit_Cost>
+	<Costing_Method>1</Costing_Method>
+	<GL_Sales_Account xsi:type="paw:id">1000-01</GL_Sales_Account>
+	<GL_Inventory_Account xsi:type="paw:id">1000-01</GL_Inventory_Account>
+	<GL_COGSSalary_Acct xsi:type="paw:id">1000-01</GL_COGSSalary_Acct>
+	<Type>TYRES</Type>
+	<Stocking_UM>Nos</Stocking_UM>
+	<Minimum_Stock>0.00000</Minimum_Stock>
+	<CustomFields>
+	<CustomField>
+	<Description>Tire Size       </Description>
+	<Value Index="1">10/22.5 -14PR/MAX/UR288</Value>
+	</CustomField>
+	<CustomField>
+	<Description>Country         </Description>
+	<Value Index="2">THAILAND</Value>
+	</CustomField>
+	<CustomField>
+	<Description>Brand           </Description>
+	<Value Index="3">MAXXIES</Value>
+	</CustomField>
+	<CustomField>
+	<Description>Type            </Description>
+	<Value Index="4">T1</Value>
+	</CustomField>
+	<CustomField>
+	<Description>White Wall      </Description>
+	<Value Index="5">W1</Value>
+	</CustomField>
+</CustomFields>	<Tax_Type_Name>Regular</Tax_Type_Name>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">100</ID>
+	<Description>TUBE PATCH - MOTORCYCLE</Description>
+	<Class>1</Class>
+	<isInactive>FALSE</isInactive>
+	<Sales_Prices>
+	<Sales_Price_Info Key="1">
+	<Sales_Price>180.00000</Sales_Price>
+	</Sales_Price_Info>
+	<Sales_Price_Info Key="2">
+	<Sales_Price>0.00000</Sales_Price>
+	</Sales_Price_Info>
+</Sales_Prices>	<Last_Unit_Cost>-667.85000</Last_Unit_Cost>
+	<Costing_Method>1</Costing_Method>
+	<GL_Sales_Account xsi:type="paw:id">1000-01</GL_Sales_Account>
+	<GL_Inventory_Account xsi:type="paw:id">1000-01</GL_Inventory_Account>
+	<GL_COGSSalary_Acct xsi:type="paw:id">1000-01</GL_COGSSalary_Acct>
+	<Type>SERVICES</Type>
+	<Stocking_UM>Nos</Stocking_UM>
+	<Minimum_Stock>0.00000</Minimum_Stock>
+	<CustomFields>
+	<CustomField>
+	<Description>Tire Size       </Description>
+	<Value Index="1">100</Value>
+	</CustomField>
+	<CustomField>
+	<Description>Country         </Description>
+	<Value Index="2">NONE</Value>
+	</CustomField>
+	<CustomField>
+	<Description>Brand           </Description>
+	<Value Index="3">-</Value>
+	</CustomField>
+	<CustomField>
+	<Description>Type            </Description>
+	<Value Index="4"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>White Wall      </Description>
+	<Value Index="5"></Value>
+	</CustomField>
+</CustomFields>	<Tax_Type_Name>Regular</Tax_Type_Name>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">100/80/17  T/L -R/IR</ID>
+	<Description>100/80/17 - R  T/L  IRC NR 73</Description>
+	<Class>1</Class>
+	<isInactive>FALSE</isInactive>
+	<Sales_Prices>
+	<Sales_Price_Info Key="1">
+	<Sales_Price>500.00000</Sales_Price>
+	</Sales_Price_Info>
+	<Sales_Price_Info Key="2">
+	<Sales_Price>0.00000</Sales_Price>
+	</Sales_Price_Info>
+</Sales_Prices>	<Last_Unit_Cost>-601.07000</Last_Unit_Cost>
+	<Costing_Method>1</Costing_Method>
+	<GL_Sales_Account xsi:type="paw:id">1000-01</GL_Sales_Account>
+	<GL_Inventory_Account xsi:type="paw:id">1000-01</GL_Inventory_Account>
+	<GL_COGSSalary_Acct xsi:type="paw:id">1000-01</GL_COGSSalary_Acct>
+	<Type>TYRES</Type>
+	<Stocking_UM>Nos</Stocking_UM>
+	<Minimum_Stock>0.00000</Minimum_Stock>
+	<CustomFields>
+	<CustomField>
+	<Description>Tire Size       </Description>
+	<Value Index="1">100/80/17  T/L -R/IRC/NR73</Value>
+	</CustomField>
+	<CustomField>
+	<Description>Country         </Description>
+	<Value Index="2">TAIWAN</Value>
+	</CustomField>
+	<CustomField>
+	<Description>Brand           </Description>
+	<Value Index="3">IRC</Value>
+	</CustomField>
+	<CustomField>
+	<Description>Type            </Description>
+	<Value Index="4"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>White Wall      </Description>
+	<Value Index="5"></Value>
+	</CustomField>
+</CustomFields>	<Tax_Type_Name>Regular</Tax_Type_Name>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">100/80/17-FT/L/PIR/M</ID>
+	<Description>100/80/17 - F T/L PIRELLI MC52</Description>
+	<Class>1</Class>
+	<isInactive>FALSE</isInactive>
+	<Sales_Prices>
+	<Sales_Price_Info Key="1">
+	<Sales_Price>7000.00000</Sales_Price>
+	</Sales_Price_Info>
+	<Sales_Price_Info Key="2">
+	<Sales_Price>0.00000</Sales_Price>
+	</Sales_Price_Info>
+</Sales_Prices>	<Last_Unit_Cost>540.96000</Last_Unit_Cost>
+	<Costing_Method>1</Costing_Method>
+	<GL_Sales_Account xsi:type="paw:id">1000-01</GL_Sales_Account>
+	<GL_Inventory_Account xsi:type="paw:id">2000-01</GL_Inventory_Account>
+	<GL_COGSSalary_Acct xsi:type="paw:id">2000-01</GL_COGSSalary_Acct>
+	<Type>TYRES</Type>
+	<Stocking_UM>Nos</Stocking_UM>
+	<Minimum_Stock>0.00000</Minimum_Stock>
+	<CustomFields>
+	<CustomField>
+	<Description>Tire Size       </Description>
+	<Value Index="1">100/80/17-FT/L/PIR/MC52S</Value>
+	</CustomField>
+	<CustomField>
+	<Description>Country         </Description>
+	<Value Index="2">BRAZIL</Value>
+	</CustomField>
+	<CustomField>
+	<Description>Brand           </Description>
+	<Value Index="3">PIRELLI MOTOR BIKE</Value>
+	</CustomField>
+	<CustomField>
+	<Description>Type            </Description>
+	<Value Index="4"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>White Wall      </Description>
+	<Value Index="5"></Value>
+	</CustomField>
+</CustomFields>	<Tax_Type_Name>Regular</Tax_Type_Name>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">100/80/17-T/L/CST/C6</ID>
+	<Description>100/80/17 - F  T/L CST C6501 C</Description>
+	<Class>1</Class>
+	<isInactive>FALSE</isInactive>
+	<Sales_Prices>
+	<Sales_Price_Info Key="1">
+	<Sales_Price>0.00000</Sales_Price>
+	</Sales_Price_Info>
+	<Sales_Price_Info Key="2">
+	<Sales_Price>0.00000</Sales_Price>
+	</Sales_Price_Info>
+</Sales_Prices>	<Last_Unit_Cost>595.05000</Last_Unit_Cost>
+	<Costing_Method>1</Costing_Method>
+	<GL_Sales_Account xsi:type="paw:id">1000-01</GL_Sales_Account>
+	<GL_Inventory_Account xsi:type="paw:id">2000-01</GL_Inventory_Account>
+	<GL_COGSSalary_Acct xsi:type="paw:id">2000-01</GL_COGSSalary_Acct>
+	<Type>TYRES</Type>
+	<Stocking_UM>Nos</Stocking_UM>
+	<Minimum_Stock>0.00000</Minimum_Stock>
+	<CustomFields>
+	<CustomField>
+	<Description>Tire Size       </Description>
+	<Value Index="1">100/80/17-T/L/CST/C6501</Value>
+	</CustomField>
+	<CustomField>
+	<Description>Country         </Description>
+	<Value Index="2">CHINA</Value>
+	</CustomField>
+	<CustomField>
+	<Description>Brand           </Description>
+	<Value Index="3">CST</Value>
+	</CustomField>
+	<CustomField>
+	<Description>Type            </Description>
+	<Value Index="4"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>White Wall      </Description>
+	<Value Index="5"></Value>
+	</CustomField>
+</CustomFields>	<Tax_Type_Name>Regular</Tax_Type_Name>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CASH DISCOUNT</ID>
+	<Description>CASH DISCOUNT</Description>
+	<Class>7</Class>
+	<isInactive>FALSE</isInactive>
+	<Sales_Prices>
+	<Sales_Price_Info Key="1">
+	<Sales_Price>0.00000</Sales_Price>
+	</Sales_Price_Info>
+	<Sales_Price_Info Key="2">
+	<Sales_Price>0.00000</Sales_Price>
+	</Sales_Price_Info>
+</Sales_Prices>	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<Costing_Method>0</Costing_Method>
+	<GL_Sales_Account xsi:type="paw:id">3290-01</GL_Sales_Account>
+	<Minimum_Stock>0.00000</Minimum_Stock>
+	<CustomFields>
+	<CustomField>
+	<Description>Tire Size       </Description>
+	<Value Index="1"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>Country         </Description>
+	<Value Index="2"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>Brand           </Description>
+	<Value Index="3"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>Type            </Description>
+	<Value Index="4"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>White Wall      </Description>
+	<Value Index="5"></Value>
+	</CustomField>
+</CustomFields>	<Tax_Type_Name>Regular</Tax_Type_Name>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CASHDISCOUNT</ID>
+	<Description>CASH DISCOUNT</Description>
+	<Class>7</Class>
+	<isInactive>FALSE</isInactive>
+	<Sales_Prices>
+	<Sales_Price_Info Key="1">
+	<Sales_Price>0.00000</Sales_Price>
+	</Sales_Price_Info>
+	<Sales_Price_Info Key="2">
+	<Sales_Price>0.00000</Sales_Price>
+	</Sales_Price_Info>
+</Sales_Prices>	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<Costing_Method>0</Costing_Method>
+	<GL_Sales_Account xsi:type="paw:id">3290-01</GL_Sales_Account>
+	<Minimum_Stock>0.00000</Minimum_Stock>
+	<CustomFields>
+	<CustomField>
+	<Description>Tire Size       </Description>
+	<Value Index="1"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>Country         </Description>
+	<Value Index="2"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>Brand           </Description>
+	<Value Index="3"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>Type            </Description>
+	<Value Index="4"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>White Wall      </Description>
+	<Value Index="5"></Value>
+	</CustomField>
+</CustomFields>	<Tax_Type_Name>Regular</Tax_Type_Name>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">LINE TOTAL DISCOUNT</ID>
+	<Description>LINE TOTAL DISCOUNT</Description>
+	<Class>7</Class>
+	<isInactive>FALSE</isInactive>
+	<Sales_Prices>
+	<Sales_Price_Info Key="1">
+	<Sales_Price>0.00000</Sales_Price>
+	</Sales_Price_Info>
+	<Sales_Price_Info Key="2">
+	<Sales_Price>0.00000</Sales_Price>
+	</Sales_Price_Info>
+</Sales_Prices>	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<Costing_Method>0</Costing_Method>
+	<GL_Sales_Account xsi:type="paw:id">3290-01</GL_Sales_Account>
+	<Minimum_Stock>0.00000</Minimum_Stock>
+	<CustomFields>
+	<CustomField>
+	<Description>Tire Size       </Description>
+	<Value Index="1"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>Country         </Description>
+	<Value Index="2"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>Brand           </Description>
+	<Value Index="3"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>Type            </Description>
+	<Value Index="4"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>White Wall      </Description>
+	<Value Index="5"></Value>
+	</CustomField>
+</CustomFields>	<Tax_Type_Name>Regular</Tax_Type_Name>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">NBT</ID>
+	<Description>NBT</Description>
+	<Class>7</Class>
+	<isInactive>FALSE</isInactive>
+	<Sales_Prices>
+	<Sales_Price_Info Key="1">
+	<Sales_Price>0.00000</Sales_Price>
+	</Sales_Price_Info>
+	<Sales_Price_Info Key="2">
+	<Sales_Price>0.00000</Sales_Price>
+	</Sales_Price_Info>
+</Sales_Prices>	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<Costing_Method>0</Costing_Method>
+	<GL_Sales_Account xsi:type="paw:id">8820-00</GL_Sales_Account>
+	<Minimum_Stock>0.00000</Minimum_Stock>
+	<CustomFields>
+	<CustomField>
+	<Description>Tire Size       </Description>
+	<Value Index="1"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>Country         </Description>
+	<Value Index="2"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>Brand           </Description>
+	<Value Index="3"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>Type            </Description>
+	<Value Index="4"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>White Wall      </Description>
+	<Value Index="5"></Value>
+	</CustomField>
+</CustomFields>	<Tax_Type_Name>Regular</Tax_Type_Name>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SERVICE CHARGE</ID>
+	<Description>SERVICE CHARGE</Description>
+	<Class>7</Class>
+	<isInactive>FALSE</isInactive>
+	<Sales_Prices>
+	<Sales_Price_Info Key="1">
+	<Sales_Price>0.00000</Sales_Price>
+	</Sales_Price_Info>
+	<Sales_Price_Info Key="2">
+	<Sales_Price>0.00000</Sales_Price>
+	</Sales_Price_Info>
+</Sales_Prices>	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<Costing_Method>0</Costing_Method>
+	<GL_Sales_Account xsi:type="paw:id">8590-00</GL_Sales_Account>
+	<Minimum_Stock>0.00000</Minimum_Stock>
+	<CustomFields>
+	<CustomField>
+	<Description>Tire Size       </Description>
+	<Value Index="1"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>Country         </Description>
+	<Value Index="2"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>Brand           </Description>
+	<Value Index="3"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>Type            </Description>
+	<Value Index="4"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>White Wall      </Description>
+	<Value Index="5"></Value>
+	</CustomField>
+</CustomFields>	<Tax_Type_Name>Regular</Tax_Type_Name>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SPECIAL DISCOUNT</ID>
+	<Description>SPECIAL DISCOUNT</Description>
+	<Class>7</Class>
+	<isInactive>FALSE</isInactive>
+	<Sales_Prices>
+	<Sales_Price_Info Key="1">
+	<Sales_Price>0.00000</Sales_Price>
+	</Sales_Price_Info>
+	<Sales_Price_Info Key="2">
+	<Sales_Price>0.00000</Sales_Price>
+	</Sales_Price_Info>
+</Sales_Prices>	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<Costing_Method>0</Costing_Method>
+	<GL_Sales_Account xsi:type="paw:id">3290-01</GL_Sales_Account>
+	<Minimum_Stock>0.00000</Minimum_Stock>
+	<CustomFields>
+	<CustomField>
+	<Description>Tire Size       </Description>
+	<Value Index="1"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>Country         </Description>
+	<Value Index="2"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>Brand           </Description>
+	<Value Index="3"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>Type            </Description>
+	<Value Index="4"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>White Wall      </Description>
+	<Value Index="5"></Value>
+	</CustomField>
+</CustomFields>	<Tax_Type_Name>Regular</Tax_Type_Name>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">VAT</ID>
+	<Description>VAT</Description>
+	<Class>7</Class>
+	<isInactive>FALSE</isInactive>
+	<Sales_Prices>
+	<Sales_Price_Info Key="1">
+	<Sales_Price>0.00000</Sales_Price>
+	</Sales_Price_Info>
+	<Sales_Price_Info Key="2">
+	<Sales_Price>0.00000</Sales_Price>
+	</Sales_Price_Info>
+</Sales_Prices>	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<Costing_Method>0</Costing_Method>
+	<GL_Sales_Account xsi:type="paw:id">8815-00</GL_Sales_Account>
+	<Minimum_Stock>0.00000</Minimum_Stock>
+	<CustomFields>
+	<CustomField>
+	<Description>Tire Size       </Description>
+	<Value Index="1"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>Country         </Description>
+	<Value Index="2"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>Brand           </Description>
+	<Value Index="3"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>Type            </Description>
+	<Value Index="4"></Value>
+	</CustomField>
+	<CustomField>
+	<Description>White Wall      </Description>
+	<Value Index="5"></Value>
+	</CustomField>
+</CustomFields>	<Tax_Type_Name>Regular</Tax_Type_Name>
+</PAW_Item>
+</PAW_Items>

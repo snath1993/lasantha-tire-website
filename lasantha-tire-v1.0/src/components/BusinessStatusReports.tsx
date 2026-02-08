@@ -200,42 +200,42 @@ export default function BusinessStatusReports() {
   return (
     <div className="space-y-6">
       {/* Header Controls */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-800/50 backdrop-blur-xl p-6 rounded-[2rem] shadow-xl border border-white/10">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-[2rem] shadow-sm border border-zinc-100">
         <div>
-          <h2 className="text-lg font-semibold text-white">Financial Overview</h2>
-          <p className="text-sm text-slate-400">Last updated: {new Date(data.lastUpdated).toLocaleString()}</p>
+          <h2 className="text-lg font-semibold text-zinc-900">Financial Overview</h2>
+          <p className="text-sm text-zinc-500">Last updated: {new Date(data.lastUpdated).toLocaleString()}</p>
         </div>
         <div className="flex gap-2">
           <button 
             onClick={fetchData}
-            className="flex items-center gap-2 px-4 py-2 bg-slate-700/50 hover:bg-slate-700 text-white rounded-xl text-sm transition-colors font-medium border border-white/5"
+            className="flex items-center gap-2 px-4 py-2 bg-zinc-50 hover:bg-zinc-100 text-zinc-700 rounded-xl text-sm transition-colors font-medium"
           >
             <RefreshCw size={16} />
             Refresh
           </button>
           <div className="relative group">
             <button 
-              className="flex items-center gap-2 px-4 py-2 bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 rounded-xl text-sm transition-colors font-medium border border-blue-500/20"
+              className="flex items-center gap-2 px-4 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-xl text-sm transition-colors font-medium"
             >
               <Download size={16} />
               Export
             </button>
-            <div className="absolute right-0 mt-2 w-48 bg-slate-800 rounded-xl shadow-xl border border-white/10 hidden group-hover:block z-10 overflow-hidden">
+            <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-zinc-100 hidden group-hover:block z-10 overflow-hidden">
               <div className="py-1">
                 <button 
                   onClick={() => handleExport('pdf')}
                   disabled={exporting}
-                  className="flex items-center gap-2 px-4 py-2 text-sm text-slate-300 hover:bg-slate-700 w-full text-left"
+                  className="flex items-center gap-2 px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-50 w-full text-left"
                 >
-                  <FileText size={16} className="text-red-400" />
+                  <FileText size={16} className="text-red-500" />
                   Export as PDF
                 </button>
                 <button 
                   onClick={() => handleExport('excel')}
                   disabled={exporting}
-                  className="flex items-center gap-2 px-4 py-2 text-sm text-slate-300 hover:bg-slate-700 w-full text-left"
+                  className="flex items-center gap-2 px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-50 w-full text-left"
                 >
-                  <FileSpreadsheet size={16} className="text-emerald-400" />
+                  <FileSpreadsheet size={16} className="text-emerald-500" />
                   Export as Excel
                 </button>
               </div>
@@ -246,69 +246,69 @@ export default function BusinessStatusReports() {
 
       {/* Key Metrics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-slate-800/50 backdrop-blur-xl p-6 rounded-[2rem] shadow-xl border border-white/10">
+        <div className="bg-white p-6 rounded-[2rem] shadow-sm border border-zinc-100">
           <div className="flex justify-between items-start">
             <div>
-              <p className="text-sm font-medium text-slate-400">Total Receivables</p>
-              <h3 className="text-2xl font-bold text-white mt-1">{formatCurrency(data.arAging.total)}</h3>
+              <p className="text-sm font-medium text-zinc-500">Total Receivables</p>
+              <h3 className="text-2xl font-bold text-zinc-900 mt-1">{formatCurrency(data.arAging.total)}</h3>
             </div>
-            <div className="p-3 bg-emerald-500/10 rounded-xl border border-emerald-500/20">
-              <TrendingUp className="h-5 w-5 text-emerald-400" />
+            <div className="p-3 bg-emerald-50 rounded-xl">
+              <TrendingUp className="h-5 w-5 text-emerald-600" />
             </div>
           </div>
           <div className="mt-4 flex items-center text-sm">
-            <span className="text-red-400 font-medium">{formatCurrency(data.arAging.over_90)}</span>
-            <span className="text-slate-400 ml-2">overdue &gt; 90 days</span>
+            <span className="text-red-500 font-medium">{formatCurrency(data.arAging.over_90)}</span>
+            <span className="text-zinc-500 ml-2">overdue &gt; 90 days</span>
           </div>
         </div>
 
-        <div className="bg-slate-800/50 backdrop-blur-xl p-6 rounded-[2rem] shadow-xl border border-white/10">
+        <div className="bg-white p-6 rounded-[2rem] shadow-sm border border-zinc-100">
           <div className="flex justify-between items-start">
             <div>
-              <p className="text-sm font-medium text-slate-400">Total Payables</p>
-              <h3 className="text-2xl font-bold text-white mt-1">{formatCurrency(data.apAging.total)}</h3>
+              <p className="text-sm font-medium text-zinc-500">Total Payables</p>
+              <h3 className="text-2xl font-bold text-zinc-900 mt-1">{formatCurrency(data.apAging.total)}</h3>
             </div>
-            <div className="p-3 bg-red-500/10 rounded-xl border border-red-500/20">
-              <TrendingDown className="h-5 w-5 text-red-400" />
+            <div className="p-3 bg-red-50 rounded-xl">
+              <TrendingDown className="h-5 w-5 text-red-600" />
             </div>
           </div>
           <div className="mt-4 flex items-center text-sm">
-            <span className="text-emerald-400 font-medium">Net Position:</span>
-            <span className={`ml-2 font-bold ${data.arAging.total - data.apAging.total >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+            <span className="text-emerald-500 font-medium">Net Position:</span>
+            <span className={`ml-2 font-bold ${data.arAging.total - data.apAging.total >= 0 ? 'text-emerald-600' : 'text-red-600'}`}>
               {formatCurrency(data.arAging.total - data.apAging.total)}
             </span>
           </div>
         </div>
 
-        <div className="bg-slate-800/50 backdrop-blur-xl p-6 rounded-[2rem] shadow-xl border border-white/10">
+        <div className="bg-white p-6 rounded-[2rem] shadow-sm border border-zinc-100">
           <div className="flex justify-between items-start">
             <div>
-              <p className="text-sm font-medium text-slate-400">Cash Position</p>
-              <h3 className="text-2xl font-bold text-white mt-1">{formatCurrency(data.totalCash)}</h3>
+              <p className="text-sm font-medium text-zinc-500">Cash Position</p>
+              <h3 className="text-2xl font-bold text-zinc-900 mt-1">{formatCurrency(data.totalCash)}</h3>
             </div>
-            <div className="p-3 bg-blue-500/10 rounded-xl border border-blue-500/20">
-              <DollarSign className="h-5 w-5 text-blue-400" />
+            <div className="p-3 bg-indigo-50 rounded-xl">
+              <DollarSign className="h-5 w-5 text-indigo-600" />
             </div>
           </div>
           <div className="mt-4 flex items-center text-sm">
-            <span className="text-slate-400">{data.cashBalances.length} active accounts</span>
+            <span className="text-zinc-500">{data.cashBalances.length} active accounts</span>
           </div>
         </div>
 
-        <div className="bg-slate-800/50 backdrop-blur-xl p-6 rounded-[2rem] shadow-xl border border-white/10">
+        <div className="bg-white p-6 rounded-[2rem] shadow-sm border border-zinc-100">
           <div className="flex justify-between items-start">
             <div>
-              <p className="text-sm font-medium text-slate-400">Top Customer Exposure</p>
-              <h3 className="text-2xl font-bold text-white mt-1">
+              <p className="text-sm font-medium text-zinc-500">Top Customer Exposure</p>
+              <h3 className="text-2xl font-bold text-zinc-900 mt-1">
                 {data.topCustomers.length > 0 ? formatCurrency(data.topCustomers[0].CurrentBalance) : '0'}
               </h3>
             </div>
-            <div className="p-3 bg-violet-500/10 rounded-xl border border-violet-500/20">
-              <Users className="h-5 w-5 text-violet-400" />
+            <div className="p-3 bg-violet-50 rounded-xl">
+              <Users className="h-5 w-5 text-violet-600" />
             </div>
           </div>
           <div className="mt-4 flex items-center text-sm">
-            <span className="text-slate-400 truncate max-w-[150px]">
+            <span className="text-zinc-500 truncate max-w-[150px]">
               {data.topCustomers.length > 0 ? data.topCustomers[0].CustomerName : 'No Data'}
             </span>
           </div>
@@ -316,7 +316,7 @@ export default function BusinessStatusReports() {
       </div>
 
       {/* Tabs */}
-      <div className="border-b border-white/10">
+      <div className="border-b border-zinc-200">
         <nav className="-mb-px flex space-x-8">
           {['overview', 'ar-aging', 'ap-aging', 'cash-balances'].map((tab) => (
             <button
@@ -325,8 +325,8 @@ export default function BusinessStatusReports() {
               className={`
                 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm capitalize transition-colors
                 ${activeTab === tab
-                  ? 'border-blue-500 text-blue-400'
-                  : 'border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-600'}
+                  ? 'border-indigo-500 text-indigo-600'
+                  : 'border-transparent text-zinc-500 hover:text-zinc-700 hover:border-zinc-300'}
               `}
             >
               {tab.replace('-', ' ')}
@@ -336,26 +336,25 @@ export default function BusinessStatusReports() {
       </div>
 
       {/* Tab Content */}
-      <div className="bg-slate-800/50 backdrop-blur-xl p-8 rounded-[2rem] shadow-xl border border-white/10 min-h-[400px]">
+      <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-zinc-100 min-h-[400px]">
         {activeTab === 'overview' && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div>
-              <h3 className="text-lg font-medium text-white mb-4">AR vs AP Aging Comparison</h3>
+              <h3 className="text-lg font-medium text-zinc-900 mb-4">AR vs AP Aging Comparison</h3>
               <div className="h-80">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart
                     data={getAgingChartData()}
                     margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
                   >
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                    <XAxis dataKey="name" stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
-                    <YAxis stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f3f4f6" />
+                    <XAxis dataKey="name" stroke="#71717a" fontSize={12} tickLine={false} axisLine={false} />
+                    <YAxis stroke="#71717a" fontSize={12} tickLine={false} axisLine={false} />
                     <Tooltip 
                       formatter={(value) => formatCurrency(value as number)}
-                      contentStyle={{ backgroundColor: '#1e293b', borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.1)', color: '#fff' }}
-                      itemStyle={{ color: '#fff' }}
+                      contentStyle={{ borderRadius: '1rem', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                     />
-                    <Legend wrapperStyle={{ color: '#fff' }} />
+                    <Legend />
                     <Bar dataKey="AR" fill="#10b981" name="Receivables" radius={[4, 4, 0, 0]} />
                     <Bar dataKey="AP" fill="#ef4444" name="Payables" radius={[4, 4, 0, 0]} />
                   </BarChart>
@@ -363,7 +362,7 @@ export default function BusinessStatusReports() {
               </div>
             </div>
             <div>
-              <h3 className="text-lg font-medium text-white mb-4">Cash Distribution</h3>
+              <h3 className="text-lg font-medium text-zinc-900 mb-4">Cash Distribution</h3>
               <div className="h-80">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
@@ -383,8 +382,7 @@ export default function BusinessStatusReports() {
                     </Pie>
                     <Tooltip 
                       formatter={(value) => formatCurrency(value as number)}
-                      contentStyle={{ backgroundColor: '#1e293b', borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.1)', color: '#fff' }}
-                      itemStyle={{ color: '#fff' }}
+                      contentStyle={{ borderRadius: '1rem', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                     />
                   </PieChart>
                 </ResponsiveContainer>
@@ -395,17 +393,17 @@ export default function BusinessStatusReports() {
 
         {activeTab === 'ar-aging' && (
           <div>
-            <h3 className="text-lg font-medium text-white mb-4">Accounts Receivable Aging</h3>
-            <div className="overflow-hidden rounded-xl border border-white/10">
-              <table className="min-w-full divide-y divide-white/10">
-                <thead className="bg-slate-700/50">
+            <h3 className="text-lg font-medium text-zinc-900 mb-4">Accounts Receivable Aging</h3>
+            <div className="overflow-hidden rounded-xl border border-zinc-100">
+              <table className="min-w-full divide-y divide-zinc-200">
+                <thead className="bg-zinc-50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Category</th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-slate-400 uppercase tracking-wider">Amount</th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-slate-400 uppercase tracking-wider">% of Total</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-zinc-500 uppercase tracking-wider">Category</th>
+                    <th className="px-6 py-3 text-right text-xs font-medium text-zinc-500 uppercase tracking-wider">Amount</th>
+                    <th className="px-6 py-3 text-right text-xs font-medium text-zinc-500 uppercase tracking-wider">% of Total</th>
                   </tr>
                 </thead>
-                <tbody className="bg-transparent divide-y divide-white/10">
+                <tbody className="bg-white divide-y divide-zinc-200">
                   {[
                     { label: 'Current', value: data.arAging.current },
                     { label: '1-30 Days', value: data.arAging.days_1_30 },
@@ -413,50 +411,50 @@ export default function BusinessStatusReports() {
                     { label: '61-90 Days', value: data.arAging.days_61_90 },
                     { label: 'Over 90 Days', value: data.arAging.over_90 },
                   ].map((row, idx) => (
-                    <tr key={idx} className={idx % 2 === 0 ? 'bg-transparent' : 'bg-slate-700/20'}>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">{row.label}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-slate-300">{formatCurrency(row.value)}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-slate-300">
+                    <tr key={idx} className={idx % 2 === 0 ? 'bg-white' : 'bg-zinc-50/50'}>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-zinc-900">{row.label}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-zinc-500">{formatCurrency(row.value)}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-zinc-500">
                         {((row.value / data.arAging.total) * 100).toFixed(1)}%
                       </td>
                     </tr>
                   ))}
-                  <tr className="bg-slate-700/50 font-bold">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-white">Total</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-white">{formatCurrency(data.arAging.total)}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-white">100.0%</td>
+                  <tr className="bg-zinc-100 font-bold">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-zinc-900">Total</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-zinc-900">{formatCurrency(data.arAging.total)}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-zinc-900">100.0%</td>
                   </tr>
                 </tbody>
               </table>
             </div>
             
             <div className="mt-8">
-              <h3 className="text-lg font-medium text-white mb-4">Top Customers by Outstanding Balance</h3>
-              <div className="overflow-hidden rounded-xl border border-white/10">
-                <table className="min-w-full divide-y divide-white/10">
-                  <thead className="bg-slate-700/50">
+              <h3 className="text-lg font-medium text-zinc-900 mb-4">Top Customers by Outstanding Balance</h3>
+              <div className="overflow-hidden rounded-xl border border-zinc-100">
+                <table className="min-w-full divide-y divide-zinc-200">
+                  <thead className="bg-zinc-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Customer ID</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Name</th>
-                      <th className="px-6 py-3 text-right text-xs font-medium text-slate-400 uppercase tracking-wider">Balance</th>
-                      <th className="px-6 py-3 text-right text-xs font-medium text-slate-400 uppercase tracking-wider">Credit Limit</th>
-                      <th className="px-6 py-3 text-center text-xs font-medium text-slate-400 uppercase tracking-wider">Status</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-zinc-500 uppercase tracking-wider">Customer ID</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-zinc-500 uppercase tracking-wider">Name</th>
+                      <th className="px-6 py-3 text-right text-xs font-medium text-zinc-500 uppercase tracking-wider">Balance</th>
+                      <th className="px-6 py-3 text-right text-xs font-medium text-zinc-500 uppercase tracking-wider">Credit Limit</th>
+                      <th className="px-6 py-3 text-center text-xs font-medium text-zinc-500 uppercase tracking-wider">Status</th>
                     </tr>
                   </thead>
-                  <tbody className="bg-transparent divide-y divide-white/10">
+                  <tbody className="bg-white divide-y divide-zinc-200">
                     {data.topCustomers.map((customer) => (
                       <tr key={customer.CustomerID}>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-400">{customer.CustomerID}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">{customer.CustomerName}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-white">{formatCurrency(customer.CurrentBalance)}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-slate-400">{formatCurrency(customer.CreditLimit)}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-zinc-500">{customer.CustomerID}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-zinc-900">{customer.CustomerName}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-zinc-900">{formatCurrency(customer.CurrentBalance)}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-zinc-500">{formatCurrency(customer.CreditLimit)}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-center">
                           {customer.CurrentBalance > customer.CreditLimit ? (
-                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-500/20 text-red-400 border border-red-500/20">
+                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
                               Over Limit
                             </span>
                           ) : (
-                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/20">
+                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-emerald-100 text-emerald-800">
                               Good
                             </span>
                           )}
@@ -472,17 +470,17 @@ export default function BusinessStatusReports() {
 
         {activeTab === 'ap-aging' && (
           <div>
-            <h3 className="text-lg font-medium text-white mb-4">Accounts Payable Aging</h3>
-            <div className="overflow-hidden rounded-xl border border-white/10">
-              <table className="min-w-full divide-y divide-white/10">
-                <thead className="bg-slate-700/50">
+            <h3 className="text-lg font-medium text-zinc-900 mb-4">Accounts Payable Aging</h3>
+            <div className="overflow-hidden rounded-xl border border-zinc-100">
+              <table className="min-w-full divide-y divide-zinc-200">
+                <thead className="bg-zinc-50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">Category</th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-slate-400 uppercase tracking-wider">Amount</th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-slate-400 uppercase tracking-wider">% of Total</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-zinc-500 uppercase tracking-wider">Category</th>
+                    <th className="px-6 py-3 text-right text-xs font-medium text-zinc-500 uppercase tracking-wider">Amount</th>
+                    <th className="px-6 py-3 text-right text-xs font-medium text-zinc-500 uppercase tracking-wider">% of Total</th>
                   </tr>
                 </thead>
-                <tbody className="bg-transparent divide-y divide-white/10">
+                <tbody className="bg-white divide-y divide-zinc-200">
                   {[
                     { label: 'Current', value: data.apAging.current },
                     { label: '1-30 Days', value: data.apAging.days_1_30 },
@@ -490,18 +488,18 @@ export default function BusinessStatusReports() {
                     { label: '61-90 Days', value: data.apAging.days_61_90 },
                     { label: 'Over 90 Days', value: data.apAging.over_90 },
                   ].map((row, idx) => (
-                    <tr key={idx} className={idx % 2 === 0 ? 'bg-transparent' : 'bg-slate-700/20'}>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">{row.label}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-slate-300">{formatCurrency(row.value)}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-slate-300">
+                    <tr key={idx} className={idx % 2 === 0 ? 'bg-white' : 'bg-zinc-50/50'}>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-zinc-900">{row.label}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-zinc-500">{formatCurrency(row.value)}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-zinc-500">
                         {((row.value / data.apAging.total) * 100).toFixed(1)}%
                       </td>
                     </tr>
                   ))}
-                  <tr className="bg-slate-700/50 font-bold">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-white">Total</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-white">{formatCurrency(data.apAging.total)}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-white">100.0%</td>
+                  <tr className="bg-zinc-100 font-bold">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-zinc-900">Total</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-zinc-900">{formatCurrency(data.apAging.total)}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-zinc-900">100.0%</td>
                   </tr>
                 </tbody>
               </table>
@@ -511,30 +509,30 @@ export default function BusinessStatusReports() {
 
         {activeTab === 'cash-balances' && (
           <div>
-            <h3 className="text-lg font-medium text-white mb-4">Cash & Bank Balances</h3>
+            <h3 className="text-lg font-medium text-zinc-900 mb-4">Cash & Bank Balances</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               {data.cashBalances.map((account) => (
-                <div key={account.AccountID} className="bg-slate-700/30 border border-white/10 rounded-2xl p-6 shadow-sm flex items-center justify-between">
+                <div key={account.AccountID} className="bg-white border border-zinc-100 rounded-2xl p-6 shadow-sm flex items-center justify-between">
                   <div className="flex items-center gap-4">
-                    <div className={`p-3 rounded-xl ${account.AccountType === 'Cash' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-blue-500/20 text-blue-400'}`}>
+                    <div className={`p-3 rounded-xl ${account.AccountType === 'Cash' ? 'bg-emerald-100 text-emerald-600' : 'bg-indigo-100 text-indigo-600'}`}>
                       {account.AccountType === 'Cash' ? <DollarSign size={24} /> : <CreditCard size={24} />}
                     </div>
                     <div>
-                      <p className="text-sm text-slate-400">{account.AccountID} - {account.AccountType}</p>
-                      <h4 className="text-lg font-bold text-white">{account.AccountName}</h4>
+                      <p className="text-sm text-zinc-500">{account.AccountID} - {account.AccountType}</p>
+                      <h4 className="text-lg font-bold text-zinc-900">{account.AccountName}</h4>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-xl font-bold text-white">{formatCurrency(account.Balance)}</p>
+                    <p className="text-xl font-bold text-zinc-900">{formatCurrency(account.Balance)}</p>
                   </div>
                 </div>
               ))}
             </div>
             
-            <div className="bg-blue-500/10 p-6 rounded-2xl border border-blue-500/20">
+            <div className="bg-indigo-50 p-6 rounded-2xl border border-indigo-100">
               <div className="flex justify-between items-center">
-                <span className="text-lg font-medium text-blue-300">Total Liquid Assets</span>
-                <span className="text-2xl font-bold text-blue-300">{formatCurrency(data.totalCash)}</span>
+                <span className="text-lg font-medium text-indigo-900">Total Liquid Assets</span>
+                <span className="text-2xl font-bold text-indigo-900">{formatCurrency(data.totalCash)}</span>
               </div>
             </div>
           </div>

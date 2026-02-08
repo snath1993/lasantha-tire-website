@@ -1,22 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import sql from 'mssql';
 
-// Pricing Constants (Default values matching utils/pricingConfig.js)
-const PRICING = {
-  BASE_ROUND_STEP: 50,
-  PUBLIC_BASE_MARKUP: 1500,
-  PUBLIC_EXTRA_BUFFER: 500,
-  ALLOWED_DEFAULT_MARKUP: 1500,
-  MOTORBIKE_EXTRA: 1000,
-  MAXXIS_PUBLIC_MARKUP: 500
-};
-
-const SPECIAL_MOTORBIKE_SIZES = ['100/90/17', '90/100/10', '140/60/17', '400/8'];
-
 const sqlConfig: sql.config = {
   user: process.env.SQL_USER || process.env.DB_USER || 'sa',
   password: process.env.SQL_PASSWORD || process.env.DB_PASSWORD || '',
-  database: process.env.SQL_DATABASE || process.env.DB_NAME || 'LasanthaTire',
+  database: process.env.SQL_DATABASE || process.env.DB_NAME || 'TYREDB',
   server: process.env.SQL_SERVER || process.env.DB_SERVER || 'localhost',
   port: parseInt(process.env.SQL_PORT || process.env.DB_PORT || '1433', 10),
   pool: { max: 10, min: 0, idleTimeoutMillis: 30000 },
@@ -27,238 +15,188 @@ const sqlConfig: sql.config = {
   }
 };
 
-function normalizeBrand(brand: string): string {
-  if (!brand) return '';
-  return brand.toUpperCase().trim().replace(/[^A-Z0-9]/g, '');
-}
-
-function roundToStep(cost: number, step: number): number {
-  return Math.round(cost / step) * step;
-}
-
-function computeSellingPrice(tyre: any, tyreSize: string) {
-  const pricing = {
-    baseRoundStep: parseInt(process.env.PRICE_ROUND_STEP || String(PRICING.BASE_ROUND_STEP), 10),
-    publicBaseMarkup: parseInt(process.env.PUBLIC_BASE_MARKUP || String(PRICING.PUBLIC_BASE_MARKUP), 10),
-    publicExtraBuffer: parseInt(process.env.PUBLIC_EXTRA_BUFFER || String(PRICING.PUBLIC_EXTRA_BUFFER), 10),
-    allowedDefaultMarkup: parseInt(process.env.ALLOWED_DEFAULT_MARKUP || String(PRICING.ALLOWED_DEFAULT_MARKUP), 10),
-    motorbikeExtra: parseInt(process.env.MOTORBIKE_EXTRA || String(PRICING.MOTORBIKE_EXTRA), 10),
-    maxxisPublicMarkup: parseInt(process.env.MAXXIS_PUBLIC_MARKUP || String(PRICING.MAXXIS_PUBLIC_MARKUP), 10)
-  };
-
-  const rounded = roundToStep(tyre.UnitCost, pricing.baseRoundStep);
-  const normBrand = normalizeBrand(tyre.Custom3 || '');
-  const isMotorbike = (tyre.Categoty && tyre.Categoty.toUpperCase().includes('MOTOR')) || false;
-
-  // Motorbike special uplift (only selected sizes)
-  if (isMotorbike && SPECIAL_MOTORBIKE_SIZES.includes(tyreSize)) {
-      return rounded + pricing.motorbikeExtra;
-  }
-
-  // Public pricing (non-allowed)
-  if (normBrand === 'MAXXIS' || normBrand === 'MAXXIES') {
-      return rounded + pricing.maxxisPublicMarkup;
-  }
-  return rounded + pricing.publicBaseMarkup + pricing.publicExtraBuffer;
-}
-
 export async function GET(request: NextRequest) {
-  const pool = new sql.ConnectionPool(sqlConfig);
   try {
-    await pool.connect();
     const searchParams = request.nextUrl.searchParams;
     const type = searchParams.get('type') || 'summary';
     
+    const pool = await sql.connect(sqlConfig);
     let result;
     
-    if (type === 'search') {
-        const query = searchParams.get('query') || '';
-        const width = searchParams.get('width');
-        const profile = searchParams.get('profile');
-        const rim = searchParams.get('rim');
+    switch(type) {
+      case 'summary':
+        result = await pool.request().query(`
+          SELECT 
+            COUNT(DISTINCT ItemId) as TotalProducts,
+            COUNT(DISTINCT 
+              CASE 
+                WHEN ItemDis LIKE '%/%' AND LEN(ItemDis) > 10
+                THEN RTRIM(LTRIM(
+                  SUBSTRING(ItemDis, 
+                    CHARINDEX(' ', ItemDis) + 1,
+                    CASE 
+                      WHEN CHARINDEX(' ', ItemDis, CHARINDEX(' ', ItemDis) + 1) > 0
+                      THEN CHARINDEX(' ', ItemDis, CHARINDEX(' ', ItemDis) + 1) - CHARINDEX(' ', ItemDis) - 1
+                      ELSE 50
+                    END
+                  )
+                ))
+                ELSE NULL
+              END
+            ) as TotalBrands,
+            SUM(CAST(QTY as INT)) as TotalQuantity,
+            SUM(CASE WHEN CAST(QTY as INT) < 5 AND CAST(QTY as INT) > 0 THEN 1 ELSE 0 END) as LowStockItems,
+            SUM(CASE WHEN CAST(QTY as INT) = 0 THEN 1 ELSE 0 END) as OutOfStockItems
+          FROM View_ItemWhse
+          WHERE ItemDis IS NOT NULL
+        `);
+        break;
         
-        // Construct search term from components if query is empty
-        let searchTerm = query;
-        if (!searchTerm && width && profile && rim) {
-            searchTerm = `${width}/${profile}/${rim}`; // e.g. 195/65/15
-        } else if (!searchTerm && width && rim) {
-             searchTerm = `${width}/${rim}`; // e.g. 195/15 (unlikely but possible)
-        }
-
-        if (!searchTerm) {
-             return NextResponse.json({ error: 'Search query or tyre dimensions required' }, { status: 400 });
-        }
-
-        // Use the exact logic from TyrePriceReplyJob.js
-        // SELECT im.ItemDescription, im.UnitCost, im.Categoty, im.Custom3
-        // FROM [View_Item Master Whatsapp] im
-        // JOIN [View_Item Whse Whatsapp] iw ON im.ItemID = iw.ItemID
-        // WHERE im.Categoty = 'TYRES' ...
-
-        const request = pool.request();
-        request.input('search', sql.NVarChar, `%${searchTerm}%`);
-        request.input('searchNoSlash', sql.NVarChar, `%${searchTerm.replace(/\//g, '')}%`);
-
-        const sqlQuery = `
-            SELECT im.ItemID, im.ItemDescription, im.UnitCost, im.Categoty, im.Custom3, iw.QTY
-            FROM [View_Item Master Whatsapp] im
-            JOIN [View_Item Whse Whatsapp] iw ON im.ItemID = iw.ItemID
-            WHERE im.Categoty = 'TYRES'
-              AND iw.QTY > 0
-              AND (
-                  im.ItemDescription LIKE @search
-                  OR im.ItemDescription LIKE @searchNoSlash
+      case 'by-brand':
+        result = await pool.request().query(`
+          SELECT TOP 20
+            RTRIM(LTRIM(
+              SUBSTRING(ItemDis, 
+                CHARINDEX(' ', ItemDis) + 1,
+                CASE 
+                  WHEN CHARINDEX(' ', ItemDis, CHARINDEX(' ', ItemDis) + 1) > 0
+                  THEN CHARINDEX(' ', ItemDis, CHARINDEX(' ', ItemDis) + 1) - CHARINDEX(' ', ItemDis) - 1
+                  ELSE 50
+                END
               )
-        `;
+            )) as Brand,
+            COUNT(DISTINCT ItemId) as ProductCount,
+            SUM(CAST(QTY as INT)) as TotalQuantity,
+            AVG(CAST(QTY as INT)) as AvgQuantity,
+            SUM(CASE WHEN CAST(QTY as INT) < 5 AND CAST(QTY as INT) > 0 THEN 1 ELSE 0 END) as LowStockCount
+          FROM View_ItemWhse
+          WHERE ItemDis IS NOT NULL
+            AND ItemDis LIKE '%/%'
+            AND LEN(ItemDis) > 10
+            AND ItemDis NOT LIKE '%TUBE%'
+            AND ItemDis NOT LIKE '%KATTA%'
+            AND ItemDis NOT LIKE '%/17%'
+            AND ItemDis NOT LIKE '%/18%'
+            AND ItemDis NOT LIKE '%TIMSUN%'
+          GROUP BY RTRIM(LTRIM(
+            SUBSTRING(ItemDis, 
+              CHARINDEX(' ', ItemDis) + 1,
+              CASE 
+                WHEN CHARINDEX(' ', ItemDis, CHARINDEX(' ', ItemDis) + 1) > 0
+                THEN CHARINDEX(' ', ItemDis, CHARINDEX(' ', ItemDis) + 1) - CHARINDEX(' ', ItemDis) - 1
+                ELSE 50
+              END
+            )
+          ))
+          HAVING SUM(CAST(QTY as INT)) > 0
+          ORDER BY SUM(CAST(QTY as INT)) DESC
+        `);
+        break;
         
-        result = await request.query(sqlQuery);
+      case 'low-stock':
+        const threshold = parseInt(searchParams.get('threshold') || '5', 10);
+        result = await pool.request()
+          .input('threshold', sql.Int, threshold)
+          .query(`
+            SELECT TOP 100
+              ItemId,
+              ItemDis as Description,
+              CAST(QTY as INT) as Quantity,
+              RTRIM(LTRIM(
+                SUBSTRING(ItemDis, 
+                  CHARINDEX(' ', ItemDis) + 1,
+                  CASE 
+                    WHEN CHARINDEX(' ', ItemDis, CHARINDEX(' ', ItemDis) + 1) > 0
+                    THEN CHARINDEX(' ', ItemDis, CHARINDEX(' ', ItemDis) + 1) - CHARINDEX(' ', ItemDis) - 1
+                    ELSE 50
+                  END
+                )
+              )) as Brand
+            FROM View_ItemWhse
+            WHERE CAST(QTY as INT) < @threshold
+              AND CAST(QTY as INT) > 0
+              AND ItemDis IS NOT NULL
+              AND ItemDis LIKE '%/%'
+              AND ItemDis NOT LIKE '%TUBE%'
+              AND ItemDis NOT LIKE '%KATTA%'
+            ORDER BY CAST(QTY as INT) ASC
+          `);
+        break;
         
-        // Process results to add calculated selling price
-        const processedData = result.recordset.map(item => {
-            return {
-                ItemId: item.ItemID,
-                Description: item.ItemDescription,
-                Quantity: item.QTY,
-                UnitCost: item.UnitCost,
-                SellingPrice: computeSellingPrice(item, searchTerm),
-                Brand: item.Custom3 || 'Unknown',
-                Category: item.Categoty
-            };
-        });
-
-        return NextResponse.json({
-            success: true,
-            type,
-            data: processedData,
-            timestamp: new Date().toISOString()
-        });
-    } else if (type === 'brands') {
-        const request = pool.request();
-        const sqlQuery = `
-            SELECT im.Custom3 as Brand, SUM(iw.QTY) as TotalQty
-            FROM [View_Item Master Whatsapp] im
-            JOIN [View_Item Whse Whatsapp] iw ON im.ItemID = iw.ItemID
-            WHERE im.Categoty = 'TYRES' AND im.Custom3 IS NOT NULL AND im.Custom3 <> '' AND iw.QTY > 0
-            GROUP BY im.Custom3
-            ORDER BY TotalQty DESC
-        `;
-        result = await request.query(sqlQuery);
-        // Return array of objects { Brand, TotalQty }
-        return NextResponse.json({ success: true, data: result.recordset });
-    } else if (type === 'list') {
-        const page = parseInt(searchParams.get('page') || '1');
-        const limit = parseInt(searchParams.get('limit') || '50');
-        const brand = searchParams.get('brand');
-        const offset = (page - 1) * limit;
-        
-        const request = pool.request();
-        request.input('offset', sql.Int, offset);
-        request.input('limit', sql.Int, limit);
-
-        let whereClause = "WHERE im.Categoty = 'TYRES' AND iw.QTY > 0";
-        
-        if (brand) {
-            request.input('brand', sql.NVarChar, brand);
-            whereClause += " AND im.Custom3 = @brand";
-        }
-
-        const sqlQuery = `
-            SELECT im.ItemID, im.ItemDescription, im.UnitCost, im.Categoty, im.Custom3, iw.QTY
-            FROM [View_Item Master Whatsapp] im
-            JOIN [View_Item Whse Whatsapp] iw ON im.ItemID = iw.ItemID
-            ${whereClause}
-            ORDER BY im.ItemDescription
-            OFFSET @offset ROWS FETCH NEXT @limit ROWS ONLY
-        `;
-        
-        result = await request.query(sqlQuery);
-        
-        const processedData = result.recordset.map(item => {
-            return {
-                ItemId: item.ItemID,
-                Description: item.ItemDescription,
-                Quantity: item.QTY,
-                UnitCost: item.UnitCost,
-                SellingPrice: computeSellingPrice(item, ''),
-                Brand: item.Custom3 || 'Unknown',
-                Category: item.Categoty
-            };
-        });
-
-        return NextResponse.json({
-            success: true,
-            type,
-            data: processedData,
-            page,
-            limit,
-            timestamp: new Date().toISOString()
-        });
-    } else if (type === 'services') {
-        const category = searchParams.get('category');
+      case 'search':
         const query = searchParams.get('query') || '';
-        const itemId = searchParams.get('itemId');
+        const rim = searchParams.get('rim') || '';
         
-        const request = pool.request();
-        let sqlQuery = `
-            SELECT im.ItemID, im.ItemDescription, im.UnitCost, im.PriceLevel1, im.Categoty, im.Custom3, iw.QTY
-            FROM [View_Item Master Whatsapp] im
-            JOIN [View_Item Whse Whatsapp] iw ON im.ItemID = iw.ItemID
-            WHERE im.Categoty NOT IN ('TYRES', 'DAG TYRES', 'REBUILD TYRES', 'SAVIYA TYRES', 'KATTA TYRES', 'RADIAL DAG TYRES')
-        `;
-
-        if (itemId) {
-            request.input('itemId', sql.NVarChar, itemId);
-            sqlQuery += " AND im.ItemID = @itemId";
-        } else {
-            if (category) {
-                request.input('category', sql.NVarChar, category);
-                sqlQuery += " AND im.Categoty = @category";
-            }
-
-            if (query) {
-                request.input('search', sql.NVarChar, `%${query}%`);
-                sqlQuery += " AND im.ItemDescription LIKE @search";
-            }
-        }
-
-        sqlQuery += " ORDER BY im.Categoty, im.ItemDescription";
+        // Safe search pattern
+        const searchPattern = `%${query}%`;
         
-        result = await request.query(sqlQuery);
-        
-        const processedData = result.recordset.map(item => {
-            return {
-                ItemId: item.ItemID,
-                Description: item.ItemDescription,
-                Quantity: item.QTY,
-                UnitCost: item.UnitCost,
-                SellingPrice: item.PriceLevel1, // Use PriceLevel1 for services
-                Brand: item.Custom3 || '-',
-                Category: item.Categoty
-            };
-        });
+        result = await pool.request()
+          .input('query', sql.NVarChar, searchPattern)
+          .query(`
+            SELECT TOP 50
+              ItemId,
+              ItemDis as Description,
+              CAST(QTY as INT) as Quantity,
+              ISNULL(SalesPrice, 0) as Price,
+              RTRIM(LTRIM(
+                SUBSTRING(ItemDis, 
+                  CHARINDEX(' ', ItemDis) + 1,
+                  CASE 
+                    WHEN CHARINDEX(' ', ItemDis, CHARINDEX(' ', ItemDis) + 1) > 0
+                    THEN CHARINDEX(' ', ItemDis, CHARINDEX(' ', ItemDis) + 1) - CHARINDEX(' ', ItemDis) - 1
+                    ELSE 50
+                  END
+                )
+              )) as Brand
+            FROM View_ItemWhse
+            WHERE ItemDis LIKE @query
+              AND ItemDis IS NOT NULL
+            ORDER BY CAST(QTY as INT) DESC
+          `);
+        break;
 
-        return NextResponse.json({
-            success: true,
-            type,
-            data: processedData,
-            timestamp: new Date().toISOString()
-        });
-    } else if (type === 'service_categories') {
-        const request = pool.request();
-        const sqlQuery = `
-            SELECT DISTINCT Categoty 
-            FROM [View_Item Master Whatsapp] 
-            WHERE Categoty NOT IN ('TYRES', 'DAG TYRES', 'REBUILD TYRES', 'SAVIYA TYRES', 'KATTA TYRES', 'RADIAL DAG TYRES')
-            AND Categoty IS NOT NULL AND Categoty <> ''
-            ORDER BY Categoty
-        `;
-        result = await request.query(sqlQuery);
-        return NextResponse.json({ success: true, data: result.recordset.map(r => r.Categoty) });
-    } else {
-        // Fallback for other types if needed, or just return error
-        // For now, we only implement the 'search' logic as requested
-         return NextResponse.json({ error: 'Only search type is supported with this logic' }, { status: 400 });
+      case 'top-stock':
+        const limit = parseInt(searchParams.get('limit') || '50', 10);
+        result = await pool.request()
+          .input('limit', sql.Int, limit)
+          .query(`
+            SELECT TOP (@limit)
+              ItemId,
+              ItemDis as Description,
+              CAST(QTY as INT) as Quantity,
+              RTRIM(LTRIM(
+                SUBSTRING(ItemDis, 
+                  CHARINDEX(' ', ItemDis) + 1,
+                  CASE 
+                    WHEN CHARINDEX(' ', ItemDis, CHARINDEX(' ', ItemDis) + 1) > 0
+                    THEN CHARINDEX(' ', ItemDis, CHARINDEX(' ', ItemDis) + 1) - CHARINDEX(' ', ItemDis) - 1
+                    ELSE 50
+                  END
+                )
+              )) as Brand
+            FROM View_ItemWhse
+            WHERE CAST(QTY as INT) > 0
+              AND ItemDis IS NOT NULL
+              AND ItemDis LIKE '%/%'
+              AND ItemDis NOT LIKE '%TUBE%'
+              AND ItemDis NOT LIKE '%KATTA%'
+            ORDER BY CAST(QTY as INT) DESC
+          `);
+        break;
+        
+      default:
+        await pool.close();
+        return NextResponse.json({ error: 'Invalid type parameter' }, { status: 400 });
     }
+
+    await pool.close();
+    
+    return NextResponse.json({
+      success: true,
+      type,
+      data: result.recordset,
+      timestamp: new Date().toISOString()
+    });
     
   } catch (error: any) {
     console.error('[ERP/Inventory API] Error:', error);
@@ -267,11 +205,5 @@ export async function GET(request: NextRequest) {
       error: error.message || 'Failed to fetch inventory data',
       timestamp: new Date().toISOString()
     }, { status: 500 });
-  } finally {
-    try {
-        await pool.close();
-    } catch (e) {
-        // Ignore close errors
-    }
   }
 }

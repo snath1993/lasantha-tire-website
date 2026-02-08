@@ -1,0 +1,12 @@
+Error: Failed to connect to WIN-JIAVRTFMA0N:1433 in 15000ms
+Stack: ConnectionError: Failed to connect to WIN-JIAVRTFMA0N:1433 in 15000ms
+    at C:\whatsapp-sql-api\node_modules\mssql\lib\tedious\connection-pool.js:85:17
+    at Connection.onConnect (C:\whatsapp-sql-api\node_modules\tedious\lib\connection.js:849:9)
+    at Object.onceWrapper (node:events:623:26)
+    at Connection.emit (node:events:508:28)
+    at Connection.emit (C:\whatsapp-sql-api\node_modules\tedious\lib\connection.js:970:18)
+    at Connection.connectTimeout (C:\whatsapp-sql-api\node_modules\tedious\lib\connection.js:1222:10)
+    at Timeout._onTimeout (C:\whatsapp-sql-api\node_modules\tedious\lib\connection.js:1167:12)
+    at listOnTimeout (node:internal/timers:605:17)
+    at process.processTimers (node:internal/timers:541:7)
+PoolConfig: {"user":"sa","password":"Admin1234","server":"WIN-JIAVRTFMA0N","database":"LasanthaTire","port":1433,"options":{"encrypt":false,"trustServerCertificate":true,"cryptoCredentialsDetails":{"minVersion":"TLSv1"}},"pool":{"max":10,"min":0,"idleTimeoutMillis":30000},"stream":false,"parseJSON":false,"arrayRowMode":false,"validateConnection":true}

@@ -1,0 +1,25 @@
+{
+  "python": "3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]",
+  "framework_csc": [
+    "C:\\\\Windows\\\\Microsoft.NET\\Framework64\\v4.0.30319\\csc.exe",
+    "C:\\\\Windows\\\\Microsoft.NET\\Framework\\v4.0.30319\\csc.exe"
+  ],
+  "crystal_roots": [
+    "C:\\Program Files (x86)\\SAP BusinessObjects",
+    "C:\\Program Files (x86)\\Business Objects"
+  ],
+  "dlls": {
+    "CrystalDecisions.CrystalReports.Engine.dll": [
+      "C:\\Program Files (x86)\\Business Objects\\Common\\4.0\\managed\\dotnet2\\CrystalDecisions.CrystalReports.Engine.dll"
+    ],
+    "CrystalDecisions.Shared.dll": [
+      "C:\\Program Files (x86)\\Business Objects\\Common\\4.0\\managed\\dotnet2\\CrystalDecisions.Shared.dll"
+    ],
+    "CrystalDecisions.ReportSource.dll": [
+      "C:\\Program Files (x86)\\Business Objects\\Common\\4.0\\managed\\dotnet2\\CrystalDecisions.ReportSource.dll"
+    ],
+    "CrystalDecisions.Windows.Forms.dll": [
+      "C:\\Program Files (x86)\\Business Objects\\Common\\4.0\\managed\\dotnet2\\CrystalDecisions.Windows.Forms.dll"
+    ]
+  }
+}

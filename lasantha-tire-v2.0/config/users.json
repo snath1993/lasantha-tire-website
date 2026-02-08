@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "id": "4f4b2355-aa87-4904-9705-d575517ce1df",
+      "username": "admin",
+      "password": "142f363d5e9c082c09b60efb1b4ec701d7158ffacafb9d55533476c38879b172",
+      "role": "admin",
+      "createdAt": "2025-12-27T02:16:39.743Z",
+      "active": true
+    },
+    {
+      "id": "040c16d8-4e7d-4600-b84c-82fc249a12ab",
+      "username": "Snath",
+      "password": "9add729b2fa51d54b7a5fdb7c4ddd2a411ae30f5b3f9ceb344124f70c1f0ece7",
+      "role": "admin",
+      "createdAt": "2025-12-27T06:09:57.284Z",
+      "active": true,
+      "lastLogin": "2025-12-27T06:17:01.545Z"
+    }
+  ],
+  "lastModified": "2025-12-27T06:11:13.855Z"
+}

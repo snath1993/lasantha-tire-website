@@ -1,0 +1,3496 @@
+<PAW_Purchases xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes"
+xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance"
+xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">A001</VendorID>
+	<Invoice_Number>12121211</Invoice_Number>
+	<Date xsi:type="paw:date">12/1/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">V</Item_ID>
+	<Description>V</Description>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>0.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">S018</VendorID>
+	<Invoice_Number>00540</Invoice_Number>
+	<Date xsi:type="paw:date">12/3/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<Description>Resograph Machine Repair Charges</Description>
+	<GL_Account xsi:type="paw:id">29001-HO-009</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>26000.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">R002</VendorID>
+	<Invoice_Number>SUP-00000560</Invoice_Number>
+	<Date xsi:type="paw:date">12/6/13</Date>
+	<CustomerInvoiceNumber>abc123</CustomerInvoiceNumber>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0011</Item_ID>
+	<Description>TONER (C6500) TN 610 Y</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>17200.00000</Unit_Price>
+	<Amount>17200.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003705</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>2064.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">S005</VendorID>
+	<Invoice_Number>SUP-00000561</Invoice_Number>
+	<Date xsi:type="paw:date">12/6/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>6.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0015</Item_ID>
+	<Description>TONER CANON IR 2525 (NPG -51)</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>8000.00000</Unit_Price>
+	<Amount>48000.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003716</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>5760.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">A001</VendorID>
+	<Invoice_Number>SUP-00000562</Invoice_Number>
+	<Date xsi:type="paw:date">12/6/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>50000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">PHO0005</Item_ID>
+	<Description>PHOTOCOPY PAPER LEGAL 80 GSM</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>1.23750</Unit_Price>
+	<Amount>61875.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003713</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>7425.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">A001</VendorID>
+	<Invoice_Number>SUP-00000563</Invoice_Number>
+	<Date xsi:type="paw:date">12/6/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>75000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">PHO0004</Item_ID>
+	<Description>PHOTOCOPY PAPER B4 80 GSM</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>1.54714</Unit_Price>
+	<Amount>116035.50</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003715</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>13924.26</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">A001</VendorID>
+	<Invoice_Number>SUP-00000564</Invoice_Number>
+	<Date xsi:type="paw:date">12/6/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>50000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">PHO0002</Item_ID>
+	<Description>PHOTOCOPY PAPER A4 80 GSM</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.92856</Unit_Price>
+	<Amount>46428.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003714</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>5571.36</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">G001</VendorID>
+	<Invoice_Number>SUP-00000565</Invoice_Number>
+	<Date xsi:type="paw:date">12/6/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>5.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0026</Item_ID>
+	<Description>TONER  TOSHIBA E- STUDIO 355 /</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>11281.25000</Unit_Price>
+	<Amount>56406.25</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003718</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>6768.75</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">G001</VendorID>
+	<Invoice_Number>SUP-00000566</Invoice_Number>
+	<Date xsi:type="paw:date">12/6/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>5.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0025</Item_ID>
+	<Description>TONER TOSHIBA E-STUDIO 452(T-3</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>8693.25000</Unit_Price>
+	<Amount>43466.25</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003711</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>5215.95</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">G001</VendorID>
+	<Invoice_Number>SUP-00000567</Invoice_Number>
+	<Date xsi:type="paw:date">12/6/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>5.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0026</Item_ID>
+	<Description>TONER  TOSHIBA E- STUDIO 355 /</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>11281.25000</Unit_Price>
+	<Amount>56406.25</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003710</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>6768.75</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">N001</VendorID>
+	<Invoice_Number>SUP-00000568</Invoice_Number>
+	<Date xsi:type="paw:date">12/6/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>3</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>48000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0006</Item_ID>
+	<Description>WIRE SPIRAL NO.6 (3/8&quot;) BLACK</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.41000</Unit_Price>
+	<Amount>19680.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003720</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>48000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0009</Item_ID>
+	<Description>WIRE SPIRAL NO.8 (1/2&quot;) BLACK</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.53000</Unit_Price>
+	<Amount>25440.00</Amount>
+	<PO_DistNumber>2</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003720</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>18000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0011</Item_ID>
+	<Description>WIRE SPIRAL NO.9 (9/16&quot;) BLACK</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.66000</Unit_Price>
+	<Amount>11880.00</Amount>
+	<PO_DistNumber>3</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003720</PO_Number>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">P008</VendorID>
+	<Invoice_Number>SUP-00000569</Invoice_Number>
+	<Date xsi:type="paw:date">12/6/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>8500.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0015</Item_ID>
+	<Description>WIRE SPIRAL NO.12 (3/4&quot;) BLACK</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>1.52000</Unit_Price>
+	<Amount>12920.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003719</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>1550.40</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">M009</VendorID>
+	<Invoice_Number>C20/001/13</Invoice_Number>
+	<Date xsi:type="paw:date">12/7/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<Description>Konica Minolta KM-BZ501 Copier 2 Nos</Description>
+	<GL_Account xsi:type="paw:id">50000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>454000.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">S011</VendorID>
+	<Invoice_Number>04122013</Invoice_Number>
+	<Date xsi:type="paw:date">12/9/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<Description>Dyna Van Repair charges (DPF System)</Description>
+	<GL_Account xsi:type="paw:id">33003-HO-002</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>43000.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">S011</VendorID>
+	<Invoice_Number>09122013</Invoice_Number>
+	<Date xsi:type="paw:date">12/9/13</Date>
+	<CustomerInvoiceNumber>wfdwsrw</CustomerInvoiceNumber>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<Description>Cash Donation for Lakmal&apos;s 3Months Arms Giving</Description>
+	<GL_Account xsi:type="paw:id">25200-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>40625.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">W002</VendorID>
+	<Invoice_Number>09122013-2</Invoice_Number>
+	<Date xsi:type="paw:date">12/9/13</Date>
+	<CustomerInvoiceNumber>2321321313</CustomerInvoiceNumber>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<Description>Paper Advertisement</Description>
+	<GL_Account xsi:type="paw:id">40000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>15000.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<Item_ID xsi:type="paw:id">V</Item_ID>
+	<Description>V</Description>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>1800.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">N001</VendorID>
+	<Invoice_Number>2464</Invoice_Number>
+	<Date xsi:type="paw:date">12/9/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Description>Ex Book 80pgs -5, Pencil -12</Description>
+	<GL_Account xsi:type="paw:id">30009-HO-000</GL_Account>
+	<Unit_Price>355.00000</Unit_Price>
+	<Amount>355.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">N001</VendorID>
+	<Invoice_Number>2469</Invoice_Number>
+	<Date xsi:type="paw:date">12/9/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Description>Card Board File -100, Cellow Tape Large No-1 25</Description>
+	<GL_Account xsi:type="paw:id">30009-HO-000</GL_Account>
+	<Unit_Price>1500.00000</Unit_Price>
+	<Amount>1500.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">S011</VendorID>
+	<Invoice_Number>MacRep09122013</Invoice_Number>
+	<Date xsi:type="paw:date">12/9/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<Description>Machine Repair &amp; Service Charges Toshiba ES350 &amp; 280</Description>
+	<GL_Account xsi:type="paw:id">29001-LR-007</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>9500.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">29001-LR-017</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>12500.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">S011</VendorID>
+	<Invoice_Number>Nov,2013</Invoice_Number>
+	<Date xsi:type="paw:date">12/9/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<Description>Pradeepa&apos;s Loan Payment for Deducted of Salary</Description>
+	<GL_Account xsi:type="paw:id">85400-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>10500.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">S011</VendorID>
+	<Invoice_Number>SalNovember,2013</Invoice_Number>
+	<Date xsi:type="paw:date">12/9/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<Description>Chairman &amp; Directors Salary for the Month of November, 2013</Description>
+	<GL_Account xsi:type="paw:id">82100-HO-005</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>56900.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">R002</VendorID>
+	<Invoice_Number>TK024481</Invoice_Number>
+	<Date xsi:type="paw:date">12/9/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Description>Service Agreement -01/06/2013 to 31/05/2014</Description>
+	<GL_Account xsi:type="paw:id">29001-HO-006</GL_Account>
+	<Unit_Price>44196.42000</Unit_Price>
+	<Amount>44196.42</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">V</Item_ID>
+	<Description>V</Description>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>5303.57000</Unit_Price>
+	<Amount>5303.57</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">R002</VendorID>
+	<Invoice_Number>TK024484</Invoice_Number>
+	<Date xsi:type="paw:date">12/9/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Description>Service Agreement   From 01/06/2013 to 31/05/2014</Description>
+	<GL_Account xsi:type="paw:id">29001-HO-005</GL_Account>
+	<Unit_Price>29017.86000</Unit_Price>
+	<Amount>29017.86</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">V</Item_ID>
+	<Description>V</Description>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>3482.14000</Unit_Price>
+	<Amount>3482.14</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">S008</VendorID>
+	<Invoice_Number>SUP-00000570</Invoice_Number>
+	<Date xsi:type="paw:date">12/10/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>125.00000</Quantity>
+	<Item_ID xsi:type="paw:id">GEN0018</Item_ID>
+	<Description>SOFTWAVE MANAGEMENT DIARY - 2014</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>392.00000</Unit_Price>
+	<Amount>49000.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003740</PO_Number>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">M004</VendorID>
+	<Invoice_Number>80154083</Invoice_Number>
+	<Date xsi:type="paw:date">12/11/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<Description>Calling Charges for the Month of November, 2013</Description>
+	<GL_Account xsi:type="paw:id">35000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>21604.94</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">T009</VendorID>
+	<Invoice_Number>SUP-00000571</Invoice_Number>
+	<Date xsi:type="paw:date">12/11/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>3</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">PLO0029</Item_ID>
+	<Description>TEXTILE BANNER 1.27M X 50M</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>9821.43000</Unit_Price>
+	<Amount>9821.43</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003742</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">PLO0030</Item_ID>
+	<Description>FRONTLIT HOLLOW 1.27M X 30M</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>7946.43000</Unit_Price>
+	<Amount>7946.43</Amount>
+	<PO_DistNumber>2</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003742</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>2132.14</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">T009</VendorID>
+	<Invoice_Number>SUP-00000572</Invoice_Number>
+	<Date xsi:type="paw:date">12/11/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>10.00000</Quantity>
+	<Item_ID xsi:type="paw:id">PVC00006</Item_ID>
+	<Description>HP X BANNER STAND 3 X 6</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>736.61000</Unit_Price>
+	<Amount>7366.10</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003727</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>883.93</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">J004</VendorID>
+	<Invoice_Number>SUP-00000573</Invoice_Number>
+	<Date xsi:type="paw:date">12/11/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>4</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>2.00000</Quantity>
+	<Item_ID xsi:type="paw:id">PLO0024</Item_ID>
+	<Description>HP FLEX MATT BLOCKOUT 4FT X 50M</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>7142.86000</Unit_Price>
+	<Amount>14285.72</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003743</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>2.00000</Quantity>
+	<Item_ID xsi:type="paw:id">PLO0026</Item_ID>
+	<Description>HP FLEX GLOSS BLOCKOUT 3 X 50M</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>5535.71000</Unit_Price>
+	<Amount>11071.42</Amount>
+	<PO_DistNumber>2</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003743</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">PLO0028</Item_ID>
+	<Description>SAND BLAST STICKER 4 X 50M</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>15178.57000</Unit_Price>
+	<Amount>15178.57</Amount>
+	<PO_DistNumber>3</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003743</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>4864.29</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">T010</VendorID>
+	<Invoice_Number>155235</Invoice_Number>
+	<Date xsi:type="paw:date">12/13/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<Description>EPSON MT-U220D POS Printer for Cashier of Counter</Description>
+	<GL_Account xsi:type="paw:id">50200-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>22950.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">A009</VendorID>
+	<Invoice_Number>10432</Invoice_Number>
+	<Date xsi:type="paw:date">12/14/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<Description>Preparation charges of Computation of Profit/Loss for 2012/13 Financial Year</Description>
+	<GL_Account xsi:type="paw:id">30010-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>24640.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">B007</VendorID>
+	<Invoice_Number>5060</Invoice_Number>
+	<Date xsi:type="paw:date">12/14/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>3</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<Description>Annual Audit Fee of Financial Year 2012/13 with Accounts preparation charges According to SME</Description>
+	<GL_Account xsi:type="paw:id">82100-HO-008</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>55100.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">30010-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>13648.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<Item_ID xsi:type="paw:id">V</Item_ID>
+	<Description>V</Description>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>8249.76</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">U001</VendorID>
+	<Invoice_Number>1312 138608</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Description>195 x 15  Rhino Plus Ceat Tyre -2, Wheel Alignment Front , Camber Adjustment For  PD-8909</Description>
+	<GL_Account xsi:type="paw:id">33003-HO-002</GL_Account>
+	<Unit_Price>22642.00000</Unit_Price>
+	<Amount>22642.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">V</Item_ID>
+	<Description>V</Description>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>2717.04000</Unit_Price>
+	<Amount>2717.04</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">U001</VendorID>
+	<Invoice_Number>1312 138866</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Description>400 x 8 (6 PR )Ceat Fleet Master Tyre -3 For YQ-4590</Description>
+	<GL_Account xsi:type="paw:id">33003-HO-004</GL_Account>
+	<Unit_Price>7371.00000</Unit_Price>
+	<Amount>7371.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">V</Item_ID>
+	<Description>V</Description>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>884.52000</Unit_Price>
+	<Amount>884.52</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">S011</VendorID>
+	<Invoice_Number>17122013</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<Description>Petty Cash Reimburse</Description>
+	<GL_Account xsi:type="paw:id">79000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>156698.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">J003</VendorID>
+	<Invoice_Number>1945437</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Description>Drum -1, Blade-1, Developer -1, Roll Guide -2, Blade Rec-1 fOR  Toshiba DP S /N: CNH172082</Description>
+	<GL_Account xsi:type="paw:id">29001-LR-015</GL_Account>
+	<Unit_Price>36593.30000</Unit_Price>
+	<Amount>36593.30</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">V</Item_ID>
+	<Description>V</Description>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>4391.20000</Unit_Price>
+	<Amount>4391.20</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">J003</VendorID>
+	<Invoice_Number>1945540</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Description>Asys Pws Sys -1, Sat Laptop Hard Disc 160GB -1, Upper Heart Roller -1, Thms Htr -280-1 , sCRAPER -470-1  For Toshiba DP 2520 S /N: CNJ178337</Description>
+	<GL_Account xsi:type="paw:id">29001-LR-026</GL_Account>
+	<Unit_Price>99528.65000</Unit_Price>
+	<Amount>99528.65</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">V</Item_ID>
+	<Description>V</Description>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>10347.44000</Unit_Price>
+	<Amount>10347.44</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">A001</VendorID>
+	<Invoice_Number>SUP-00000574</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>50000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">PHO0002</Item_ID>
+	<Description>PHOTOCOPY PAPER A4 80 GSM</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.92856</Unit_Price>
+	<Amount>46428.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003730</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>5571.36</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">U002</VendorID>
+	<Invoice_Number>SUP-00000575</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>50.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0098</Item_ID>
+	<Description>CHANNEL MUNDIOR 13/304MM BLACK</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>194.64000</Unit_Price>
+	<Amount>9732.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003756</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>1167.84</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">N001</VendorID>
+	<Invoice_Number>SUP-00000576</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>3</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>84000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0119</Item_ID>
+	<Description>WIRE SPIRAL NO 7  WHITE 7/16</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.48000</Unit_Price>
+	<Amount>40320.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003758</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>48000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0007</Item_ID>
+	<Description>WIRE SPIRAL NO.6 (3/8&quot;) WHITE</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.41000</Unit_Price>
+	<Amount>19680.00</Amount>
+	<PO_DistNumber>2</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003758</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>80000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0003</Item_ID>
+	<Description>WIRE SPIRAL NO.4 (1/4&quot;) WHITE</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.24000</Unit_Price>
+	<Amount>19200.00</Amount>
+	<PO_DistNumber>3</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003758</PO_Number>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">U002</VendorID>
+	<Invoice_Number>SUP-00000577</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>100000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0007</Item_ID>
+	<Description>WIRE SPIRAL NO.6 (3/8&quot;) WHITE</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.34000</Unit_Price>
+	<Amount>34000.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003750</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>4080.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">U002</VendorID>
+	<Invoice_Number>SUP-00000578</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>190000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0003</Item_ID>
+	<Description>WIRE SPIRAL NO.4 (1/4&quot;) WHITE</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.17000</Unit_Price>
+	<Amount>32300.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003745</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>3876.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">U002</VendorID>
+	<Invoice_Number>SUP-00000579</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>250000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0007</Item_ID>
+	<Description>WIRE SPIRAL NO.6 (3/8&quot;) WHITE</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.34000</Unit_Price>
+	<Amount>85000.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003746</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>10200.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">U002</VendorID>
+	<Invoice_Number>SUP-00000580</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>100000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0006</Item_ID>
+	<Description>WIRE SPIRAL NO.6 (3/8&quot;) BLACK</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.34000</Unit_Price>
+	<Amount>34000.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003747</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>4080.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">G001</VendorID>
+	<Invoice_Number>SUP-00000581</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>5.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0036</Item_ID>
+	<Description>TONER TOSHIBA ES2006 T2507</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>5850.00000</Unit_Price>
+	<Amount>29250.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003748</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>3510.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">G001</VendorID>
+	<Invoice_Number>SUP-00000582</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>2.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0020</Item_ID>
+	<Description>TONER TOSHIBA E STUDIO256/306/</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>18660.72000</Unit_Price>
+	<Amount>37321.44</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003754</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>4478.57</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">D002</VendorID>
+	<Invoice_Number>SUP-00000583</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>200.00000</Quantity>
+	<Item_ID xsi:type="paw:id">IVO0003</Item_ID>
+	<Description>IVORY BOARD 300GSM 25 X 35.4</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>128.00000</Unit_Price>
+	<Amount>25600.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003723</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>3072.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">S005</VendorID>
+	<Invoice_Number>SUP-00000584</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>2.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0030</Item_ID>
+	<Description>TONER CANON IR 5075 (NPG 36)</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>16500.00000</Unit_Price>
+	<Amount>33000.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003752</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>3960.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">S005</VendorID>
+	<Invoice_Number>SUP-00000585</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>2.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0018</Item_ID>
+	<Description>TONER HP 82 YELLOW CARTRIDGE</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>5200.00000</Unit_Price>
+	<Amount>10400.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003753</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>1248.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">H001</VendorID>
+	<Invoice_Number>SUP-00000586</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>2.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0008</Item_ID>
+	<Description>TONER XEROX 6204</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>14000.00000</Unit_Price>
+	<Amount>28000.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003737</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>3360.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">U002</VendorID>
+	<Invoice_Number>SUP-00000587</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>4</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>5.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0096</Item_ID>
+	<Description>CHANNEL MUNDIOR 7/304MM BLACK</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>180.36000</Unit_Price>
+	<Amount>901.80</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003666</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>10.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0097</Item_ID>
+	<Description>CHANNEL MUNDIOR 10/304MM BLACK</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>185.71000</Unit_Price>
+	<Amount>1857.10</Amount>
+	<PO_DistNumber>2</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003666</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>10.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0099</Item_ID>
+	<Description>CHANNEL MUNDIOR 16/304MM BLACK</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>200.00000</Unit_Price>
+	<Amount>2000.00</Amount>
+	<PO_DistNumber>3</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003666</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>571.07</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">P008</VendorID>
+	<Invoice_Number>SUP-00000588</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>2.00000</Quantity>
+	<Item_ID xsi:type="paw:id">LAM0025</Item_ID>
+	<Description>HOT LAMINATION FILM 40 GLOSS</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>4910.71000</Unit_Price>
+	<Amount>9821.42</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003741</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>1178.57</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">G001</VendorID>
+	<Invoice_Number>SUP-00000589</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>5.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0026</Item_ID>
+	<Description>TONER  TOSHIBA E- STUDIO 355 /</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>11281.25000</Unit_Price>
+	<Amount>56406.25</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003728</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>6768.75</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">R002</VendorID>
+	<Invoice_Number>SUP-00000590</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0005</Item_ID>
+	<Description>TONER C 450 COLOUR K</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>7700.00000</Unit_Price>
+	<Amount>7700.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003735</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>924.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">R002</VendorID>
+	<Invoice_Number>SUP-00000591</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0010</Item_ID>
+	<Description>TONER (C6500) TN 610 K</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>12200.00000</Unit_Price>
+	<Amount>12200.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003736</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>1464.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">R002</VendorID>
+	<Invoice_Number>SUP-00000592</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0005</Item_ID>
+	<Description>TONER C 450 COLOUR K</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>7700.00000</Unit_Price>
+	<Amount>7700.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003712</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>924.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">R002</VendorID>
+	<Invoice_Number>SUP-00000593</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>2.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0014</Item_ID>
+	<Description>TONER KONICA MINOLTA-BIZBUB 50</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>17000.00000</Unit_Price>
+	<Amount>34000.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003722</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>4080.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">R002</VendorID>
+	<Invoice_Number>SUP-00000594</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0013</Item_ID>
+	<Description>TONER (C6500) TN 610 C</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>17200.00000</Unit_Price>
+	<Amount>17200.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003721</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>2064.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">N001</VendorID>
+	<Invoice_Number>SUP-00000595</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>3</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>48000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0007</Item_ID>
+	<Description>WIRE SPIRAL NO.6 (3/8&quot;) WHITE</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.41000</Unit_Price>
+	<Amount>19680.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003744</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>28000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0119</Item_ID>
+	<Description>WIRE SPIRAL NO 7  WHITE 7/16</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.48000</Unit_Price>
+	<Amount>13440.00</Amount>
+	<PO_DistNumber>2</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003744</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>24.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0113</Item_ID>
+	<Description>TAPE BINDING 2 BLACK</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>140.00000</Unit_Price>
+	<Amount>3360.00</Amount>
+	<PO_DistNumber>3</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003744</PO_Number>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">A001</VendorID>
+	<Invoice_Number>SUP-00000596</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>75000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">PHO0004</Item_ID>
+	<Description>PHOTOCOPY PAPER B4 80 GSM</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>1.54714</Unit_Price>
+	<Amount>116035.50</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003729</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>13924.26</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">A001</VendorID>
+	<Invoice_Number>SUP-00000597</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>25000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">PHO0001</Item_ID>
+	<Description>PHOTOCOPY PAPER B5 80 GSM</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.83928</Unit_Price>
+	<Amount>20982.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003732</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>2517.84</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">A001</VendorID>
+	<Invoice_Number>SUP-00000598</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>50000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">PHO0005</Item_ID>
+	<Description>PHOTOCOPY PAPER LEGAL 80 GSM</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>1.23750</Unit_Price>
+	<Amount>61875.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003731</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>7425.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">P008</VendorID>
+	<Invoice_Number>SUP-00000599</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>3</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">LAM0001</Item_ID>
+	<Description>FILM POUCH 80 X 216 X 303 A4</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>7.95000</Unit_Price>
+	<Amount>7950.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003724</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>200.00000</Quantity>
+	<Item_ID xsi:type="paw:id">LAM0016</Item_ID>
+	<Description>FILM POUCH 80 X 219 X 370 LE</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>12.24000</Unit_Price>
+	<Amount>2448.00</Amount>
+	<PO_DistNumber>2</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003724</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>1247.76</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">N001</VendorID>
+	<Invoice_Number>SUP-00000600</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>28000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0119</Item_ID>
+	<Description>WIRE SPIRAL NO 7  WHITE 7/16</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.48000</Unit_Price>
+	<Amount>13440.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003726</PO_Number>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">S008</VendorID>
+	<Invoice_Number>SUP-00000601</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>3</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>200.00000</Quantity>
+	<Item_ID xsi:type="paw:id">ART0014</Item_ID>
+	<Description>ART BOARD 250GSM 25 X 40 GLOSS</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>20.34660</Unit_Price>
+	<Amount>4069.32</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003717</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85200-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>81.39</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>498.09</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">G001</VendorID>
+	<Invoice_Number>SUP-00000602</Invoice_Number>
+	<Date xsi:type="paw:date">12/17/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>3.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0036</Item_ID>
+	<Description>TONER TOSHIBA ES2006 T2507</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>5850.00000</Unit_Price>
+	<Amount>17550.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003725</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>2106.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">S008</VendorID>
+	<Invoice_Number>November,2013-</Invoice_Number>
+	<Date xsi:type="paw:date">12/18/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<Description>Electricity 1/2 Payment of November, 2013</Description>
+	<GL_Account xsi:type="paw:id">29004-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>160368.75</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">N007</VendorID>
+	<Invoice_Number>INV-0072</Invoice_Number>
+	<Date xsi:type="paw:date">12/19/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Description>Payment for the implementation of printroom .lk website version 2.0</Description>
+	<GL_Account xsi:type="paw:id">50500-HO-000</GL_Account>
+	<Unit_Price>125000.00000</Unit_Price>
+	<Amount>125000.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">C009</VendorID>
+	<Invoice_Number>Payee Nov2013</Invoice_Number>
+	<Date xsi:type="paw:date">12/19/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<Description>Staff &amp; Directors Payee Tax of November, 2013</Description>
+	<GL_Account xsi:type="paw:id">85301-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>25519.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">R002</VendorID>
+	<Invoice_Number>SUP-00000603</Invoice_Number>
+	<Date xsi:type="paw:date">12/19/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0011</Item_ID>
+	<Description>TONER (C6500) TN 610 Y</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>17200.00000</Unit_Price>
+	<Amount>17200.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003759</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>2064.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">S005</VendorID>
+	<Invoice_Number>SUP-00000604</Invoice_Number>
+	<Date xsi:type="paw:date">12/19/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>3</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>2.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0030</Item_ID>
+	<Description>TONER CANON IR 5075 (NPG 36)</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>16500.00000</Unit_Price>
+	<Amount>33000.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003767</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>6.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0015</Item_ID>
+	<Description>TONER CANON IR 2525 (NPG -51)</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>8000.00000</Unit_Price>
+	<Amount>48000.00</Amount>
+	<PO_DistNumber>2</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003767</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>9720.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">D009</VendorID>
+	<Invoice_Number>SUP-00000605</Invoice_Number>
+	<Date xsi:type="paw:date">12/19/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>100.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0133</Item_ID>
+	<Description>CELLO TAPE 2&quot; 100M</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>105.00000</Unit_Price>
+	<Amount>10500.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003761</PO_Number>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">P008</VendorID>
+	<Invoice_Number>SUP-00000606</Invoice_Number>
+	<Date xsi:type="paw:date">12/19/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>71700.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0005</Item_ID>
+	<Description>WIRE SPIRAL NO.5 (5/16&quot;) WHITE</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.36000</Unit_Price>
+	<Amount>25812.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003765</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>3097.44</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">P008</VendorID>
+	<Invoice_Number>SUP-00000607</Invoice_Number>
+	<Date xsi:type="paw:date">12/19/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>24000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0009</Item_ID>
+	<Description>WIRE SPIRAL NO.8 (1/2&quot;) BLACK</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.54000</Unit_Price>
+	<Amount>12960.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003766</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>1555.20</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">J003</VendorID>
+	<Invoice_Number>1821850</Invoice_Number>
+	<Date xsi:type="paw:date">12/20/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Description>Drum -1, Blade -1 For Toshiba DP 3570 S/N:SCPD025413</Description>
+	<GL_Account xsi:type="paw:id">29001-LR-006</GL_Account>
+	<Unit_Price>18319.00000</Unit_Price>
+	<Amount>18319.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">V</Item_ID>
+	<Description>V</Description>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>2198.28000</Unit_Price>
+	<Amount>2198.28</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">J003</VendorID>
+	<Invoice_Number>1945712</Invoice_Number>
+	<Date xsi:type="paw:date">12/20/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Description>Cover Front -1 For   Toshiba DP 2520 S /N;CNJ178344</Description>
+	<GL_Account xsi:type="paw:id">29001-LR-012</GL_Account>
+	<Unit_Price>3022.00000</Unit_Price>
+	<Amount>3022.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">V</Item_ID>
+	<Description>V</Description>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>362.64000</Unit_Price>
+	<Amount>362.64</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">J003</VendorID>
+	<Invoice_Number>1945717</Invoice_Number>
+	<Date xsi:type="paw:date">12/20/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Description>Upper Heat Roller -1, Lower Heat Roller -1, Thms Htr-280-1, Scraper -470-5, Spe Sce Hr -370-5, Blade Rec -1, Gear 10H29-10H2-1 For Toshiba DP 3000 S/N:CMF134534</Description>
+	<GL_Account xsi:type="paw:id">29001-LR-002</GL_Account>
+	<Unit_Price>45175.00000</Unit_Price>
+	<Amount>45175.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">V</Item_ID>
+	<Description>V</Description>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>5421.00000</Unit_Price>
+	<Amount>5421.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">C010</VendorID>
+	<Invoice_Number>2013/11/0001</Invoice_Number>
+	<Date xsi:type="paw:date">12/20/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Description>Security Officer Day &amp; Night -For Month Of Nov 2013</Description>
+	<GL_Account xsi:type="paw:id">30011-HO-000</GL_Account>
+	<Unit_Price>58000.00000</Unit_Price>
+	<Amount>58000.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">J003</VendorID>
+	<Invoice_Number>2104201</Invoice_Number>
+	<Date xsi:type="paw:date">12/20/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>3</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Description>Toshiba Digital Photocopier Modele e Studio 2006 S/N:CY6C36142 , Automatic Duplexing Unit -1 S/N:CX6316353,Platen Cover -1 S/N:JK0A22024, USB Patch Lead -1</Description>
+	<GL_Account xsi:type="paw:id">50000-HO-000</GL_Account>
+	<Unit_Price>112000.00000</Unit_Price>
+	<Amount>112000.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<Description>For Land  &amp;  District Regstry Office Trincomalee</Description>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>0.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">V</Item_ID>
+	<Description>V</Description>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>13440.00000</Unit_Price>
+	<Amount>13440.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">J003</VendorID>
+	<Invoice_Number>2104202</Invoice_Number>
+	<Date xsi:type="paw:date">12/20/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>3</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Description>Toshiba Digital Copier S/N:CY6C36048, Automatic Duplexing Unit -1 S/N:CX6316498, Platen Cover -1, USB Patch Lead -1</Description>
+	<GL_Account xsi:type="paw:id">50000-HO-000</GL_Account>
+	<Unit_Price>112000.00000</Unit_Price>
+	<Amount>112000.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<Description>For Land  &amp; District Registry Office Kalmunei</Description>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>0.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">V</Item_ID>
+	<Description>V</Description>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>13440.00000</Unit_Price>
+	<Amount>13440.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">J003</VendorID>
+	<Invoice_Number>2104203</Invoice_Number>
+	<Date xsi:type="paw:date">12/20/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>3</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Description>Toshiba Digital Copier S/N:CYGC35891 ,Platen Cover-1S/N:JK0A22007, Automatic Duplexing Unit -1 S/N:CX6316489, USB Patch Lead -1</Description>
+	<GL_Account xsi:type="paw:id">50000-HO-000</GL_Account>
+	<Unit_Price>142000.00000</Unit_Price>
+	<Amount>142000.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<Description>For Land Registry Office Batticaloe</Description>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>0.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">V</Item_ID>
+	<Description>V</Description>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>17040.00000</Unit_Price>
+	<Amount>17040.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">J003</VendorID>
+	<Invoice_Number>2104204</Invoice_Number>
+	<Date xsi:type="paw:date">12/20/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Description>Copier Stand Normal -1 For  Land &amp; District Registry Office Trincomaee</Description>
+	<GL_Account xsi:type="paw:id">50000-HO-000</GL_Account>
+	<Unit_Price>4241.00000</Unit_Price>
+	<Amount>4241.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">V</Item_ID>
+	<Description>V</Description>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>508.92000</Unit_Price>
+	<Amount>508.92</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">J003</VendorID>
+	<Invoice_Number>2104205</Invoice_Number>
+	<Date xsi:type="paw:date">12/20/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Description>Copier Stand Normal -1 For Land &amp; District Registry Office Kalmunei</Description>
+	<GL_Account xsi:type="paw:id">50000-HO-000</GL_Account>
+	<Unit_Price>4241.00000</Unit_Price>
+	<Amount>4241.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">V</Item_ID>
+	<Description>V</Description>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>508.92000</Unit_Price>
+	<Amount>508.92</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">J003</VendorID>
+	<Invoice_Number>2104206</Invoice_Number>
+	<Date xsi:type="paw:date">12/20/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Description>Copier Stand Normal-1  For Land Registry Office Batticaloe</Description>
+	<GL_Account xsi:type="paw:id">50000-HO-000</GL_Account>
+	<Unit_Price>4241.00000</Unit_Price>
+	<Amount>4241.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">V</Item_ID>
+	<Description>V</Description>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>508.92000</Unit_Price>
+	<Amount>508.92</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">J003</VendorID>
+	<Invoice_Number>2104255</Invoice_Number>
+	<Date xsi:type="paw:date">12/20/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Description>Toshiba Digital Copier  DP 2006 S/N:CYHC44572, Automatic Duplexing Unit -1 S/N:CXF314156, Platen Cover -1 S /N:JK0A22093,With Stand for LR Attanagalla</Description>
+	<GL_Account xsi:type="paw:id">50000-HO-000</GL_Account>
+	<Unit_Price>116241.07000</Unit_Price>
+	<Amount>116241.07</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">V</Item_ID>
+	<Description>V</Description>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>13948.93000</Unit_Price>
+	<Amount>13948.93</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">N001</VendorID>
+	<Invoice_Number>2483</Invoice_Number>
+	<Date xsi:type="paw:date">12/20/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Description>PVC Box File Large No1 Black-12</Description>
+	<GL_Account xsi:type="paw:id">30009-HO-000</GL_Account>
+	<Unit_Price>2640.00000</Unit_Price>
+	<Amount>2640.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">S009</VendorID>
+	<Invoice_Number>9013-1252</Invoice_Number>
+	<Date xsi:type="paw:date">12/20/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<Description>Phone Line Rental Charges for the Month of November, 2013</Description>
+	<GL_Account xsi:type="paw:id">35001-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>1163.28</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">M001</VendorID>
+	<Invoice_Number>MGS004733</Invoice_Number>
+	<Date xsi:type="paw:date">12/20/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Description>Service Contract Copier W/S Being Service Cont Chgs  From  01-09-13 TO 01-09-14 IR 2525 FRZ 31480 ID 25423 S/C No.76004</Description>
+	<GL_Account xsi:type="paw:id">29001-LR-030</GL_Account>
+	<Unit_Price>22000.00000</Unit_Price>
+	<Amount>22000.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">V</Item_ID>
+	<Description>V</Description>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>2640.00000</Unit_Price>
+	<Amount>2640.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">P008</VendorID>
+	<Invoice_Number>SUP-00000608</Invoice_Number>
+	<Date xsi:type="paw:date">12/20/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>3</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>18000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0011</Item_ID>
+	<Description>WIRE SPIRAL NO.9 (9/16&quot;) BLACK</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.63000</Unit_Price>
+	<Amount>11340.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003771</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>4.00000</Quantity>
+	<Item_ID xsi:type="paw:id">LAM0023</Item_ID>
+	<Description>HOT LAMINATION FILM 25 GLOSS</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>2633.93000</Unit_Price>
+	<Amount>10535.72</Amount>
+	<PO_DistNumber>2</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003771</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>2625.09</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">P008</VendorID>
+	<Invoice_Number>SUP-00000609</Invoice_Number>
+	<Date xsi:type="paw:date">12/20/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>8500.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0016</Item_ID>
+	<Description>WIRE SPIRAL NO.12 (3/4&quot;) WHITE</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>1.52000</Unit_Price>
+	<Amount>12920.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003772</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>1550.40</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">U003</VendorID>
+	<Invoice_Number>SUP-00000610</Invoice_Number>
+	<Date xsi:type="paw:date">12/20/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>6.00000</Quantity>
+	<Item_ID xsi:type="paw:id">PLO0019</Item_ID>
+	<Description>INKJET WHITE PPC MONOCHROME 914mm X 45.7m</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>2850.00000</Unit_Price>
+	<Amount>17100.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003757</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>2052.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">U003</VendorID>
+	<Invoice_Number>SUP-00000611</Invoice_Number>
+	<Date xsi:type="paw:date">12/20/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>12.00000</Quantity>
+	<Item_ID xsi:type="paw:id">PLO0003</Item_ID>
+	<Description>PLOTTING PAPER 914MM X 150M</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>4875.00000</Unit_Price>
+	<Amount>58500.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003738</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>7020.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">U003</VendorID>
+	<Invoice_Number>SUP-00000612</Invoice_Number>
+	<Date xsi:type="paw:date">12/20/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>6.00000</Quantity>
+	<Item_ID xsi:type="paw:id">PLO0020</Item_ID>
+	<Description>PLOTTING PAPER 841MM X 150M</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>4650.00000</Unit_Price>
+	<Amount>27900.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003739</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>3348.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">S011</VendorID>
+	<Invoice_Number>1127</Invoice_Number>
+	<Date xsi:type="paw:date">12/21/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<Description>Lamination Charges for 240 Sq.Ft  Our I/N CH00007901</Description>
+	<GL_Account xsi:type="paw:id">27000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>19200.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">M009</VendorID>
+	<Invoice_Number>56100220</Invoice_Number>
+	<Date xsi:type="paw:date">12/21/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Description>For IR 3300 Drum -1, Blade -1, Film -1, Roller Charges -1, For IR 2525 Drum -1, Blade -1, Drum -1, fOR ir 2320l dRUM -1, Blade -1 ,Roller Charge-1</Description>
+	<GL_Account xsi:type="paw:id">29001-HO-000</GL_Account>
+	<Unit_Price>9775.00000</Unit_Price>
+	<Amount>9775.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">T004</VendorID>
+	<Invoice_Number>TEC-01-216</Invoice_Number>
+	<Date xsi:type="paw:date">12/21/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Description>150N Wireless USB Adapter -1 S /N:13178718057</Description>
+	<GL_Account xsi:type="paw:id">50000-HO-000</GL_Account>
+	<Unit_Price>2800.00000</Unit_Price>
+	<Amount>2800.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">D007</VendorID>
+	<Invoice_Number>Dece,2013</Invoice_Number>
+	<Date xsi:type="paw:date">12/23/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<Description>Loan Repayment of November, 2013</Description>
+	<GL_Account xsi:type="paw:id">45003-HO-001</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>4954.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">86100-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>83334.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">D007</VendorID>
+	<Invoice_Number>Dece,2013-2</Invoice_Number>
+	<Date xsi:type="paw:date">12/23/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<Description>Lease Repayment Of December 2013</Description>
+	<GL_Account xsi:type="paw:id">87000-HO-005</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>76744.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<Item_ID xsi:type="paw:id">V</Item_ID>
+	<Description>V</Description>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>9210.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">S013</VendorID>
+	<Invoice_Number>Rent Nove,2013</Invoice_Number>
+	<Date xsi:type="paw:date">12/23/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<Description>Shop Rent For the Month of November, 2013</Description>
+	<GL_Account xsi:type="paw:id">30008-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>200000.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">N001</VendorID>
+	<Invoice_Number>SUP-00000613</Invoice_Number>
+	<Date xsi:type="paw:date">12/24/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>5</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>500.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0070</Item_ID>
+	<Description>TRANS PARENT THICK A4</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>10.75000</Unit_Price>
+	<Amount>5375.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003773</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>500.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0076</Item_ID>
+	<Description>PVC EMBOSS COVER A4 BLACK</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>12.50000</Unit_Price>
+	<Amount>6250.00</Amount>
+	<PO_DistNumber>2</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003773</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>50.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0105</Item_ID>
+	<Description>DOUBLE SIDE TAPE 1/2</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>30.00000</Unit_Price>
+	<Amount>1500.00</Amount>
+	<PO_DistNumber>3</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003773</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>50.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0123</Item_ID>
+	<Description>DOUBLE TAPE 1&quot;</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>65.00000</Unit_Price>
+	<Amount>3250.00</Amount>
+	<PO_DistNumber>4</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003773</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>50.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0122</Item_ID>
+	<Description>DOUBLE TAPE 2&quot;</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>130.00000</Unit_Price>
+	<Amount>6500.00</Amount>
+	<PO_DistNumber>5</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003773</PO_Number>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">P008</VendorID>
+	<Invoice_Number>SUP-00000614</Invoice_Number>
+	<Date xsi:type="paw:date">12/24/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>71700.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0005</Item_ID>
+	<Description>WIRE SPIRAL NO.5 (5/16&quot;) WHITE</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.26000</Unit_Price>
+	<Amount>18642.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003778</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>2237.04</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">G001</VendorID>
+	<Invoice_Number>SUP-00000615</Invoice_Number>
+	<Date xsi:type="paw:date">12/24/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>5.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0036</Item_ID>
+	<Description>TONER TOSHIBA ES2006 T2507</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>5850.00000</Unit_Price>
+	<Amount>29250.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003782</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>3510.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">G001</VendorID>
+	<Invoice_Number>SUP-00000616</Invoice_Number>
+	<Date xsi:type="paw:date">12/24/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>5.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0026</Item_ID>
+	<Description>TONER  TOSHIBA E- STUDIO 355 /</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>11281.25000</Unit_Price>
+	<Amount>56406.25</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003768</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>6768.75</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">U002</VendorID>
+	<Invoice_Number>SUP-00000617</Invoice_Number>
+	<Date xsi:type="paw:date">12/24/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>34000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0016</Item_ID>
+	<Description>WIRE SPIRAL NO.12 (3/4&quot;) WHITE</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>1.60000</Unit_Price>
+	<Amount>54400.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003774</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>6528.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">P008</VendorID>
+	<Invoice_Number>SUP-00000618</Invoice_Number>
+	<Date xsi:type="paw:date">12/24/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>18000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0011</Item_ID>
+	<Description>WIRE SPIRAL NO.9 (9/16&quot;) BLACK</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.63000</Unit_Price>
+	<Amount>11340.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003776</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>1360.80</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">B001</VendorID>
+	<Invoice_Number>SUP-00000619</Invoice_Number>
+	<Date xsi:type="paw:date">12/24/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>24000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0016</Item_ID>
+	<Description>WIRE SPIRAL NO.12 (3/4&quot;) WHITE</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>2.00000</Unit_Price>
+	<Amount>48000.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003777</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>5760.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">A001</VendorID>
+	<Invoice_Number>SUP-00000620</Invoice_Number>
+	<Date xsi:type="paw:date">12/24/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>75000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">PHO0004</Item_ID>
+	<Description>PHOTOCOPY PAPER B4 80 GSM</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>1.54714</Unit_Price>
+	<Amount>116035.50</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003779</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>13924.26</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">A001</VendorID>
+	<Invoice_Number>SUP-00000621</Invoice_Number>
+	<Date xsi:type="paw:date">12/24/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>50000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">PHO0005</Item_ID>
+	<Description>PHOTOCOPY PAPER LEGAL 80 GSM</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>1.23750</Unit_Price>
+	<Amount>61875.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003781</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>7425.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">N005</VendorID>
+	<Invoice_Number>SUP-00000622</Invoice_Number>
+	<Date xsi:type="paw:date">12/30/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>4</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">CAR0006</Item_ID>
+	<Description>CARTRIDGE HP 792 775-LIGHT CYN</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>19860.00000</Unit_Price>
+	<Amount>19860.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003733</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">CAR0002</Item_ID>
+	<Description>CARTRIDGE HP 792 775-ML CYAN</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>19860.00000</Unit_Price>
+	<Amount>19860.00</Amount>
+	<PO_DistNumber>2</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003733</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">CAR0003</Item_ID>
+	<Description>CARTRIDGE HP 792 775-ML MAGENT</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>19860.00000</Unit_Price>
+	<Amount>19860.00</Amount>
+	<PO_DistNumber>4</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003733</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>7149.60</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">P005</VendorID>
+	<Invoice_Number>SUP-00000623</Invoice_Number>
+	<Date xsi:type="paw:date">12/30/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>200.00000</Quantity>
+	<Item_ID xsi:type="paw:id">STI0005</Item_ID>
+	<Description>STICKER PAPER GLOSS 21 X 30</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>34.37500</Unit_Price>
+	<Amount>6875.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003770</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>825.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">S005</VendorID>
+	<Invoice_Number>SUP-00000624</Invoice_Number>
+	<Date xsi:type="paw:date">12/30/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>2.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0019</Item_ID>
+	<Description>TONER HP 82 BLACK CARTRIDGE</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>5200.00000</Unit_Price>
+	<Amount>10400.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003784</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>1248.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">P008</VendorID>
+	<Invoice_Number>SUP-00000625</Invoice_Number>
+	<Date xsi:type="paw:date">12/30/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>24400.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0017</Item_ID>
+	<Description>WIRE SPIRAL NO.14 (7/8&quot;) BLACK</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>1.88000</Unit_Price>
+	<Amount>45872.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003785</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>5504.64</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">N001</VendorID>
+	<Invoice_Number>SUP-00000626</Invoice_Number>
+	<Date xsi:type="paw:date">12/30/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>3</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>48000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0007</Item_ID>
+	<Description>WIRE SPIRAL NO.6 (3/8&quot;) WHITE</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.41000</Unit_Price>
+	<Amount>19680.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003734</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>300.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0080</Item_ID>
+	<Description>PVC EMBOSS COVER A4 RED</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>12.50000</Unit_Price>
+	<Amount>3750.00</Amount>
+	<PO_DistNumber>2</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003734</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>500.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0077</Item_ID>
+	<Description>PVC EMBOSS COVER A4 BLUE</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>12.50000</Unit_Price>
+	<Amount>6250.00</Amount>
+	<PO_DistNumber>3</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003734</PO_Number>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">U002</VendorID>
+	<Invoice_Number>SUP-00000627</Invoice_Number>
+	<Date xsi:type="paw:date">12/30/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>90000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0010</Item_ID>
+	<Description>WIRE SPIRAL NO.8 (1/2&quot;) WHITE</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.53000</Unit_Price>
+	<Amount>47700.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003763</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>5724.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">A001</VendorID>
+	<Invoice_Number>SUP-00000628</Invoice_Number>
+	<Date xsi:type="paw:date">12/30/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>50000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">PHO0005</Item_ID>
+	<Description>PHOTOCOPY PAPER LEGAL 80 GSM</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>1.23750</Unit_Price>
+	<Amount>61875.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003786</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>7425.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">A001</VendorID>
+	<Invoice_Number>SUP-00000629</Invoice_Number>
+	<Date xsi:type="paw:date">12/30/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>75000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">PHO0002</Item_ID>
+	<Description>PHOTOCOPY PAPER A4 80 GSM</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.92856</Unit_Price>
+	<Amount>69642.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003787</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>8357.04</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">A001</VendorID>
+	<Invoice_Number>SUP-00000630</Invoice_Number>
+	<Date xsi:type="paw:date">12/30/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>75000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">PHO0004</Item_ID>
+	<Description>PHOTOCOPY PAPER B4 80 GSM</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>1.54714</Unit_Price>
+	<Amount>116035.50</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003788</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>13924.26</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">A001</VendorID>
+	<Invoice_Number>SUP-00000631</Invoice_Number>
+	<Date xsi:type="paw:date">12/30/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>50000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">PHO0002</Item_ID>
+	<Description>PHOTOCOPY PAPER A4 80 GSM</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.92856</Unit_Price>
+	<Amount>46428.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003780</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>5571.36</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">D002</VendorID>
+	<Invoice_Number>SUP-00000632</Invoice_Number>
+	<Date xsi:type="paw:date">12/30/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>100.00000</Quantity>
+	<Item_ID xsi:type="paw:id">SEP0009</Item_ID>
+	<Description>CURIOUS ICE GOLD 250 GSM (25&quot;</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>171.00000</Unit_Price>
+	<Amount>17100.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003639</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>2052.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">N001</VendorID>
+	<Invoice_Number>2485</Invoice_Number>
+	<Date xsi:type="paw:date">12/31/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Description>PVC Boxs File -25, CR Book-6,Ex Book 80-6, Glue Pen -5</Description>
+	<GL_Account xsi:type="paw:id">30009-HO-000</GL_Account>
+	<Unit_Price>7115.00000</Unit_Price>
+	<Amount>7115.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">N001</VendorID>
+	<Invoice_Number>2488</Invoice_Number>
+	<Date xsi:type="paw:date">12/31/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Description>Ball Point Pen -100, Paper Clip-20pKTS</Description>
+	<GL_Account xsi:type="paw:id">30009-HO-000</GL_Account>
+	<Unit_Price>1500.00000</Unit_Price>
+	<Amount>1500.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">C012</VendorID>
+	<Invoice_Number>J/142051</Invoice_Number>
+	<Date xsi:type="paw:date">12/31/13</Date>
+	<AP_Account xsi:type="paw:id">82000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Description>Janitorial &amp; Maintenance Service  For Dec 2013</Description>
+	<GL_Account xsi:type="paw:id">30007-HO-000</GL_Account>
+	<Unit_Price>27876.90000</Unit_Price>
+	<Amount>27876.90</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">V</Item_ID>
+	<Description>V</Description>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>3345.23000</Unit_Price>
+	<Amount>3345.23</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">N001</VendorID>
+	<Invoice_Number>SUP-00000633</Invoice_Number>
+	<Date xsi:type="paw:date">12/31/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>48000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0007</Item_ID>
+	<Description>WIRE SPIRAL NO.6 (3/8&quot;) WHITE</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.41000</Unit_Price>
+	<Amount>19680.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003798</PO_Number>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">P008</VendorID>
+	<Invoice_Number>SUP-00000634</Invoice_Number>
+	<Date xsi:type="paw:date">12/31/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>3</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>18000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0011</Item_ID>
+	<Description>WIRE SPIRAL NO.9 (9/16&quot;) BLACK</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.63000</Unit_Price>
+	<Amount>11340.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003797</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>42000.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0006</Item_ID>
+	<Description>WIRE SPIRAL NO.6 (3/8&quot;) BLACK</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>0.31000</Unit_Price>
+	<Amount>13020.00</Amount>
+	<PO_DistNumber>2</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003797</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>2923.20</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">S008</VendorID>
+	<Invoice_Number>SUP-00000635</Invoice_Number>
+	<Date xsi:type="paw:date">12/31/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>150.00000</Quantity>
+	<Item_ID xsi:type="paw:id">GEN0018</Item_ID>
+	<Description>SOFTWAVE MANAGEMENT DIARY - 2014</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>450.00000</Unit_Price>
+	<Amount>67500.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003790</PO_Number>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">P008</VendorID>
+	<Invoice_Number>SUP-00000636</Invoice_Number>
+	<Date xsi:type="paw:date">12/31/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>24400.00000</Quantity>
+	<Item_ID xsi:type="paw:id">BIN0017</Item_ID>
+	<Description>WIRE SPIRAL NO.14 (7/8&quot;) BLACK</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>1.88000</Unit_Price>
+	<Amount>45872.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003802</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>5504.64</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">N001</VendorID>
+	<Invoice_Number>SUP-00000637</Invoice_Number>
+	<Date xsi:type="paw:date">12/31/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>100.00000</Quantity>
+	<Item_ID xsi:type="paw:id">CDD0003</Item_ID>
+	<Description>CD BLANK (WITHOUT CASE)</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>28.50000</Unit_Price>
+	<Amount>2850.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003801</PO_Number>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">G001</VendorID>
+	<Invoice_Number>SUP-00000638</Invoice_Number>
+	<Date xsi:type="paw:date">12/31/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>5.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0026</Item_ID>
+	<Description>TONER  TOSHIBA E- STUDIO 355 /</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>11281.25000</Unit_Price>
+	<Amount>56406.25</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003796</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>6768.75</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">G001</VendorID>
+	<Invoice_Number>SUP-00000639</Invoice_Number>
+	<Date xsi:type="paw:date">12/31/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>2.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0020</Item_ID>
+	<Description>TONER TOSHIBA E STUDIO256/306/</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>18660.72000</Unit_Price>
+	<Amount>37321.44</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003799</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>4478.57</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">G001</VendorID>
+	<Invoice_Number>SUP-00000640</Invoice_Number>
+	<Date xsi:type="paw:date">12/31/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>5.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0036</Item_ID>
+	<Description>TONER TOSHIBA ES2006 T2507</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>5850.00000</Unit_Price>
+	<Amount>29250.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003791</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>3510.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">R002</VendorID>
+	<Invoice_Number>SUP-00000641</Invoice_Number>
+	<Date xsi:type="paw:date">12/31/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0012</Item_ID>
+	<Description>TONER (C6500) TN 610 M</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>17200.00000</Unit_Price>
+	<Amount>17200.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003775</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>2064.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+<PAW_Purchase xsi:type="paw:purchase">
+	<VendorID xsi:type="paw:id">R002</VendorID>
+	<Invoice_Number>SUP-00000642</Invoice_Number>
+	<Date xsi:type="paw:date">12/31/13</Date>
+	<AP_Account xsi:type="paw:id">80000-HO-000</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<Quantity>2.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TON0014</Item_ID>
+	<Description>TONER KONICA MINOLTA-BIZBUB 50</Description>
+	<GL_Account xsi:type="paw:id">66000-HO-000</GL_Account>
+	<Unit_Price>17000.00000</Unit_Price>
+	<Amount>34000.00</Amount>
+	<PO_DistNumber>1</PO_DistNumber>
+	<AppliedToPO>TRUE</AppliedToPO>
+	<PO_Number>0000003760</PO_Number>
+	</PurchaseLine>
+	<PurchaseLine>
+	<Quantity>0.00000</Quantity>
+	<GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+	<Unit_Price>0.00000</Unit_Price>
+	<Amount>4080.00</Amount>
+	<PO_DistNumber>0</PO_DistNumber>
+	<AppliedToPO>FALSE</AppliedToPO>
+	</PurchaseLine>
+</PurchaseLines></PAW_Purchase>
+</PAW_Purchases>

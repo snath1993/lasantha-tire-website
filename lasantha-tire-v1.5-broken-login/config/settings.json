@@ -1,0 +1,19 @@
+{
+  "apiKeys": {
+    "openai": "",
+    "facebook": "",
+    "gemini": ""
+  },
+  "features": {
+    "aiEnabled": true,
+    "jobsEnabled": true
+  },
+  "adminNumbers": [],
+  "data": {
+    "STORE_NAME": "Lasantha Tire",
+    "STORE_LOGO_URL": "/shop-logo.jpg",
+    "BRAND_PRIMARY": "#4f46e5",
+    "BRAND_ACCENT": "#06b6d4",
+    "LOGIN_TAGLINE": "Welcome back. Please sign in to continue."
+  }
+}

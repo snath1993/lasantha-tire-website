@@ -1,0 +1,362 @@
+[
+  {
+    "COLUMN_NAME": "SalesOrderLink",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "SalesOrderNo",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "CustomerID",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": -1,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Date",
+    "DATA_TYPE": "datetime",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "ARAccount",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "NoOfDis",
+    "DATA_TYPE": "int",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "DisNumber",
+    "DATA_TYPE": "int",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Quantity",
+    "DATA_TYPE": "numeric",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "ItemID",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": -1,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Description",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": -1,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "GLAccount",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "UnitPrice",
+    "DATA_TYPE": "numeric",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Amount",
+    "DATA_TYPE": "numeric",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "DispatchQty",
+    "DATA_TYPE": "numeric",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "RemainQty",
+    "DATA_TYPE": "numeric",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "NO"
+  },
+  {
+    "COLUMN_NAME": "IsfullDispatch",
+    "DATA_TYPE": "bit",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "IsSoClosed",
+    "DATA_TYPE": "bit",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "CustomerPO",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "UOM",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "JobID",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "WarehouseID",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "NBTPer",
+    "DATA_TYPE": "numeric",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "NBTAmount",
+    "DATA_TYPE": "numeric",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "VATPer",
+    "DATA_TYPE": "numeric",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "VATAmount",
+    "DATA_TYPE": "numeric",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "DisPer",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "DisAmount",
+    "DATA_TYPE": "numeric",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "SubAmount",
+    "DATA_TYPE": "numeric",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "GrossAmount",
+    "DATA_TYPE": "numeric",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "TotalAmount",
+    "DATA_TYPE": "numeric",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "SalesRep",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "UserID",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Remarks",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "IsInclusive",
+    "DATA_TYPE": "int",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Linedisper",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "CusName",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": -1,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Heading",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Cr_period",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "paytype",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "ad1",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": -1,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "ad2",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": -1,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "billto",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": -1,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "DeliveryPer",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "WAC",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": -1,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "WBC",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": -1,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "N2Rate",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": -1,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "WPG",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": -1,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "AVB",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": -1,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "PLYRate",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Brand",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Country",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Warranty",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "FOC",
+    "DATA_TYPE": "numeric",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "TEL",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "FAX",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "VehicleNo",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "ItemClass",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": 50,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "UnitPriceIncl",
+    "DATA_TYPE": "numeric",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "TotalPriceIncl",
+    "DATA_TYPE": "numeric",
+    "CHARACTER_MAXIMUM_LENGTH": null,
+    "IS_NULLABLE": "YES"
+  },
+  {
+    "COLUMN_NAME": "Remarks1",
+    "DATA_TYPE": "varchar",
+    "CHARACTER_MAXIMUM_LENGTH": -1,
+    "IS_NULLABLE": "YES"
+  }
+]

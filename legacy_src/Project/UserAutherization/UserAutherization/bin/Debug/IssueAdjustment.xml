@@ -1,0 +1,17 @@
+﻿<PAW_Items xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes" xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+  <PAW_Item xsi:type="paw:item">
+    <ID xsi:type="paw:id">B001</ID>
+    <Reference>RTN19</Reference>
+    <Date xsi:type="paw:date">06/13/2012</Date>
+    <JobID xsi:type="paw:id">FD001,HD001,1FLOR</JobID>
+    <Number_of_Distributions>1</Number_of_Distributions>
+    <AdjustmentItems>
+      <AdjustmentItem>
+        <GLSourceAccount xsi:type="paw:id">1000-00</GLSourceAccount>
+        <Quantity>1</Quantity>
+        <Amount>10</Amount>
+        <ReasonToAdjust>Job Returns</ReasonToAdjust>
+      </AdjustmentItem>
+    </AdjustmentItems>
+  </PAW_Item>
+</PAW_Items>

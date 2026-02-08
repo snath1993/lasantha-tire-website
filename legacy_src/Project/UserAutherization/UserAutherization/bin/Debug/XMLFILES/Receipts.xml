@@ -1,0 +1,19 @@
+﻿<PAW_Receipts xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes" xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+  <PAW_Receipt xsi:type="paw:Receipt">
+    <Customer_ID xsi:type="paw:id">CASH</Customer_ID>
+    <Reference>INV00000405R</Reference>
+    <Sales_Representative_ID xsi:type="paw:id">Chminda</Sales_Representative_ID>
+    <Date xsi:type="paw:id">10/1/2019 12:00:00 AM</Date>
+    <Payment_Method>Cash</Payment_Method>
+    <Cash_Account xsi:type="paw:id">7500-01</Cash_Account>
+    <Total_Paid_On_Invoices>-1650</Total_Paid_On_Invoices>
+    <ReceiptNumber>RINV00000405</ReceiptNumber>
+    <Number_of_Distributions >1</Number_of_Distributions >
+    <Distributions>
+      <Distribution>
+        <InvoicePaid>INV00000405</InvoicePaid>
+        <Amount>-1650</Amount>
+      </Distribution>
+    </Distributions>
+  </PAW_Receipt>
+</PAW_Receipts>

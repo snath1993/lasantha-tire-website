@@ -1,0 +1,88 @@
+{
+  "metadata": {
+    "type": "INVOICE",
+    "color": "#e67e22",
+    "legalNote": "This is a computer-generated document. No signature is required.",
+    "currencyLabel": "Rs.",
+    "vatRate": null,
+    "isVatInvoice": false,
+    "companyDisplayName": "Lasantha Tyre Traders"
+  },
+  "invoice": {
+    "number": "NLT00006335",
+    "date": "2026-01-17",
+    "validUntil": "",
+    "customerName": "CASH CUSTOMER",
+    "customerAddress": "",
+    "customerTel": "",
+    "customerFax": "",
+    "vehicleNo": "32-2655",
+    "mileage": "252278",
+    "rep": "srinath",
+    "paymentMethod": "Cash",
+    "quotationValidPeriod": "",
+    "deliveryPeriod": "",
+    "paymentTerms": "",
+    "availability": "",
+    "poNo": "",
+    "jobDoneBy": "CHANDANA",
+    "issueBy": "SRINATH",
+    "printedAt": "1/17/2026 9:10 AM",
+    "paidAmount": "0.00",
+    "balance": "2,250.00",
+    "customerVat": "",
+    "taxInvoiceNo": "",
+    "supplierTin": "",
+    "purchaserTin": "",
+    "amountInWords": ""
+  },
+  "items": [
+    {
+      "index": 1,
+      "code": "121",
+      "description": "WHEEL ALIGNMENT- COMPUTERIZED VANS/JEEPS",
+      "quantity": 1,
+      "qty": 1,
+      "brand": "WHEEL ALIGNMENT",
+      "size": "",
+      "price": "2,250.00",
+      "total": "2,250.00",
+      "rawTotal": 2250,
+      "unitPriceExVat": "1,906.78",
+      "lineTotalExVat": "1,906.78",
+      "vatAmount": "343.22",
+      "lineTotalInclVat": "2,250.00",
+      "warranty": ""
+    }
+  ],
+  "totals": {
+    "subtotal": "2,250.00",
+    "grandTotal": "2,250.00",
+    "subtotalExVat": "",
+    "vatTotal": ""
+  },
+  "company": {
+    "NAME": "Lasantha Tyre Traders",
+    "ADDRESS": "1035, Pannipitiya Road, Kumaragewattha, Battaramulla",
+    "PHONE": "0112 773 232",
+    "FAX": "0112 773 231",
+    "MOBILE": "0771 222 509",
+    "EMAIL": "lasanthatyretraders@gmail.com",
+    "WEB": "www.lasanthatyre.lk",
+    "BR_NO": "",
+    "VAT_NO": "743321219-7000",
+    "SVAT_NO": "",
+    "WARRANTY_TERMS_BULLETS": [
+      "Company warranty only.",
+      "No warranty for used, repaired, punctured, cut, or burst tires, or for visible flaws caused by wheel alignment or technical issues.",
+      "Alignment is recommended every 5,000 km for better mileage.",
+      "Damage from improper use, overloading, incorrect air pressure, poor maintenance, or third-party installations is not covered.",
+      "Customers must inspect tires upon purchase and raise concerns immediately.",
+      "Returns or exchanges are only for unused tires with the receipt.",
+      "Road hazard damage (potholes, debris, etc.) is excluded.",
+      "By purchasing, customers agree to these terms."
+    ],
+    "COLOR_PRIMARY": "#e67e22",
+    "COLOR_SECONDARY": "#2c3e50"
+  }
+}

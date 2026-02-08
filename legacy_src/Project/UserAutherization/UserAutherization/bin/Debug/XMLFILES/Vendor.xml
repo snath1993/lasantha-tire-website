@@ -1,0 +1,30 @@
+﻿<PAW_Vendors xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes" xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+  <PAW_Vendor xsi:type="paw:vendor">
+    <ID xsi:type="paw:id">NONE</ID>
+    <Name>NONE</Name>
+    <Line1 />
+    <Line2 />
+    <PhoneNumbers>
+      <PhoneNumber Key="1">-</PhoneNumber>
+      <PhoneNumber Key="2" />
+    </PhoneNumbers>
+    <FaxNumber />
+    <CustomFields>
+      <CustomField>
+        <Value Index ="1" />
+      </CustomField>
+      <CustomField>
+        <Value Index ="2" />
+      </CustomField>
+      <CustomField>
+        <Value Index ="3" />
+      </CustomField>
+      <CustomField>
+        <Value Index ="4" />
+      </CustomField>
+      <CustomField>
+        <Value Index ="5" />
+      </CustomField>
+    </CustomFields>
+  </PAW_Vendor>
+</PAW_Vendors>

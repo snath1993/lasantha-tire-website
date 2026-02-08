@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  whatsapp-bot:
+    container_name: lasantha-tire-bot
+    build: .
+    restart: unless-stopped
+    # Map logs and session data to host so they persist
+    volumes:
+      - ./.wwebjs_auth:/usr/src/app/.wwebjs_auth
+      - ./logs:/usr/src/app/logs
+      - ./auth_data:/usr/src/app/auth_data
+      - ./jobs-config.json:/usr/src/app/jobs-config.json
+    # Load environment variables
+    env_file:
+      - .env
+    environment:
+      - WA_HEADLESS=true
+      - CHROMIUM_PATH=/usr/bin/google-chrome-stable
+      - TZ=Asia/Colombo
+    # Automatic restart policy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

@@ -1,0 +1,10 @@
+bin\Release\DataAccess.dll
+bin\Release\DataAccess.pdb
+obj\Release\ResolveAssemblyReference.cache
+obj\Release\DataAccess.dll
+obj\Release\DataAccess.pdb
+bin\Debug\DataAccess.dll
+bin\Debug\DataAccess.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\DataAccess.dll
+obj\Debug\DataAccess.pdb

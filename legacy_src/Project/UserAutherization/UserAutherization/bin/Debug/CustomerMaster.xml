@@ -1,0 +1,21 @@
+﻿<PAW_Customers xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes" xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+  <PAW_Customer xsi:type="paw:Customer">
+    <ID xsi:type="paw:id">CUS000002</ID>
+    <Name>test</Name>
+    <Line1>testadress</Line1>
+    <Line2>ad2</Line2>
+    <PhoneNumbers>
+      <PhoneNumber Key="1">07755</PhoneNumber>
+      <PhoneNumber Key="2">042222</PhoneNumber>
+    </PhoneNumbers>
+    <Customer_Type>Credit</Customer_Type>
+    <CustomFields>
+      <CustomField>
+        <Value Index ="1">Credit</Value>
+      </CustomField>
+      <CustomField>
+        <Value Index ="2">111111-23323</Value>
+      </CustomField>
+    </CustomFields>
+  </PAW_Customer>
+</PAW_Customers>

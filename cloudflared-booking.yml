@@ -1,0 +1,7 @@
+tunnel: 14e8894b-3e24-483f-b0d0-7b9e9c232b73
+credentials-file: C:\Users\Cashi\.cloudflared\14e8894b-3e24-483f-b0d0-7b9e9c232b73.json
+
+ingress:
+  - hostname: book.lasanthatyre.com
+    service: http://localhost:3099
+  - service: http_status:404

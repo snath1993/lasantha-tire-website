@@ -1,0 +1,8 @@
+<PAW_Items xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes"
+xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance"
+xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">B001</ID>
+	<Last_Unit_Cost>10.00000</Last_Unit_Cost>
+</PAW_Item>
+</PAW_Items>

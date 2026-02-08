@@ -1,0 +1,136 @@
+<PAW_Costs xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes"
+xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance"
+xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+<PAW_Cost xsi:type="paw:cost">
+	<ID xsi:type="paw:id">1FLOR</ID>
+	<Description>FIRST FLOR</Description>
+	<CostType>Materials</CostType>
+	<IsInactive>FALSE</IsInactive>
+</PAW_Cost>
+<PAW_Cost xsi:type="paw:cost">
+	<ID xsi:type="paw:id">1FLOR_LABOUR</ID>
+	<Description>LABOUR FIRST FLOUR</Description>
+	<CostType>Labor</CostType>
+	<IsInactive>FALSE</IsInactive>
+</PAW_Cost>
+<PAW_Cost xsi:type="paw:cost">
+	<ID xsi:type="paw:id">C001</ID>
+	<Description>C001</Description>
+	<CostType>Materials</CostType>
+	<IsInactive>FALSE</IsInactive>
+</PAW_Cost>
+<PAW_Cost xsi:type="paw:cost">
+	<ID xsi:type="paw:id">C002</ID>
+	<Description>C002</Description>
+	<CostType>Labor</CostType>
+	<IsInactive>FALSE</IsInactive>
+</PAW_Cost>
+<PAW_Cost xsi:type="paw:cost">
+	<ID xsi:type="paw:id">C003</ID>
+	<Description>C003</Description>
+	<CostType>Equipment</CostType>
+	<IsInactive>FALSE</IsInactive>
+</PAW_Cost>
+<PAW_Cost xsi:type="paw:cost">
+	<ID xsi:type="paw:id">C004</ID>
+	<Description>C004</Description>
+	<CostType>Subcontractors</CostType>
+	<IsInactive>FALSE</IsInactive>
+</PAW_Cost>
+<PAW_Cost xsi:type="paw:cost">
+	<ID xsi:type="paw:id">C005</ID>
+	<Description>C005</Description>
+	<CostType>Other</CostType>
+	<IsInactive>FALSE</IsInactive>
+</PAW_Cost>
+<PAW_Cost xsi:type="paw:cost">
+	<ID xsi:type="paw:id">C006</ID>
+	<Description>C006</Description>
+	<CostType>Materials</CostType>
+	<IsInactive>FALSE</IsInactive>
+</PAW_Cost>
+<PAW_Cost xsi:type="paw:cost">
+	<ID xsi:type="paw:id">C007</ID>
+	<Description>C007</Description>
+	<CostType>Materials</CostType>
+	<IsInactive>FALSE</IsInactive>
+</PAW_Cost>
+<PAW_Cost xsi:type="paw:cost">
+	<ID xsi:type="paw:id">C008</ID>
+	<Description>C008</Description>
+	<CostType>Materials</CostType>
+	<IsInactive>FALSE</IsInactive>
+</PAW_Cost>
+<PAW_Cost xsi:type="paw:cost">
+	<ID xsi:type="paw:id">C009</ID>
+	<Description>C009</Description>
+	<CostType>Equipment</CostType>
+	<IsInactive>FALSE</IsInactive>
+</PAW_Cost>
+<PAW_Cost xsi:type="paw:cost">
+	<ID xsi:type="paw:id">C010</ID>
+	<Description>C010</Description>
+	<CostType>Equipment</CostType>
+	<IsInactive>FALSE</IsInactive>
+</PAW_Cost>
+<PAW_Cost xsi:type="paw:cost">
+	<ID xsi:type="paw:id">C011</ID>
+	<Description>FLOOR Labour</Description>
+	<CostType>Labor</CostType>
+	<IsInactive>FALSE</IsInactive>
+</PAW_Cost>
+<PAW_Cost xsi:type="paw:cost">
+	<ID xsi:type="paw:id">C012</ID>
+	<Description>FLOOR Material</Description>
+	<CostType>Materials</CostType>
+	<IsInactive>FALSE</IsInactive>
+</PAW_Cost>
+<PAW_Cost xsi:type="paw:cost">
+	<ID xsi:type="paw:id">C013</ID>
+	<Description>ROOF Material</Description>
+	<CostType>Materials</CostType>
+	<IsInactive>FALSE</IsInactive>
+</PAW_Cost>
+<PAW_Cost xsi:type="paw:cost">
+	<ID xsi:type="paw:id">C014</ID>
+	<Description>ROOF Labour</Description>
+	<CostType>Labor</CostType>
+	<IsInactive>FALSE</IsInactive>
+</PAW_Cost>
+<PAW_Cost xsi:type="paw:cost">
+	<ID xsi:type="paw:id">ELECTRICITY_INV</ID>
+	<Description>ELECTRICITY INVENTORY</Description>
+	<CostType>Materials</CostType>
+	<IsInactive>FALSE</IsInactive>
+</PAW_Cost>
+<PAW_Cost xsi:type="paw:cost">
+	<ID xsi:type="paw:id">ELECTRICITY_LAB</ID>
+	<Description>ELECTRICITY LOBOUR</Description>
+	<CostType>Labor</CostType>
+	<IsInactive>FALSE</IsInactive>
+</PAW_Cost>
+<PAW_Cost xsi:type="paw:cost">
+	<ID xsi:type="paw:id">FFLABOR</ID>
+	<Description>FF LOBOR</Description>
+	<CostType>Labor</CostType>
+	<IsInactive>FALSE</IsInactive>
+</PAW_Cost>
+<PAW_Cost xsi:type="paw:cost">
+	<ID xsi:type="paw:id">FFMATERIAL</ID>
+	<Description>FF MATERIAL</Description>
+	<CostType>Materials</CostType>
+	<IsInactive>FALSE</IsInactive>
+</PAW_Cost>
+<PAW_Cost xsi:type="paw:cost">
+	<ID xsi:type="paw:id">GFLABOR</ID>
+	<Description>GF LOBOR</Description>
+	<CostType>Labor</CostType>
+	<IsInactive>FALSE</IsInactive>
+</PAW_Cost>
+<PAW_Cost xsi:type="paw:cost">
+	<ID xsi:type="paw:id">GFMATERIAL</ID>
+	<Description>GF MATERIAL</Description>
+	<CostType>Materials</CostType>
+	<IsInactive>FALSE</IsInactive>
+</PAW_Cost>
+</PAW_Costs>

@@ -1,7 +1,17 @@
 require('dotenv').config();
+const QueueProcessor = require('./digital-invoice/queueProcessor');
+const EmailService = require('./services/emailService');
+const emailService = new EmailService();
 const { ConfigService } = require('./utils/ConfigService');
+const BrandStockCheckHandler = require('./handlers/BrandStockCheckHandler'); // New Handler
+// =====================================================
+// REVERTED TO WHATSAPP-WEB.JS
+// Using original library as requested
+// =====================================================
 const { Client, LocalAuth, MessageMedia } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
+const QRCode = require('qrcode');
+const moment = require('moment');
 const sql = require('mssql');
 const fs = require('fs');
 const path = require('path');
@@ -55,8 +65,9 @@ if (missingEnvVars.length > 0) {
 }
 
 // --- AI & Dual-DB Imports ---
-const { aiPoolConnect, aiPool } = require('./utils/aiDbConnection');
+const { aiPoolConnect, aiPool, getAiRawPool } = require('./utils/aiDbConnection');
 const gemini = require('./utils/geminiApiClient');
+const { getMultiAI } = require('./utils/multiAiService');
 const { extractTyreSizeFlexible, extractVehicleNumber, extractRequestedQty, extractDetailRequests } = require('./utils/detect');
 const { fetchTyreData } = require('./utils/fetchTyreData');
 const { fetchTyreSpecs } = require('./utils/fetchTyreSpecs');
@@ -66,12 +77,84 @@ const { extractConversationContext, enhanceWithContext } = require('./utils/cont
 // --- Legacy & System Imports ---
 const isSystemSender = require('./utils/isSystemSender');
 const safeReply = require('./utils/safeReply');
+const { execFileSync } = require('child_process');
 const TyrePriceReplyJob = require('./jobs/TyrePriceReplyJob');
 const TyreQtyReplyJob = require('./jobs/TyreQtyReplyJob');
 const TyreQuotationPDFLibJob = require('./jobs/TyreQuotationPDFLibJob');
 const VehicleInvoiceReplyJob = require('./jobs/VehicleInvoiceReplyJob');
 const { setClient } = require('./utils/waClientRegistry');
 const { initializeScheduler } = require('./scheduler');
+
+async function installWhatsAppNoSeenWorkaround(clientInstance) {
+    try {
+        const page = clientInstance && (clientInstance.pupPage || clientInstance._page);
+        if (!page || typeof page.evaluate !== 'function') return;
+        await page.evaluate(() => {
+            try {
+                const patch = (obj) => {
+                    try {
+                        if (!obj) return;
+                        try {
+                            Object.defineProperty(obj, 'sendSeen', {
+                                value: async () => true,
+                                writable: false,
+                                configurable: false,
+                                enumerable: true
+                            });
+                        } catch {
+                            obj.sendSeen = async () => true;
+                        }
+                    } catch {}
+                };
+
+                // Patch current object
+                if (!window.WWebJS) window.WWebJS = {};
+                patch(window.WWebJS);
+
+                // If whatsapp-web.js replaces window.WWebJS later, re-patch it.
+                // We do this by converting it into a getter/setter.
+                try {
+                    const current = window.WWebJS;
+                    let _wweb = current;
+                    Object.defineProperty(window, 'WWebJS', {
+                        get() { return _wweb; },
+                        set(v) {
+                            _wweb = v || {};
+                            patch(_wweb);
+                        },
+                        configurable: false,
+                        enumerable: true
+                    });
+                    // Ensure setter path also patched
+                    window.WWebJS = current;
+                } catch {
+                    // If we cannot redefine window.WWebJS, best-effort patch only.
+                }
+            } catch {}
+        });
+        logAndSave('[WA] Installed no-seen workaround (sendSeen disabled)');
+    } catch (e) {
+        logAndSave(`[WA] Failed to install no-seen workaround: ${e && e.message ? e.message : String(e)}`);
+    }
+}
+
+function installNoSeenSendMessageWrapper(clientInstance) {
+    try {
+        if (!clientInstance || typeof clientInstance.sendMessage !== 'function') return;
+        if (clientInstance.__noSeenSendMessageWrapped) return;
+
+        const original = clientInstance.sendMessage.bind(clientInstance);
+        clientInstance.sendMessage = (chatId, content, options = {}) => {
+            const finalOptions = (options && typeof options === 'object') ? { ...options } : {};
+            if (finalOptions.sendSeen === undefined) finalOptions.sendSeen = false;
+            return original(chatId, content, finalOptions);
+        };
+        clientInstance.__noSeenSendMessageWrapped = true;
+        logAndSave('[WA] Wrapped sendMessage (default sendSeen=false)');
+    } catch (e) {
+        logAndSave(`[WA] Failed to wrap sendMessage: ${e && e.message ? e.message : String(e)}`);
+    }
+}
 
 // --- Advanced Job System ---
 const { registry } = require('./utils/JobRegistry');
@@ -80,6 +163,8 @@ const { registerAllJobs } = require('./utils/registerJobs');
 
 // --- Daily Accounting Report Job ---
 const { initializeDailyAccountingReport } = require('./jobs/DailyAccountingReportJob');
+// const titan = require('./jobs/GrandCentralMind'); // Disabled Replaced by INT
+const IntWaitress = require('./jobs/IntBusinessMind'); // NEW: The "Int" advanced mind
 
 // --- Scheduled Media Publisher Job ---
 const ScheduledMediaPublisherJob = require('./jobs/ScheduledMediaPublisherJob');
@@ -93,14 +178,20 @@ const WebJobHandler = require('./handlers/WebJobHandler');
 // ========================================
 // Handle unhandled promise rejections (like WhatsApp Web cache errors)
 process.on('unhandledRejection', (reason, promise) => {
+    // Filter out common non-fatal Puppeteer/WhatsApp Web errors
+    if (reason && reason.message) {
+        const msg = reason.message;
+        if (msg.includes('LocalWebCache') || 
+            msg.includes('Execution context was destroyed') || 
+            msg.includes('Session closed') ||
+            (msg.includes('EBUSY') && msg.includes('first_party_sets.db-journal'))) {
+            console.warn(`⚠️  Transient error detected (non-fatal): ${msg}`);
+            return;
+        }
+    }
+
     console.error('💥 Unhandled Rejection at:', promise);
     console.error('   Reason:', reason);
-    
-    // Don't crash on WhatsApp Web.js cache errors - they're usually non-fatal
-    if (reason && reason.message && reason.message.includes('LocalWebCache')) {
-        console.warn('⚠️  WhatsApp Web cache error detected - continuing execution');
-        return;
-    }
     
     // Log to file for debugging
     const errorLog = `[${new Date().toISOString()}] Unhandled Rejection: ${reason}\n`;
@@ -182,6 +273,17 @@ function snapshotSession() {
             // Common cookie store
             const cookiesPattern = path.join(primary, 'Default', 'Cookies');
             snap.keyArtifacts.cookiesFile = fs.existsSync(cookiesPattern);
+            
+            // ✅ BAILEYS SUPPORT: Check for creds.json
+            if (!snap.keyArtifacts.indexedDB && !snap.keyArtifacts.localStorage) {
+                const credsPath = path.join(sessionDir, 'creds.json');
+                if (fs.existsSync(credsPath)) {
+                    snap.keyArtifacts.baileysCreds = true;
+                    // Cheat to make total files look good or valid
+                    // For Baileys, we consider the session valid if creds.json exists
+                }
+            }
+
             snap.totalFiles = snap.sessionFolders.reduce((a, f) => a + f.fileCount, 0);
         }
     } catch (e) {
@@ -191,7 +293,7 @@ function snapshotSession() {
     return snap;
 }
 // Use absolute path for LocalAuth to avoid CWD differences on restart
-const AUTH_PATH = path.join(__dirname, '.wwebjs_auth');
+const AUTH_PATH = path.join(__dirname, '.wwebjs_auth_TEST_V3');
 const BOT_API_PORT = parseInt(process.env.BOT_API_PORT || '3100', 10);
 // Admin numbers can be provided as ADMIN_NUMBERS (comma-separated) or a single ADMIN_WHATSAPP_NUMBER
 const ADMIN_NUMBERS_RAW = (((process.env.ADMIN_NUMBERS || '') + ',' + (process.env.ADMIN_WHATSAPP_NUMBER || ''))
@@ -205,6 +307,10 @@ function normalizePhoneNumber(phone) {
     // Convert 0771222509 → 94771222509
     if (digits.startsWith('0') && digits.length === 10) {
         return '94' + digits.substring(1);
+    }
+    // Convert 771222509 → 94771222509 (Missing leading 0)
+    if (digits.length === 9 && digits.startsWith('7')) {
+        return '94' + digits;
     }
     return digits;
 }
@@ -229,9 +335,15 @@ const CLEAR_SESSION_ON_INIT_ERROR = String(process.env.CLEAR_SESSION_ON_INIT_ERR
 // WhatsApp QR Code storage for dashboard
 let currentQRCode = null;
 let qrCodeTimestamp = null;
+let currentQRCodeDataUrl = null;
+let qrCodeDataUrlTimestamp = null;
 
 // --- Express App Setup ---
 const app = express();
+
+// Trust proxy is required when running behind a reverse proxy (like Cloudflare Tunnel or Nginx)
+// This fixes the "ValidationError: The 'X-Forwarded-For' header is set..." error
+app.set('trust proxy', 1);
 
 // For signature verification, we need access to raw body
 // Apply raw body parser ONLY to Facebook webhook
@@ -260,16 +372,32 @@ const apiRateLimiter = rateLimit({
         error: 'Too many requests from this IP, please try again later.'
     }
 });
-app.use('/api', apiRateLimiter);
+app.use('/api', (req, res, next) => {
+    // Allow localhost diagnostics without tripping the limiter.
+    const ip = String(req.ip || '');
+    const isLocalhost = ip === '127.0.0.1' || ip === '::1' || ip.endsWith('127.0.0.1');
+    if (isLocalhost) return next();
+
+    // Always exempt this endpoint (low-risk read-only).
+    if (req.path === '/whatsapp/diagnose') return next();
+
+    return apiRateLimiter(req, res, next);
+});
 
 // ========================================
 // CORS MIDDLEWARE FOR DASHBOARD
 // ========================================
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    const origin = req.headers.origin;
+    if (origin) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+        res.setHeader('Vary', 'Origin');
+        res.setHeader('Access-Control-Allow-Credentials', 'true');
+    } else {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+    }
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
     
     // Handle preflight
     if (req.method === 'OPTIONS') {
@@ -284,6 +412,20 @@ app.use((req, res, next) => {
 // ========================================
 
 // Health check endpoint
+app.post('/api/titan/message', async (req, res) => {
+    try {
+        const { message, sender } = req.body;
+        if (!message) return res.status(400).json({ error: 'Message required' });
+        
+        // Use global.whatsappClient if available
+        const result = await titan.processOrder(message, global.whatsappClient, sender || 'API_USER');
+        res.json({ response: result });
+    } catch (e) {
+        console.error('Titan API Error:', e);
+        res.status(500).json({ error: e.message });
+    }
+});
+
 app.get('/health', async (req, res) => {
     const health = {
         status: 'ok',
@@ -489,6 +631,92 @@ app.get('/api/token-status', (req, res) => {
     }
 });
 
+// ========================================
+// MANUAL TRIGGER: Daily Sales PDF Send
+// GET /api/jobs/daily-sales-pdf/trigger?date=YYYY-MM-DD&recipient=077...
+// ========================================
+app.get('/api/jobs/daily-sales-pdf/trigger', async (req, res) => {
+    const started = Date.now();
+    logAndSave('[Manual PDF API] Trigger requested');
+    try {
+        // 1. Check WhatsApp readiness
+        if (!global.whatsappClient) {
+            return res.status(503).json({ ok: false, error: 'whatsapp-client-not-initialized', elapsed: Date.now() - started });
+        }
+        // Wait for Store readiness (WidFactory + Chat.getChat)
+        const page = global.whatsappClient.pupPage || global.whatsappClient._page;
+        if (page && typeof page.waitForFunction === 'function') {
+            try {
+                await page.waitForFunction(
+                    () => !!(window && window.Store && window.Store.Chat && window.Store.WidFactory),
+                    { timeout: 60000 }
+                );
+            } catch (e) {
+                logAndSave('[Manual PDF API] Store not ready: ' + e.message);
+                return res.status(503).json({ ok: false, error: 'whatsapp-store-not-ready', detail: e.message, elapsed: Date.now() - started });
+            }
+        }
+
+        // 2. Determine date and recipients
+        const dateISO = req.query.date && /^\d{4}-\d{2}-\d{2}$/.test(req.query.date)
+            ? req.query.date
+            : moment().subtract(1, 'day').format('YYYY-MM-DD');
+
+        let recipients = [];
+        if (req.query.recipient) {
+            recipients = String(req.query.recipient).split(',').map(s => s.trim()).filter(Boolean);
+        }
+        if (!recipients.length) {
+            // fallback to ADMIN_NUMBERS
+            recipients = ADMIN_NUMBERS.map(n => n.trim()).filter(Boolean);
+        }
+        if (!recipients.length) {
+            return res.status(400).json({ ok: false, error: 'no-recipients', elapsed: Date.now() - started });
+        }
+
+        logAndSave(`[Manual PDF API] Generating PDF for ${dateISO}, recipients: ${recipients.join(', ')}`);
+
+        // 3. Generate PDF
+        const generatePdf = require('./utils/generateDailyTyreSalesPdf');
+        const { buffer, fileName } = await generatePdf(mainPool, dateISO);
+        const caption = `📄 Daily Sales PDF - ${moment(dateISO).format('MMMM DD, YYYY')} (sent ${moment().format('MMMM DD, YYYY HH:mm')})`;
+
+        // 4. Send to each recipient
+        const results = [];
+        for (const num of recipients) {
+            try {
+                const norm = num.replace(/\D/g, '');
+                const jid = norm.length === 10 && norm.startsWith('0')
+                    ? `94${norm.slice(1)}@c.us`
+                    : (norm.length === 9 ? `94${norm}@c.us` : `${norm}@c.us`);
+
+                const media = new MessageMedia('application/pdf', Buffer.from(buffer).toString('base64'), fileName);
+                await global.whatsappClient.sendMessage(jid, media, { caption });
+                results.push({ number: num, ok: true });
+                logAndSave(`[Manual PDF API] ✅ Sent to ${num}`);
+            } catch (e) {
+                results.push({ number: num, ok: false, error: e.message });
+                logAndSave(`[Manual PDF API] ❌ Failed to send to ${num}: ${e.message}`);
+            }
+            await new Promise(r => setTimeout(r, 2000));
+        }
+
+        const okCount = results.filter(r => r.ok).length;
+        return res.json({
+            ok: okCount > 0,
+            date: dateISO,
+            fileName,
+            recipients: results,
+            okCount,
+            failCount: results.length - okCount,
+            elapsed: Date.now() - started
+        });
+    } catch (e) {
+        logAndSave(`[Manual PDF API] ❌ Error: ${e.message}`);
+        return res.status(500).json({ ok: false, error: e.message, elapsed: Date.now() - started });
+    }
+});
+
 // Lightweight test endpoints (no external calls)
 app.post('/api/test/facebook', (req, res) => {
     const { pageId, accessToken } = req.body || {};
@@ -503,15 +731,172 @@ app.post('/api/test/facebook', (req, res) => {
 // ========================================
 // APPOINTMENT BOOKING API
 // ========================================
+
+// GET /api/appointments/booked-slots - Get booked slots for a specific date
+app.get('/api/appointments/booked-slots', async (req, res) => {
+    const { date } = req.query;
+
+    if (!date) {
+        return res.status(400).json({ ok: false, error: 'Date is required' });
+    }
+
+    try {
+        const aiOk = await aiPoolConnect;
+        if (!aiOk) {
+            return res.status(503).json({ ok: false, error: 'Database unavailable' });
+        }
+
+        const request = aiPool.request();
+        request.input('Date', sql.Date, date);
+
+        const result = await request.query(`
+            SELECT TimeSlot, COUNT(*) as Count
+            FROM Appointments 
+            WHERE AppointmentDate = @Date AND Status != 'Cancelled'
+            GROUP BY TimeSlot
+        `);
+
+        // Convert to map: { "08:00": 1, "08:30": 2 }
+        const slotCounts = {};
+        result.recordset.forEach(row => {
+            slotCounts[row.TimeSlot] = row.Count;
+        });
+
+        return res.json({ ok: true, slotCounts });
+    } catch (error) {
+        console.error('Error fetching booked slots:', error);
+        return res.status(500).json({ ok: false, error: error.message });
+    }
+});
+
 app.post('/api/appointments/book', async (req, res) => {
-    const { customerName, phoneNumber, vehicleNumber, serviceType, appointmentDate, timeSlot, notes, quotationRefCode, quotationItems } = req.body;
+    // Enhanced destructuring to support multiple field names (compatibility with v2 site)
+    let { 
+        customerName, name, 
+        phoneNumber, phone, 
+        vehicleNumber, vehicle,
+        serviceType, 
+        appointmentDate, date, 
+        timeSlot, time, 
+        notes,
+        refId, quotationRefCode,
+        selectedItemIndex, itemIndex,
+        quotationItems // New field from UnifiedBookingModal
+    } = req.body;
+
+    console.log('DEBUG: /api/appointments/book body:', JSON.stringify(req.body, null, 2));
+
+    // Normalize fields
+    customerName = customerName || name;
+    phoneNumber = phoneNumber || phone;
+    vehicleNumber = vehicleNumber || vehicle;
+    appointmentDate = appointmentDate || date;
+    timeSlot = timeSlot || time;
+    const refCode = refId || quotationRefCode;
+    const itemIdx = selectedItemIndex !== undefined ? selectedItemIndex : itemIndex;
+
+    // Default serviceType if missing (e.g. from lasantha-site-v2)
+    if (!serviceType && refCode) {
+        serviceType = 'Tyre Fitting (Web)';
+    }
 
     if (!customerName || !phoneNumber || !serviceType || !appointmentDate || !timeSlot) {
         return res.status(400).json({ ok: false, error: 'Missing required fields' });
     }
 
     try {
-        await aiPoolConnect;
+        const aiOk = await aiPoolConnect;
+        if (!aiOk) {
+            return res.status(503).json({ ok: false, error: 'Database unavailable' });
+        }
+
+        // Fetch Quotation Details
+        let itemDetailsStr = '';
+        let priceDetailsStr = '';
+        let requestedQty = 1; // Default
+        let extraTasks = []; // To collect service items
+
+        // STRATEGY 1: Use quotationItems from request body (Highest Priority - contains user edits)
+        if (quotationItems && Array.isArray(quotationItems) && quotationItems.length > 0) {
+            console.log('Using quotationItems from request body');
+            
+            for (const item of quotationItems) {
+                const brand = item.brand || item.Brand || 'Unknown';
+                const description = item.description || item.Description || '';
+                const price = item.price || item.Price || item.unitPrice || item.UnitPrice;
+                const qty = item.quantity || item.Quantity || item.qty || item.Qty || 1;
+                
+                // Heuristic to distinguish Products (Tyres) from Services
+                // Services usually have brand "-" or "Unknown" AND description like "Alignment", "Balancing", "Labor"
+                const descLower = description.toLowerCase();
+                const isService = (brand === '-' || brand === 'Unknown') && 
+                                  (descLower.includes('alignment') || descLower.includes('balancing') || descLower.includes('labor') || descLower.includes('service') || descLower.includes('repair'));
+
+                if (isService) {
+                    // Add to tasks list
+                    extraTasks.push(description);
+                    
+                    // Also add to details list with price if available
+                    itemDetailsStr += `\n\n🛠️ Service: ${description}`;
+                    if (price) itemDetailsStr += `\n💰 Price: LKR ${price}`;
+                } else {
+                    // It's a product (Tyre)
+                    // Use ONLY description as requested
+                    const itemDisplay = description || 'Unknown Item';
+
+                    itemDetailsStr += `\n\n📦 Item: ${itemDisplay}`;
+                    if (price) itemDetailsStr += `\n💰 Unit Price: LKR ${price}`;
+                    itemDetailsStr += `\n🔢 Qty: ${qty}`;
+                }
+            }
+        } 
+        // STRATEGY 2: Fallback to DB Fetch (Legacy behavior)
+        else if (refCode) {
+            try {
+                const qRequest = aiPool.request();
+                qRequest.input('RefCode', sql.NVarChar(50), refCode);
+                const qResult = await qRequest.query(`
+                    SELECT Items, TyreSize, VehicleNumber FROM Quotations 
+                    WHERE RefCode = @RefCode OR QuotationNumber = @RefCode
+                `);
+                
+                if (qResult.recordset.length > 0) {
+                    const quote = qResult.recordset[0];
+                    if (!vehicleNumber && quote.VehicleNumber) vehicleNumber = quote.VehicleNumber;
+                    
+                    if (quote.Items) {
+                        let items = [];
+                        try { items = JSON.parse(quote.Items); } catch {}
+                        
+                        if (items && items.length > 0) {
+                            const selectedItem = (itemIdx !== undefined && items[itemIdx]) ? items[itemIdx] : items[0];
+                            
+                            // Robust property extraction (handles PascalCase and camelCase)
+                            const brand = selectedItem.Brand || selectedItem.brand || 'Unknown';
+                            const pattern = selectedItem.Pattern || selectedItem.pattern || '';
+                            const description = selectedItem.Description || selectedItem.description || '';
+                            const price = selectedItem.Price || selectedItem.price || selectedItem.unitPrice;
+                            const qty = selectedItem.Qty || selectedItem.Quantity || selectedItem.quantity || 1;
+
+                            // Construct details string
+                            // Use ONLY description as requested, ignore brand/pattern/size logic
+                            const itemDisplay = description || 'Unknown Item';
+                            
+                            itemDetailsStr = `\n\n📦 Item: ${itemDisplay}`;
+                            
+                            if (price) {
+                                itemDetailsStr += `\n💰 Unit Price: LKR ${price}`;
+                            }
+                            
+                            requestedQty = qty;
+                            itemDetailsStr += `\n🔢 Qty: ${requestedQty}`;
+                        }
+                    }
+                }
+            } catch (err) {
+                console.error('Error fetching quotation details for booking:', err);
+            }
+        }
 
         // Generate Reference Number (APT-YYYYMMDD-XXXX)
         const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
@@ -519,12 +904,12 @@ app.post('/api/appointments/book', async (req, res) => {
         const referenceNo = `APT-${dateStr}-${randomSuffix}`;
 
         // Insert into Database
-        const request = new sql.Request(aiPool);
+        const request = aiPool.request();
         request.input('ReferenceNo', sql.NVarChar(50), referenceNo);
         request.input('CustomerName', sql.NVarChar(100), customerName);
         request.input('PhoneNumber', sql.NVarChar(20), phoneNumber);
         request.input('VehicleNumber', sql.NVarChar(20), vehicleNumber || null);
-        request.input('ServiceType', sql.NVarChar(50), serviceType);
+        request.input('ServiceType', sql.NVarChar(500), serviceType);
         request.input('AppointmentDate', sql.Date, appointmentDate);
         request.input('TimeSlot', sql.NVarChar(20), timeSlot);
         request.input('Notes', sql.NVarChar(sql.MAX), notes || null);
@@ -538,59 +923,86 @@ app.post('/api/appointments/book', async (req, res) => {
         if (global.whatsappClient) {
             const formattedPhone = normalizePhoneNumber(phoneNumber);
             const chatId = `${formattedPhone}@c.us`;
+            console.log(`Attempting to send booking confirmation to ${chatId}`);
+
             const message = `🚗 *Appointment Confirmed!* 🚗\n\n` +
                             `Dear ${customerName},\n` +
                             `Your appointment for *${serviceType}* has been booked successfully.\n\n` +
                             `📅 Date: ${appointmentDate}\n` +
                             `⏰ Time: ${timeSlot}\n` +
                             `🔢 Ref No: *${referenceNo}*\n\n` +
-                            `🔍 *Track Status & History:*\n` +
-                            `https://lasanthatyre.com/portal\n\n` +
                             `Thank you for choosing Lasantha Tyre!`;
             
             try {
                 await global.whatsappClient.sendMessage(chatId, message);
+                console.log(`Booking confirmation sent to ${chatId}`);
             } catch (waError) {
-                console.error('Failed to send WhatsApp confirmation:', waError);
+                console.error(`Failed to send WhatsApp confirmation to ${chatId}:`, waError);
                 // Don't fail the request if WhatsApp fails, just log it
             }
 
-            // Send Notification to Shop Management Group
-            const SHOP_MANAGEMENT_GROUP_ID = process.env.SHOP_MANAGEMENT_GROUP_ID;
-            if (SHOP_MANAGEMENT_GROUP_ID) {
-                // Build enhanced notification with quotation details
-                let adminMsg = quotationRefCode 
-                    ? `👑 *ROYAL BOOKING* 👑\n(From Quotation ${quotationRefCode})\n\n`
-                    : `🆕 *New Appointment Alert* 🆕\n\n`;
-                
-                adminMsg += `👤 Customer: ${customerName}\n`;
-                adminMsg += `📞 Phone: ${phoneNumber}\n`;
-                adminMsg += `🚗 Vehicle: ${vehicleNumber || 'N/A'}\n`;
-                adminMsg += `🔧 Service: ${serviceType}\n`;
-                adminMsg += `📅 Date: ${appointmentDate}\n`;
-                adminMsg += `⏰ Time: ${timeSlot}\n`;
-                
-                // Add quotation items if available
-                if (quotationItems && Array.isArray(quotationItems) && quotationItems.length > 0) {
-                    adminMsg += `\n📦 *Items to Prepare:*\n`;
-                    let totalAmount = 0;
-                    quotationItems.forEach((item, idx) => {
-                        const itemTotal = (item.price || 0) * (item.quantity || 1);
-                        totalAmount += itemTotal;
-                        adminMsg += `  ${idx + 1}. ${item.description || item.Description}\n`;
-                        adminMsg += `     ${item.brand || item.Brand} × ${item.quantity || 1} = Rs ${itemTotal.toLocaleString()}\n`;
-                    });
-                    adminMsg += `\n💰 *Total: Rs ${totalAmount.toLocaleString()}*\n`;
+            // Send Notification to Shop Management Group(s)
+            const SHOP_MANAGEMENT_GROUP_IDS = (process.env.SHOP_MANAGEMENT_GROUP_ID || '').split(',').map(id => id.trim()).filter(Boolean);
+            
+            if (SHOP_MANAGEMENT_GROUP_IDS.length > 0) {
+                // Determine Booking Context and Tasks
+                const defaultTypes = ['Quotation Booking', 'General Service', 'Tyre Fitting (Web)'];
+                let bookingType = refCode ? 'Quotation Booking' : 'General Service';
+                let requestedTasks = '';
+
+                // If the serviceType sent from frontend is NOT one of the defaults, it contains user-selected tasks
+                const serviceMap = {
+                    'tyre-install': 'Tyre Installation',
+                    'alignment': 'Wheel Alignment',
+                    'balancing': 'Wheel Balancing',
+                    'rotation': 'Tyre Rotation',
+                    'nitrogen': 'Nitrogen Air',
+                    'puncture': 'Puncture Repair',
+                    'suspension': 'Suspension Check'
+                };
+
+                if (serviceType && !defaultTypes.includes(serviceType)) {
+                    // Try to map IDs to names
+                    requestedTasks = serviceType.split(',')
+                        .map(s => s.trim())
+                        .map(s => serviceMap[s] || s) // Map ID to name, or keep original if not found
+                        .join(', ');
                 }
+
+                // Append extra tasks found in quotation items (e.g. Wheel Alignment added as an item)
+                if (extraTasks.length > 0) {
+                    const extraTasksStr = extraTasks.join(', ');
+                    if (requestedTasks) {
+                        requestedTasks += `, ${extraTasksStr}`;
+                    } else {
+                        requestedTasks = extraTasksStr;
+                    }
+                }
+
+                let adminMsg = `🆕 *New Appointment Alert* 🆕\n\n` +
+                                 `👤 Customer: ${customerName}\n` +
+                                 `📞 Phone: ${phoneNumber}\n` +
+                                 `🚗 Vehicle: ${vehicleNumber || 'N/A'}\n` +
+                                 `🔧 Type: ${bookingType}\n`;
+
+                // Add requested tasks if any
+                if (requestedTasks) {
+                    adminMsg += `🛠️ Tasks: ${requestedTasks}\n`;
+                }
+
+                adminMsg +=      `📅 Date: ${appointmentDate}\n` +
+                                 `⏰ Time: ${timeSlot}\n` +
+                                 `📝 Notes: ${notes || 'None'}\n` +
+                                 `🔢 Ref: ${referenceNo}` +
+                                 itemDetailsStr;
                 
-                adminMsg += `\n📝 Notes: ${notes || 'None'}\n`;
-                adminMsg += `🔢 Ref: ${referenceNo}`;
-                
-                try {
-                    await global.whatsappClient.sendMessage(SHOP_MANAGEMENT_GROUP_ID, adminMsg);
-                    console.log(`Notification sent to management group: ${SHOP_MANAGEMENT_GROUP_ID}`);
-                } catch (groupErr) {
-                    console.error('Failed to send group notification:', groupErr);
+                for (const groupId of SHOP_MANAGEMENT_GROUP_IDS) {
+                    try {
+                        await global.whatsappClient.sendMessage(groupId, adminMsg);
+                        console.log(`Notification sent to management group: ${groupId}`);
+                    } catch (groupErr) {
+                        console.error(`Failed to send notification to group ${groupId}:`, groupErr);
+                    }
                 }
             }
         }
@@ -605,6 +1017,7 @@ app.post('/api/appointments/book', async (req, res) => {
 
 // ========================================
 // QUOTATIONS API - Save & Retrieve Quotations
+// (Used by v1.5/v2.0 dashboards via /api/bot-proxy)
 // ========================================
 
 // Generate a short unique RefCode (4-char alphanumeric)
@@ -623,56 +1036,60 @@ async function generateQuotationNumber() {
         const today = new Date();
         const dateStr = today.toISOString().slice(0, 10).replace(/-/g, '');
         const prefix = `QT-${dateStr}-`;
-        
-        // Get the last quotation number for today
-        const request = new sql.Request(aiPool);
+
+        const request = aiPool.request();
         request.input('Prefix', sql.NVarChar(50), `${prefix}%`);
         const result = await request.query(`
-            SELECT TOP 1 QuotationNumber 
-            FROM Quotations 
-            WHERE QuotationNumber LIKE @Prefix 
+            SELECT TOP 1 QuotationNumber
+            FROM Quotations
+            WHERE QuotationNumber LIKE @Prefix
             ORDER BY QuotationNumber DESC
         `);
-        
+
         let sequence = 1;
         if (result.recordset.length > 0) {
             const lastNumber = result.recordset[0].QuotationNumber;
-            const lastSeq = parseInt(lastNumber.split('-')[2]);
-            sequence = lastSeq + 1;
+            const lastSeq = parseInt(lastNumber.split('-')[2], 10);
+            sequence = Number.isFinite(lastSeq) ? lastSeq + 1 : 1;
         }
-        
+
         return `${prefix}${sequence.toString().padStart(4, '0')}`;
     } catch (error) {
         console.error('Error generating quotation number:', error);
-        // Fallback to timestamp-based number
         const timestamp = Date.now().toString().slice(-8);
         return `QT-${timestamp}`;
     }
 }
 
-// POST /api/quotations - Save a quotation and get RefCode
+// POST /api/quotations - Save a quotation and get RefCode + QuotationNumber
 app.post('/api/quotations', async (req, res) => {
-    const { customerPhone, customerName, tyreSize, items, totalAmount, messageContent, vehicleNumber, source } = req.body;
+    const { customerPhone, customerName, tyreSize, items, totalAmount, messageContent, vehicleNumber, source, vatRate, includeVat } = req.body || {};
 
     if (!items || !Array.isArray(items) || items.length === 0) {
         return res.status(400).json({ ok: false, error: 'Items array is required' });
     }
 
     try {
-        await aiPoolConnect;
+        const aiOk = await aiPoolConnect;
+        if (!aiOk) {
+            return res.status(503).json({ ok: false, error: 'Database unavailable' });
+        }
 
         // Generate unique RefCode
         let refCode = generateRefCode();
         let attempts = 0;
         const maxAttempts = 10;
 
-        // Check if RefCode exists and regenerate if needed
         while (attempts < maxAttempts) {
-            const checkRequest = new sql.Request(aiPool);
+            const checkRequest = aiPool.request();
             checkRequest.input('RefCode', sql.NVarChar(10), refCode);
-            const checkResult = await checkRequest.query('SELECT COUNT(*) as count FROM Quotations WHERE RefCode = @RefCode');
-            
-            if (checkResult.recordset[0].count === 0) break;
+            const checkResult = await checkRequest.query(
+                'SELECT COUNT(*) as count FROM Quotations WHERE RefCode = @RefCode'
+            );
+
+            if ((checkResult.recordset[0] && checkResult.recordset[0].count === 0) || checkResult.recordset.length === 0) {
+                break;
+            }
             refCode = generateRefCode();
             attempts++;
         }
@@ -681,14 +1098,10 @@ app.post('/api/quotations', async (req, res) => {
             return res.status(500).json({ ok: false, error: 'Could not generate unique reference code' });
         }
 
-        // Generate quotation number
         const quotationNumber = await generateQuotationNumber();
-
-        // Calculate expiry date (7 days from now)
         const expiryDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
-        // Insert quotation with all new fields
-        const request = new sql.Request(aiPool);
+        const request = aiPool.request();
         request.input('RefCode', sql.NVarChar(10), refCode);
         request.input('QuotationNumber', sql.NVarChar(50), quotationNumber);
         request.input('TyreSize', sql.NVarChar(50), tyreSize || null);
@@ -699,771 +1112,165 @@ app.post('/api/quotations', async (req, res) => {
         request.input('TotalAmount', sql.Decimal(10, 2), totalAmount || null);
         request.input('MessageContent', sql.NVarChar(sql.MAX), messageContent || null);
         request.input('ExpiryDate', sql.DateTime, expiryDate);
-        request.input('ExpiresAt', sql.DateTime, expiryDate); // Keep for backward compatibility
-        request.input('Source', sql.NVarChar(50), source || 'QuickQuote');
+        request.input('ExpiresAt', sql.DateTime, expiryDate);
+        request.input('Source', sql.NVarChar(50), source || 'Mobile App');
         request.input('IsBooked', sql.Bit, 0);
         request.input('IsExpired', sql.Bit, 0);
+        request.input('VatRate', sql.Decimal(5, 2), vatRate || 18.0);
+        request.input('IncludeVat', sql.Bit, includeVat ? 1 : 0);
 
         const result = await request.query(`
             INSERT INTO Quotations (
-                RefCode, QuotationNumber, TyreSize, Items, CustomerPhone, CustomerName, 
-                VehicleNumber, TotalAmount, MessageContent, ExpiryDate, ExpiresAt, Source, IsBooked, IsExpired
+                RefCode, QuotationNumber, TyreSize, Items, CustomerPhone, CustomerName,
+                VehicleNumber, TotalAmount, MessageContent, ExpiryDate, ExpiresAt, Source, IsBooked, IsExpired,
+                VatRate, IncludeVat
             )
             OUTPUT INSERTED.Id
             VALUES (
                 @RefCode, @QuotationNumber, @TyreSize, @Items, @CustomerPhone, @CustomerName,
-                @VehicleNumber, @TotalAmount, @MessageContent, @ExpiryDate, @ExpiresAt, @Source, @IsBooked, @IsExpired
+                @VehicleNumber, @TotalAmount, @MessageContent, @ExpiryDate, @ExpiresAt, @Source, @IsBooked, @IsExpired,
+                @VatRate, @IncludeVat
             )
         `);
 
-        const insertedId = result.recordset[0].Id;
+        const insertedId = result.recordset && result.recordset[0] ? result.recordset[0].Id : null;
+        const bookingUrl = `https://book.lasanthatyre.com?ref=${encodeURIComponent(quotationNumber)}`;
+
         console.log(`✅ Quotation saved: RefCode=${refCode}, QuotationNumber=${quotationNumber}, Id=${insertedId}`);
 
-        res.json({ 
-            ok: true, 
+        return res.json({
+            ok: true,
             refCode,
             quotationNumber,
             id: insertedId,
-            bookingUrl: `https://lasanthatyre.com/book?ref=${quotationNumber}`,
-            expiryDate: expiryDate.toISOString()
+            bookingUrl,
+            expiryDate: expiryDate.toISOString(),
         });
-
     } catch (error) {
         console.error('Save quotation error:', error);
-        res.status(500).json({ ok: false, error: error.message });
+        return res.status(500).json({ ok: false, error: error.message });
     }
 });
 
 // GET /api/quotations/:refCode - Get quotation by RefCode or QuotationNumber
 app.get('/api/quotations/:refCode', async (req, res) => {
-    const { refCode } = req.params;
+    const { refCode } = req.params || {};
 
-    if (!refCode || refCode.length < 4) {
+    if (!refCode || String(refCode).trim().length < 4) {
         return res.status(400).json({ ok: false, error: 'Valid reference code is required' });
     }
 
     try {
-        await aiPoolConnect;
+        const aiOk = await aiPoolConnect;
+        if (!aiOk) {
+            return res.status(503).json({ ok: false, error: 'Database unavailable' });
+        }
 
-        const request = new sql.Request(aiPool);
-        const reference = refCode.toUpperCase();
+        const request = aiPool.request();
+        const reference = String(refCode).toUpperCase().trim();
         request.input('Reference', sql.NVarChar(50), reference);
 
-        // Support both RefCode (ABCD) and QuotationNumber (QT-20251207-0001)
-        const result = await request.query(`
-            SELECT Id, RefCode, QuotationNumber, TyreSize, Items, CustomerPhone, CustomerName, 
-                   VehicleNumber, TotalAmount, MessageContent, CreatedAt, ExpiryDate, ExpiresAt, 
-                   IsExpired, IsBooked, BookingReference, Source, Status, BookingRef
-            FROM Quotations 
+        // First try modern Quotations table (has Items as JSON)
+        let result = await request.query(`
+            SELECT TOP 1
+                Id, RefCode, QuotationNumber, TyreSize, Items, CustomerPhone, CustomerName,
+                VehicleNumber, TotalAmount, MessageContent, CreatedAt, ExpiryDate, ExpiresAt,
+                IsExpired, IsBooked, BookingReference, Source, Status, BookingRef,
+                'Table' as DataSource
+            FROM Quotations
             WHERE RefCode = @Reference OR QuotationNumber = @Reference
+            ORDER BY Id DESC
         `);
 
-        if (result.recordset.length === 0) {
+        // If not found, try legacy View_Quotation_WhatsApp (multi-row with individual items)
+        if (!result.recordset || result.recordset.length === 0) {
+            const viewRequest = aiPool.request();
+            viewRequest.input('Reference', sql.NVarChar(50), reference);
+            
+            const viewResult = await viewRequest.query(`
+                SELECT TOP 1
+                    NULL as Id,
+                    SalesOrderNo as RefCode,
+                    SalesOrderNo as QuotationNumber,
+                    NULL as TyreSize,
+                    NULL as Items,
+                    TEL as CustomerPhone,
+                    CusName as CustomerName,
+                    VehicleNo as VehicleNumber,
+                    TotalAmount,
+                    NULL as MessageContent,
+                    Date as CreatedAt,
+                    NULL as ExpiryDate,
+                    NULL as ExpiresAt,
+                    0 as IsExpired,
+                    0 as IsBooked,
+                    NULL as BookingReference,
+                    NULL as Source,
+                    NULL as Status,
+                    NULL as BookingRef,
+                    'View' as DataSource
+                FROM [View_Quotation_WhatsApp]
+                WHERE SalesOrderNo = @Reference
+                ORDER BY Date DESC
+            `);
+            
+            if (viewResult.recordset && viewResult.recordset.length > 0) {
+                // Build Items array from view rows (new request to avoid parameter reuse)
+                const itemsRequest = aiPool.request();
+                itemsRequest.input('Reference', sql.NVarChar(50), reference);
+                
+                const itemsResult = await itemsRequest.query(`
+                    SELECT 
+                        Description as description,
+                        Quantity as quantity,
+                        UnitPrice as price,
+                        Amount as total
+                    FROM [View_Quotation_WhatsApp]
+                    WHERE SalesOrderNo = @Reference
+                    ORDER BY ItemID
+                `);
+                
+                result = viewResult;
+                // Always set Items array (empty or populated)
+                result.recordset[0].Items = (itemsResult.recordset && itemsResult.recordset.length > 0) 
+                    ? itemsResult.recordset 
+                    : [];
+                
+                console.log(`[Quotation API] Loaded from View: ${reference} with ${result.recordset[0].Items.length} items`);
+            }
+        }
+
+        if (!result.recordset || result.recordset.length === 0) {
             return res.status(404).json({ ok: false, error: 'Quotation not found' });
         }
 
         const quotation = result.recordset[0];
-        
-        // Check if expired (use ExpiryDate if available, fallback to ExpiresAt)
-        const expiryDate = quotation.ExpiryDate || quotation.ExpiresAt;
-        if (expiryDate && new Date(expiryDate) < new Date()) {
-            return res.status(410).json({ ok: false, error: 'Quotation has expired', quotation });
+        // Booking UI expects `quotation.Items` to be an array.
+        // We store it as JSON (NVARCHAR(MAX)) in SQL, so normalize on read.
+        if (quotation && typeof quotation.Items === 'string') {
+            try {
+                const parsed = JSON.parse(quotation.Items);
+                if (Array.isArray(parsed)) {
+                    quotation.ItemsRaw = quotation.Items;
+                    quotation.Items = parsed;
+                    console.log(`[Quotation API] Parsed JSON items from Table: ${quotation.Items.length} items`);
+                }
+            } catch (parseError) {
+                // Keep original Items string if it's not valid JSON.
+                console.warn(`[Quotation API] JSON parse failed for ${reference}: ${parseError.message}`);
+                quotation.Items = []; // Fallback to empty array
+            }
         }
-
-        // Parse items JSON
-        try {
-            quotation.Items = JSON.parse(quotation.Items);
-        } catch (e) {
+        
+        // Ensure Items is always an array (safety check)
+        if (!Array.isArray(quotation.Items)) {
             quotation.Items = [];
         }
-
-        res.json({ ok: true, quotation });
-
+        
+        return res.json({ ok: true, quotation });
     } catch (error) {
         console.error('Get quotation error:', error);
-        res.status(500).json({ ok: false, error: error.message });
-    }
-});
-
-// POST /api/quotations/:refCode/booked - Mark quotation as booked
-app.post('/api/quotations/:refCode/booked', async (req, res) => {
-    const { refCode } = req.params;
-    const { bookingRef } = req.body;
-
-    try {
-        await aiPoolConnect;
-
-        const request = new sql.Request(aiPool);
-        request.input('RefCode', sql.NVarChar(10), refCode.toUpperCase());
-        request.input('BookingRef', sql.NVarChar(50), bookingRef || null);
-        request.input('Status', sql.NVarChar(20), 'Booked');
-
-        await request.query(`
-            UPDATE Quotations 
-            SET Status = @Status, BookingRef = @BookingRef, IsBooked = 1, BookingReference = @BookingRef
-            WHERE RefCode = @RefCode OR QuotationNumber = @RefCode
-        `);
-
-        res.json({ ok: true, message: 'Quotation marked as booked' });
-
-    } catch (error) {
-        console.error('Update quotation error:', error);
-        res.status(500).json({ ok: false, error: error.message });
-    }
-});
-
-// GET /api/quotations/analytics/stats - Get quotation analytics
-app.get('/api/quotations/analytics/stats', async (req, res) => {
-    try {
-        await aiPoolConnect;
-        const request = new sql.Request(aiPool);
-
-        // Get overall statistics
-        const statsResult = await request.query(`
-            SELECT 
-                COUNT(*) as totalQuotations,
-                SUM(CASE WHEN IsBooked = 1 THEN 1 ELSE 0 END) as bookedQuotations,
-                SUM(CASE WHEN IsExpired = 1 THEN 1 ELSE 0 END) as expiredQuotations,
-                SUM(TotalAmount) as totalValue,
-                SUM(CASE WHEN IsBooked = 1 THEN TotalAmount ELSE 0 END) as bookedValue,
-                AVG(TotalAmount) as averageQuotation
-            FROM Quotations
-            WHERE CreatedAt >= DATEADD(day, -30, GETDATE())
-        `);
-
-        // Get conversion rate
-        const stats = statsResult.recordset[0];
-        const conversionRate = stats.totalQuotations > 0 
-            ? ((stats.bookedQuotations / stats.totalQuotations) * 100).toFixed(2)
-            : 0;
-
-        // Get daily trend (last 7 days)
-        const trendResult = await request.query(`
-            SELECT 
-                CAST(CreatedAt AS DATE) as date,
-                COUNT(*) as quotations,
-                SUM(CASE WHEN IsBooked = 1 THEN 1 ELSE 0 END) as booked
-            FROM Quotations
-            WHERE CreatedAt >= DATEADD(day, -7, GETDATE())
-            GROUP BY CAST(CreatedAt AS DATE)
-            ORDER BY date ASC
-        `);
-
-        // Get source breakdown
-        const sourceResult = await request.query(`
-            SELECT 
-                Source,
-                COUNT(*) as count,
-                SUM(CASE WHEN IsBooked = 1 THEN 1 ELSE 0 END) as booked
-            FROM Quotations
-            WHERE CreatedAt >= DATEADD(day, -30, GETDATE())
-            GROUP BY Source
-        `);
-
-        res.json({
-            ok: true,
-            stats: {
-                total: stats.totalQuotations || 0,
-                booked: stats.bookedQuotations || 0,
-                expired: stats.expiredQuotations || 0,
-                pending: (stats.totalQuotations || 0) - (stats.bookedQuotations || 0) - (stats.expiredQuotations || 0),
-                conversionRate: parseFloat(conversionRate),
-                totalValue: stats.totalValue || 0,
-                bookedValue: stats.bookedValue || 0,
-                averageQuotation: stats.averageQuotation || 0
-            },
-            trend: trendResult.recordset,
-            sources: sourceResult.recordset
-        });
-
-    } catch (error) {
-        console.error('Get analytics error:', error);
-        res.status(500).json({ ok: false, error: error.message });
-    }
-});
-
-// GET /api/quotations/analytics/items - Get popular items
-app.get('/api/quotations/analytics/items', async (req, res) => {
-    try {
-        await aiPoolConnect;
-        const request = new sql.Request(aiPool);
-
-        const result = await request.query(`
-            SELECT TOP 20
-                JSON_VALUE(item.value, '$.description') as description,
-                JSON_VALUE(item.value, '$.brand') as brand,
-                COUNT(*) as quotationCount,
-                SUM(CAST(JSON_VALUE(item.value, '$.quantity') AS INT)) as totalQuantity,
-                AVG(CAST(JSON_VALUE(item.value, '$.price') AS FLOAT)) as averagePrice
-            FROM Quotations
-            CROSS APPLY OPENJSON(Items) as item
-            WHERE CreatedAt >= DATEADD(day, -30, GETDATE())
-            GROUP BY JSON_VALUE(item.value, '$.description'), JSON_VALUE(item.value, '$.brand')
-            ORDER BY quotationCount DESC
-        `);
-
-        res.json({
-            ok: true,
-            items: result.recordset
-        });
-
-    } catch (error) {
-        console.error('Get popular items error:', error);
-        res.status(500).json({ ok: false, error: error.message });
-    }
-});
-
-// GET /api/quotations/customer/:phone - Get customer quotation history
-app.get('/api/quotations/customer/:phone', async (req, res) => {
-    try {
-        const { phone } = req.params;
-        await aiPoolConnect;
-
-        const request = new sql.Request(aiPool);
-        request.input('Phone', sql.NVarChar(20), phone.replace(/\D/g, ''));
-
-        const result = await request.query(`
-            SELECT 
-                Id, RefCode, QuotationNumber, CustomerName, VehicleNumber,
-                TyreSize, TotalAmount, CreatedAt, ExpiryDate, IsBooked, 
-                IsExpired, BookingReference, Source
-            FROM Quotations
-            WHERE CustomerPhone = @Phone
-            ORDER BY CreatedAt DESC
-        `);
-
-        res.json({
-            ok: true,
-            quotations: result.recordset
-        });
-
-    } catch (error) {
-        console.error('Get customer quotations error:', error);
-        res.status(500).json({ ok: false, error: error.message });
-    }
-});
-
-// GET /api/quotations/templates - Get quotation templates
-app.get('/api/quotations/templates', async (req, res) => {
-    try {
-        await aiPoolConnect;
-        const request = new sql.Request(aiPool);
-
-        const result = await request.query(`
-            SELECT Id, TemplateName, Description, Items, CreatedAt
-            FROM QuotationTemplates
-            ORDER BY CreatedAt DESC
-        `);
-
-        const templates = result.recordset.map(t => ({
-            ...t,
-            Items: JSON.parse(t.Items || '[]')
-        }));
-
-        res.json({ ok: true, templates });
-
-    } catch (error) {
-        console.error('Get templates error:', error);
-        res.status(500).json({ ok: false, error: error.message });
-    }
-});
-
-// POST /api/quotations/templates - Save quotation as template
-app.post('/api/quotations/templates', async (req, res) => {
-    try {
-        const { templateName, description, items } = req.body;
-
-        if (!templateName || !items || items.length === 0) {
-            return res.status(400).json({ ok: false, error: 'Template name and items required' });
-        }
-
-        await aiPoolConnect;
-        const request = new sql.Request(aiPool);
-        request.input('TemplateName', sql.NVarChar(100), templateName);
-        request.input('Description', sql.NVarChar(500), description || '');
-        request.input('Items', sql.NVarChar(sql.MAX), JSON.stringify(items));
-
-        await request.query(`
-            INSERT INTO QuotationTemplates (TemplateName, Description, Items, CreatedAt)
-            VALUES (@TemplateName, @Description, @Items, GETDATE())
-        `);
-
-        res.json({ ok: true, message: 'Template saved successfully' });
-
-    } catch (error) {
-        console.error('Save template error:', error);
-        res.status(500).json({ ok: false, error: error.message });
-    }
-});
-
-// DELETE /api/quotations/templates/:id - Delete template
-app.delete('/api/quotations/templates/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-        await aiPoolConnect;
-
-        const request = new sql.Request(aiPool);
-        request.input('Id', sql.Int, parseInt(id));
-
-        await request.query(`
-            DELETE FROM QuotationTemplates WHERE Id = @Id
-        `);
-
-        res.json({ ok: true, message: 'Template deleted' });
-
-    } catch (error) {
-        console.error('Delete template error:', error);
-        res.status(500).json({ ok: false, error: error.message });
-    }
-});
-
-// GET /api/customers/vehicles/:phone - Get customer vehicles
-app.get('/api/customers/vehicles/:phone', async (req, res) => {
-    try {
-        const { phone } = req.params;
-        await aiPoolConnect;
-
-        const request = new sql.Request(aiPool);
-        request.input('Phone', sql.NVarChar(20), phone.replace(/\D/g, ''));
-
-        const result = await request.query(`
-            SELECT VehicleNumber, VehicleType, LastServiceDate, TotalQuotations
-            FROM CustomerVehicles
-            WHERE CustomerPhone = @Phone
-            ORDER BY LastServiceDate DESC
-        `);
-
-        res.json({ ok: true, vehicles: result.recordset });
-
-    } catch (error) {
-        console.error('Get vehicles error:', error);
-        res.status(500).json({ ok: false, error: error.message });
-    }
-});
-
-// POST /api/customers/vehicles - Add/Update customer vehicle
-app.post('/api/customers/vehicles', async (req, res) => {
-    try {
-        const { customerPhone, customerName, vehicleNumber, vehicleType } = req.body;
-
-        if (!customerPhone || !vehicleNumber) {
-            return res.status(400).json({ ok: false, error: 'Phone and vehicle number required' });
-        }
-
-        await aiPoolConnect;
-        const request = new sql.Request(aiPool);
-        request.input('Phone', sql.NVarChar(20), customerPhone.replace(/\D/g, ''));
-        request.input('Name', sql.NVarChar(100), customerName || 'Customer');
-        request.input('VehicleNumber', sql.NVarChar(20), vehicleNumber.toUpperCase());
-        request.input('VehicleType', sql.NVarChar(50), vehicleType || 'Car');
-
-        await request.query(`
-            MERGE CustomerVehicles AS target
-            USING (SELECT @Phone AS CustomerPhone, @VehicleNumber AS VehicleNumber) AS source
-            ON (target.CustomerPhone = source.CustomerPhone AND target.VehicleNumber = source.VehicleNumber)
-            WHEN MATCHED THEN
-                UPDATE SET LastServiceDate = GETDATE(), TotalQuotations = TotalQuotations + 1
-            WHEN NOT MATCHED THEN
-                INSERT (CustomerPhone, CustomerName, VehicleNumber, VehicleType, LastServiceDate, TotalQuotations)
-                VALUES (@Phone, @Name, @VehicleNumber, @VehicleType, GETDATE(), 1);
-        `);
-
-        res.json({ ok: true, message: 'Vehicle info updated' });
-
-    } catch (error) {
-        console.error('Update vehicle error:', error);
-        res.status(500).json({ ok: false, error: error.message });
-    }
-});
-
-// POST /api/quotations/send-email - Send quotation via email
-app.post('/api/quotations/send-email', async (req, res) => {
-    try {
-        const { quotationNumber, customerEmail } = req.body;
-
-        if (!quotationNumber || !customerEmail) {
-            return res.status(400).json({ ok: false, error: 'Quotation number and email required' });
-        }
-
-        // Initialize email service if not done
-        const emailService = require('./services/emailService');
-        await emailService.initialize();
-
-        // Fetch quotation details
-        await aiPoolConnect;
-        const request = new sql.Request(aiPool);
-        request.input('Reference', sql.NVarChar(50), quotationNumber.toUpperCase());
-
-        const result = await request.query(`
-            SELECT 
-                QuotationNumber, CustomerName, Items, TotalAmount, 
-                ExpiryDate, RefCode
-            FROM Quotations
-            WHERE QuotationNumber = @Reference OR RefCode = @Reference
-        `);
-
-        if (result.recordset.length === 0) {
-            return res.status(404).json({ ok: false, error: 'Quotation not found' });
-        }
-
-        const quotation = result.recordset[0];
-        const items = JSON.parse(quotation.Items || '[]');
-        const bookingUrl = `https://lasanthatyre.com/book?ref=${quotation.QuotationNumber || quotation.RefCode}`;
-
-        // Send email
-        const emailResult = await emailService.sendQuotationEmail({
-            customerName: quotation.CustomerName,
-            customerEmail: customerEmail,
-            quotationNumber: quotation.QuotationNumber,
-            items: items,
-            totalAmount: quotation.TotalAmount,
-            bookingUrl: bookingUrl,
-            expiryDate: quotation.ExpiryDate
-        });
-
-        if (emailResult.success) {
-            res.json({ ok: true, message: 'Email sent successfully' });
-        } else {
-            res.status(500).json({ ok: false, error: emailResult.error });
-        }
-
-    } catch (error) {
-        console.error('Send email error:', error);
-        res.status(500).json({ ok: false, error: error.message });
-    }
-});
-
-// OTP System - In-memory storage (for production, use Redis or database)
-const otpStore = new Map(); // { phone: { otp, expiresAt, attempts } }
-
-// POST /api/auth/send-otp - Send OTP via WhatsApp
-app.post('/api/auth/send-otp', async (req, res) => {
-    try {
-        const { phone } = req.body;
-
-        if (!phone || phone.length < 9) {
-            return res.status(400).json({ ok: false, error: 'Valid phone number required' });
-        }
-
-        const cleanPhone = phone.replace(/\D/g, '');
-
-        // Generate 6-digit OTP
-        const otp = Math.floor(100000 + Math.random() * 900000).toString();
-        const expiresAt = Date.now() + (5 * 60 * 1000); // 5 minutes
-
-        // Store OTP
-        otpStore.set(cleanPhone, {
-            otp,
-            expiresAt,
-            attempts: 0
-        });
-
-        // Send OTP via WhatsApp
-        if (client && client.info) {
-            try {
-                const chatId = `94${cleanPhone.startsWith('0') ? cleanPhone.substring(1) : cleanPhone}@c.us`;
-                const message = `🔐 *Lasantha Tire - Verification Code*\n\nYour OTP is: *${otp}*\n\n⏰ Valid for 5 minutes\n\n_Do not share this code with anyone._`;
-                
-                await client.sendMessage(chatId, message);
-                console.log(`[OTP] Sent to ${cleanPhone}: ${otp}`);
-            } catch (whatsappError) {
-                console.error('[OTP] WhatsApp send failed:', whatsappError.message);
-                // Continue anyway - OTP is stored
-            }
-        }
-
-        // For development - log OTP to console
-        console.log(`[OTP] Generated for ${cleanPhone}: ${otp}`);
-
-        res.json({ 
-            ok: true, 
-            message: 'OTP sent via WhatsApp',
-            expiresIn: 300 // seconds
-        });
-
-    } catch (error) {
-        console.error('Send OTP error:', error);
-        res.status(500).json({ ok: false, error: error.message });
-    }
-});
-
-// POST /api/auth/verify-otp - Verify OTP
-app.post('/api/auth/verify-otp', async (req, res) => {
-    try {
-        const { phone, otp } = req.body;
-
-        if (!phone || !otp) {
-            return res.status(400).json({ ok: false, error: 'Phone and OTP required' });
-        }
-
-        const cleanPhone = phone.replace(/\D/g, '');
-        const storedData = otpStore.get(cleanPhone);
-
-        if (!storedData) {
-            return res.status(400).json({ ok: false, error: 'OTP not found or expired. Request a new one.' });
-        }
-
-        // Check expiry
-        if (Date.now() > storedData.expiresAt) {
-            otpStore.delete(cleanPhone);
-            return res.status(400).json({ ok: false, error: 'OTP expired. Request a new one.' });
-        }
-
-        // Check attempts
-        if (storedData.attempts >= 3) {
-            otpStore.delete(cleanPhone);
-            return res.status(400).json({ ok: false, error: 'Too many failed attempts. Request a new OTP.' });
-        }
-
-        // Verify OTP
-        if (storedData.otp !== otp) {
-            storedData.attempts++;
-            return res.status(400).json({ 
-                ok: false, 
-                error: 'Invalid OTP',
-                attemptsLeft: 3 - storedData.attempts
-            });
-        }
-
-        // Success - remove OTP and generate session token
-        otpStore.delete(cleanPhone);
-
-        const sessionToken = Buffer.from(`${cleanPhone}:${Date.now()}`).toString('base64');
-
-        res.json({
-            ok: true,
-            message: 'OTP verified successfully',
-            sessionToken,
-            phone: cleanPhone
-        });
-
-    } catch (error) {
-        console.error('Verify OTP error:', error);
-        res.status(500).json({ ok: false, error: error.message });
-    }
-});
-
-// ==============================================
-// Email Configuration API
-// ==============================================
-
-// GET /api/config/email - Get current email configuration
-app.get('/api/config/email', async (req, res) => {
-    try {
-        const config = {
-            provider: process.env.EMAIL_PROVIDER || 'gmail',
-            user: process.env.EMAIL_USER || '',
-            fromName: process.env.EMAIL_FROM_NAME || 'Lasantha Tire Service',
-            isConfigured: !!(process.env.EMAIL_USER && process.env.EMAIL_PASSWORD)
-        };
-
-        res.json({ ok: true, config });
-    } catch (error) {
-        console.error('Get email config error:', error);
-        res.status(500).json({ ok: false, error: error.message });
-    }
-});
-
-// POST /api/config/email - Update email configuration
-app.post('/api/config/email', async (req, res) => {
-    try {
-        const { provider, user, password, fromName } = req.body;
-
-        if (!user || !password) {
-            return res.status(400).json({ ok: false, error: 'Email and password required' });
-        }
-
-        if (!['gmail', 'zoho'].includes(provider)) {
-            return res.status(400).json({ ok: false, error: 'Invalid provider. Use "gmail" or "zoho"' });
-        }
-
-        // Read current .env file
-        const envPath = path.join(__dirname, '.env');
-        let envContent = '';
-        
-        if (fs.existsSync(envPath)) {
-            envContent = fs.readFileSync(envPath, 'utf8');
-        }
-
-        // Update or add email configuration
-        const updateEnvVar = (key, value) => {
-            const regex = new RegExp(`^${key}=.*$`, 'm');
-            if (regex.test(envContent)) {
-                envContent = envContent.replace(regex, `${key}=${value}`);
-            } else {
-                envContent += `\n${key}=${value}`;
-            }
-        };
-
-        updateEnvVar('EMAIL_PROVIDER', provider);
-        updateEnvVar('EMAIL_USER', user);
-        updateEnvVar('EMAIL_PASSWORD', password);
-        updateEnvVar('EMAIL_FROM_NAME', fromName || 'Lasantha Tire Service');
-
-        // Write updated .env file
-        fs.writeFileSync(envPath, envContent);
-
-        // Update process.env (for current session)
-        process.env.EMAIL_PROVIDER = provider;
-        process.env.EMAIL_USER = user;
-        process.env.EMAIL_PASSWORD = password;
-        process.env.EMAIL_FROM_NAME = fromName || 'Lasantha Tire Service';
-
-        // Reinitialize email service with new config
-        const emailService = require('./services/emailService');
-        await emailService.initialize();
-
-        res.json({
-            ok: true,
-            message: 'Email configuration saved successfully',
-            config: { provider, user, fromName, isConfigured: true }
-        });
-
-    } catch (error) {
-        console.error('Update email config error:', error);
-        res.status(500).json({ ok: false, error: error.message });
-    }
-});
-
-// POST /api/config/email/test - Send test email
-app.post('/api/config/email/test', async (req, res) => {
-    try {
-        const { testEmail } = req.body;
-
-        if (!testEmail) {
-            return res.status(400).json({ ok: false, error: 'Test email address required' });
-        }
-
-        // Verify email is configured
-        if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
-            return res.status(400).json({ ok: false, error: 'Email not configured. Please save configuration first.' });
-        }
-
-        // Initialize email service
-        const emailService = require('./services/emailService');
-        await emailService.initialize();
-
-        // Send test email
-        const transporter = emailService.transporter;
-        
-        if (!transporter) {
-            return res.status(500).json({ ok: false, error: 'Email service not initialized' });
-        }
-
-        const testMailOptions = {
-            from: `${process.env.EMAIL_FROM_NAME || 'Lasantha Tire Service'} <${process.env.EMAIL_USER}>`,
-            to: testEmail,
-            subject: '✅ Test Email - Lasantha Tire Service',
-            html: `
-                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                    <div style="background: white; border-radius: 10px; padding: 30px;">
-                        <h2 style="color: #667eea; margin-bottom: 20px;">✅ Email Configuration Test</h2>
-                        
-                        <p style="color: #333; line-height: 1.6;">
-                            Congratulations! Your email configuration is working correctly.
-                        </p>
-                        
-                        <div style="background: #f8f9ff; border-left: 4px solid #667eea; padding: 15px; margin: 20px 0;">
-                            <p style="margin: 0; color: #555;"><strong>Provider:</strong> ${process.env.EMAIL_PROVIDER || 'Gmail'}</p>
-                            <p style="margin: 5px 0 0 0; color: #555;"><strong>From:</strong> ${process.env.EMAIL_USER}</p>
-                        </div>
-                        
-                        <p style="color: #666; font-size: 14px; margin-top: 30px;">
-                            You can now send quotations and booking confirmations to your customers.
-                        </p>
-                        
-                        <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;">
-                        
-                        <p style="color: #999; font-size: 12px; text-align: center;">
-                            Lasantha Tire Service - WhatsApp SQL API<br>
-                            Test email sent at ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Colombo' })}
-                        </p>
-                    </div>
-                </div>
-            `
-        };
-
-        await transporter.sendMail(testMailOptions);
-
-        res.json({
-            ok: true,
-            message: 'Test email sent successfully! Check your inbox.',
-            testEmail: testEmail
-        });
-
-    } catch (error) {
-        console.error('Send test email error:', error);
-        res.status(500).json({ 
-            ok: false, 
-            error: error.message,
-            details: error.code || 'Unknown error'
-        });
-    }
-});
-
-// ==============================================
-// Quotation Expiry Job API
-// ==============================================
-
-// POST /api/jobs/expiry/run - Manually trigger expiry job
-app.post('/api/jobs/expiry/run', async (req, res) => {
-    try {
-        const QuotationExpiryJob = require('./jobs/QuotationExpiryJob');
-        const expiryJob = new QuotationExpiryJob();
-        
-        const result = await expiryJob.execute();
-        
-        if (result.success) {
-            res.json({
-                ok: true,
-                message: 'Expiry job completed successfully',
-                expiredCount: result.expiredCount,
-                duration: result.duration
-            });
-        } else {
-            res.status(500).json({
-                ok: false,
-                error: result.error || 'Expiry job failed'
-            });
-        }
-    } catch (error) {
-        console.error('Manual expiry job error:', error);
-        res.status(500).json({ ok: false, error: error.message });
-    }
-});
-
-// GET /api/jobs/expiry/status - Get expiry job status
-app.get('/api/jobs/expiry/status', async (req, res) => {
-    try {
-        await aiPoolConnect;
-        const request = new sql.Request(aiPool);
-        
-        // Get statistics
-        const stats = await request.query(`
-            SELECT 
-                COUNT(*) as TotalQuotations,
-                SUM(CASE WHEN IsExpired = 1 THEN 1 ELSE 0 END) as ExpiredCount,
-                SUM(CASE WHEN IsExpired = 0 AND IsBooked = 0 AND ExpiryDate < GETDATE() THEN 1 ELSE 0 END) as PendingExpiry,
-                SUM(CASE WHEN IsExpired = 0 AND IsBooked = 0 AND ExpiryDate >= GETDATE() THEN 1 ELSE 0 END) as ActiveQuotations
-            FROM Quotations
-        `);
-        
-        const data = stats.recordset[0];
-        
-        res.json({
-            ok: true,
-            jobEnabled: String(process.env.ENABLE_QUOTATION_EXPIRY_JOB || 'true').toLowerCase() === 'true',
-            schedule: '0 * * * *', // Every hour
-            statistics: {
-                total: data.TotalQuotations,
-                expired: data.ExpiredCount,
-                pendingExpiry: data.PendingExpiry,
-                active: data.ActiveQuotations
-            }
-        });
-    } catch (error) {
-        console.error('Expiry job status error:', error);
-        res.status(500).json({ ok: false, error: error.message });
+        return res.status(500).json({ ok: false, error: error.message });
     }
 });
 
@@ -1498,17 +1305,8 @@ app.get('/api/jobs/stats', (req, res) => {
 // Trigger a job manually
 app.post('/api/jobs/run', async (req, res) => {
     try {
-        let { jobId, text = '' } = req.body || {};
+        const { jobId, text = '' } = req.body || {};
         if (!jobId) return res.status(400).json({ ok: false, error: 'jobId required' });
-
-        // Handle "Job" suffix mismatch (e.g. UI sends TyrePriceReplyJob, registry has TyrePriceReply)
-        if (!registry.jobs.has(jobId) && jobId.endsWith('Job')) {
-            const strippedId = jobId.slice(0, -3);
-            if (registry.jobs.has(strippedId)) {
-                jobId = strippedId;
-            }
-        }
-
         if (!registry.jobs.has(jobId)) return res.status(404).json({ ok: false, error: 'Job not found' });
         const startedAt = Date.now();
         // Broadcast job start over SSE for desktop UI
@@ -1556,7 +1354,8 @@ app.post('/api/jobs/run', async (req, res) => {
 
 app.get('/api/whatsapp/status', (req, res) => {
     try {
-        if (global.whatsappClient && global.whatsappClient.info) {
+        // Check if client exists and is ready (using isReady flag or info presence)
+        if (global.whatsappClient && (global.whatsappClient.isReady || (global.whatsappClient.info && global.whatsappClient.info.wid))) {
             const phone = global.whatsappClient.info?.wid?.user || null;
             return res.json({ isConnected: true, phoneNumber: phone, status: 'connected' });
         }
@@ -1564,6 +1363,243 @@ app.get('/api/whatsapp/status', (req, res) => {
     } catch (error) {
         return res.status(500).json({ isConnected: false, error: error.message });
     }
+});
+
+app.get('/api/whatsapp/qr', (req, res) => {
+    try {
+                const isReady = Boolean(global.whatsappClient && (global.whatsappClient.isReady || (global.whatsappClient.info && global.whatsappClient.info.wid)));
+                if (currentQRCode) {
+                        const ageMs = qrCodeTimestamp ? Math.max(0, Date.now() - qrCodeTimestamp) : null;
+                        return res.json({ ok: true, qr: currentQRCode, timestamp: qrCodeTimestamp, ageMs, ready: isReady });
+                }
+                return res.json({ ok: false, qr: null, message: 'No QR code available', ready: isReady });
+    } catch (error) {
+        return res.status(500).json({ ok: false, error: error.message });
+    }
+});
+
+// Returns a ready-to-display QR image (data URL). Useful for a live login page.
+app.get('/api/whatsapp/qr-image', async (req, res) => {
+        try {
+                const isReady = Boolean(global.whatsappClient && (global.whatsappClient.isReady || (global.whatsappClient.info && global.whatsappClient.info.wid)));
+
+                if (!currentQRCode) {
+                        return res.json({ ok: false, dataUrl: null, timestamp: null, ready: isReady, message: 'No QR code available' });
+                }
+
+                // Cache the dataUrl for the current QR string.
+                if (!currentQRCodeDataUrl || qrCodeDataUrlTimestamp !== qrCodeTimestamp) {
+                        try {
+                                currentQRCodeDataUrl = await QRCode.toDataURL(currentQRCode, { width: 320, margin: 2 });
+                                qrCodeDataUrlTimestamp = qrCodeTimestamp;
+                        } catch (e) {
+                                return res.status(500).json({ ok: false, error: e.message, ready: isReady });
+                        }
+                }
+
+                const ageMs = qrCodeTimestamp ? Math.max(0, Date.now() - qrCodeTimestamp) : null;
+                return res.json({ ok: true, dataUrl: currentQRCodeDataUrl, timestamp: qrCodeTimestamp, ageMs, ready: isReady });
+        } catch (error) {
+                return res.status(500).json({ ok: false, error: error.message });
+        }
+});
+
+        // Hard reset: clears LocalAuth session and forces a fresh QR.
+        // Use when QR scanning fails repeatedly or session keeps auto-logging out.
+        app.post('/api/whatsapp/hard-reset', async (req, res) => {
+            const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+            const rmrfWithRetries = async (targetPath, retries = 6, delayMs = 800) => {
+                for (let attempt = 1; attempt <= retries; attempt++) {
+                    try {
+                        if (fs.existsSync(targetPath)) {
+                            fs.rmSync(targetPath, { recursive: true, force: true });
+                        }
+                        return { ok: true };
+                    } catch (e) {
+                        const msg = String(e && e.message ? e.message : e);
+                        if ((msg.includes('EBUSY') || msg.includes('EPERM')) && attempt < retries) {
+                            await sleep(delayMs);
+                            continue;
+                        }
+                        return { ok: false, error: msg };
+                    }
+                }
+                return { ok: false, error: 'Unknown delete failure' };
+            };
+
+            try {
+                logAndSave('[HardReset] Requested');
+
+                // Best-effort destroy
+                try {
+                    if (global.whatsappClient && typeof global.whatsappClient.destroy === 'function') {
+                        await global.whatsappClient.destroy();
+                    }
+                } catch (e) {
+                    logAndSave(`[HardReset] Destroy error: ${e.message}`);
+                }
+
+                global.whatsappClient = null;
+                isInitialized = false;
+                isInitializing = false;
+
+                // Clear stored QR
+                currentQRCode = null;
+                qrCodeTimestamp = null;
+                currentQRCodeDataUrl = null;
+                qrCodeDataUrlTimestamp = null;
+                try { fs.writeFileSync(STATUS_FILE, JSON.stringify({ ready: false, reset: true }), 'utf8'); } catch {}
+
+                const del = await rmrfWithRetries(AUTH_PATH);
+                if (!del.ok) {
+                    logAndSave(`[HardReset] Failed to delete AUTH_PATH: ${del.error}`);
+                    return res.status(500).json({ ok: false, error: del.error, hint: 'If this keeps happening, chrome.exe is locking .wwebjs_auth. Close/kill Chrome then retry.' });
+                }
+
+                setTimeout(() => initializeClient(true).catch(() => {}), 250);
+                return res.json({ ok: true, message: 'Session cleared. Generating new QR…' });
+            } catch (error) {
+                return res.status(500).json({ ok: false, error: error.message });
+            }
+        });
+
+// Built-in live login page (no stale local HTML, updates instantly via SSE)
+app.get('/login', (req, res) => {
+        res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        res.end(`<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>WhatsApp Login</title>
+        <style>
+            body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#f4f6f8;}
+            .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;}
+            .card{width:min(560px,100%);background:#fff;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.08);padding:28px;}
+            h1{margin:0 0 10px 0;font-size:22px;color:#075e54;}
+            .muted{color:#667085;font-size:13px;margin:0 0 18px 0;}
+            .row{display:flex;gap:16px;align-items:center;flex-wrap:wrap;}
+            .qr{width:320px;height:320px;border:4px solid #128c7e;border-radius:10px;display:flex;align-items:center;justify-content:center;background:#fff;overflow:hidden;}
+            .qr img{width:320px;height:320px;display:block;}
+            .status{flex:1;min-width:180px;}
+            .pill{display:inline-block;background:#f2f4f7;border:1px solid #e4e7ec;border-radius:999px;padding:6px 10px;font-size:12px;color:#344054;}
+            .ok{background:#ecfdf3;border-color:#abefc6;color:#067647;}
+            .warn{background:#fffaeb;border-color:#fedf89;color:#b54708;}
+            .bad{background:#fef3f2;border-color:#fecdca;color:#b42318;}
+            .btn{cursor:pointer;border:1px solid #d0d5dd;background:#fff;border-radius:10px;padding:10px 12px;font-size:14px;}
+            .btnPrimary{background:#128c7e;border-color:#128c7e;color:#fff;}
+            .small{font-size:12px;color:#667085;margin-top:10px;line-height:1.4;}
+            code{background:#f2f4f7;padding:2px 6px;border-radius:6px;}
+        </style>
+    </head>
+    <body>
+        <div class="wrap">
+            <div class="card">
+                <h1>WhatsApp Login (Live QR)</h1>
+                <p class="muted">Keep this page open. QR updates automatically if it refreshes.</p>
+                <div class="row">
+                    <div class="qr"><img id="qrImg" alt="QR" /></div>
+                    <div class="status">
+                        <div id="pill" class="pill warn">Waiting for QR…</div>
+                        <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+                            <button id="btnConnect" class="btn btnPrimary">Connect / Generate QR</button>
+                            <button id="btnReset" class="btn">Hard Reset (Fix QR)</button>
+                            <button id="btnReload" class="btn">Reload QR</button>
+                        </div>
+                        <div class="small">
+                            On your phone: WhatsApp → <b>Linked devices</b> → <b>Link a device</b> → scan.
+                            <div style="margin-top:8px;">Status API: <code>/api/whatsapp/status</code></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            const qrImg = document.getElementById('qrImg');
+            const pill = document.getElementById('pill');
+            const btnConnect = document.getElementById('btnConnect');
+            const btnReset = document.getElementById('btnReset');
+            const btnReload = document.getElementById('btnReload');
+
+            function setPill(text, kind) {
+                pill.className = 'pill ' + (kind || 'warn');
+                pill.textContent = text;
+            }
+
+            async function loadQrImage() {
+                try {
+                    const res = await fetch('/api/whatsapp/qr-image', { cache: 'no-store' });
+                    const data = await res.json();
+                    if (data && data.ready) {
+                        setPill('Connected ✅', 'ok');
+                        qrImg.removeAttribute('src');
+                        return;
+                    }
+                    if (data && data.dataUrl) {
+                        qrImg.src = data.dataUrl;
+                        setPill('Scan QR now (updates live)', 'warn');
+                        return;
+                    }
+                    setPill('No QR yet (click Connect)', 'warn');
+                } catch (e) {
+                    setPill('Error loading QR: ' + e.message, 'bad');
+                }
+            }
+
+            btnReload.addEventListener('click', () => loadQrImage());
+            btnConnect.addEventListener('click', async () => {
+                try {
+                    setPill('Starting…', 'warn');
+                    await fetch('/connect', { method: 'POST' });
+                    await loadQrImage();
+                } catch (e) {
+                    setPill('Connect failed: ' + e.message, 'bad');
+                }
+            });
+
+            btnReset.addEventListener('click', async () => {
+                try {
+                    setPill('Resetting session…', 'warn');
+                    await fetch('/api/whatsapp/hard-reset', { method: 'POST' });
+                    await new Promise(r => setTimeout(r, 1200));
+                    await loadQrImage();
+                } catch (e) {
+                    setPill('Reset failed: ' + e.message, 'bad');
+                }
+            });
+
+            // SSE: instant QR updates without polling.
+            try {
+                const es = new EventSource('/sse');
+                es.addEventListener('qr', (ev) => {
+                    try {
+                        const payload = JSON.parse(ev.data || '{}');
+                        if (payload.dataUrl) {
+                            qrImg.src = payload.dataUrl;
+                            setPill('Scan QR now (updates live)', 'warn');
+                        } else {
+                            // fallback
+                            loadQrImage();
+                        }
+                    } catch { loadQrImage(); }
+                });
+                es.addEventListener('ready', () => {
+                    setPill('Connected ✅', 'ok');
+                    qrImg.removeAttribute('src');
+                });
+                es.addEventListener('disconnected', (ev) => {
+                    let reason = '';
+                    try { reason = (JSON.parse(ev.data || '{}').reason) || ''; } catch {}
+                    setPill('Disconnected: ' + (reason || 'unknown'), 'bad');
+                });
+            } catch {}
+
+            // Initial load + periodic safety refresh
+            loadQrImage();
+            setInterval(loadQrImage, 4000);
+        </script>
+    </body>
+</html>`);
 });
 
 // Job Execution Manager Status (Advanced Conflict Prevention System)
@@ -1719,7 +1755,7 @@ app.post('/api/whatsapp/send', async (req, res) => {
         }
 
         const chatId = `${normalizedNumber}@c.us`;
-        await global.whatsappClient.sendMessage(chatId, message);
+        await global.whatsappClient.sendMessage(chatId, String(message), { sendSeen: false });
 
         // Attempt to flush any queued requests now that the client is reachable
         processQueuedQuoteRequests('api_send').catch(() => {});
@@ -1865,13 +1901,63 @@ const SESSION_ERROR_PATTERNS = [
     'Target closed',
     'Protocol error',
     'clientInstance is not defined',
-    'Cannot read properties of undefined',
     'Evaluation failed'
 ];
 
+// Some WhatsApp Web internal errors are noisy but often transient.
+// Restarting the whole session on these can cause infinite re-init loops.
+const TRANSIENT_WA_ERROR_PATTERNS = [
+    'markedUnread',
+    'WidFactory',
+    'Attempted to use detached Frame'
+];
+
 function isWhatsAppClientReady() {
-    return Boolean(global.whatsappClient && global.whatsappClient.pupPage && isInitialized);
+    const c = global.whatsappClient;
+    const hasInfo = Boolean(c && c.info && c.info.wid);
+    const hasReadyFlag = Boolean(c && c.isReady);
+    // BAILEYS MIGRATION: Check isReady flag instead of pupPage
+    return Boolean(c && c.isReady && (isInitialized || hasReadyFlag || forcedReady));
 }
+
+// Quick diagnostics to understand why sending/replies might be failing
+app.get('/api/whatsapp/diagnose', async (req, res) => {
+    try {
+        const c = global.whatsappClient;
+        let state = null;
+        try {
+            if (c && typeof c.getState === 'function') {
+                state = await c.getState();
+            }
+        } catch (e) {
+            state = `error:${e.message}`;
+        }
+
+        return res.json({
+            readyCheck: isWhatsAppClientReady(),
+            flags: {
+                isInitialized,
+                isInitializing,
+                readyEventSeen,
+                forcedReady,
+                lastReadyEventAt,
+                clientIsReady: Boolean(c && c.isReady),
+                hasInfoWid: Boolean(c && c.info && c.info.wid),
+                // BAILEYS MIGRATION: No pupPage in Baileys
+                hasSock: Boolean(c && c.sock)
+            },
+            state,
+            phoneNumber: c?.info?.wid?.user || null,
+            waDiag: global.__waDiag || null,
+            listenerCounts: {
+                message: (c && typeof c.listenerCount === 'function') ? c.listenerCount('message') : null,
+                message_create: (c && typeof c.listenerCount === 'function') ? c.listenerCount('message_create') : null
+            }
+        });
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+});
 
 function respondClientUnavailable(res, context) {
     if (global.whatsappClient) {
@@ -1887,6 +1973,19 @@ function respondClientUnavailable(res, context) {
 function handleWhatsappApiError(context, error, res) {
     const message = (error && error.message) ? error.message : String(error);
     console.error(`[${context}] Error:`, error);
+
+    // Avoid session restarts for known transient WA Web issues.
+    if (TRANSIENT_WA_ERROR_PATTERNS.some(pattern => message.includes(pattern))) {
+        if (res && !res.headersSent) {
+            res.status(503).json({
+                error: 'WhatsApp is temporarily busy; please retry shortly.',
+                detail: message,
+                context
+            });
+        }
+        return true;
+    }
+
     if (SESSION_ERROR_PATTERNS.some(pattern => message.includes(pattern))) {
         triggerSessionRecovery(context, message);
         if (res && !res.headersSent) {
@@ -2372,7 +2471,9 @@ app.get('/sse', (req, res) => {
     res.setHeader('Content-Type', 'text/event-stream');
     res.setHeader('Cache-Control', 'no-cache');
     res.setHeader('Connection', 'keep-alive');
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    const origin = req.headers.origin;
+    res.setHeader('Access-Control-Allow-Origin', origin || '*');
+    if (origin) res.setHeader('Vary', 'Origin');
 
     // Send initial connection message
     res.write(`: connected ${Date.now()}\n\n`);
@@ -2694,6 +2795,11 @@ try {
 // ...existing code...
 
 function logAndSave(message) {
+    let safeMessage = message;
+    try {
+        const { redactSensitive } = require('./utils/redactSensitive');
+        safeMessage = redactSensitive(message);
+    } catch { /* redaction is best-effort */ }
     try {
         // Simple log rotation
         const maxBytes = parseInt(process.env.LOG_MAX_BYTES || '2000000', 10); // 2MB default
@@ -2704,12 +2810,12 @@ function logAndSave(message) {
                 fs.renameSync(LOG_FILE, rotated);
             }
         }
-        const logLine = `[${new Date().toISOString()}] ${message}\n`;
+        const logLine = `[${new Date().toISOString()}] ${safeMessage}\n`;
         fs.appendFileSync(LOG_FILE, logLine);
     } catch (e) {
         console.error('Log write error:', e.message);
     }
-    console.log(message);
+    console.log(safeMessage);
 }
 
 // ========================================
@@ -2795,7 +2901,9 @@ app.get('/events', (req, res) => {
     res.setHeader('Cache-Control', 'no-cache');
     res.setHeader('Connection', 'keep-alive');
     // CORS for local desktop app
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    const origin = req.headers.origin;
+    res.setHeader('Access-Control-Allow-Origin', origin || '*');
+    if (origin) res.setHeader('Vary', 'Origin');
 
     // Send initial comment to open stream
     res.write(`: connected ${Date.now()}\n\n`);
@@ -2865,10 +2973,46 @@ const defaultChromePath = 'C:\\Program Files\\Google\\Chrome\\Application\\chrom
 const desiredChromePath = process.env.CHROMIUM_PATH || defaultChromePath;
 
 function getPuppeteerOptions() {
+    // Allow runtime override for debugging inbound message issues.
+    // WA_HEADLESS=false -> headful (recommended to debug message reception)
+    // WA_HEADLESS=true  -> legacy headless true
+    // default           -> 'new'
+    const headlessEnv = String(process.env.WA_HEADLESS || '').trim().toLowerCase();
+    const headlessValue = (headlessEnv === 'false' || headlessEnv === '0')
+        ? false
+        : (headlessEnv === 'true' || headlessEnv === '1')
+            ? true
+            : 'new';
+
+    const resolvedExecutablePath = (() => {
+        try {
+            const candidates = [
+                process.env.CHROMIUM_PATH,
+                desiredChromePath,
+                defaultChromePath
+            ].filter(Boolean);
+            for (const p of candidates) {
+                try {
+                    if (p && fs.existsSync(p)) return String(p);
+                } catch {}
+            }
+        } catch {}
+        // Let Puppeteer pick its bundled Chromium.
+        return undefined;
+    })();
+
+    try {
+        const which = resolvedExecutablePath ? resolvedExecutablePath : '(bundled chromium)';
+        logAndSave(`[Puppeteer] executablePath=${which} headless=${String(headlessValue)}`);
+    } catch {}
+
     const opts = {
+        // Prefer system Chrome / configured Chromium when available.
+        // If undefined, Puppeteer uses its bundled Chromium.
+        executablePath: resolvedExecutablePath,
         // ✅ FIX 5: Use 'new' headless mode for better session persistence
         // Old headless mode had issues with LocalStorage/IndexedDB persistence
-        headless: 'new',  // Changed from true to 'new' (Puppeteer 21+)
+        headless: 'new',
         args: [
             '--no-sandbox',
             '--disable-setuid-sandbox',
@@ -2889,55 +3033,35 @@ function getPuppeteerOptions() {
         handleSIGINT: false,
         handleSIGTERM: false,
         handleSIGHUP: false
-        // ❌ REMOVED: userDataDir conflicts with LocalAuth
-        // LocalAuth manages its own browser data in .wwebjs_auth/session-{clientId}
-        // userDataDir: path.join(AUTH_PATH, 'browser-data'),  // CONFLICT!
     };
-    
-    // Don't use external Chrome - let Puppeteer use bundled Chromium
-    // try {
-    //     if (fs.existsSync(desiredChromePath)) {
-    //         opts.executablePath = desiredChromePath;
-    //     }
-    // } catch (e) {
-    //     logAndSave(`[Puppeteer] Chrome path check failed: ${e.message}`);
-    // }
     
     return opts;
 }
 
 function getClientOptions() {
+    // =====================================================
+    // WHATSAPP-WEB.JS CONFIG - Restored original config
+    // =====================================================
+    const authStrategy = new LocalAuth({ 
+        dataPath: AUTH_PATH,
+        clientId: 'lasantha-tire-bot'
+    });
+    
     return {
-        authStrategy: new LocalAuth({ 
-            dataPath: AUTH_PATH,
-            clientId: 'lasantha-tire-bot'
-        }),
+        restartOnAuthFail: true,
         puppeteer: getPuppeteerOptions(),
-        // ✅ FIX 1: Use local cache to persist WhatsApp Web version (prevents re-authentication)
-        // Remote cache causes session invalidation when WhatsApp updates
-        webVersionCache: { 
-            type: 'local'
-        },
-        authTimeoutMs: 120000,  // Increased to 120s for QR scan time
-        qrMaxRetries: 5,
-        restartOnAuthFail: false,  // ✅ FIX 2: Don't restart on auth fail - preserve session
-        takeoverOnConflict: true,
-        takeoverTimeoutMs: 10000,
-        // ✅ FIX 3: Add session backup options
-        authTimeoutMs: 180000,  // 3 minutes for QR scan
-        qrTimeoutMs: 120000,    // 2 minutes QR validity
-        // ✅ FIX 4: Preserve session across restarts
-        bypassCSP: true,        // Required for WhatsApp Web compatibility
-        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        authStrategy: authStrategy,
+        qrMaxRetries: 0,  // 0 = unlimited retries
     };
 }
 
-// Create initial client instance
-let client = new Client(getClientOptions());
-global.whatsappClient = client;
+// Client instance is created inside initializeClient() so we can always create a fresh
+// instance on reconnect (whatsapp-web.js doesn't support re-initializing the same instance).
+let client = null;
+global.whatsappClient = null;
 
 function setupClientEventHandlers(clientInstance) {
-    clientInstance.on('qr', (qr) => {
+    clientInstance.on('qr', async (qr) => {
         logAndSave('[QR] QR Code received');
         // ✅ FIX 9: Log session status when QR is requested
         const sessionPath = path.join(AUTH_PATH, 'session-lasantha-tire-bot');
@@ -2949,25 +3073,58 @@ function setupClientEventHandlers(clientInstance) {
         const snap = snapshotSession();
         logAndSave(`[QR] Snapshot: files=${snap.totalFiles} indexedDB=${snap.keyArtifacts.indexedDB} localStorage=${snap.keyArtifacts.localStorage}`);
         qrcode.generate(qr, { small: true });
-        
+
         // Store QR code for dashboard API
         currentQRCode = qr;
         qrCodeTimestamp = Date.now();
-        
+        currentQRCodeDataUrl = null;
+        qrCodeDataUrlTimestamp = null;
+
+        // Pre-compute a data URL for the live /login page and SSE clients
+        try {
+            currentQRCodeDataUrl = await QRCode.toDataURL(qr, { width: 320, margin: 2 });
+            qrCodeDataUrlTimestamp = qrCodeTimestamp;
+        } catch (e) {
+            logAndSave(`[QR] DataUrl generation failed: ${e.message}`);
+        }
+
         try {
             fs.writeFileSync(STATUS_FILE, JSON.stringify({ qr, ready: false }), 'utf8');
         } catch {}
-        sseBroadcast('qr', { qr });
+        sseBroadcast('qr', { qr, dataUrl: currentQRCodeDataUrl, timestamp: qrCodeTimestamp });
     });
 
     clientInstance.on('loading_screen', (percent, message) => {
         logAndSave(`[Loading] ${percent}% - ${message}`);
     });
-    
+
     // ✅ FIX 10: Add authenticated event to confirm session loaded
     clientInstance.on('authenticated', () => {
         logAndSave('[Auth] ✅ Session authenticated successfully - credentials saved');
         sseBroadcast('authenticated', { status: 'Session loaded from disk' });
+
+        // WATCHDOG: Ensure 'ready' fires. If not, trigger it manually if we are connected.
+        setTimeout(async () => {
+            if (isInitialized) return; // Already ready, all good.
+
+            try {
+                // Relaxed check: Just check connection state (info.wid might be empty until ready)
+                const state = await clientInstance.getState();
+                
+                if (state === 'CONNECTED') {
+                    logAndSave('[Auth] ⚠️ CONNECTED but no ready event yet. Forcing manual readiness...');
+                    
+                    // BAILEYS MIGRATION: No need for pupPage injection
+                    // Baileys handles events directly via socket
+                    
+                    clientInstance.emit('ready');
+                } else {
+                    logAndSave(`[Auth] Still waiting for connection... State: ${state}`);
+                }
+            } catch (e) {
+                logAndSave(`[Auth] Watchdog check failed: ${e.message}`);
+            }
+        }, 15000); // Check after 15 seconds
     });
 
     // ✅ CRITICAL FIX: Attach message handler to the client instance
@@ -2980,18 +3137,37 @@ function setupClientLifecycleHandlers(clientInstance) {
     clientInstance.on('disconnected', async (reason) => {
         logAndSave(`[Disconnect] Client disconnected: ${reason}`);
         isInitialized = false;
+        clientInstance.isReady = false;
         isInitializing = false;
         try { fs.writeFileSync(STATUS_FILE, JSON.stringify({ ready: false, reason }), 'utf8'); } catch {}
         sseBroadcast('disconnected', { reason });
-        
-        // Only auto-reconnect for certain disconnect reasons
-        const autoReconnectReasons = ['CONFLICT', 'UNPAIRED', 'TIMEOUT'];
-        if (autoReconnectReasons.some(r => String(reason).includes(r))) {
-            logAndSave('[Disconnect] Auto-reconnect triggered');
-            handleReconnection();
-        } else {
-            logAndSave('[Disconnect] Manual reconnect required (use Connect button)');
+
+        // ✅ PERMANENT FIX: Handle "LOGOUT" by wiping session and restarting
+        if (reason === 'LOGOUT' || String(reason).includes('LOGOUT')) {
+            logAndSave('[Disconnect] ⛔ Session logged out detected. Wiping invalid session data...');
+            try {
+                if (fs.existsSync(AUTH_PATH)) {
+                    // Retrying delete to handle Windows file locking
+                    try {
+                        fs.rmSync(AUTH_PATH, { recursive: true, force: true });
+                    } catch (rmErr) {
+                        logAndSave(`[Disconnect] First delete attempt failed: ${rmErr.message}. Retrying in 1s...`);
+                        await new Promise(r => setTimeout(r, 1000));
+                        fs.rmSync(AUTH_PATH, { recursive: true, force: true });
+                    }
+                    logAndSave('[Disconnect] ✅ Session data wiped. Starting fresh...');
+                }
+            } catch (e) {
+                logAndSave(`[Disconnect] ⚠️ Failed to wipe session: ${e.message}`);
+            }
+            // Retrigger initialization cleanly with forced QR
+            setTimeout(() => initializeClient(true), 2000);
+            return;
         }
+
+        // Auto-reconnect for all other reasons (transient errors, timeouts, etc.)
+        logAndSave('[Disconnect] Auto-reconnect triggered');
+        handleReconnection();
     });
 
     clientInstance.on('auth_failure', async (msg) => {
@@ -2999,7 +3175,7 @@ function setupClientLifecycleHandlers(clientInstance) {
         isInitialized = false;
         isInitializing = false;
         try { fs.writeFileSync(STATUS_FILE, JSON.stringify({ ready: false, auth_failure: true }), 'utf8'); } catch {}
-        
+
         // Try to restore from backup first (session එක corrupt වෙලා නම්)
         logAndSave('[Auth] Attempting to restore session from backup...');
         const restored = await restoreSessionFromBackup();
@@ -3026,21 +3202,67 @@ function setupClientLifecycleHandlers(clientInstance) {
     });
 
     clientInstance.on('ready', () => {
-        logAndSave('[Ready] ✅ WhatsApp client is ready!');
+        promoteClientToReady(clientInstance, { forced: false }).catch(() => {});
+    });
+}
+
+// Enhanced error handling and recovery
+let isInitialized = false;
+let isInitializing = false;
+let readyEventSeen = false;
+let forcedReady = false;
+let lastReadyEventAt = null;
+let reconnectAttempts = 0;
+let browserLockRetryCount = 0;
+let ipcWatcherStarted = false;
+let reconnectTimer = null;
+const MAX_RECONNECT_ATTEMPTS = 3; // Reduced from 5 to avoid infinite loops
+const BASE_RECONNECT_INTERVAL = 15000; // 15 seconds base
+const MAX_RECONNECT_INTERVAL = 60000; // 1 minute max
+
+async function promoteClientToReady(ci, { forced = false } = {}) {
+    try {
+        if (!ci) return;
+
+        if (forced) {
+            logAndSave("[Ready] ✅ Forced-ready: 'ready' event missing but client looks authenticated/connected");
+        } else {
+            logAndSave('[Ready] ✅ WhatsApp client is ready!');
+        }
+
+        // BAILEYS MIGRATION: Baileys handles events via socket, no injection needed
+        // The inject() method is a no-op in the Baileys wrapper for compatibility
+        try {
+            if (typeof ci.inject === 'function') {
+                logAndSave('[Ready] Manually injecting listeners...');
+                await ci.inject();
+                logAndSave('[Ready] ✅ Listeners injected successfully');
+            }
+        } catch (injectErr) {
+            logAndSave(`[Ready] ⚠️ inject() failed (may already be done): ${injectErr?.message || injectErr}`);
+        }
+
+        readyEventSeen = !forced;
+        forcedReady = Boolean(forced);
+        lastReadyEventAt = Date.now();
+
         isInitialized = true;
+        ci.isReady = true;
         isInitializing = false;
+        browserLockRetryCount = 0;
         reconnectAttempts = 0;
-        
+
         if (reconnectTimer) {
             clearTimeout(reconnectTimer);
             reconnectTimer = null;
         }
-        
-        setClient(clientInstance);
-        
+
+        try { setClient(ci); } catch {}
+
         try {
-            const phoneNumber = (clientInstance && clientInstance.info && clientInstance.info.wid && clientInstance.info.wid.user) ? clientInstance.info.wid.user : undefined;
+            const phoneNumber = (ci && ci.info && ci.info.wid && ci.info.wid.user) ? ci.info.wid.user : undefined;
             const status = { ready: true };
+            if (forced) status.forcedReady = true;
             if (phoneNumber) {
                 status.phoneNumber = phoneNumber;
                 logAndSave(`[Ready] Connected as: ${phoneNumber}`);
@@ -3049,19 +3271,23 @@ function setupClientLifecycleHandlers(clientInstance) {
         } catch (e) {
             logAndSave(`[Ready] Status file write error: ${e.message}`);
         }
-        
-        sseBroadcast('ready', { ready: true });
 
-        processQueuedQuoteRequests('whatsapp_ready').catch(() => {});
+        try { sseBroadcast('ready', { ready: true, forced: Boolean(forced) }); } catch {}
+
+        // Workaround: WhatsApp Web sometimes crashes inside sendSeen()/markedUnread.
+        installWhatsAppNoSeenWorkaround(ci).catch(() => {});
+        installNoSeenSendMessageWrapper(ci);
+
+        processQueuedQuoteRequests(forced ? 'forced_ready' : 'whatsapp_ready').catch(() => {});
 
         // Initialize all components
         try {
-            if (!initializeScheduler(clientInstance)) {
+            if (!initializeScheduler(ci)) {
                 throw new Error('Scheduler initialization failed');
             }
 
             try {
-                initializeDailyAccountingReport(clientInstance);
+                initializeDailyAccountingReport(ci);
                 logAndSave('Daily Accounting Report System initialized');
             } catch (reportErr) {
                 logAndSave(`Warning: Daily Accounting Report initialization failed: ${reportErr.message}`);
@@ -3071,7 +3297,7 @@ function setupClientLifecycleHandlers(clientInstance) {
             // Scheduled Media Publisher (conditional start)
             if (String(process.env.ENABLE_SCHEDULED_MEDIA_PUBLISHER || 'true').toLowerCase() === 'true') {
                 try {
-                    const mediaPublisher = new ScheduledMediaPublisherJob(clientInstance);
+                    const mediaPublisher = new ScheduledMediaPublisherJob(ci);
                     mediaPublisher.start();
                     logAndSave('📅 Scheduled Media Publisher started (10:05 PM daily)');
                 } catch (publishErr) {
@@ -3080,36 +3306,6 @@ function setupClientLifecycleHandlers(clientInstance) {
                 }
             } else {
                 logAndSave('ℹ️  Scheduled Media Publisher disabled (ENABLE_SCHEDULED_MEDIA_PUBLISHER=false)');
-            }
-
-            // Quotation Expiry Job (conditional start)
-            if (String(process.env.ENABLE_QUOTATION_EXPIRY_JOB || 'true').toLowerCase() === 'true') {
-                try {
-                    const cron = require('node-cron');
-                    const QuotationExpiryJob = require('./jobs/QuotationExpiryJob');
-                    const expiryJob = new QuotationExpiryJob();
-                    
-                    // Schedule job to run every hour
-                    cron.schedule(expiryJob.schedule, async () => {
-                        try {
-                            await expiryJob.execute();
-                        } catch (err) {
-                            console.error('[QuotationExpiryJob] Scheduled execution error:', err);
-                        }
-                    });
-                    
-                    logAndSave('⏰ Quotation Expiry Job started (runs every hour)');
-                    
-                    // Run once immediately on startup
-                    expiryJob.execute().catch(err => {
-                        console.error('[QuotationExpiryJob] Initial execution error:', err);
-                    });
-                } catch (expiryErr) {
-                    logAndSave(`Warning: Quotation Expiry Job initialization failed: ${expiryErr.message}`);
-                    console.error('Quotation Expiry Job init error:', expiryErr);
-                }
-            } else {
-                logAndSave('ℹ️  Quotation Expiry Job disabled (ENABLE_QUOTATION_EXPIRY_JOB=false)');
             }
 
             if (!ipcWatcherStarted) {
@@ -3123,6 +3319,7 @@ function setupClientLifecycleHandlers(clientInstance) {
             logAndSave(`Initialization error: ${e.message}`);
             console.error('Initialization failed:', e);
         }
+
         // Start backup system only after first successful ready (avoid backing up partial QR state)
         try {
             if (!global.__backupStarted) {
@@ -3133,23 +3330,95 @@ function setupClientLifecycleHandlers(clientInstance) {
         } catch (backupErr) {
             logAndSave(`[Ready] Session backup failed to start: ${backupErr.message}`);
         }
-    });
+    } catch {}
 }
 
-// Enhanced error handling and recovery
-let isInitialized = false;
-let isInitializing = false;
-let reconnectAttempts = 0;
-let ipcWatcherStarted = false;
-let reconnectTimer = null;
-const MAX_RECONNECT_ATTEMPTS = 3; // Reduced from 5 to avoid infinite loops
-const BASE_RECONNECT_INTERVAL = 15000; // 15 seconds base
-const MAX_RECONNECT_INTERVAL = 60000; // 1 minute max
-
 // Cleanup function to destroy client properly
+function killStaleWhatsAppChromiumProcesses() {
+    try {
+        if (process.platform !== 'win32') return;
+
+        const psQuote = (value) => {
+            // PowerShell single-quoted string literal. Backslashes are literal; only single quotes need escaping.
+            return `'${String(value || '').replace(/'/g, "''")}'`;
+        };
+
+        // Target the bundled Puppeteer Chromium and/or anything holding the LocalAuth profile.
+        const chromiumExe = (() => {
+            try {
+                const opts = getPuppeteerOptions();
+                return (opts && opts.executablePath) ? String(opts.executablePath) : '';
+            } catch { return ''; }
+        })();
+        const sessionPath = path.join(AUTH_PATH, 'session-lasantha-tire-bot');
+
+                const ps = `
+$ErrorActionPreference='SilentlyContinue'
+$chromiumExe = ${psQuote(chromiumExe)}
+$sessionPath = ${psQuote(sessionPath)}
+
+$targets = Get-CimInstance Win32_Process | Where-Object {
+    ($_.Name -ieq 'chrome.exe' -or $_.Name -ieq 'chromium.exe') -and ($_.CommandLine -or $_.ExecutablePath)
+} | Where-Object {
+    ($chromiumExe -and $_.ExecutablePath -and ($_.ExecutablePath -ieq $chromiumExe)) -or
+    ($sessionPath -and $_.CommandLine -and (
+            $_.CommandLine -like ('*' + $sessionPath + '*') -or
+            $_.CommandLine -like ('*--user-data-dir=' + $sessionPath + '*') -or
+            $_.CommandLine -like ('*--user-data-dir="' + $sessionPath + '"*')
+    ))
+}
+
+foreach ($p in $targets) {
+    try {
+        Stop-Process -Id $p.ProcessId -Force -ErrorAction SilentlyContinue
+    } catch {
+        try { taskkill /PID $p.ProcessId /F | Out-Null } catch {}
+    }
+}
+"killed=" + (($targets | Select-Object -ExpandProperty ProcessId) -join ',')
+`;
+
+                const out = execFileSync('powershell', ['-NoProfile', '-Command', ps], { stdio: ['ignore', 'pipe', 'pipe'] });
+                try {
+                        const s = Buffer.isBuffer(out) ? out.toString('utf8') : String(out || '');
+                        if (s && s.trim()) logAndSave(`[Cleanup] Chromium kill result: ${s.trim()}`);
+                } catch {}
+    } catch {
+        // best-effort only
+    }
+}
+
+function cleanupChromiumLockArtifacts() {
+    try {
+        const sessionPath = path.join(AUTH_PATH, 'session-lasantha-tire-bot');
+        if (!fs.existsSync(sessionPath)) return;
+        const candidates = [
+            'DevToolsActivePort',
+            'SingletonLock',
+            'SingletonCookie',
+            'SingletonSocket'
+        ];
+        for (const name of candidates) {
+            const p = path.join(sessionPath, name);
+            try {
+                if (fs.existsSync(p)) fs.rmSync(p, { force: true });
+            } catch {}
+        }
+    } catch {
+        // best-effort only
+    }
+}
+
 async function cleanupClient() {
     if (global.whatsappClient && global.whatsappClient !== null) {
         try {
+            // Detach listeners so the old client can't mutate global init flags while we are cleaning up.
+            try {
+                if (typeof global.whatsappClient.removeAllListeners === 'function') {
+                    global.whatsappClient.removeAllListeners();
+                }
+            } catch {}
+
             // Try to destroy the client gracefully
             if (typeof global.whatsappClient.destroy === 'function') {
                 await global.whatsappClient.destroy();
@@ -3162,9 +3431,16 @@ async function cleanupClient() {
             }
         }
     }
+
+    // If Chromium is still running/locking the profile, kill it (Windows best-effort).
+    killStaleWhatsAppChromiumProcesses();
+    // If Chromium crashed, lock artifacts can remain and block re-launch.
+    cleanupChromiumLockArtifacts();
     global.whatsappClient = null;
     isInitialized = false;
-    isInitializing = false;
+    readyEventSeen = false;
+    forcedReady = false;
+    lastReadyEventAt = null;
 }
 
 async function initializeClient(force = false) {
@@ -3197,14 +3473,18 @@ async function initializeClient(force = false) {
             // Check if session has critical files
             const indexedDBPath = path.join(sessionPath, 'Default', 'IndexedDB');
             const localStoragePath = path.join(sessionPath, 'Default', 'Local Storage');
+            const credsPath = path.join(sessionPath, 'creds.json'); // Baileys support
+
             const hasIndexedDB = fs.existsSync(indexedDBPath);
             const hasLocalStorage = fs.existsSync(localStoragePath);
+            const hasCreds = fs.existsSync(credsPath);
             
             logAndSave(`[Init] 📂 Found existing session:`);
             logAndSave(`       - IndexedDB: ${hasIndexedDB ? '✅' : '❌'}`);
             logAndSave(`       - LocalStorage: ${hasLocalStorage ? '✅' : '❌'}`);
+            logAndSave(`       - Baileys Creds: ${hasCreds ? '✅' : '❌'}`);
             
-            if (hasIndexedDB && hasLocalStorage) {
+            if ((hasIndexedDB && hasLocalStorage) || hasCreds) {
                 logAndSave('[Init] ✅ Valid session detected - will attempt to restore without QR');
             } else {
                 logAndSave('[Init] ⚠️  Incomplete session - may require QR scan');
@@ -3231,11 +3511,15 @@ async function initializeClient(force = false) {
         // Now initialize the new client
         logAndSave('[Init] Calling client.initialize()...');
         await client.initialize();
+        
+        // Reset initialization flags
         reconnectAttempts = 0;
-        logAndSave('[Init] ✅ Initialization completed successfully');
+        logAndSave('[Init] ✅ Initialization command sent successfully');
+        
     } catch (error) {
         logAndSave(`[Init] ❌ Initialization error: ${error.message}`);
         console.error('[Init] Full error:', error);
+        isInitializing = false;
         
         // Check if error is due to session corruption
         const isSessionError = error.message && (
@@ -3248,36 +3532,16 @@ async function initializeClient(force = false) {
         if (isSessionError && reconnectAttempts === 0) {
             logAndSave('[Init] 🔧 Session corruption detected - attempting restore from backup...');
             try {
-                // Try to restore from backup
+                // Simplistic restore attempt
                 const restored = await restoreSessionFromBackup();
                 if (restored) {
-                    // Do NOT delete restored session; it is now the good copy
-                    logAndSave('[Init] ✅ Session restored from backup - retrying initialization WITHOUT deleting restored data...');
-                    setTimeout(() => {
-                        isInitializing = false;
-                        initializeClient(true);
-                    }, 3000);
-                    return;
-                } else {
-                    logAndSave('[Init] ⚠️  No backup available - will require fresh QR scan');
-                    if (CLEAR_SESSION_ON_INIT_ERROR) {
-                        if (fs.existsSync(AUTH_PATH)) {
-                            fs.rmSync(AUTH_PATH, { recursive: true, force: true });
-                            logAndSave('[Init] Deleted corrupted session (env flag CLEAR_SESSION_ON_INIT_ERROR=true)');
-                        }
-                    } else {
-                        logAndSave('[Init] Keeping corrupted session for manual inspection (CLEAR_SESSION_ON_INIT_ERROR=false)');
-                    }
+                    setTimeout(() => initializeClient(true), 1000);
                 }
-            } catch (restoreErr) {
-                logAndSave(`[Init] ❌ Restore failed: ${restoreErr.message}`);
-            }
+            } catch {}
         }
-        
-        isInitializing = false;
-        handleReconnection();
     }
 }
+
 
 function handleReconnection() {
     isInitialized = false;
@@ -3318,7 +3582,17 @@ function handleReconnection() {
 function triggerSessionRecovery(context, message) {
     const detail = message || 'unknown';
     logAndSave(`[${context}] ⚠️ Session issue detected: ${detail}`);
-    isInitialized = false;
+
+    // Optional: allow ignoring ready-timeout:CONNECTED if you trust CONNECTED as usable.
+    // Default is to recover because CONNECTED-without-ready often breaks inbound events.
+    const IGNORE_READY_TIMEOUT_CONNECTED = String(process.env.WA_IGNORE_READY_TIMEOUT_CONNECTED || 'false').toLowerCase() === 'true';
+    if (IGNORE_READY_TIMEOUT_CONNECTED && typeof detail === 'string' && detail.startsWith('ready-timeout:')) {
+        const statePart = detail.slice('ready-timeout:'.length);
+        if (String(statePart).trim() === 'CONNECTED') {
+            logAndSave(`[${context}] ℹ️ Ignoring ready-timeout:CONNECTED (WA_IGNORE_READY_TIMEOUT_CONNECTED=true)`);
+            return;
+        }
+    }
 
     if (isInitializing) {
         logAndSave(`[${context}] Initialization already in progress; waiting for completion`);
@@ -3330,22 +3604,41 @@ function triggerSessionRecovery(context, message) {
         return;
     }
 
+    isInitialized = false;
     handleReconnection();
 }
-
-// Set up event handlers for initial client instance
-setupClientEventHandlers(client);
-setupClientLifecycleHandlers(client);
 
 // Start the client
 initializeClient();
 
 
-// Session health monitor - checks every 5 minutes if session is still valid
+// Session health monitor - checks every 10 minutes if session is still valid
+// IMPORTANT: Only restart if real 'ready' event was seen and then lost.
+// If we never got 'ready', restarting won't help and just causes loops.
 setInterval(async () => {
+    const DISABLE_HEALTH_MONITOR = String(process.env.WA_DISABLE_HEALTH_MONITOR || 'true').toLowerCase() === 'true';
+    if (DISABLE_HEALTH_MONITOR) return;
+
     if (!isInitialized || !global.whatsappClient) {
         return; // Skip if not initialized
     }
+
+    // Only do health checks if we had a real 'ready' event.
+    // Force-ready sessions have broken inbound anyway, restarting won't help.
+    if (!readyEventSeen) {
+        return;
+    }
+
+    const isTransientWhatsAppError = (message) => {
+        const m = String(message || '');
+        return (
+            m.includes('Attempted to use detached Frame') ||
+            m.includes('Execution context was destroyed') ||
+            m.includes('Target closed') ||
+            m.includes('Protocol error') ||
+            m.includes('Session closed')
+        );
+    };
     
     try {
         // Try to get client state to check if session is alive
@@ -3357,19 +3650,26 @@ setInterval(async () => {
             handleReconnection();
         } else {
             // Session is healthy, log occasionally
-            if (Math.random() < 0.1) { // 10% chance to log (avoid log spam)
+            if (Math.random() < 0.05) { // 5% chance to log (avoid log spam)
                 logAndSave('[Health] ✅ Session is healthy (CONNECTED)');
             }
         }
     } catch (err) {
-        logAndSave(`[Health] ⚠️ Failed to check session state: ${err.message}`);
-        // If we can't check state, the session might be dead
-        if (isInitialized) {
+        const msg = err && err.message ? err.message : String(err);
+        if (isTransientWhatsAppError(msg)) {
+            // Don't thrash the session on transient Puppeteer/WA Web errors.
+            // These are normal with WhatsApp Web and don't indicate a broken session.
+            return;
+        }
+
+        logAndSave(`[Health] ⚠️ Failed to check session state: ${msg}`);
+        // If we can't check state and it's not a known transient error, the session might be dead
+        if (isInitialized && readyEventSeen) {
             isInitialized = false;
             handleReconnection();
         }
     }
-}, 300000); // Check every 5 minutes (300000ms)
+}, 600000); // Check every 10 minutes (600000ms) - less aggressive
 
 // --- AI Helper Functions ---
 
@@ -3382,14 +3682,27 @@ setInterval(async () => {
 async function logToAiChatHistory(phone, type, message) {
     try {
         await aiPoolConnect;
-        const request = new sql.Request(aiPool);
-        request.input('user_phone', sql.VarChar(25), phone);
-        request.input('sender_type', sql.VarChar(10), type);
-        request.input('message_text', sql.NVarChar(sql.MAX), message);
+        const request = new sql.Request(getAiRawPool());
+        const cleanPhone = normalizeAiPhone(phone);
+        request.input('user_phone', cleanPhone);
+        request.input('sender_type', type);
+        // Truncate message to avoid column overflow. 
+        // Assuming VARCHAR(MAX) but safer to handle strings properly. 
+        // If it's not MAX, 4000 is a safe bet for MSSQL VARCHAR limits in many schemas.
+        const safeMessage = String(message || '').substring(0, 4000);
+        request.input('message_text', safeMessage);
         await request.query('INSERT INTO whatsapp_chat_history (user_phone, sender_type, message_text) VALUES (@user_phone, @sender_type, @message_text)');
     } catch (err) {
         logAndSave(`[AI DB Error] Failed to log chat history: ${err.message}`);
     }
+}
+
+function normalizeAiPhone(phone) {
+    return String(phone || '')
+        .replace('@s.whatsapp.net', '')
+        .replace('@c.us', '')
+        .replace(/:.*/, '')
+        .trim();
 }
 
 /**
@@ -3401,12 +3714,13 @@ async function logToAiChatHistory(phone, type, message) {
 async function logAiFailure(phone, message, errorDetails) {
     try {
         await aiPoolConnect;
-        const request = new sql.Request(aiPool);
-        request.input('user_phone', sql.VarChar(25), phone);
-        request.input('failed_message', sql.NVarChar(sql.MAX), message);
-        request.input('error_type', sql.VarChar(50), errorDetails.substring(0, 50));
+        const request = new sql.Request(getAiRawPool());
+        const cleanPhone = normalizeAiPhone(phone);
+        request.input('user_phone', cleanPhone);
+        request.input('failed_message', String(message || '').substring(0, 1000));
+        request.input('error_type', sql.VarChar(50), String(errorDetails || '').substring(0, 50));
         await request.query('INSERT INTO ai_failure_queue (user_phone, failed_message, error_type) VALUES (@user_phone, @failed_message, @error_type)');
-        logAndSave(`[AI Failure] Logged to queue: ${errorDetails.substring(0, 50)}...`);
+        logAndSave(`[AI Failure] Logged to queue: ${String(errorDetails || '').substring(0, 50)}...`);
     } catch (err) {
         logAndSave(`[AI DB Error] Failed to log AI failure: ${err.message}`);
     }
@@ -3430,252 +3744,202 @@ function isSimpleRequest(text) {
 // MESSAGE HANDLER SETUP (FOR CLIENT RECONNECTIONS)
 // ========================================
 function setupMessageHandler(clientInstance) {
+    // Diagnostics: help confirm whether events are firing at all.
+    global.__waDiag = global.__waDiag || {
+        lastInboundAt: null,
+        lastInboundFrom: null,
+        lastInboundBody: null,
+        lastOutboundAt: null,
+        lastOutboundTo: null,
+        lastOutboundBody: null
+    };
+
     // Remove any existing message listeners to prevent duplicates
     clientInstance.removeAllListeners('message');
+    // clientInstance.removeAllListeners('message_create'); // Don't remove message_create unless necessary
     
-    clientInstance.on('message', async msg => {
-    // Log ALL incoming messages for debugging
-    console.log(`[MSG] From: ${msg.from}, Body: "${msg.body}", isSystem: ${isSystemSender(msg.from)}, isDupe: ${isDuplicateMessage(msg)}`);
-    
-    // Ignore system/broadcast messages and duplicates
-    if (isSystemSender(msg.from) || isDuplicateMessage(msg)) {
-        return;
-    }
-
-    // ========================================
-    // GROUP ID DISCOVERY COMMAND
-    // ========================================
-    // Allow discovering group IDs for configuration purposes
-    const msgText = msg.body ? msg.body.trim().toLowerCase() : '';
-    console.log(`[Debug] Received message: "${msgText}" from ${msg.from} isGroup=${msg.from.endsWith('@g.us')}`);
-    
-    if (msgText === '!groupid' && msg.from.endsWith('@g.us')) {
-        console.log(`[GroupID] Processing !groupid command from: ${msg.from}`);
-        try {
-            await msg.reply(`📋 *Group ID:*\n\`\`\`${msg.from}\`\`\`\n\n_Use this ID to configure appointment notifications in .env file_`);
-            console.log(`[GroupID] Sent group ID to: ${msg.from}`);
-        } catch (err) {
-            console.error(`[GroupID] Error sending reply:`, err);
-        }
-        return;
-    }
-
-    // ========================================
-    // RESTRICTED GROUPS (NO REPLIES)
-    // ========================================
-    const SHOP_MANAGEMENT_GROUP_ID = process.env.SHOP_MANAGEMENT_GROUP_ID;
-    if (SHOP_MANAGEMENT_GROUP_ID && msg.from === SHOP_MANAGEMENT_GROUP_ID) {
-        logAndSave(`[Restricted] Ignoring message from Shop Management Group: ${msg.from}`);
-        return;
-    }
-
-    const senderNumber = msg.from.replace('@c.us', '');
-    const text = msg.body.trim();
-
-    // Prepare typing indicator
-    const chat = await msg.getChat();
-    try { await chat.sendStateTyping(); } catch {}
-
-    try {
-        // Log user message to AI chat history
-        await logToAiChatHistory(senderNumber, 'user', text);
-
-        // ========================================
-        // STEP 0: ADMIN COMMANDS (HIGHEST PRIORITY)
-        // ========================================
-        // Admin Co-pilot slash commands must run BEFORE job system
-        // to prevent job matches on command keywords like "testpost"
-        // Accept either slash-prefixed commands or plain keywords from admin (e.g., "testpost")
-        if (isAdminNumber(msg.from)) {
-            logAndSave(`[Admin Check] ✅ Admin detected: ${msg.from}`);
-            const normalized = text.trim().toLowerCase();
-            const maybeCommand = normalized.startsWith('/') ? normalized.substring(1) : normalized.split(/\s+/)[0];
-            const [command, ...args] = maybeCommand.split(' ');
-            
-            // --- Admin inbound poster flow (photos/captions) ---
+    // Simple message_create handler for OUTBOUND broadcasts only
+    clientInstance.on('message_create', async msg => {
+        if (msg.fromMe) {
             try {
-                                const POST_POOL = ConfigService.get('EXTERNAL_IMAGE_DIR') && String(ConfigService.get('EXTERNAL_IMAGE_DIR')).trim()
-                  ? path.resolve(process.env.EXTERNAL_IMAGE_DIR)
-                  : path.join(__dirname, 'post');
-                const INBOX_DIR = path.join(__dirname, 'post-inbox');
-                const PUBLISHED_DIR = path.join(__dirname, 'post-published');
-                try { if (!fs.existsSync(POST_POOL)) fs.mkdirSync(POST_POOL, { recursive: true }); } catch {}
-                try { if (!fs.existsSync(INBOX_DIR)) fs.mkdirSync(INBOX_DIR, { recursive: true }); } catch {}
-                try { if (!fs.existsSync(PUBLISHED_DIR)) fs.mkdirSync(PUBLISHED_DIR, { recursive: true }); } catch {}
+                // Update diagnostics
+                global.__waDiag.lastOutboundAt = Date.now();
+                global.__waDiag.lastOutboundTo = msg?.to || null;
+                global.__waDiag.lastOutboundBody = (msg.body || '').slice(0, 200);
 
-                const nowStamp = () => new Date().toISOString().replace(/[-:T.Z]/g, '').slice(0, 14);
-                const senderKey = senderNumber.replace(/\D/g, '');
-
-                const saveMediaTo = async (mediaObj, baseDir, prefix) => {
-                    const ext = (() => {
-                        const t = (mediaObj.mimetype || '').toLowerCase();
-                        if (t.includes('png')) return '.png';
-                        if (t.includes('webp')) return '.webp';
-                        if (t.includes('jpeg')) return '.jpg';
-                        if (t.includes('jpg')) return '.jpg';
-                        return '.jpg';
-                    })();
-                    const name = `${prefix}_${nowStamp()}_${Math.random().toString(36).slice(2,8)}${ext}`;
-                    const full = path.join(baseDir, name);
-                    try {
-                        const buf = Buffer.from(mediaObj.data, 'base64');
-                        fs.writeFileSync(full, buf);
-                        return full;
-                    } catch (e) {
-                        logAndSave(`[Admin Poster] ❌ Failed to save media: ${e.message}`);
-                        return null;
-                    }
-                };
-
-                const findOldestPending = () => {
-                    try {
-                        const files = fs.readdirSync(INBOX_DIR).filter(f => f.startsWith(senderKey + '_'));
-                        if (!files.length) return null;
-                        const withTime = files.map(f => ({ f, t: fs.statSync(path.join(INBOX_DIR, f)).mtimeMs }))
-                                              .sort((a,b) => a.t - b.t);
-                        return path.join(INBOX_DIR, withTime[0].f);
-                    } catch { return null; }
-                };
-
-                const publishNow = async (caption, imagePath) => {
-                    try {
-                        const localOnly = ConfigService.getBoolean('LOCAL_PREVIEW_ONLY', false);
-                        if (localOnly) {
-                            const draftsDir = path.join(__dirname, 'facebook-drafts');
-                            try { if (!fs.existsSync(draftsDir)) fs.mkdirSync(draftsDir, { recursive: true }); } catch {}
-                            const dest = path.join(draftsDir, `wa_instant_${nowStamp()}` + path.extname(imagePath || '.jpg'));
-                            try { fs.copyFileSync(imagePath, dest); } catch {}
-                            await safeReply(msg, client, msg.from, `📝 Preview-only. Saved:
-${dest}\n\n${caption}`);
-                            return { id: 'local-preview', path: dest };
-                        }
-                        // Use serialized publish queue to avoid conflicts with other jobs
-                        const { PostPublisherQueue } = require('./utils/PostPublisherQueue');
-                        const q = PostPublisherQueue.getInstance();
-                        const res = await q.enqueue({ caption, imagePath, publishMode: ConfigService.get('FB_PUBLISH_MODE', 'draft') });
-                        return res;
-                    } catch (e) {
-                        logAndSave(`[Admin Poster] ❌ Publish failed: ${e.message}`);
-                        await safeReply(msg, client, msg.from, `❌ Publish failed: ${e.message}`);
-                        return null;
-                    }
-                };
-
-                if (msg.hasMedia) {
-                    const media = await msg.downloadMedia();
-                    if (!media) {
-                        await safeReply(msg, client, msg.from, `❌ Could not download media.`);
-                            // Instrument Puppeteer page events for deeper diagnostics
-                            try {
-                                client.pupPage?.on('console', msg => {
-                                    const txt = msg.text();
-                                    if (/errors?|failed|timeout/i.test(txt)) {
-                                        logAndSave(`[BrowserConsole] ${txt}`);
-                                    }
-                                });
-                                client.pupPage?.on('requestfailed', req => {
-                                    logAndSave(`[RequestFailed] ${req.url()} - ${req.failure()?.errorText}`);
-                                });
-                                client.pupPage?.on('pageerror', err => {
-                                    logAndSave(`[PageError] ${err.message}`);
-                                });
-                            } catch (instrumentErr) {
-                                logAndSave(`[Init] Instrumentation error: ${instrumentErr.message}`);
-                            }
-
-                        return;
-                    }
-                    const bodyLower = (text || '').trim().toLowerCase();
-                    if (text && bodyLower !== 'poster') {
-                        // Media + caption => immediate publish
-                        const tmpPath = await saveMediaTo(media, path.join(__dirname, 'facebook-drafts'), `wa_pub_${senderKey}`);
-                        if (!tmpPath) return;
-                            // Enhanced diagnostics on failure
-                            try {
-                                if (client && client.pupPage) {
-                                    const currentUrl = client.pupPage.url();
-                                    logAndSave(`[Diag] Current page URL: ${currentUrl}`);
-                                    // Attempt to capture HTML snippet
-                                    const html = await client.pupPage.content();
-                                    const snippet = html.slice(0, 500).replace(/\s+/g, ' ');
-                                    logAndSave(`[Diag] HTML snippet: ${snippet}`);
-                                    // Screenshot for visual debugging
-                                    const screenshotPath = path.join(__dirname, 'last-init-failure.png');
-                                    try {
-                                        await client.pupPage.screenshot({ path: screenshotPath });
-                                        logAndSave(`[Diag] Screenshot saved: ${screenshotPath}`);
-                                    } catch (shotErr) {
-                                        logAndSave(`[Diag] Screenshot failed: ${shotErr.message}`);
-                                    }
-                                }
-                            } catch (diagErr) {
-                                logAndSave(`[Diag] Diagnostics error: ${diagErr.message}`);
-                            }
-                        const res = await publishNow(text, tmpPath);
-                        if (res && res.id) {
-                            // In preview mode, don't consume/move the original; keep it in place
-                            const localOnlyMoveGuard = String(process.env.LOCAL_PREVIEW_ONLY || '').toLowerCase() === 'true';
-                            if (!localOnlyMoveGuard) {
-                                try { fs.renameSync(tmpPath, path.join(PUBLISHED_DIR, path.basename(tmpPath))); } catch {}
-                            }
-                            await safeReply(msg, client, msg.from, `✅ Published: ${res.id}`);
-                        }
-                        return;
-                    }
-                    if (bodyLower === 'poster') {
-                        const saved = await saveMediaTo(media, POST_POOL, `wa_poster_${senderKey}`);
-                        if (saved) await safeReply(msg, client, msg.from, `✅ Added to poster pool:\n${saved}`);
-                        return;
-                    }
-                    // No caption -> queue to inbox
-                    const queued = await saveMediaTo(media, INBOX_DIR, `${senderKey}`);
-                    if (queued) await safeReply(msg, client, msg.from, `📥 Saved to inbox. Reply with a caption to publish.\n${queued}`);
-                    return;
-                }
-
-                // Caption only -> publish photos from inbox within a time window as separate posts
-                if (!msg.hasMedia && text && text.length > 0) {
-                    const WINDOW_SEC = Math.max(5, ConfigService.getNumber('WA_POSTER_BATCH_WINDOW_SECONDS', 60));
-                    const cutoff = Date.now() - WINDOW_SEC * 1000;
-                    let publishedAny = false;
-                    try {
-                        const files = fs.readdirSync(INBOX_DIR)
-                          .filter(f => f.startsWith(senderKey + '_'))
-                          .map(f => ({ f, full: path.join(INBOX_DIR, f), t: fs.statSync(path.join(INBOX_DIR, f)).mtimeMs }))
-                          .sort((a,b) => a.t - b.t);
-                        const inWindow = files.filter(x => x.t >= cutoff);
-                        const targets = inWindow.length ? inWindow : (files.length ? [files[0]] : []);
-                        for (const x of targets) {
-                            const res = await publishNow(text, x.full);
-                            if (res && res.id) {
-                                // In preview mode, don't consume inbox items
-                                const localOnlyMoveGuard = String(process.env.LOCAL_PREVIEW_ONLY || '').toLowerCase() === 'true';
-                                if (!localOnlyMoveGuard) {
-                                    try { fs.renameSync(x.full, path.join(PUBLISHED_DIR, path.basename(x.full))); } catch {}
-                                }
-                                publishedAny = true;
-                            }
-                        }
-                    } catch (e) { logAndSave(`[Admin Poster] ⚠️ Batch publish error: ${e.message}`); }
-                    if (publishedAny) {
-                        await safeReply(msg, client, msg.from, `✅ Published ${'posts'} for your caption.`);
-                        return;
-                    }
-                }
-            } catch (adminPosterErr) {
-                logAndSave(`[Admin Poster] ⚠️ Flow error: ${adminPosterErr.message}`);
-                // continue to other admin commands
+                sseBroadcast('message_create', {
+                    id: msg.id,
+                    body: msg.body,
+                    timestamp: msg.timestamp,
+                    from: msg.from,
+                    to: msg.to,
+                    fromMe: msg.fromMe,
+                    hasMedia: msg.hasMedia,
+                    type: msg.type,
+                    author: msg.author,
+                    ack: msg.ack
+                });
+            } catch (sseErr) {
+                console.error('SSE Broadcast Error (message_create):', sseErr);
             }
-            
-            if (command === 'testpost' || command === 'fbpost') {
+        }
+    });
+
+    // Standard 'message' handler - relied upon by stable versions
+    clientInstance.on('message', async msg => {
+        const text = (msg && msg.body) ? String(msg.body).trim() : '';
+        const senderNumber = (msg && msg.from) ? String(msg.from).replace('@c.us', '') : '';
+        const isGroup = (msg && typeof msg.from === 'string' && msg.from.endsWith('@g.us'));
+
+        // Handle typing indicator if available
+        if (msg && msg.from && typeof clientInstance.sendTyping === 'function' && !isGroup) {
+            clientInstance.sendTyping(msg.from).catch(() => {});
+        }
+
+        try {
+            global.__waDiag.lastInboundAt = Date.now();
+            global.__waDiag.lastInboundFrom = msg?.from || null;
+            global.__waDiag.lastInboundBody = text ? text.slice(0, 200) : '';
+        } catch {}
+        
+        // DEBUG: Force log every message to verify reception
+        logAndSave(`[DEBUG-MSG] From: ${msg.from} Type: ${msg.type} Body: "${text.substring(0, 50)}"`);
+
+        // Broadcast to UI via SSE
+        try {
+            sseBroadcast('message', {
+                id: msg.id,
+                body: msg.body,
+                timestamp: msg.timestamp,
+                from: msg.from,
+                to: msg.to,
+                fromMe: msg.fromMe,
+                hasMedia: msg.hasMedia,
+                type: msg.type,
+                author: msg.author,
+                ack: msg.ack
+            });
+        } catch (sseErr) {
+            console.error('SSE Broadcast Error:', sseErr);
+        }
+
+        // Ignore system/broadcast messages and duplicates ASAP.
+        // (Important when message_create emits and we re-emit as message.)
+        if (isSystemSender(msg.from)) {
+            logAndSave(`[Ignore] System/broadcast sender ignored: ${msg.from}`);
+            return;
+        }
+        if (isDuplicateMessage(msg)) {
+            logAndSave(`[Ignore] Duplicate message ignored: from=${msg.from} id=${(msg.id && msg.id._serialized) || 'n/a'}`);
+            return;
+        }
+
+        // ========================================
+        // 🧠 INT - ADVANCED BUSINESS INTELLIGENCE
+        // ========================================
+        // Check if "Int" wants to handle this message (High Priority)
+        try {
+            const IntWaitress = require('./jobs/IntBusinessMind');
+            const handledByInt = await IntWaitress.handle(msg, clientInstance);
+            if (handledByInt) {
+                logAndSave(`[Int] Request handled successfully.`);
+                return; // Stop processing other handlers
+            }
+        } catch (intError) {
+            console.error('[Int] Handler Error:', intError);
+        }
+        // ========================================
+
+        // ========================================
+        // DIAGNOSTIC COMMANDS (ALWAYS ALLOWED)
+        // ========================================
+        // Allow quick checks even inside groups so we can discover group IDs.
+        if (text === '!ping') {
+            const r = await safeReply(msg, clientInstance, msg.from, 'Pong! Bot is here and listening.');
+            logAndSave(`[Diag] !ping from ${msg.from} -> ${r && r.ok ? 'ok' : 'fail'} via=${(r && r.via) || 'n/a'}`);
+            return;
+        }
+        if (text === '!id') {
+            const r = await safeReply(msg, clientInstance, msg.from, `Chat ID: ${msg.from}`);
+            logAndSave(`[Diag] !id from ${msg.from} -> ${r && r.ok ? 'ok' : 'fail'} via=${(r && r.via) || 'n/a'}`);
+            return;
+        }
+
+        // ========================================
+        // RESTRICTED GROUPS (NO REPLIES)
+        // ========================================
+        const SHOP_MANAGEMENT_GROUP_IDS = (process.env.SHOP_MANAGEMENT_GROUP_ID || '').split(',').map(id => id.trim()).filter(Boolean);
+        if (SHOP_MANAGEMENT_GROUP_IDS.includes(msg.from)) {
+            logAndSave(`[Restricted] Ignoring message from Shop Management Group: ${msg.from}`);
+            return;
+        }
+
+        // ========================================
+        // GROUP GATE (SAFE DEFAULT)
+        // ========================================
+        // Default: allow groups (many deployments expect group replies).
+        // If you want a strict allowlist, set WA_GROUP_ALLOWLIST_ONLY=true.
+        const GROUP_ALLOWLIST_ONLY = String(process.env.WA_GROUP_ALLOWLIST_ONLY || '').trim().toLowerCase() === 'true';
+        if (isGroup && GROUP_ALLOWLIST_ONLY) {
+            const allowedFromEnv = (process.env.ALLOWED_GROUP_IDS || '')
+                .split(',')
+                .map(s => s.trim())
+                .filter(Boolean);
+            const SHOP_MANAGEMENT_GROUP_IDS = (process.env.SHOP_MANAGEMENT_GROUP_ID || '')
+                .split(',')
+                .map(id => id.trim())
+                .filter(Boolean);
+            const RE_ORDER_GROUP_ID = (process.env.RE_ORDER_GROUP_ID || '').trim();
+            const allowedGroups = new Set([
+                ...allowedFromEnv,
+                ...SHOP_MANAGEMENT_GROUP_IDS,
+                ...(RE_ORDER_GROUP_ID ? [RE_ORDER_GROUP_ID] : [])
+            ]);
+
+            if (!allowedGroups.has(msg.from)) {
+                logAndSave(`[Ignore] Group not allowed (allowlist mode): ${msg.from} (set ALLOWED_GROUP_IDS or disable WA_GROUP_ALLOWLIST_ONLY)`);
+                return;
+            }
+        }
+
+        // Prepare typing indicator
+        let chat = null;
+        try {
+            chat = await msg.getChat();
+            try { await chat.sendStateTyping(); } catch {}
+        } catch (e) {
+            logAndSave(`[MSG] getChat/typing failed (non-fatal): ${e && e.message ? e.message : String(e)}`);
+        }
+
+        try {
+            // Log user message to AI chat history
+            try {
+                await logToAiChatHistory(senderNumber, 'user', text);
+            } catch (e) {
+                logAndSave(`[MSG] logToAiChatHistory failed (non-fatal): ${e && e.message ? e.message : String(e)}`);
+            }
+
+            // ========================================
+            // STEP 0: ADMIN COMMANDS (HIGHEST PRIORITY)
+            // ========================================
+            // Admin Co-pilot slash commands must run BEFORE job system
+            // to prevent job matches on command keywords like "testpost"
+            // Accept either slash-prefixed commands or plain keywords from admin (e.g., "testpost")
+            if (isAdminNumber(msg.from)) {
+                logAndSave(`[Admin Check] ✅ Admin detected: ${msg.from}`);
+                const normalized = text.trim().toLowerCase();
+                const maybeCommand = normalized.startsWith('/') ? normalized.substring(1) : normalized.split(/\s+/)[0];
+                const [command, ...args] = maybeCommand.split(' ');
+
+                if (command === 'testpost' || command === 'fbpost') {
                 try {
-                    await safeReply(msg, client, msg.from, `🔄 Testing Facebook Post Generation...\n\nUsing: ${process.env.FB_POST_AI_PROVIDER || 'claude'}\n\nPlease wait...`);
+                    await safeReply(msg, clientInstance, msg.from, `🔄 Testing Facebook Post Generation...\n\nUsing: ${process.env.FB_POST_AI_PROVIDER || 'claude'}\n\nPlease wait...`);
                     
                     const { getFacebookPostJob } = require('./scheduler');
                     const fbJob = getFacebookPostJob();
                     
                     if (!fbJob) {
-                        return await safeReply(msg, client, msg.from, `❌ Facebook Post Job not initialized. Please restart bot.`);
+                        return await safeReply(msg, clientInstance, msg.from, `❌ Facebook Post Job not initialized. Please restart bot.`);
                     }
                     
                     logAndSave(`[Admin Command] ${senderNumber} triggered manual FB post test`);
@@ -3688,7 +3952,7 @@ ${dest}\n\n${caption}`);
                     
                 } catch (e) {
                     logAndSave(`[Admin Command Error] /testpost failed: ${e.message}`);
-                    await safeReply(msg, client, msg.from, `❌ Error: ${e.message}`);
+                    await safeReply(msg, clientInstance, msg.from, `❌ Error: ${e.message}`);
                 }
                 return;
             }
@@ -3698,7 +3962,7 @@ ${dest}\n\n${caption}`);
                     const size = extractTyreSizeFlexible(args.join(' '));
                     const brand = args.filter(arg => !extractTyreSizeFlexible(arg)).join(' ') || null;
                     if (!size) {
-                        return await safeReply(msg, client, msg.from, "Usage: /price [size] [brand]");
+                        return await safeReply(msg, clientInstance, msg.from, "Usage: /price [size] [brand]");
                     }
                     
                     // Use the production fetchTyreData utility
@@ -3713,15 +3977,44 @@ ${dest}\n\n${caption}`);
                     
                     // For admin, send the formatted price list directly
                     if (tyreData.formatted) {
-                        await safeReply(msg, client, msg.from, tyreData.formatted);
+                        await safeReply(msg, clientInstance, msg.from, tyreData.formatted);
                     } else {
                         // Fallback: use AI to format
                         const adminReply = await gemini.generateAdminResponse(tyreData);
-                        await safeReply(msg, client, msg.from, adminReply);
+                        await safeReply(msg, clientInstance, msg.from, adminReply);
                     }
                 } catch (e) {
                     logAndSave(`[Admin Command Error] /price failed: ${e.message}`);
-                    await safeReply(msg, client, msg.from, `Error: ${e.message}`);
+                    await safeReply(msg, clientInstance, msg.from, `Error: ${e.message}`);
+                }
+                return;
+            }
+
+            // Manual trigger: send Daily Sales PDF report to admin (runs only after WhatsApp is ready)
+            if (command === 'salespdf' || command === 'dailysalespdf' || command === 'dailypdf') {
+                try {
+                    const dateArg = (args && args.length) ? String(args[0]).trim() : '';
+                    const dateISO = (/^\d{4}-\d{2}-\d{2}$/.test(dateArg))
+                        ? dateArg
+                        : moment().subtract(1, 'day').format('YYYY-MM-DD');
+
+                    await safeReply(msg, clientInstance, msg.from, `📄 Generating Daily Sales PDF for ${dateISO}... Please wait.`);
+
+                    logAndSave(`[Admin Command] ${senderNumber} triggered /salespdf for ${dateISO}`);
+
+                    // Generate PDF (same as scheduled job) but send it directly in the current chat
+                    // to avoid number-based Chat lookup issues (getChat/getNumberId evaluation errors).
+                    // eslint-disable-next-line global-require
+                    const generatePdf = require('./utils/generateDailyTyreSalesPdf');
+                    const { buffer, fileName } = await generatePdf(mainPool, dateISO);
+                    const caption = `📄 Daily Sales PDF - ${moment(dateISO).format('MMMM DD, YYYY')} (sent ${moment().format('MMMM DD, YYYY HH:mm')})`;
+
+                    const pdfMedia = new MessageMedia('application/pdf', Buffer.from(buffer).toString('base64'), fileName);
+                    await chat.sendMessage(pdfMedia, { caption });
+                    await safeReply(msg, clientInstance, msg.from, `✅ Sent Daily Sales PDF for ${dateISO}.`);
+                } catch (e) {
+                    logAndSave(`[Admin Command Error] /salespdf failed: ${e.message}`);
+                    await safeReply(msg, clientInstance, msg.from, `❌ Error: ${e.message}`);
                 }
                 return;
             }
@@ -3789,6 +4082,62 @@ ${dest}\n\n${caption}`);
         }
 
         // ========================================
+        // STEP 2.5: SMART REPORT SYSTEM (ADMIN ONLY)
+        // Check for report menu/commands BEFORE legacy flow
+        // ========================================
+        if (isAdminNumber(msg.from)) {
+            const SmartReportGenerator = require('./jobs/SmartReportGenerator');
+            const cleanSender = senderNumber.replace(/\D/g, '');
+            
+            try {
+                const reportMatch = SmartReportGenerator.matchReportCommand(text, cleanSender);
+                
+                if (reportMatch.matched) {
+                    logAndSave(`[SmartReport] 📊 Matched: ${reportMatch.isMenuRequest ? 'MENU REQUEST' : reportMatch.reportType}`);
+                    
+                    // Handle menu request
+                    if (reportMatch.isMenuRequest) {
+                        const menuMessage = SmartReportGenerator.getReportMenu();
+                        SmartReportGenerator.setMenuSession(cleanSender);
+                        await clientInstance.sendMessage(msg.from, menuMessage, { sendSeen: false });
+                        logAndSave(`[SmartReport] 📋 Menu sent to: ${senderNumber}`);
+                        return; // Exit after sending menu
+                    }
+                    
+                    // Handle invalid selection
+                    if (reportMatch.isInvalidSelection) {
+                        await clientInstance.sendMessage(msg.from, reportMatch.message, { sendSeen: false });
+                        return;
+                    }
+                    
+                    // Generate report
+                    const reportResult = await SmartReportGenerator.generateReport(
+                        reportMatch.reportType, 
+                        reportMatch.params
+                    );
+                    
+                    // Send report file if generated
+                    if (reportResult.filepath) {
+                        const MessageMedia = require('whatsapp-web.js').MessageMedia;
+                        const media = MessageMedia.fromFilePath(reportResult.filepath);
+                        await clientInstance.sendMessage(msg.from, reportResult.message, { sendSeen: false });
+                        await clientInstance.sendMessage(msg.from, media, { 
+                            caption: `📎 ${reportResult.filename}` 
+                        });
+                        logAndSave(`[SmartReport] ✅ Sent: ${reportResult.filename}`);
+                    } else {
+                        await clientInstance.sendMessage(msg.from, reportResult.message, { sendSeen: false });
+                    }
+                    
+                    return; // Exit after handling report
+                }
+            } catch (smartReportError) {
+                logAndSave(`[SmartReport] ⚠️ Error: ${smartReportError.message}`);
+                // Continue to legacy flow if error
+            }
+        }
+
+        // ========================================
         // STEP 3: LEGACY FLOW (Photo, AI, etc.)
         // ========================================
         logAndSave(`[Legacy] 📜 Entering legacy flow for message: ${text.substring(0, 50)}...`);
@@ -3808,8 +4157,8 @@ ${dest}\n\n${caption}`);
                     logAndSave(`[Photo] Caption incomplete. Checking conversation context...`);
                     
                     // Get recent chat history
-                    const historyResult = await new sql.Request(aiPool)
-                        .input('phone', sql.VarChar(25), senderNumber)
+                    const historyResult = await new sql.Request(getAiRawPool())
+                        .input('phone', sql.VarChar(50), normalizeAiPhone(senderNumber))
                         .input('limit', sql.Int, 10)
                         .query('SELECT TOP (@limit) * FROM whatsapp_chat_history WHERE user_phone = @phone ORDER BY created_at DESC');
                     
@@ -3944,8 +4293,8 @@ ${dest}\n\n${caption}`);
                 // (Continue to data fetching with this human-verified analysis)
             } else {
                  // --- Step 1: Analyze (Gemini) with Context Enhancement ---
-                const historyResult = await new sql.Request(aiPool)
-                    .input('phone', sql.VarChar(25), senderNumber)
+                const historyResult = await new sql.Request(getAiRawPool())
+                    .input('phone', sql.VarChar(50), normalizeAiPhone(senderNumber))
                     .input('limit', sql.Int, AI_CONTEXT_MESSAGES)
                     .query('SELECT TOP (@limit) * FROM whatsapp_chat_history WHERE user_phone = @phone ORDER BY created_at DESC');
                 
@@ -4015,8 +4364,8 @@ ${dest}\n\n${caption}`);
                     );
 
                     // Check if it's a returning customer
-                    const customerHistory = await new sql.Request(aiPool)
-                        .input('phone', sql.VarChar(25), senderNumber)
+                    const customerHistory = await new sql.Request(getAiRawPool())
+                        .input('phone', sql.VarChar(50), normalizeAiPhone(senderNumber))
                         .query('SELECT TOP 1 1 FROM ai_conversations WHERE user_phone = @phone AND conversation_count > 1');
                     const isReturningCustomer = customerHistory.recordset.length > 0;
 
@@ -4075,7 +4424,7 @@ ${dest}\n\n${caption}`);
 
             const aiReply = await gemini.generateResponse(text, analysis, dataForGeneration);
             
-            await safeReply(msg, client, msg.from, aiReply);
+            await safeReply(msg, clientInstance, msg.from, aiReply);
             await logToAiChatHistory(senderNumber, 'bot', aiReply);
 
             // --- Send Tyre Image if available ---
@@ -4113,7 +4462,7 @@ ${dest}\n\n${caption}`);
                                 const caption = `📸 ${imageData.brand} ${imageData.pattern}\n` +
                                                `${imageData.description || ''}`;
                                 
-                                await client.sendMessage(msg.from, media, { caption });
+                                await clientInstance.sendMessage(msg.from, media, { caption, sendSeen: false });
                                 logAndSave(`[Image] ✅ Sent image for ${tyreBrand} ${tyrePattern}`);
                             }
                         } else {
@@ -4127,8 +4476,8 @@ ${dest}\n\n${caption}`);
             }
 
             // Log to AI conversations for ROI tracking
-            await new sql.Request(aiPool)
-                .input('phone', sql.VarChar(25), senderNumber)
+            await new sql.Request(getAiRawPool())
+                .input('phone', sql.VarChar(50), normalizeAiPhone(senderNumber))
                 .query(`
                     IF EXISTS (SELECT 1 FROM ai_conversations WHERE user_phone = @phone)
                     UPDATE ai_conversations SET last_ai_interaction = GETDATE(), conversation_count = conversation_count + 1 WHERE user_phone = @phone
@@ -4139,11 +4488,30 @@ ${dest}\n\n${caption}`);
             return; // AI handled the message
 
         } catch (error) {
-            // --- Graceful Fallback ---
+            // --- Graceful Fallback with Multi-AI ---
             logAndSave(`[AI Error] Workflow failed: ${error.message}`);
             await logAiFailure(senderNumber, text, error.message);
-            const fallbackMessage = "Temporary system error. Please call 0771222509. Ref: AI_FALLBACK";
-            await safeReply(msg, client, msg.from, fallbackMessage);
+            
+            // Try Multi-AI as fallback before giving up
+            try {
+                logAndSave(`[MultiAI Fallback] Attempting AI response after Gemini failure...`);
+                const multiAI = getMultiAI();
+                const aiResponse = await multiAI.conversation(text, [], {
+                    language: 'auto',
+                    maxTokens: 300
+                });
+                
+                logAndSave(`[MultiAI Fallback] Success via ${aiResponse.provider}`);
+                await safeReply(msg, clientInstance, msg.from, aiResponse.text);
+                await logToAiChatHistory(senderNumber, 'bot', `[${aiResponse.provider}] ${aiResponse.text}`);
+                return;
+            } catch (multiAiError) {
+                logAndSave(`[MultiAI Fallback] Also failed: ${multiAiError.message}`);
+            }
+            
+            // Final fallback - static message
+            const fallbackMessage = "👋 ආයුබෝවන්! Lasantha Tyre House වෙත සාදරයෙන් පිළිගනිමු!\n\nTyre size එක එවන්න prices බලන්න.\nඋදා: 185/65/15\n\n📞 Hotline: 077-1222509";
+            await safeReply(msg, clientInstance, msg.from, fallbackMessage);
             await logToAiChatHistory(senderNumber, 'bot', fallbackMessage);
             return;
         }
@@ -4157,7 +4525,7 @@ ${dest}\n\n${caption}`);
         if (vehicleNumber && !extractTyreSizeFlexible(text) && text.replace(vehicleNumber, '').replace(/\W/g, '').length === 0) {
             const handled = await VehicleInvoiceReplyJob(msg, mainPool, allowedContacts, logAndSave);
             if (!handled) {
-                await safeReply(msg, client, msg.from, `No invoice found for vehicle number: ${vehicleNumber}`);
+                await safeReply(msg, clientInstance, msg.from, `No invoice found for vehicle number: ${vehicleNumber}`);
             }
             return;
         }
@@ -4176,18 +4544,36 @@ ${dest}\n\n${caption}`);
         })));
 
         if (!jobResults.some(Boolean)) {
-            const fallbackReply = `Please type a valid command or tyre size in this format: 195/65/15`;
-            await safeReply(msg, clientInstance, msg.from, fallbackReply);
-            await logToAiChatHistory(senderNumber, 'bot', fallbackReply);
+            // Use Multi-AI for unknown messages (Gemini → Groq → Template fallback)
+            try {
+                logAndSave(`[MultiAI] Processing unknown message from ${senderNumber}: "${text.substring(0, 50)}..."`);
+                const multiAI = getMultiAI();
+                const aiResponse = await multiAI.conversation(text, [], {
+                    language: 'auto',
+                    maxTokens: 300
+                });
+                
+                logAndSave(`[MultiAI] Response from ${aiResponse.provider}: ${aiResponse.text.substring(0, 100)}...`);
+                await safeReply(msg, clientInstance, msg.from, aiResponse.text);
+                await logToAiChatHistory(senderNumber, 'bot', `[${aiResponse.provider}] ${aiResponse.text}`);
+            } catch (multiAiError) {
+                logAndSave(`[MultiAI Error] ${multiAiError.message}. Using static fallback.`);
+                const fallbackReply = `👋 ආයුබෝවන්! Welcome to Lasantha Tyre House!\n\nHow can I help you?\n• Send tyre size for prices (eg: 185/65/15)\n• Type "brands" for available brands\n\n📞 Hotline: 077-1222509`;
+                await safeReply(msg, clientInstance, msg.from, fallbackReply);
+                await logToAiChatHistory(senderNumber, 'bot', fallbackReply);
+            }
         }
+    } catch (handlerErr) {
+        // Last-resort safety net: never fail silently.
+        logAndSave(`[MSG] ❌ Handler error: ${handlerErr && handlerErr.message ? handlerErr.message : String(handlerErr)}`);
+        try {
+            await safeReply(msg, clientInstance, msg.from, 'Temporary error. Please try again in 10 seconds.');
+        } catch {}
     } finally {
-        try { await chat.clearState(); } catch {}
+        try { if (chat) await chat.clearState(); } catch {}
     }
     });
 }
-
-// Call setupMessageHandler for initial client (this will be replaced on reconnection)
-setupMessageHandler(client);
 
 // ========================================
 // GRACEFUL SHUTDOWN HANDLING
@@ -4276,6 +4662,12 @@ async function gracefulShutdown(signal) {
 }
 
 // Register shutdown handlers
+// Remove earlier global error handlers so we don't double-handle and accidentally bypass graceful shutdown.
+try {
+    process.removeAllListeners('uncaughtException');
+    process.removeAllListeners('unhandledRejection');
+} catch {}
+
 process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
 process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 process.on('SIGUSR2', () => gracefulShutdown('SIGUSR2')); // nodemon restart
@@ -4289,6 +4681,18 @@ process.on('uncaughtException', (error) => {
 });
 
 process.on('unhandledRejection', (reason, promise) => {
+    const msg = reason && reason.message ? String(reason.message) : String(reason);
+    // Filter out common non-fatal Puppeteer/WhatsApp Web errors
+    if (
+        msg.includes('LocalWebCache') ||
+        msg.includes('Execution context was destroyed') ||
+        msg.includes('Session closed') ||
+        (msg.includes('EBUSY') && msg.includes('first_party_sets.db-journal'))
+    ) {
+        console.warn(`⚠️  Transient error detected (non-fatal): ${msg}`);
+        return;
+    }
+
     console.error('💥 Unhandled Rejection at:', promise, 'reason:', reason);
     // Don't shutdown on unhandled rejection, just log it
 });
@@ -4299,23 +4703,21 @@ console.log('✅ Graceful shutdown handlers registered');
 // START EXPRESS SERVER (with automatic port probe)
 // ========================================
 
-async function isPortFree(port) {
-    return new Promise((resolve) => {
-        const srv = net.createServer()
-            .once('error', () => resolve(false))
-            .once('listening', () => srv.close(() => resolve(true)))
-            .listen(port, '0.0.0.0');
+async function listenOnPort(port) {
+    return new Promise((resolve, reject) => {
+        const server = app.listen(port, () => {
+            server.removeListener('error', onError);
+            resolve(server);
+        });
+        function onError(err) {
+            try {
+                server.close(() => reject(err));
+            } catch {
+                reject(err);
+            }
+        }
+        server.once('error', onError);
     });
-}
-
-async function findAvailablePort(startPort, maxAttempts = 10) {
-    let port = startPort;
-    for (let i = 0; i < maxAttempts; i++, port++) {
-        // eslint-disable-next-line no-await-in-loop
-        const free = await isPortFree(port);
-        if (free) return port;
-    }
-    return null;
 }
 
 (async function startServer() {
@@ -4323,8 +4725,24 @@ async function findAvailablePort(startPort, maxAttempts = 10) {
     const maxTries = parseInt(process.env.BOT_PORT_MAX_TRIES || '10', 10);
     console.log(`🌐 Starting Express server. Preferred port ${preferred} (max tries: ${maxTries})...`);
 
-    const selected = await findAvailablePort(preferred, maxTries);
-    if (!selected) {
+    let selected = null;
+    let server = null;
+    for (let i = 0; i < maxTries; i++) {
+        const port = preferred + i;
+        try {
+            // eslint-disable-next-line no-await-in-loop
+            server = await listenOnPort(port);
+            selected = port;
+            break;
+        } catch (err) {
+            if (err && err.code === 'EADDRINUSE') {
+                continue;
+            }
+            throw err;
+        }
+    }
+
+    if (!selected || !server) {
         console.error(`❌ No free port found in range ${preferred}-${preferred + maxTries - 1}.`);
         process.exit(1);
         return;
@@ -4332,30 +4750,23 @@ async function findAvailablePort(startPort, maxAttempts = 10) {
 
     if (selected !== preferred) {
         console.warn(`⚠️  Port ${preferred} in use. Switching to available port ${selected}.`);
-        try {
-            fs.writeFileSync(path.join(__dirname, 'runtime-port.json'), JSON.stringify({ port: selected, preferred, timestamp: new Date().toISOString() }), 'utf8');
-        } catch {}
-        try { sseBroadcast('server_status', { event: 'port_changed', port: selected, previous: preferred }); } catch {}
     }
+
+    try {
+        fs.writeFileSync(path.join(__dirname, 'runtime-port.json'), JSON.stringify({ port: selected, preferred, timestamp: new Date().toISOString() }), 'utf8');
+    } catch {}
+    try { sseBroadcast('server_status', { event: 'port_changed', port: selected, previous: preferred }); } catch {}
 
     // Keep process env consistent for any downstream code using it
     process.env.BOT_API_PORT = String(selected);
+    global.httpServer = server;
 
-    global.httpServer = app.listen(selected, () => {
-        console.log(`✅ Express server listening on http://localhost:${selected}`);
-        console.log(`📡 Health endpoint: http://localhost:${selected}/health`);
-        console.log(`📊 Stats endpoint: http://localhost:${selected}/stats`);
-        console.log(`🎣 Facebook webhook: http://localhost:${selected}/facebook/webhook`);
-    });
+    console.log(`✅ Express server listening on http://localhost:${selected}`);
+    console.log(`📡 Health endpoint: http://localhost:${selected}/health`);
+    console.log(`📊 Stats endpoint: http://localhost:${selected}/stats`);
+    console.log(`🎣 Facebook webhook: http://localhost:${selected}/facebook/webhook`);
+
     global.httpServer.on('error', (err) => {
-        if (err && err.code === 'EADDRINUSE') {
-            console.error(`❌ Port ${selected} became busy during start. Try increasing BOT_PORT_MAX_TRIES or freeing the port.`);
-            console.error('   Tip (PowerShell):');
-            console.error('   netstat -ano | findstr :' + selected);
-            console.error('   taskkill /PID <pid> /F');
-            process.exitCode = 1;
-            return;
-        }
         console.error('💥 HTTP server error:', err);
     });
 })().catch((e) => {
@@ -4376,3 +4787,41 @@ try {
     console.error('❌ Failed to initialize Advanced Job System:', err.message);
 }
 
+
+// ========================================
+// DIGITAL INVOICE SYSTEM LINK
+// ========================================
+console.log('🔗 Wiring up Digital Invoice System...');
+setTimeout(async () => {
+    // Only start if we have the client and DB
+    const checkAndStart = async () => {
+        if (global.whatsappClient && mainPool) {
+            // Initialize Email Service for digital invoices
+            try {
+                await emailService.initialize();
+                console.log('[Bot] ✅ Email service initialized for digital invoices');
+            } catch (emailErr) {
+                console.warn('[Bot] ⚠️ Email service initialization failed:', emailErr.message);
+            }
+            
+            const invoiceProcessor = new QueueProcessor(mainPool, global.whatsappClient, emailService);
+            invoiceProcessor.start();
+            
+            // Expose to global for debugging if needed
+            global.invoiceProcessor = invoiceProcessor;
+            
+            console.log('✅ Digital Invoice Processor Linked & Started');
+            return true;
+        }
+        return false;
+    };
+
+    if (!(await checkAndStart())) {
+        console.warn('⚠️  Digital Invoice Processor: Dependencies not ready. Retrying in 10s...');
+        setTimeout(() => {
+             if (!checkAndStart()) {
+                 console.error('❌ Digital Invoice Processor Start Failed: Dependencies still missing after retry.');
+             }
+        }, 10000);
+    }
+}, 5000); // Wait 5s for main systems to settle

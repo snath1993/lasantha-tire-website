@@ -1,9 +1,18 @@
 # Root ignore rules
 node_modules/
+.next/
+.next-cache/
+.turbo/
+.vercel/
 .env
 .env.*
 *.env
 *.env.*
+config/settings.json
+config/settings.*.json
+**/settings.secrets.json
+.secrets/
+secrets/
 config.js
 secrets.json
 
@@ -18,9 +27,28 @@ yarn-debug.log*
 yarn-error.log*
 logs/*.log
 logs/pm2-*.log
+*.log
+bot_log.txt
+whatsapp-bot.log
+error.log
+
+# WhatsApp Web session/cache (runtime state)
+.wwebjs_auth/
+.wwebjs_cache/
+whatsapp-auth/
+whatsapp-auth-backup/
+auth_data/
 # Build artifacts
 dist/
 build/
+
+# Generated bundles / exports
+reports/
+results/
+quotations/
+publish-history.json
+job-status.json
+runtime-port.json
 # OS junk
 .DS_Store
 Thumbs.db
@@ -29,4 +57,18 @@ facebook-drafts/
 auth_data/
 whatsapp-auth/
 backup/
+backups/
+chat-history-backups/
 PORTABLE-PACKAGE/
+
+# WhatsApp Web Test and Cache folders
+.wwebjs_auth_TEST*
+.cache/
+
+# Auth Backups
+.wwebjs_auth_backup*
+
+
+# Unnecessary large files (moved)
+unnecessary_files/
+

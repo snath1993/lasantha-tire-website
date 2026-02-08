@@ -1,0 +1,20 @@
+﻿<PAW_Purchases xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes" xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+  <PAW_Purchase xsi:type="paw:purchase">
+    <VendorID xsi:type="paw:id">TTT</VendorID>
+    <Invoice_Number>DRT001</Invoice_Number>
+    <Date>07/25/2019</Date>
+    <AP_Account>8000-00</AP_Account>
+    <CreditMemoType>TRUE</CreditMemoType>
+    <Number_of_Distributions>1</Number_of_Distributions>
+    <PurchaseLines>
+      <PurchaseLine>
+        <Quantity>-1</Quantity>
+        <Item_ID>B</Item_ID>
+        <Description>B</Description>
+        <GL_Account>6000-01</GL_Account>
+        <Tax_Type>1</Tax_Type>
+        <Amount>-100</Amount>
+      </PurchaseLine>
+    </PurchaseLines>
+  </PAW_Purchase>
+</PAW_Purchases>

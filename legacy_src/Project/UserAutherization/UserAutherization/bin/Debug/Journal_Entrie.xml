@@ -1,0 +1,99 @@
+﻿<PAW_GLJournal_Entries xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes" xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+  <PAW_GLJournal_Entry xsi:type="paw:gljournal_entry">
+    <Date xsi:type="paw:id">1/23/2019</Date>
+    <Reference>ACC00000004</Reference>
+    <Number_of_Distributions>18</Number_of_Distributions>
+    <Transactions>
+      <Transaction>
+        <GL_Account xsi:type="paw:id">10170</GL_Account>
+        <Description>SCAN</Description>
+        <Amount>2150</Amount>
+      </Transaction>
+      <Transaction>
+        <GL_Account xsi:type="paw:id">75000</GL_Account>
+        <Description>CASH</Description>
+        <Amount>-2150</Amount>
+      </Transaction>
+      <Transaction>
+        <GL_Account xsi:type="paw:id">10200</GL_Account>
+        <Description>WARD</Description>
+        <Amount>156872.96</Amount>
+      </Transaction>
+      <Transaction>
+        <GL_Account xsi:type="paw:id">75000</GL_Account>
+        <Description>CASH</Description>
+        <Amount>-156872.96</Amount>
+      </Transaction>
+      <Transaction>
+        <GL_Account xsi:type="paw:id">10210</GL_Account>
+        <Description>XRAY</Description>
+        <Amount>820</Amount>
+      </Transaction>
+      <Transaction>
+        <GL_Account xsi:type="paw:id">75000</GL_Account>
+        <Description>CASH</Description>
+        <Amount>-820</Amount>
+      </Transaction>
+      <Transaction>
+        <GL_Account xsi:type="paw:id">10170</GL_Account>
+        <Description>SCAN</Description>
+        <Amount>2150</Amount>
+      </Transaction>
+      <Transaction>
+        <GL_Account xsi:type="paw:id">73140</GL_Account>
+        <Description>VIZA</Description>
+        <Amount>-2150</Amount>
+      </Transaction>
+      <Transaction>
+        <GL_Account xsi:type="paw:id">10210</GL_Account>
+        <Description>XRAY</Description>
+        <Amount>1520</Amount>
+      </Transaction>
+      <Transaction>
+        <GL_Account xsi:type="paw:id">73140</GL_Account>
+        <Description>VIZA</Description>
+        <Amount>-1520</Amount>
+      </Transaction>
+      <Transaction>
+        <GL_Account xsi:type="paw:id">10170</GL_Account>
+        <Description>SCAN</Description>
+        <Amount>2150</Amount>
+      </Transaction>
+      <Transaction>
+        <GL_Account xsi:type="paw:id">73140</GL_Account>
+        <Description>AMEX</Description>
+        <Amount>-2150</Amount>
+      </Transaction>
+      <Transaction>
+        <GL_Account xsi:type="paw:id">10210</GL_Account>
+        <Description>XRAY</Description>
+        <Amount>760</Amount>
+      </Transaction>
+      <Transaction>
+        <GL_Account xsi:type="paw:id">73140</GL_Account>
+        <Description>AMEX</Description>
+        <Amount>-760</Amount>
+      </Transaction>
+      <Transaction>
+        <GL_Account xsi:type="paw:id">10170</GL_Account>
+        <Description>SCAN</Description>
+        <Amount>2150</Amount>
+      </Transaction>
+      <Transaction>
+        <GL_Account xsi:type="paw:id">75000</GL_Account>
+        <Description>CREDIT</Description>
+        <Amount>-2150</Amount>
+      </Transaction>
+      <Transaction>
+        <GL_Account xsi:type="paw:id">10210</GL_Account>
+        <Description>XRAY</Description>
+        <Amount>760</Amount>
+      </Transaction>
+      <Transaction>
+        <GL_Account xsi:type="paw:id">75000</GL_Account>
+        <Description>CREDIT</Description>
+        <Amount>-760</Amount>
+      </Transaction>
+    </Transactions>
+  </PAW_GLJournal_Entry>
+</PAW_GLJournal_Entries>

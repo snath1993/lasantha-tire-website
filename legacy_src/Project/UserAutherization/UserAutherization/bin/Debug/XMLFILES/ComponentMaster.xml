@@ -1,0 +1,44 @@
+<PAW_Items xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes"
+xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance"
+xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">ASM001</ID>
+	<Number_of_Components>3</Number_of_Components>
+	<Components>
+	<Component>
+	<Component_ID xsi:type="paw:id">A001</Component_ID>
+	<Component_Number>0</Component_Number>
+	<Qty_Needed>1.00000</Qty_Needed>
+	</Component>
+</Components></PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">MOWER-164W</ID>
+	<Number_of_Components>9</Number_of_Components>
+	<Components>
+	<Component>
+	<Component_ID xsi:type="paw:id">PTHANDLE-ASM</Component_ID>
+	<Component_Number>0</Component_Number>
+	<Qty_Needed>1.00000</Qty_Needed>
+	</Component>
+</Components></PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">MOWER-204W</ID>
+	<Number_of_Components>10</Number_of_Components>
+	<Components>
+	<Component>
+	<Component_ID xsi:type="paw:id">PTWHEEL-10</Component_ID>
+	<Component_Number>0</Component_Number>
+	<Qty_Needed>2.00000</Qty_Needed>
+	</Component>
+</Components></PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PTHANDLE-ASM</ID>
+	<Number_of_Components>7</Number_of_Components>
+	<Components>
+	<Component>
+	<Component_ID xsi:type="paw:id">PTHANDLE-BENT4</Component_ID>
+	<Component_Number>0</Component_Number>
+	<Qty_Needed>2.00000</Qty_Needed>
+	</Component>
+</Components></PAW_Item>
+</PAW_Items>

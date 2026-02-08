@@ -1,0 +1,37 @@
+﻿<PAW_SalesOrders xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes" xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+  <PAW_SalesOrder xsi:type="paw:sales_order">
+    <Customer_ID xsi:type="paw:id">A006</Customer_ID>
+    <Sales_Order_Number>SO00016385</Sales_Order_Number>
+    <Date xsi:type="paw:date">03/13/2014</Date>
+    <Ship_By xsi:type="paw:date">03/13/2014</Ship_By>
+    <Closed>FALSE</Closed>
+    <Customer_PO />
+    <Sales_Representative_ID xsi:type="paw:id">pbss</Sales_Representative_ID>
+    <Accounts_Receivable_Account>70000-HO-000</Accounts_Receivable_Account>
+    <Number_of_Distributions>2</Number_of_Distributions>
+    <SOLines>
+      <SOLine>
+        <DistributionNumber>0</DistributionNumber>
+        <Quantity>10</Quantity>
+        <Item_ID>ART0001</Item_ID>
+        <SO_Description>ART PAPER 150 GSM A4 MATT</SO_Description>
+        <GL_Account xsi:type="paw:id">10000-HO-000</GL_Account>
+        <Tax_Type>1</Tax_Type>
+        <Unit_Price>-10</Unit_Price>
+        <Amount>-100</Amount>
+      </SOLine>
+    </SOLines>
+    <SOLines>
+      <SOLine>
+        <DistributionNumber>0</DistributionNumber>
+        <Quantity>1</Quantity>
+        <Item_ID>ART0002</Item_ID>
+        <SO_Description>ART PAPER 150 GSM A4 GLOSS</SO_Description>
+        <GL_Account xsi:type="paw:id">10000-HO-000</GL_Account>
+        <Tax_Type>1</Tax_Type>
+        <Unit_Price>-10</Unit_Price>
+        <Amount>-10</Amount>
+      </SOLine>
+    </SOLines>
+  </PAW_SalesOrder>
+</PAW_SalesOrders>

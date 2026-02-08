@@ -1,0 +1,25 @@
+{
+  "categories": {
+    "performance": {
+      "brands": [
+        "GT",
+        "MAXXIS",
+        "MICHELIN",
+        "BRIDGESTONE",
+        "GITI"
+      ]
+    },
+    "valueDurability": {
+      "brands": [
+        "DURATURN",
+        "LANVIGATOR",
+        "WINDFORCE"
+      ]
+    }
+  },
+  "rules": {
+    "maxItemsBeforeTruncation": 15,
+    "truncationMessage_si": "• (තවත් විකල්ප WhatsApp link එකෙන් බලන්න)",
+    "truncationMessage_en": "• (See remaining options via WhatsApp link)"
+  }
+}

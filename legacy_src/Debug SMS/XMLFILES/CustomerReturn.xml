@@ -1,0 +1,32 @@
+﻿<PAW_Invoices xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes" xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+  <PAW_Invoice xsi:type="paw:invoice">
+    <Customer_ID xsi:type="paw:id">CASH</Customer_ID>
+    <Invoice_Number>CRN-00000001</Invoice_Number>
+    <Date>06/25/2020</Date>
+    <Sales_Representative_ID xsi:type="paw:id">DHAMMIKA</Sales_Representative_ID>
+    <Accounts_Receivable_Account>6500-00</Accounts_Receivable_Account>
+    <CreditMemoType>TRUE</CreditMemoType>
+    <Number_of_Distributions>2</Number_of_Distributions>
+    <SalesLines>
+      <SalesLine>
+        <Quantity>-1</Quantity>
+        <Item_ID>100/80/17 T/L/CEA/ZOOMPLUS</Item_ID>
+        <Description>100/80/17 - F T/L  CEAT ZOOM PLUS SRI LA</Description>
+        <GL_Account>1000-01</GL_Account>
+        <Job_ID />
+        <Tax_Type>1</Tax_Type>
+        <Amount>5835.2</Amount>
+      </SalesLine>
+      <SalesLine>
+        <Quantity>-1</Quantity>
+        <Item_ID>100/80/17T/L-F/TIM/TS680</Item_ID>
+        <Description>100/80/17 - F T/L TIMSUN TS-680  CHINA</Description>
+        <GL_Account>1000-01</GL_Account>
+        <Job_ID />
+        <Tax_Type>1</Tax_Type>
+        <Amount>7120</Amount>
+      </SalesLine>
+      <AppliedToSO>FALSE</AppliedToSO>
+    </SalesLines>
+  </PAW_Invoice>
+</PAW_Invoices>

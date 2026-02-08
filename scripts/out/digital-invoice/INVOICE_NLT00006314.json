@@ -1,0 +1,63 @@
+{
+  "metadata": {
+    "type": "INVOICE",
+    "color": "#e67e22",
+    "legalNote": "This is a computer-generated invoice.",
+    "currencyLabel": "Rs.",
+    "vatRate": null
+  },
+  "invoice": {
+    "number": "NLT00006314",
+    "date": "2026-01-16",
+    "validUntil": "",
+    "customerName": "Cash Customer",
+    "customerAddress": "",
+    "customerTel": "",
+    "customerFax": "",
+    "vehicleNo": "-",
+    "mileage": "-",
+    "rep": "srinath",
+    "paymentMethod": "Cash",
+    "quotationValidPeriod": "",
+    "deliveryPeriod": "",
+    "paymentTerms": "",
+    "availability": ""
+  },
+  "items": [
+    {
+      "index": 1,
+      "description": "165",
+      "quantity": 1,
+      "qty": 1,
+      "brand": "Customize",
+      "size": "",
+      "price": "1,000.00",
+      "total": "1,000.00",
+      "rawTotal": 1000,
+      "unitPriceExVat": "0.00",
+      "lineTotalExVat": "0.00",
+      "vatAmount": "0.00",
+      "lineTotalInclVat": "1,000.00",
+      "warranty": ""
+    }
+  ],
+  "totals": {
+    "subtotal": "1,000.00",
+    "grandTotal": "1,000.00",
+    "subtotalExVat": "",
+    "vatTotal": ""
+  },
+  "company": {
+    "NAME": "Lasantha Tyre Traders",
+    "ADDRESS": "1035, Pannipitiya Road, Kumaragewattha, Battaramulla",
+    "PHONE": "0112 773 232",
+    "MOBILE": "0771 222 509",
+    "EMAIL": "lasanthatyretraders@gmail.com",
+    "WEB": "www.lasanthatyre.lk",
+    "BR_NO": "",
+    "VAT_NO": "",
+    "SVAT_NO": "",
+    "COLOR_PRIMARY": "#e67e22",
+    "COLOR_SECONDARY": "#2c3e50"
+  }
+}

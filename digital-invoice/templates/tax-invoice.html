@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tax Invoice</title>
+  <style>
+    body { font-family: Arial, Helvetica, sans-serif; margin:0; padding:0; background:#fff; color:#111; -webkit-print-color-adjust: exact; }
+    .page { width: 794px; height: 1123px; margin: 0 auto; padding: 36px 40px; box-sizing: border-box; position: relative; }
+
+    .watermark {
+      position: absolute;
+      inset: 0;
+      background-image: url('{{logo_base64}}');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 520px auto;
+      opacity: 0.06;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page > * { position: relative; z-index: 1; }
+
+    .top { display:flex; justify-content: space-between; align-items:flex-start; gap: 16px; }
+    .left-col { flex: 1; min-width: 0; }
+    .title { font-size: 13px; font-weight: 700; letter-spacing: 1px; text-align:center; margin-top: 2px; color: {{color_primary}}; text-transform: uppercase; }
+
+    .box { border:1px solid #777; padding: 8px 10px; font-size: 11px; border-left: 4px solid {{color_secondary}}; border-radius: 4px; background: #fafafa; }
+    .box + .box { margin-top: 8px; }
+    .box-title { font-weight: 700; margin-bottom: 6px; text-transform: uppercase; }
+    .box-row { display:flex; gap: 10px; margin: 2px 0; }
+    .box-k { width: 85px; font-weight: 700; }
+    .box-v { flex: 1; }
+
+    .meta { width: 280px; border:1px solid #777; padding: 8px 10px; font-size: 11px; border-top: 3px solid {{color_primary}}; border-radius: 4px; }
+    .meta-row { display:flex; justify-content: space-between; gap: 10px; margin: 2px 0; }
+    .meta-key { width: 110px; color:#222; }
+    .meta-val { flex:1; text-align:left; font-weight: 600; }
+
+    .divider { margin: 10px 0; border-top: 1px solid {{color_secondary}}; opacity: 0.9; }
+
+    .cust { font-size: 11px; line-height: 1.6; }
+    .cust .row { display:flex; gap: 12px; }
+    .cust .k { width: 90px; font-weight: 700; }
+    .cust .v { flex: 1; }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 11px; }
+    th, td { border: 1px solid #666; padding: 6px 6px; }
+    th { background: {{color_secondary}}; color: #fff; font-weight: 700; }
+    td.right, th.right { text-align: right; }
+
+    .totals { width: 280px; margin-left:auto; margin-top: 10px; font-size: 11px; }
+    .totals .row { display:flex; justify-content: space-between; gap: 10px; margin: 3px 0; }
+    .totals .label { width: 140px; text-align:left; }
+    .totals .val { width: 120px; text-align:right; font-weight: 700; }
+    .totals .strong { font-size: 13px; border-top: 1px solid #444; padding-top: 6px; margin-top: 6px; }
+
+    .footer { position:absolute; left:40px; right:40px; bottom: 40px; font-size: 9px; color:#333; }
+    .footer .rule { border-top: 1px solid #eee; padding-top: 10px; }
+    .footer .top { display:flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+    .footer .thanks { font-size: 12px; font-weight: 800; color: {{color_primary}}; }
+    .footer .printed { font-size: 9px; color:#777; white-space: nowrap; }
+    .footer .note { text-align:right; margin-top: 6px; color:#666; font-size: 9px; }
+    .footer .bottom { display:flex; justify-content: flex-end; margin-top: 10px; color:#666; }
+    .footer .bottom .right { text-align:right; }
+
+    .warranty-box {
+      position: absolute;
+      left: 40px;
+      right: 40px;
+      bottom: 128px;
+      background: #f8f9fa;
+      border-left: 4px solid {{color_primary}};
+      border-radius: 4px;
+      padding: 10px 12px;
+      color: #555;
+      font-size: 9px;
+      line-height: 1.35;
+    }
+    .warranty-box .title {
+      font-weight: 800;
+      font-size: 10px;
+      color: #222;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .warranty-box ul { margin: 0; padding-left: 16px; }
+    .warranty-box li { margin: 0 0 4px 0; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    {{#logo}}<div class="watermark"></div>{{/logo}}
+    <div class="top">
+      <div class="left-col">
+        <div class="box">
+          <div class="box-title">{{company_name}}</div>
+          <div class="box-row"><div class="box-k">ADDRESS</div><div class="box-v">: {{company_address}}</div></div>
+          <div class="box-row"><div class="box-k">TEL</div><div class="box-v">: {{company_phone}} {{#company_fax}} | FAX: {{company_fax}}{{/company_fax}}</div></div>
+          {{#vat_breakdown}}
+          <div class="box-row"><div class="box-k">VAT NO</div><div class="box-v">: {{company_vat}}</div></div>
+          {{/vat_breakdown}}
+        </div>
+
+        <div class="box">
+          <div class="box-title">Customer Details</div>
+          <div class="box-row"><div class="box-k">CUSTOMER</div><div class="box-v">: {{customer_name}}</div></div>
+          <div class="box-row"><div class="box-k">ADDRESS</div><div class="box-v">: {{customer_address}}</div></div>
+          <div class="box-row"><div class="box-k">TEL</div><div class="box-v">: {{customer_tel}} {{#customer_fax}} | FAX: {{customer_fax}}{{/customer_fax}}</div></div>
+          {{#vat_breakdown}}
+          {{#customer_vat}}
+          <div class="box-row"><div class="box-k">VAT NO</div><div class="box-v">: {{customer_vat}}</div></div>
+          {{/customer_vat}}
+          {{/vat_breakdown}}
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap: 6px; align-items:stretch;">
+        <div class="title">{{doc_type}}</div>
+        <div class="meta">
+          <div class="meta-row"><div class="meta-key">INVOICE NO</div><div class="meta-val">: {{inv_number}}</div></div>
+          <div class="meta-row"><div class="meta-key">INVOICE DATE</div><div class="meta-val">: {{inv_date}}</div></div>
+          <div class="meta-row"><div class="meta-key">TERMS</div><div class="meta-val">: {{payment_method}}</div></div>
+          {{#po_no}}
+          <div class="meta-row"><div class="meta-key">PO NO</div><div class="meta-val">: {{po_no}}</div></div>
+          {{/po_no}}
+          {{#vehicle_no}}
+          <div class="meta-row"><div class="meta-key">VEHICLE NO</div><div class="meta-val">: {{vehicle_no}}</div></div>
+          {{/vehicle_no}}
+          {{#mileage}}
+          <div class="meta-row"><div class="meta-key">M / READING</div><div class="meta-val">: {{mileage}}</div></div>
+          {{/mileage}}
+          {{#job_done_by}}
+          <div class="meta-row"><div class="meta-key">JOB DONE BY</div><div class="meta-val">: {{job_done_by}}</div></div>
+          {{/job_done_by}}
+          {{#issue_by}}
+          <div class="meta-row"><div class="meta-key">ISSUE BY</div><div class="meta-val">: {{issue_by}}</div></div>
+          {{/issue_by}}
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 25%">ITEMID</th>
+          <th style="width: 45%">DESCRIPTION</th>
+          <th style="width: 10%" class="right">QTY</th>
+          <th style="width: 10%" class="right">PRICE</th>
+          <th style="width: 10%" class="right">AMOUNT</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#items}}
+        <tr>
+          <td>{{item_code}}</td>
+          <td>{{description}}</td>
+          <td class="right">{{quantity}}</td>
+          <td class="right">{{#vat_breakdown}}{{price_ex_vat}}{{/vat_breakdown}}{{#no_vat_breakdown}}{{price}}{{/no_vat_breakdown}}</td>
+          <td class="right">{{#vat_breakdown}}{{total_ex_vat}}{{/vat_breakdown}}{{#no_vat_breakdown}}{{total}}{{/no_vat_breakdown}}</td>
+        </tr>
+        {{/items}}
+      </tbody>
+    </table>
+
+    <div class="totals">
+      {{#vat_breakdown}}
+      <div class="row"><div class="label">VAT {{#vat_rate}}({{vat_rate}}%){{/vat_rate}}</div><div class="val">{{vat_total}}</div></div>
+      <div class="row strong"><div class="label">NET TOTAL</div><div class="val">{{final_total}}</div></div>
+      {{/vat_breakdown}}
+
+      {{#no_vat_breakdown}}
+      <div class="row strong"><div class="label">TOTAL</div><div class="val">{{final_total}}</div></div>
+      {{/no_vat_breakdown}}
+
+      {{#paid_balance}}
+      <div class="row"><div class="label">PAID AMOUNT</div><div class="val">{{paid_amount}}</div></div>
+      <div class="row"><div class="label">BALANCE</div><div class="val">{{balance}}</div></div>
+      {{/paid_balance}}
+    </div>
+
+    {{#warranty_terms}}
+    <div class="warranty-box">
+      <div class="title">Warranty &amp; Terms</div>
+      {{warranty_terms_html}}
+    </div>
+    {{/warranty_terms}}
+
+    <div class="footer">
+      <div class="rule">
+        <div class="top">
+          <div class="thanks">Thank you for your business!</div>
+          <div></div>
+        </div>
+        <div class="note">{{legal_note}}</div>
+        <div class="bottom">
+          <div class="right">
+            <div>Generated by Lasantha Tyre Smart System</div>
+            <div>Powered by Snath Software Solution</div>
+          </div>
+        </div>
+        <div class="printed" style="text-align:right; margin-top: 6px;">{{printed_at}}</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

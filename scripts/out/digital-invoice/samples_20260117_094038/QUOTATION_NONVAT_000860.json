@@ -1,0 +1,95 @@
+{
+  "metadata": {
+    "type": "QUOTATION",
+    "color": "#e67e22",
+    "legalNote": "This is a computer-generated document. No signature is required. (Quotation only — not a tax invoice)",
+    "currencyLabel": "Rs.",
+    "vatRate": 18,
+    "isVatInvoice": null,
+    "companyDisplayName": "NEW Lasantha Tyre Traders"
+  },
+  "invoice": {
+    "number": "000860",
+    "date": "2026-01-14",
+    "validUntil": "2026-01-21",
+    "customerName": "COLONIAL  MOTORS  (CEYLON)  LTD",
+    "customerAddress": "NO;41/35 NAGAHAMULLA  RDTHALANGAMA  SOU",
+    "customerTel": "0112785800",
+    "customerFax": "",
+    "vehicleNo": "-",
+    "mileage": "-",
+    "rep": "udaya",
+    "paymentMethod": "-",
+    "quotationValidPeriod": "",
+    "deliveryPeriod": "",
+    "paymentTerms": "",
+    "availability": "",
+    "printedAt": "1/14/2026"
+  },
+  "items": [
+    {
+      "index": 1,
+      "code": "",
+      "description": "245/65/17 DURATURN H/T CHINA TYRE",
+      "quantity": 4,
+      "qty": 4,
+      "brand": "DURATURN",
+      "size": "245/65/17",
+      "price": "42,600.00",
+      "total": "170,400.00",
+      "rawTotal": 170400,
+      "unitPriceExVat": "36,101.69",
+      "lineTotalExVat": "144,406.78",
+      "vatAmount": "25,993.22",
+      "lineTotalInclVat": "170,400.00",
+      "warranty": "40000KM/4YEAR"
+    },
+    {
+      "index": 2,
+      "code": "245/65/17/FED/COXUV",
+      "description": "245/65/17 FEDERAL COURAGIA XUV TAIWAN",
+      "quantity": 4,
+      "qty": 4,
+      "brand": "FEDERAL",
+      "size": "245/65/17",
+      "price": "51,200.00",
+      "total": "204,800.00",
+      "rawTotal": 204800,
+      "unitPriceExVat": "43,389.83",
+      "lineTotalExVat": "173,559.32",
+      "vatAmount": "31,240.68",
+      "lineTotalInclVat": "204,800.00",
+      "warranty": "40000KM/4YEAR"
+    }
+  ],
+  "totals": {
+    "subtotal": "375,200.00",
+    "grandTotal": "375,200.00",
+    "subtotalExVat": "375,200.00",
+    "vatTotal": "0.00"
+  },
+  "company": {
+    "NAME": "Lasantha Tyre Traders",
+    "ADDRESS": "1035, Pannipitiya Road, Kumaragewattha, Battaramulla",
+    "PHONE": "0112 773 232",
+    "FAX": "0112 773 231",
+    "MOBILE": "0771 222 509",
+    "EMAIL": "lasanthatyretraders@gmail.com",
+    "WEB": "www.lasanthatyre.lk",
+    "BR_NO": "",
+    "VAT_NO": "743321219-7000",
+    "SVAT_NO": "",
+    "WARRANTY_TERMS_BULLETS": [
+      "Company warranty only.",
+      "No warranty for used, repaired, punctured, cut, or burst tires, or for visible flaws caused by wheel alignment or technical issues.",
+      "Alignment is recommended every 5,000 km for better mileage.",
+      "Damage from improper use, overloading, incorrect air pressure, poor maintenance, or third-party installations is not covered.",
+      "Customers must inspect tires upon purchase and raise concerns immediately.",
+      "Returns or exchanges are only for unused tires with the receipt.",
+      "Road hazard damage (potholes, debris, etc.) is excluded.",
+      "By purchasing, customers agree to these terms."
+    ],
+    "COLOR_PRIMARY": "#e67e22",
+    "COLOR_SECONDARY": "#2c3e50"
+  }
+}

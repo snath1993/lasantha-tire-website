@@ -1,16 +1,18 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { Phone, Mail, Clock, Menu, X, ChevronRight, Calendar } from 'lucide-react'
+import { Phone, Mail, Clock, Menu, X, ChevronRight, Calendar, Bot } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import RoyalBookingModal from './RoyalBookingModal'
+import AiChatModal from './AiChatModal'
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isBookingOpen, setIsBookingOpen] = useState(false)
+  const [isAiChatOpen, setIsAiChatOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,7 +27,6 @@ export default function Header() {
     { name: 'Services', href: '/services' },
     { name: 'Gallery', href: '/gallery' },
     { name: 'Contact', href: '/contact' },
-    { name: 'My Account', href: '/portal' },
   ]
 
   return (
@@ -121,6 +122,17 @@ export default function Header() {
                 <Calendar className="w-4 h-4" />
                 <span>Book VIP Service</span>
               </motion.button>
+
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                type="button"
+                onClick={() => setIsAiChatOpen(true)}
+                className="ml-2 p-2 bg-gray-100 hover:bg-gray-200 text-primary-600 rounded-xl transition-colors shadow-sm"
+                title="Titan AI Manager"
+              >
+                <Bot className="w-5 h-5" />
+              </motion.button>
             </motion.div>
 
             {/* Mobile Menu Button */}
@@ -167,12 +179,25 @@ export default function Header() {
                 <Calendar className="w-5 h-5" />
                 Book VIP Service
               </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setIsAiChatOpen(true)
+                  setIsMobileMenuOpen(false)
+                }}
+                className="mt-2 w-full bg-gray-100 hover:bg-gray-200 text-gray-800 p-4 rounded-xl font-bold flex items-center justify-center gap-2"
+              >
+                <Bot className="w-5 h-5" />
+                Titan AI Manager
+              </button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
       <RoyalBookingModal isOpen={isBookingOpen} onClose={() => setIsBookingOpen(false)} />
+      <AiChatModal isOpen={isAiChatOpen} onClose={() => setIsAiChatOpen(false)} />
     </>
   )
 }

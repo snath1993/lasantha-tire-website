@@ -5,9 +5,9 @@
 
 import { NextResponse } from 'next/server';
 
-// The Python ODBC bridge runs as a separate process (32-bit Python) on port 5000
-// Default to localhost:5000 so requests are forwarded to the Flask bridge, not this Next server.
-const PEACHTREE_BRIDGE = process.env.PEACHTREE_BRIDGE_URL || 'http://localhost:5000';
+// The Python ODBC bridge runs as a separate process (32-bit Python) on port 5001
+// Default to localhost:5001 so requests are forwarded to the Flask bridge, not this Next server.
+const PEACHTREE_BRIDGE = process.env.PEACHTREE_BRIDGE_URL || 'http://localhost:5001';
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
@@ -27,38 +27,9 @@ export async function GET(request: Request) {
       // Forward to new Direct ODBC route within the same server
       const base = url.origin;
       const directUrl = `${base}/api/peachtree-direct?${searchParams.toString()}`;
-
-      try {
-        const resp = await fetch(directUrl, { headers: { 'Content-Type': 'application/json' } });
-        if (resp.ok) {
-          const data = await resp.json();
-          return NextResponse.json(data, { status: resp.status });
-        }
-
-        console.warn(`[Peachtree API] Direct route "${endpoint}" failed with ${resp.status}. Falling back to bridge...`);
-      } catch (directError) {
-        console.warn(`[Peachtree API] Direct route "${endpoint}" error. Falling back to bridge...`, directError);
-      }
-
-      // Bridge fallback for direct endpoints (customers, vendors, tables, health)
-      const fallbackUrl = endpoint === 'health'
-        ? `${PEACHTREE_BRIDGE}/health`
-        : `${PEACHTREE_BRIDGE}/api/peachtree/${endpoint}`;
-
-      // Add query parameters to fallback URL
-      const fallbackUrlWithParams = new URL(fallbackUrl);
-      searchParams.forEach((value, key) => {
-        if (key !== 'endpoint') {
-          fallbackUrlWithParams.searchParams.append(key, value);
-        }
-      });
-
-      const fallbackResp = await fetch(fallbackUrlWithParams.toString(), { headers: { 'Content-Type': 'application/json' } });
-      const fallbackData = await fallbackResp.json();
-      return NextResponse.json(
-        { ...fallbackData, mode: 'Bridge Fallback', bridgeUrl: fallbackUrlWithParams.toString() },
-        { status: fallbackResp.status }
-      );
+      const resp = await fetch(directUrl, { headers: { 'Content-Type': 'application/json' } });
+      const data = await resp.json();
+      return NextResponse.json(data, { status: resp.status });
     }
 
     // Legacy/special endpoints still go through the Python bridge
@@ -68,7 +39,8 @@ export async function GET(request: Request) {
       bridgeUrl = `${PEACHTREE_BRIDGE}/api/peachtree/reports/outstanding?type=${reportType}`;
     } else if (endpoint.startsWith('business-status/')) {
       bridgeUrl = `${PEACHTREE_BRIDGE}/api/peachtree/${endpoint}`;
-      // Append query params for business status endpoints (e.g. limit)
+
+      // Preserve additional query params for business-status endpoints (e.g. limit)
       const bridgeUrlObj = new URL(bridgeUrl);
       searchParams.forEach((value, key) => {
         if (key !== 'endpoint') {
@@ -79,7 +51,8 @@ export async function GET(request: Request) {
     } else {
       // Generic passthrough
       bridgeUrl = endpoint === 'health' ? `${PEACHTREE_BRIDGE}/health` : `${PEACHTREE_BRIDGE}/api/peachtree/${endpoint}`;
-      // Append query params
+
+      // Preserve additional query params
       const bridgeUrlObj = new URL(bridgeUrl);
       searchParams.forEach((value, key) => {
         if (key !== 'endpoint') {
@@ -105,16 +78,10 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  let body;
-  try {
-    body = await request.json();
-  } catch (e) {
-    return NextResponse.json({ success: false, error: 'Invalid JSON body' }, { status: 400 });
-  }
-
   try {
     // Prefer Direct ODBC POST for custom queries
     const base = new URL(request.url).origin;
+    const body = await request.json();
 
     const resp = await fetch(`${base}/api/peachtree-direct`, {
       method: 'POST',
@@ -128,8 +95,8 @@ export async function POST(request: Request) {
   } catch (error: any) {
     // Fallback to bridge if direct fails
     try {
-      // Use the body we already parsed
-      const response = await fetch(`${PEACHTREE_BRIDGE}/api/peachtree/query`, {
+      const body = await request.json();
+  const response = await fetch(`${PEACHTREE_BRIDGE}/api/peachtree/query`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),

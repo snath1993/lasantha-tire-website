@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-02-08T04:37:56.881Z",
+  "authPath": "C:\\whatsapp-sql-api\\.wwebjs_auth_TEST_V3",
+  "exists": true,
+  "sessionFolders": [
+    {
+      "name": "session-lasantha-tire-bot",
+      "mtime": "2026-02-08T04:34:14.794Z",
+      "fileCount": 1756,
+      "sizeBytes": 173060678
+    }
+  ],
+  "totalFiles": 1756,
+  "keyArtifacts": {
+    "indexedDB": true,
+    "localStorage": true,
+    "serviceWorker": true,
+    "cookiesFile": false
+  }
+}

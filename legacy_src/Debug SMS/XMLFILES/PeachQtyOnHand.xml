@@ -1,0 +1,5194 @@
+<PAW_Items xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes"
+xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance"
+xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A01</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A02</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A03</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A04</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A05</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A06</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A07</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A08</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A09</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A10</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A11</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A12</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A13</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A14</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A15</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A16</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A17</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A18</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A19</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A20</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A21</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A22</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A23</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A24</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A25</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A26</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A27</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A28</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A29</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A30</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A31</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A32</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A33</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A34</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A35</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A36</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A37</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A38</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A39</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A40</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A41</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A42</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A43</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A44</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A45</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A46</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A47</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A48</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A49</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A50</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A51</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A52</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">A53</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">ART0001</ID>
+	<Last_Unit_Cost>1.39000</Last_Unit_Cost>
+	<QuantityOnHand>947.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">ART0002</ID>
+	<Last_Unit_Cost>1.38000</Last_Unit_Cost>
+	<QuantityOnHand>1556.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">ART0003</ID>
+	<Last_Unit_Cost>1.40000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">ART0004</ID>
+	<Last_Unit_Cost>2.65000</Last_Unit_Cost>
+	<QuantityOnHand>1065.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">ART0005</ID>
+	<Last_Unit_Cost>2.78000</Last_Unit_Cost>
+	<QuantityOnHand>39.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">ART0006</ID>
+	<Last_Unit_Cost>11.07000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">ART0007</ID>
+	<Last_Unit_Cost>10.63000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">ART0008</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">ART0009</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">ART0010</ID>
+	<Last_Unit_Cost>1.40000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">ART0011</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">ART0012</ID>
+	<Last_Unit_Cost>2.88000</Last_Unit_Cost>
+	<QuantityOnHand>768.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">ART0013</ID>
+	<Last_Unit_Cost>6.47000</Last_Unit_Cost>
+	<QuantityOnHand>1016.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">ART0014</ID>
+	<Last_Unit_Cost>20.35000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">ART0015</ID>
+	<Last_Unit_Cost>2589.29000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">ART0016</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BAN0001</ID>
+	<Last_Unit_Cost>10.27000</Last_Unit_Cost>
+	<QuantityOnHand>366.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BAN0002</ID>
+	<Last_Unit_Cost>1.05000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0001</ID>
+	<Last_Unit_Cost>0.17000</Last_Unit_Cost>
+	<QuantityOnHand>103573.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0002</ID>
+	<Last_Unit_Cost>0.49000</Last_Unit_Cost>
+	<QuantityOnHand>50000.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0003</ID>
+	<Last_Unit_Cost>0.24000</Last_Unit_Cost>
+	<QuantityOnHand>73627.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0004</ID>
+	<Last_Unit_Cost>0.30000</Last_Unit_Cost>
+	<QuantityOnHand>36904.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0005</ID>
+	<Last_Unit_Cost>0.26000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0006</ID>
+	<Last_Unit_Cost>0.31000</Last_Unit_Cost>
+	<QuantityOnHand>33840.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0007</ID>
+	<Last_Unit_Cost>0.40000</Last_Unit_Cost>
+	<QuantityOnHand>3583.78330</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0008</ID>
+	<Last_Unit_Cost>0.48000</Last_Unit_Cost>
+	<QuantityOnHand>36294.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0009</ID>
+	<Last_Unit_Cost>0.54000</Last_Unit_Cost>
+	<QuantityOnHand>55308.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0010</ID>
+	<Last_Unit_Cost>0.48000</Last_Unit_Cost>
+	<QuantityOnHand>33026.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0011</ID>
+	<Last_Unit_Cost>0.63000</Last_Unit_Cost>
+	<QuantityOnHand>27926.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0012</ID>
+	<Last_Unit_Cost>0.54000</Last_Unit_Cost>
+	<QuantityOnHand>4726.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0013</ID>
+	<Last_Unit_Cost>1.27000</Last_Unit_Cost>
+	<QuantityOnHand>17220.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0014</ID>
+	<Last_Unit_Cost>1.29000</Last_Unit_Cost>
+	<QuantityOnHand>6020.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0015</ID>
+	<Last_Unit_Cost>1.52000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0016</ID>
+	<Last_Unit_Cost>2.00000</Last_Unit_Cost>
+	<QuantityOnHand>1944.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0017</ID>
+	<Last_Unit_Cost>2.10000</Last_Unit_Cost>
+	<QuantityOnHand>7089.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0018</ID>
+	<Last_Unit_Cost>2.20000</Last_Unit_Cost>
+	<QuantityOnHand>5410.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0019</ID>
+	<Last_Unit_Cost>2.33000</Last_Unit_Cost>
+	<QuantityOnHand>3037.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0020</ID>
+	<Last_Unit_Cost>2.33000</Last_Unit_Cost>
+	<QuantityOnHand>10833.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0021</ID>
+	<Last_Unit_Cost>2.91000</Last_Unit_Cost>
+	<QuantityOnHand>1602.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0022</ID>
+	<Last_Unit_Cost>4.60000</Last_Unit_Cost>
+	<QuantityOnHand>3964.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0023</ID>
+	<Last_Unit_Cost>3.13000</Last_Unit_Cost>
+	<QuantityOnHand>288.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0024</ID>
+	<Last_Unit_Cost>5.00000</Last_Unit_Cost>
+	<QuantityOnHand>110.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0025</ID>
+	<Last_Unit_Cost>5.50000</Last_Unit_Cost>
+	<QuantityOnHand>130.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0026</ID>
+	<Last_Unit_Cost>7.00000</Last_Unit_Cost>
+	<QuantityOnHand>221.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0027</ID>
+	<Last_Unit_Cost>7.50000</Last_Unit_Cost>
+	<QuantityOnHand>76.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0028</ID>
+	<Last_Unit_Cost>8.50000</Last_Unit_Cost>
+	<QuantityOnHand>93.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0029</ID>
+	<Last_Unit_Cost>15.50000</Last_Unit_Cost>
+	<QuantityOnHand>145.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0030</ID>
+	<Last_Unit_Cost>13.67000</Last_Unit_Cost>
+	<QuantityOnHand>61.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0031</ID>
+	<Last_Unit_Cost>17.64000</Last_Unit_Cost>
+	<QuantityOnHand>117.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0032</ID>
+	<Last_Unit_Cost>21.52000</Last_Unit_Cost>
+	<QuantityOnHand>92.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0033</ID>
+	<Last_Unit_Cost>24.40000</Last_Unit_Cost>
+	<QuantityOnHand>162.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0034</ID>
+	<Last_Unit_Cost>28.00000</Last_Unit_Cost>
+	<QuantityOnHand>111.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0035</ID>
+	<Last_Unit_Cost>30.00000</Last_Unit_Cost>
+	<QuantityOnHand>108.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0036</ID>
+	<Last_Unit_Cost>31.25000</Last_Unit_Cost>
+	<QuantityOnHand>92.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0037</ID>
+	<Last_Unit_Cost>6.30000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0038</ID>
+	<Last_Unit_Cost>6.30000</Last_Unit_Cost>
+	<QuantityOnHand>13.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0039</ID>
+	<Last_Unit_Cost>7.46000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0040</ID>
+	<Last_Unit_Cost>7.46000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0041</ID>
+	<Last_Unit_Cost>10.04000</Last_Unit_Cost>
+	<QuantityOnHand>546.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0042</ID>
+	<Last_Unit_Cost>10.02000</Last_Unit_Cost>
+	<QuantityOnHand>557.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0043</ID>
+	<Last_Unit_Cost>12.25000</Last_Unit_Cost>
+	<QuantityOnHand>30.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0044</ID>
+	<Last_Unit_Cost>11.57000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0045</ID>
+	<Last_Unit_Cost>9.68000</Last_Unit_Cost>
+	<QuantityOnHand>638.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0046</ID>
+	<Last_Unit_Cost>15.55000</Last_Unit_Cost>
+	<QuantityOnHand>26.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0047</ID>
+	<Last_Unit_Cost>18.50000</Last_Unit_Cost>
+	<QuantityOnHand>44.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0048</ID>
+	<Last_Unit_Cost>16.00000</Last_Unit_Cost>
+	<QuantityOnHand>9.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0049</ID>
+	<Last_Unit_Cost>32.00000</Last_Unit_Cost>
+	<QuantityOnHand>23.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0050</ID>
+	<Last_Unit_Cost>40.00000</Last_Unit_Cost>
+	<QuantityOnHand>7.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0051</ID>
+	<Last_Unit_Cost>85.43000</Last_Unit_Cost>
+	<QuantityOnHand>181.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0052</ID>
+	<Last_Unit_Cost>120.00000</Last_Unit_Cost>
+	<QuantityOnHand>18.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0053</ID>
+	<Last_Unit_Cost>149.31000</Last_Unit_Cost>
+	<QuantityOnHand>19.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0054</ID>
+	<Last_Unit_Cost>252.50000</Last_Unit_Cost>
+	<QuantityOnHand>30.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0055</ID>
+	<Last_Unit_Cost>310.00000</Last_Unit_Cost>
+	<QuantityOnHand>7.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0056</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0057</ID>
+	<Last_Unit_Cost>5.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0058</ID>
+	<Last_Unit_Cost>6.50000</Last_Unit_Cost>
+	<QuantityOnHand>52.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0059</ID>
+	<Last_Unit_Cost>6.50000</Last_Unit_Cost>
+	<QuantityOnHand>2076.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0060</ID>
+	<Last_Unit_Cost>6.63000</Last_Unit_Cost>
+	<QuantityOnHand>1139.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0061</ID>
+	<Last_Unit_Cost>9.00000</Last_Unit_Cost>
+	<QuantityOnHand>639.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0062</ID>
+	<Last_Unit_Cost>8.69000</Last_Unit_Cost>
+	<QuantityOnHand>3181.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0063</ID>
+	<Last_Unit_Cost>6.30000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0065</ID>
+	<Last_Unit_Cost>9.88000</Last_Unit_Cost>
+	<QuantityOnHand>237.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0066</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0067</ID>
+	<Last_Unit_Cost>39.52000</Last_Unit_Cost>
+	<QuantityOnHand>1.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0068</ID>
+	<Last_Unit_Cost>97.61000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0069</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0070</ID>
+	<Last_Unit_Cost>10.75000</Last_Unit_Cost>
+	<QuantityOnHand>493.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0071</ID>
+	<Last_Unit_Cost>22.33000</Last_Unit_Cost>
+	<QuantityOnHand>510.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0072</ID>
+	<Last_Unit_Cost>10.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0073</ID>
+	<Last_Unit_Cost>25.00000</Last_Unit_Cost>
+	<QuantityOnHand>98.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0074</ID>
+	<Last_Unit_Cost>34.50000</Last_Unit_Cost>
+	<QuantityOnHand>765.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0075</ID>
+	<Last_Unit_Cost>12.50000</Last_Unit_Cost>
+	<QuantityOnHand>8.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0076</ID>
+	<Last_Unit_Cost>12.50000</Last_Unit_Cost>
+	<QuantityOnHand>1132.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0077</ID>
+	<Last_Unit_Cost>12.50000</Last_Unit_Cost>
+	<QuantityOnHand>1333.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0078</ID>
+	<Last_Unit_Cost>12.50000</Last_Unit_Cost>
+	<QuantityOnHand>250.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0079</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0080</ID>
+	<Last_Unit_Cost>12.50000</Last_Unit_Cost>
+	<QuantityOnHand>481.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0081</ID>
+	<Last_Unit_Cost>15.50000</Last_Unit_Cost>
+	<QuantityOnHand>126.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0082</ID>
+	<Last_Unit_Cost>9.50000</Last_Unit_Cost>
+	<QuantityOnHand>109.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0083</ID>
+	<Last_Unit_Cost>9.50000</Last_Unit_Cost>
+	<QuantityOnHand>132.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0084</ID>
+	<Last_Unit_Cost>9.50000</Last_Unit_Cost>
+	<QuantityOnHand>133.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0085</ID>
+	<Last_Unit_Cost>9.50000</Last_Unit_Cost>
+	<QuantityOnHand>227.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0086</ID>
+	<Last_Unit_Cost>9.50000</Last_Unit_Cost>
+	<QuantityOnHand>166.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0087</ID>
+	<Last_Unit_Cost>9.50000</Last_Unit_Cost>
+	<QuantityOnHand>190.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0088</ID>
+	<Last_Unit_Cost>9.50000</Last_Unit_Cost>
+	<QuantityOnHand>18.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0089</ID>
+	<Last_Unit_Cost>9.50000</Last_Unit_Cost>
+	<QuantityOnHand>201.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0090</ID>
+	<Last_Unit_Cost>9.50000</Last_Unit_Cost>
+	<QuantityOnHand>35.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0091</ID>
+	<Last_Unit_Cost>9.50000</Last_Unit_Cost>
+	<QuantityOnHand>115.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0092</ID>
+	<Last_Unit_Cost>9.50000</Last_Unit_Cost>
+	<QuantityOnHand>139.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0093</ID>
+	<Last_Unit_Cost>9.50000</Last_Unit_Cost>
+	<QuantityOnHand>128.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0094</ID>
+	<Last_Unit_Cost>44.64000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0095</ID>
+	<Last_Unit_Cost>171.43000</Last_Unit_Cost>
+	<QuantityOnHand>72.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0096</ID>
+	<Last_Unit_Cost>180.36000</Last_Unit_Cost>
+	<QuantityOnHand>-30.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0097</ID>
+	<Last_Unit_Cost>185.71000</Last_Unit_Cost>
+	<QuantityOnHand>30.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0098</ID>
+	<Last_Unit_Cost>194.64000</Last_Unit_Cost>
+	<QuantityOnHand>-16.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0099</ID>
+	<Last_Unit_Cost>200.00000</Last_Unit_Cost>
+	<QuantityOnHand>20.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0100</ID>
+	<Last_Unit_Cost>225.00000</Last_Unit_Cost>
+	<QuantityOnHand>10.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0101</ID>
+	<Last_Unit_Cost>145.00000</Last_Unit_Cost>
+	<QuantityOnHand>24.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0102</ID>
+	<Last_Unit_Cost>225.00000</Last_Unit_Cost>
+	<QuantityOnHand>45.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0103</ID>
+	<Last_Unit_Cost>235.00000</Last_Unit_Cost>
+	<QuantityOnHand>5.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0104</ID>
+	<Last_Unit_Cost>575.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0105</ID>
+	<Last_Unit_Cost>30.00000</Last_Unit_Cost>
+	<QuantityOnHand>24.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0106</ID>
+	<Last_Unit_Cost>12.00000</Last_Unit_Cost>
+	<QuantityOnHand>14.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0107</ID>
+	<Last_Unit_Cost>40.00000</Last_Unit_Cost>
+	<QuantityOnHand>7.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0108</ID>
+	<Last_Unit_Cost>70.00000</Last_Unit_Cost>
+	<QuantityOnHand>33.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0109</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>134.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0110</ID>
+	<Last_Unit_Cost>55.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0111</ID>
+	<Last_Unit_Cost>70.00000</Last_Unit_Cost>
+	<QuantityOnHand>6.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0112</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>68.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0113</ID>
+	<Last_Unit_Cost>140.00000</Last_Unit_Cost>
+	<QuantityOnHand>9.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0114</ID>
+	<Last_Unit_Cost>140.00000</Last_Unit_Cost>
+	<QuantityOnHand>22.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0115</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>8.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0116</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>93.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0117</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>66.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0118</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>85.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0119</ID>
+	<Last_Unit_Cost>0.48000</Last_Unit_Cost>
+	<QuantityOnHand>14902.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0120</ID>
+	<Last_Unit_Cost>1.12000</Last_Unit_Cost>
+	<QuantityOnHand>10036.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0121</ID>
+	<Last_Unit_Cost>0.33000</Last_Unit_Cost>
+	<QuantityOnHand>3400.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0122</ID>
+	<Last_Unit_Cost>130.00000</Last_Unit_Cost>
+	<QuantityOnHand>22.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0123</ID>
+	<Last_Unit_Cost>65.00000</Last_Unit_Cost>
+	<QuantityOnHand>19.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0124</ID>
+	<Last_Unit_Cost>7100.00000</Last_Unit_Cost>
+	<QuantityOnHand>2.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0125</ID>
+	<Last_Unit_Cost>210.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0126</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0127</ID>
+	<Last_Unit_Cost>145.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0128</ID>
+	<Last_Unit_Cost>2000.00000</Last_Unit_Cost>
+	<QuantityOnHand>1.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0129</ID>
+	<Last_Unit_Cost>9.50000</Last_Unit_Cost>
+	<QuantityOnHand>194.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0130</ID>
+	<Last_Unit_Cost>5.50000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0131</ID>
+	<Last_Unit_Cost>145.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0132</ID>
+	<Last_Unit_Cost>60.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0133</ID>
+	<Last_Unit_Cost>105.00000</Last_Unit_Cost>
+	<QuantityOnHand>12.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0134</ID>
+	<Last_Unit_Cost>14.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0135</ID>
+	<Last_Unit_Cost>150.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0136</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0137</ID>
+	<Last_Unit_Cost>28.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0138</ID>
+	<Last_Unit_Cost>0.41000</Last_Unit_Cost>
+	<QuantityOnHand>3400.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BIN0139</ID>
+	<Last_Unit_Cost>240.00000</Last_Unit_Cost>
+	<QuantityOnHand>10.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BLU0001</ID>
+	<Last_Unit_Cost>1290.00000</Last_Unit_Cost>
+	<QuantityOnHand>29.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BRI0001</ID>
+	<Last_Unit_Cost>2.16000</Last_Unit_Cost>
+	<QuantityOnHand>10.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BRI0002</ID>
+	<Last_Unit_Cost>4.02000</Last_Unit_Cost>
+	<QuantityOnHand>83.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BRI0003</ID>
+	<Last_Unit_Cost>2.16000</Last_Unit_Cost>
+	<QuantityOnHand>20.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BRI0004</ID>
+	<Last_Unit_Cost>4.02000</Last_Unit_Cost>
+	<QuantityOnHand>50.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BRI0005</ID>
+	<Last_Unit_Cost>2.01000</Last_Unit_Cost>
+	<QuantityOnHand>1.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BRI0006</ID>
+	<Last_Unit_Cost>4.02000</Last_Unit_Cost>
+	<QuantityOnHand>6.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BRI0007</ID>
+	<Last_Unit_Cost>2.01000</Last_Unit_Cost>
+	<QuantityOnHand>42.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BRI0008</ID>
+	<Last_Unit_Cost>4.02000</Last_Unit_Cost>
+	<QuantityOnHand>99.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BRI0009</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>59.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BRI0010</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>6.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BRI0011</ID>
+	<Last_Unit_Cost>0.12000</Last_Unit_Cost>
+	<QuantityOnHand>116.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">BRI0012</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>1.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CAP0001</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CAP0002</ID>
+	<Last_Unit_Cost>11.16000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CAR0001</ID>
+	<Last_Unit_Cost>19860.00000</Last_Unit_Cost>
+	<QuantityOnHand>1.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CAR0002</ID>
+	<Last_Unit_Cost>19860.00000</Last_Unit_Cost>
+	<QuantityOnHand>1.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CAR0003</ID>
+	<Last_Unit_Cost>19860.00000</Last_Unit_Cost>
+	<QuantityOnHand>1.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CAR0004</ID>
+	<Last_Unit_Cost>19860.00000</Last_Unit_Cost>
+	<QuantityOnHand>2.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CAR0005</ID>
+	<Last_Unit_Cost>19860.00000</Last_Unit_Cost>
+	<QuantityOnHand>2.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CAR0006</ID>
+	<Last_Unit_Cost>19860.00000</Last_Unit_Cost>
+	<QuantityOnHand>1.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CAR0007</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CAR0008</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CDD0001</ID>
+	<Last_Unit_Cost>75.00000</Last_Unit_Cost>
+	<QuantityOnHand>77.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CDD0002</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CDD0003</ID>
+	<Last_Unit_Cost>28.50000</Last_Unit_Cost>
+	<QuantityOnHand>59.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CDD0004</ID>
+	<Last_Unit_Cost>12.50000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CDD0005</ID>
+	<Last_Unit_Cost>4.50000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CDD0006</ID>
+	<Last_Unit_Cost>4.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CDD0007</ID>
+	<Last_Unit_Cost>95.00000</Last_Unit_Cost>
+	<QuantityOnHand>45.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CDD0008</ID>
+	<Last_Unit_Cost>55.00000</Last_Unit_Cost>
+	<QuantityOnHand>285.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0001</ID>
+	<Last_Unit_Cost>3.87000</Last_Unit_Cost>
+	<QuantityOnHand>38.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0002</ID>
+	<Last_Unit_Cost>9.00000</Last_Unit_Cost>
+	<QuantityOnHand>503.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0003</ID>
+	<Last_Unit_Cost>6.25000</Last_Unit_Cost>
+	<QuantityOnHand>150.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0004</ID>
+	<Last_Unit_Cost>12.50000</Last_Unit_Cost>
+	<QuantityOnHand>157.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0005</ID>
+	<Last_Unit_Cost>3.87000</Last_Unit_Cost>
+	<QuantityOnHand>30.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0006</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0007</ID>
+	<Last_Unit_Cost>3.87000</Last_Unit_Cost>
+	<QuantityOnHand>381.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0008</ID>
+	<Last_Unit_Cost>6.75000</Last_Unit_Cost>
+	<QuantityOnHand>1001.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0009</ID>
+	<Last_Unit_Cost>3.38000</Last_Unit_Cost>
+	<QuantityOnHand>2114.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0010</ID>
+	<Last_Unit_Cost>3.87000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0011</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0012</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0013</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0014</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0015</ID>
+	<Last_Unit_Cost>27.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0016</ID>
+	<Last_Unit_Cost>0.05000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0017</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0018</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>23.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0019</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0020</ID>
+	<Last_Unit_Cost>3.87000</Last_Unit_Cost>
+	<QuantityOnHand>839.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0021</ID>
+	<Last_Unit_Cost>36.50000</Last_Unit_Cost>
+	<QuantityOnHand>99.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0022</ID>
+	<Last_Unit_Cost>18.25000</Last_Unit_Cost>
+	<QuantityOnHand>410.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0023</ID>
+	<Last_Unit_Cost>40.00000</Last_Unit_Cost>
+	<QuantityOnHand>120.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0024</ID>
+	<Last_Unit_Cost>20.00000</Last_Unit_Cost>
+	<QuantityOnHand>198.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0025</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0026</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0027</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0028</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0029</ID>
+	<Last_Unit_Cost>73.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0030</ID>
+	<Last_Unit_Cost>80.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0031</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0032</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>65.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0033</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">CON0034</ID>
+	<Last_Unit_Cost>13.25000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">DISCOUNT</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">GEN0001</ID>
+	<Last_Unit_Cost>80.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">GEN0002</ID>
+	<Last_Unit_Cost>190.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">GEN0003</ID>
+	<Last_Unit_Cost>220.00000</Last_Unit_Cost>
+	<QuantityOnHand>6.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">GEN0004</ID>
+	<Last_Unit_Cost>220.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">GEN0005</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">GEN0006</ID>
+	<Last_Unit_Cost>580.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">GEN0007</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">GEN0008</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">GEN0009</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">GEN0010</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">GEN0011</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>131.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">GEN0012</ID>
+	<Last_Unit_Cost>27.00000</Last_Unit_Cost>
+	<QuantityOnHand>176.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">GEN0013</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">GEN0014</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">GEN0015</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">GEN0016</ID>
+	<Last_Unit_Cost>590.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">GEN0017</ID>
+	<Last_Unit_Cost>1450.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">GEN0018</ID>
+	<Last_Unit_Cost>392.00000</Last_Unit_Cost>
+	<QuantityOnHand>7.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H000</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H001</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H002</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H003</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H004</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H005</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H006</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H007</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H008</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H009</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H010</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H011</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H012</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H013</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H014</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H015</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H016</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H017</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H018</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H019</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H020</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H021</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H022</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H023</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H024</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H025</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H026</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H027</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H028</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H029</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H030</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H031</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H032</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H033</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H034</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H035</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H036</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H037</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H038</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H039</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H040</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H041</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H042</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H043</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H044</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H045</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H046</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H047</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H048</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H049</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H050</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H051</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H052</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H053</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H054</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H055</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H056</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H057</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H058</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H059</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H060</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H061</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H062</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H063</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H064</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H065</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H066</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H067</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H068</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H069</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H070</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H071</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H072</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H073</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H074</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H075</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H076</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H077</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H078</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H079</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H080</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H081</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H082</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H083</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H084</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H085</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H086</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H087</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H088</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H089</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H090</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H091</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H092</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H093</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H094</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H095</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H096</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H097</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H098</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H099</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H100</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H101</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H102</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H103</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H104</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H105</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H106</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H107</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H108</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H109</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H110</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H111</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H112</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H113</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H114</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H115</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H116</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H117</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H118</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H119</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H120</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H121</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H122</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H123</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H124</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H125</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H126</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H127</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H128</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H129</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H130</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H131</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H132</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H133</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H134</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H135</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H136</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H137</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H138</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H139</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H140</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H141</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H142</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H143</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H144</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H145</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H146</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H147</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H148</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H149</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H150</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H151</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H152</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H153</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H154</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H155</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H156</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H157</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H158</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H159</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H160</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H161</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H162</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H163</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H164</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H165</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H166</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H167</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H168</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H169</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H170</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H171</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H172</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H173</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H174</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H175</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H176</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H177</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H178</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H179</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H180</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H181</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H182</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H183</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H184</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H185</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H186</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H187</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H188</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H189</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H190</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H191</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H192</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H193</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H194</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H195</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H196</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H197</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H198</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H199</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H200</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H201</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H202</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H203</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H204</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H205</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H206</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H207</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H208</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H209</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H210</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H211</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H212</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H213</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H214</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H215</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H216</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H217</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H218</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H219</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H220</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H221</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H222</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H223</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H224</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H225</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H226</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H227</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H228</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H229</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H230</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H231</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H232</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H233</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H234</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H235</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H236</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H237</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H238</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H239</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H240</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H241</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H242</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H243</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H244</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H245</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H246</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H247</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H248</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H249</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H250</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H251</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H252</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H253</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H254</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H255</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H256</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H257</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H258</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H259</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H260</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H261</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H262</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H263</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H264</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H265</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H266</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H267</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H268</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H269</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H270</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H271</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H272</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H273</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H274</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H275</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H276</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H277</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H278</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H279</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H280</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H281</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H282</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H283</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H284</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H285</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H286</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H287</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H288</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H289</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H290</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H291</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H292</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H293</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H294</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H295</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H296</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H297</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H298</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H299</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H300</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H301</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H302</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H303</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H304</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H305</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H306</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H307</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H308</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H309</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H310</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H311</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H312</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H313</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H314</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H315</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H316</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H317</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H318</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H319</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H320</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H321</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H322</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H323</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H324</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H325</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H326</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H327</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H328</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H329</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H330</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H331</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H332</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H333</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H334</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H335</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H336</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H337</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H338</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H339</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H340</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H341</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H342</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H343</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H344</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H345</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H346</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H347</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H348</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H349</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H350</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H351</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H352</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H353</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H354</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H355</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H356</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H357</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H358</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H359</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H360</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H361</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H362</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H363</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H364</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H365</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H366</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H367</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H368</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H369</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H370</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H371</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H372</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H373</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H374</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H375</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H376</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H377</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H378</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H379</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H380</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H381</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H382</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H383</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H384</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H385</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H386</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H387</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">H388</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">IVO0001</ID>
+	<Last_Unit_Cost>17.50000</Last_Unit_Cost>
+	<QuantityOnHand>800.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">IVO0002</ID>
+	<Last_Unit_Cost>35.00000</Last_Unit_Cost>
+	<QuantityOnHand>479.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">IVO0003</ID>
+	<Last_Unit_Cost>140.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">IVO0004</ID>
+	<Last_Unit_Cost>123.21000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L01</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L02</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L03</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L04</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L05</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L06</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L07</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L08</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L09</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L10</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L100</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L101</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L102</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L103</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L104</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L105</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L106</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L107</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L108</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L109</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L11</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L110</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L111</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L112</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L113</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L114</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L115</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L116</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L117</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L118</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L119</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L12</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L120</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L121</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L122</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L123</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L124</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L125</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L126</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L127</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L128</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L129</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L13</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L130</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L131</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L132</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L133</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L134</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L135</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L136</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L137</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L138</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L139</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L14</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L140</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L141</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L142</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L143</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L144</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L145</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L146</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L147</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L148</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L149</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L15</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L150</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L151</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L152</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L153</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L154</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L155</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L156</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L157</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L158</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L159</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L16</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L160</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L161</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L162</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L163</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L164</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L165</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L166</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L167</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L168</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L169</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L17</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L170</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L171</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L172</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L18</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L19</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L20</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L21</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L22</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L23</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L24</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L25</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L26</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L27</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L28</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L29</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L30</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L31</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L32</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L33</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L34</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L35</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L36</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L37</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L38</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L39</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L40</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L41</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L42</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L43</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L44</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L45</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L46</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L47</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L48</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L49</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L50</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L51</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L52</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L53</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L54</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L55</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L56</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L57</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L58</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L59</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L60</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L61</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L62</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L63</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L64</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L65</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L66</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L67</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L68</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L69</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L70</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L71</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L72</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L73</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L74</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L75</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L76</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L77</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L78</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L79</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L80</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L81</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L82</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L83</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L84</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L85</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L86</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L87</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L88</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L89</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L90</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L91</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L92</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L93</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L94</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L95</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L96</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L97</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L98</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">L99</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">LAM0001</ID>
+	<Last_Unit_Cost>7.95000</Last_Unit_Cost>
+	<QuantityOnHand>786.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">LAM0002</ID>
+	<Last_Unit_Cost>13.40000</Last_Unit_Cost>
+	<QuantityOnHand>340.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">LAM0003</ID>
+	<Last_Unit_Cost>7.90000</Last_Unit_Cost>
+	<QuantityOnHand>533.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">LAM0004</ID>
+	<Last_Unit_Cost>2.60000</Last_Unit_Cost>
+	<QuantityOnHand>946.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">LAM0005</ID>
+	<Last_Unit_Cost>4.83000</Last_Unit_Cost>
+	<QuantityOnHand>720.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">LAM0006</ID>
+	<Last_Unit_Cost>2.86000</Last_Unit_Cost>
+	<QuantityOnHand>1207.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">LAM0007</ID>
+	<Last_Unit_Cost>19.50000</Last_Unit_Cost>
+	<QuantityOnHand>470.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">LAM0008</ID>
+	<Last_Unit_Cost>1.79000</Last_Unit_Cost>
+	<QuantityOnHand>442.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">LAM0009</ID>
+	<Last_Unit_Cost>2.25000</Last_Unit_Cost>
+	<QuantityOnHand>182.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">LAM0010</ID>
+	<Last_Unit_Cost>1.52000</Last_Unit_Cost>
+	<QuantityOnHand>639.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">LAM0011</ID>
+	<Last_Unit_Cost>2.86000</Last_Unit_Cost>
+	<QuantityOnHand>631.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">LAM0012</ID>
+	<Last_Unit_Cost>3.05000</Last_Unit_Cost>
+	<QuantityOnHand>592.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">LAM0013</ID>
+	<Last_Unit_Cost>20.99000</Last_Unit_Cost>
+	<QuantityOnHand>629.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">LAM0014</ID>
+	<Last_Unit_Cost>3.13000</Last_Unit_Cost>
+	<QuantityOnHand>500.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">LAM0015</ID>
+	<Last_Unit_Cost>4.00000</Last_Unit_Cost>
+	<QuantityOnHand>872.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">LAM0016</ID>
+	<Last_Unit_Cost>12.24000</Last_Unit_Cost>
+	<QuantityOnHand>660.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">LAM0017</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">LAM0018</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">LAM0019</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">LAM0020</ID>
+	<Last_Unit_Cost>2634.00000</Last_Unit_Cost>
+	<QuantityOnHand>4.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">LAM0021</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>2.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">LAM0022</ID>
+	<Last_Unit_Cost>2634.00000</Last_Unit_Cost>
+	<QuantityOnHand>2.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">LAM0023</ID>
+	<Last_Unit_Cost>2634.00000</Last_Unit_Cost>
+	<QuantityOnHand>6.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">LAM0024</ID>
+	<Last_Unit_Cost>4464.29000</Last_Unit_Cost>
+	<QuantityOnHand>2.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">LAM0025</ID>
+	<Last_Unit_Cost>4910.72000</Last_Unit_Cost>
+	<QuantityOnHand>2.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">LAM0026</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">NBTP</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">NBTR</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PHO0001</ID>
+	<Last_Unit_Cost>0.80000</Last_Unit_Cost>
+	<QuantityOnHand>29468.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PHO0002</ID>
+	<Last_Unit_Cost>0.93000</Last_Unit_Cost>
+	<QuantityOnHand>774440.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PHO0003</ID>
+	<Last_Unit_Cost>1.95000</Last_Unit_Cost>
+	<QuantityOnHand>17788.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PHO0004</ID>
+	<Last_Unit_Cost>1.55000</Last_Unit_Cost>
+	<QuantityOnHand>1075464.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PHO0005</ID>
+	<Last_Unit_Cost>1.24000</Last_Unit_Cost>
+	<QuantityOnHand>629371.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PHO0006</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PHO0007</ID>
+	<Last_Unit_Cost>1.38000</Last_Unit_Cost>
+	<QuantityOnHand>3454.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PHO0008</ID>
+	<Last_Unit_Cost>1.38000</Last_Unit_Cost>
+	<QuantityOnHand>3407.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PHO0009</ID>
+	<Last_Unit_Cost>1.38000</Last_Unit_Cost>
+	<QuantityOnHand>4716.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PHO0010</ID>
+	<Last_Unit_Cost>1.38000</Last_Unit_Cost>
+	<QuantityOnHand>4157.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PHO0011</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>2344.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PHO0012</ID>
+	<Last_Unit_Cost>1.56000</Last_Unit_Cost>
+	<QuantityOnHand>4076.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PHO0013</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>1735.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PHO0014</ID>
+	<Last_Unit_Cost>1.38000</Last_Unit_Cost>
+	<QuantityOnHand>4717.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PHO0015</ID>
+	<Last_Unit_Cost>1.38000</Last_Unit_Cost>
+	<QuantityOnHand>2775.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PHO0016</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PHO0017</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>415.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PHO0018</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PHO0019</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>2921.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PHO0020</ID>
+	<Last_Unit_Cost>1.56000</Last_Unit_Cost>
+	<QuantityOnHand>3459.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0001</ID>
+	<Last_Unit_Cost>3066.97000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0002</ID>
+	<Last_Unit_Cost>2356.10000</Last_Unit_Cost>
+	<QuantityOnHand>14.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0003</ID>
+	<Last_Unit_Cost>4875.00000</Last_Unit_Cost>
+	<QuantityOnHand>6.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0004</ID>
+	<Last_Unit_Cost>25750.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0005</ID>
+	<Last_Unit_Cost>10250.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0006</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0007</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0008</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0009</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0010</ID>
+	<Last_Unit_Cost>4100.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0011</ID>
+	<Last_Unit_Cost>4950.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0012</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0013</ID>
+	<Last_Unit_Cost>8750.00000</Last_Unit_Cost>
+	<QuantityOnHand>1.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0014</ID>
+	<Last_Unit_Cost>9500.00000</Last_Unit_Cost>
+	<QuantityOnHand>4.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0015</ID>
+	<Last_Unit_Cost>185.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0016</ID>
+	<Last_Unit_Cost>1.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0017</ID>
+	<Last_Unit_Cost>17857.14000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0018</ID>
+	<Last_Unit_Cost>11300.00000</Last_Unit_Cost>
+	<QuantityOnHand>2.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0019</ID>
+	<Last_Unit_Cost>2850.00000</Last_Unit_Cost>
+	<QuantityOnHand>5.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0020</ID>
+	<Last_Unit_Cost>4650.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0021</ID>
+	<Last_Unit_Cost>13571.43000</Last_Unit_Cost>
+	<QuantityOnHand>8.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0022</ID>
+	<Last_Unit_Cost>10000.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0023</ID>
+	<Last_Unit_Cost>10000.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0024</ID>
+	<Last_Unit_Cost>7142.85000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0025</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0026</ID>
+	<Last_Unit_Cost>5535.71000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0027</ID>
+	<Last_Unit_Cost>13660.71000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0028</ID>
+	<Last_Unit_Cost>15178.57000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0029</ID>
+	<Last_Unit_Cost>9821.43000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PLO0030</ID>
+	<Last_Unit_Cost>7946.43000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">POP0001</ID>
+	<Last_Unit_Cost>4.25000</Last_Unit_Cost>
+	<QuantityOnHand>340.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">POP0002</ID>
+	<Last_Unit_Cost>2.12000</Last_Unit_Cost>
+	<QuantityOnHand>187.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">POP0003</ID>
+	<Last_Unit_Cost>20.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PVC00001</ID>
+	<Last_Unit_Cost>160.00000</Last_Unit_Cost>
+	<QuantityOnHand>10.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PVC00002</ID>
+	<Last_Unit_Cost>21.00000</Last_Unit_Cost>
+	<QuantityOnHand>50.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PVC00003</ID>
+	<Last_Unit_Cost>691.96000</Last_Unit_Cost>
+	<QuantityOnHand>25.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PVC00004</ID>
+	<Last_Unit_Cost>2500.00000</Last_Unit_Cost>
+	<QuantityOnHand>9.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PVC00005</ID>
+	<Last_Unit_Cost>647.32000</Last_Unit_Cost>
+	<QuantityOnHand>30.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">PVC00006</ID>
+	<Last_Unit_Cost>736.61000</Last_Unit_Cost>
+	<QuantityOnHand>30.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0001</ID>
+	<Last_Unit_Cost>15.00000</Last_Unit_Cost>
+	<QuantityOnHand>614.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0002</ID>
+	<Last_Unit_Cost>24.25000</Last_Unit_Cost>
+	<QuantityOnHand>782.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0003</ID>
+	<Last_Unit_Cost>12.25000</Last_Unit_Cost>
+	<QuantityOnHand>309.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0004</ID>
+	<Last_Unit_Cost>24.50000</Last_Unit_Cost>
+	<QuantityOnHand>686.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0005</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0006</ID>
+	<Last_Unit_Cost>2.90000</Last_Unit_Cost>
+	<QuantityOnHand>1139.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0007</ID>
+	<Last_Unit_Cost>0.97000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0008</ID>
+	<Last_Unit_Cost>97.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0009</ID>
+	<Last_Unit_Cost>184.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0010</ID>
+	<Last_Unit_Cost>1.71000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0011</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0012</ID>
+	<Last_Unit_Cost>242.00000</Last_Unit_Cost>
+	<QuantityOnHand>54.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0013</ID>
+	<Last_Unit_Cost>56.25000</Last_Unit_Cost>
+	<QuantityOnHand>56.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0014</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>170.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0015</ID>
+	<Last_Unit_Cost>43.68000</Last_Unit_Cost>
+	<QuantityOnHand>274.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0016</ID>
+	<Last_Unit_Cost>21.38000</Last_Unit_Cost>
+	<QuantityOnHand>11.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0017</ID>
+	<Last_Unit_Cost>46.00000</Last_Unit_Cost>
+	<QuantityOnHand>605.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0018</ID>
+	<Last_Unit_Cost>21.38000</Last_Unit_Cost>
+	<QuantityOnHand>240.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0019</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0020</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0021</ID>
+	<Last_Unit_Cost>50.25000</Last_Unit_Cost>
+	<QuantityOnHand>101.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0022</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0023</ID>
+	<Last_Unit_Cost>25.00000</Last_Unit_Cost>
+	<QuantityOnHand>30.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0024</ID>
+	<Last_Unit_Cost>7.87000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0025</ID>
+	<Last_Unit_Cost>8.06000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0026</ID>
+	<Last_Unit_Cost>8.05000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0027</ID>
+	<Last_Unit_Cost>7.87000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0028</ID>
+	<Last_Unit_Cost>7.87000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0029</ID>
+	<Last_Unit_Cost>8.15000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SEP0030</ID>
+	<Last_Unit_Cost>225.00000</Last_Unit_Cost>
+	<QuantityOnHand>1.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SERVICECHG</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">SPC0024</ID>
+	<Last_Unit_Cost>4063.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">STI0001</ID>
+	<Last_Unit_Cost>4.29000</Last_Unit_Cost>
+	<QuantityOnHand>105.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">STI0002</ID>
+	<Last_Unit_Cost>6.75000</Last_Unit_Cost>
+	<QuantityOnHand>154.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">STI0003</ID>
+	<Last_Unit_Cost>8.59000</Last_Unit_Cost>
+	<QuantityOnHand>445.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">STI0004</ID>
+	<Last_Unit_Cost>13.50000</Last_Unit_Cost>
+	<QuantityOnHand>120.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">STI0005</ID>
+	<Last_Unit_Cost>34.38000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">STP0001</ID>
+	<Last_Unit_Cost>90.00000</Last_Unit_Cost>
+	<QuantityOnHand>23.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">STP0002</ID>
+	<Last_Unit_Cost>115.00000</Last_Unit_Cost>
+	<QuantityOnHand>15.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">STP0003</ID>
+	<Last_Unit_Cost>125.00000</Last_Unit_Cost>
+	<QuantityOnHand>24.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">STP0004</ID>
+	<Last_Unit_Cost>46.93000</Last_Unit_Cost>
+	<QuantityOnHand>12.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">STP0005</ID>
+	<Last_Unit_Cost>98.10000</Last_Unit_Cost>
+	<QuantityOnHand>10.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">STP0006</ID>
+	<Last_Unit_Cost>147.00000</Last_Unit_Cost>
+	<QuantityOnHand>12.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">STP0007</ID>
+	<Last_Unit_Cost>157.73000</Last_Unit_Cost>
+	<QuantityOnHand>16.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">STP0008</ID>
+	<Last_Unit_Cost>235.00000</Last_Unit_Cost>
+	<QuantityOnHand>7.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0001</ID>
+	<Last_Unit_Cost>7870.54000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0002</ID>
+	<Last_Unit_Cost>10120.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0003</ID>
+	<Last_Unit_Cost>9350.00000</Last_Unit_Cost>
+	<QuantityOnHand>3.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0004</ID>
+	<Last_Unit_Cost>9350.00000</Last_Unit_Cost>
+	<QuantityOnHand>2.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0005</ID>
+	<Last_Unit_Cost>7700.00000</Last_Unit_Cost>
+	<QuantityOnHand>2.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0006</ID>
+	<Last_Unit_Cost>9350.00000</Last_Unit_Cost>
+	<QuantityOnHand>2.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0007</ID>
+	<Last_Unit_Cost>4900.00000</Last_Unit_Cost>
+	<QuantityOnHand>1.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0008</ID>
+	<Last_Unit_Cost>14000.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0009</ID>
+	<Last_Unit_Cost>20900.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0010</ID>
+	<Last_Unit_Cost>12200.00000</Last_Unit_Cost>
+	<QuantityOnHand>2.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0011</ID>
+	<Last_Unit_Cost>17200.00000</Last_Unit_Cost>
+	<QuantityOnHand>2.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0012</ID>
+	<Last_Unit_Cost>17200.00000</Last_Unit_Cost>
+	<QuantityOnHand>2.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0013</ID>
+	<Last_Unit_Cost>17200.00000</Last_Unit_Cost>
+	<QuantityOnHand>2.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0014</ID>
+	<Last_Unit_Cost>17000.00000</Last_Unit_Cost>
+	<QuantityOnHand>5.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0015</ID>
+	<Last_Unit_Cost>8010.00000</Last_Unit_Cost>
+	<QuantityOnHand>1.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0016</ID>
+	<Last_Unit_Cost>5200.00000</Last_Unit_Cost>
+	<QuantityOnHand>3.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0017</ID>
+	<Last_Unit_Cost>5200.00000</Last_Unit_Cost>
+	<QuantityOnHand>2.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0018</ID>
+	<Last_Unit_Cost>5200.00000</Last_Unit_Cost>
+	<QuantityOnHand>3.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0019</ID>
+	<Last_Unit_Cost>5200.00000</Last_Unit_Cost>
+	<QuantityOnHand>3.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0020</ID>
+	<Last_Unit_Cost>18660.72000</Last_Unit_Cost>
+	<QuantityOnHand>2.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0021</ID>
+	<Last_Unit_Cost>7500.00000</Last_Unit_Cost>
+	<QuantityOnHand>3.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0022</ID>
+	<Last_Unit_Cost>11404.02000</Last_Unit_Cost>
+	<QuantityOnHand>2.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0023</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0024</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0025</ID>
+	<Last_Unit_Cost>8693.25000</Last_Unit_Cost>
+	<QuantityOnHand>4.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0026</ID>
+	<Last_Unit_Cost>11281.25000</Last_Unit_Cost>
+	<QuantityOnHand>4.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0027</ID>
+	<Last_Unit_Cost>3571.43000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0028</ID>
+	<Last_Unit_Cost>5527.89000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0029</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0030</ID>
+	<Last_Unit_Cost>18450.00000</Last_Unit_Cost>
+	<QuantityOnHand>2.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0031</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0032</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0033</ID>
+	<Last_Unit_Cost>3870.00000</Last_Unit_Cost>
+	<QuantityOnHand>2.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0034</ID>
+	<Last_Unit_Cost>6525.00000</Last_Unit_Cost>
+	<QuantityOnHand>1.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0035</ID>
+	<Last_Unit_Cost>6562.49000</Last_Unit_Cost>
+	<QuantityOnHand>-13.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0036</ID>
+	<Last_Unit_Cost>5850.00000</Last_Unit_Cost>
+	<QuantityOnHand>6.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TON0037</ID>
+	<Last_Unit_Cost>11696.43000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TRA0001</ID>
+	<Last_Unit_Cost>7.40000</Last_Unit_Cost>
+	<QuantityOnHand>793.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TRA0002</ID>
+	<Last_Unit_Cost>14.80000</Last_Unit_Cost>
+	<QuantityOnHand>20.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TRA0003</ID>
+	<Last_Unit_Cost>29.60000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TRA0004</ID>
+	<Last_Unit_Cost>59.20000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TRA0005</ID>
+	<Last_Unit_Cost>118.40000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TRA0006</ID>
+	<Last_Unit_Cost>16309.94000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TRA0007</ID>
+	<Last_Unit_Cost>12450.00000</Last_Unit_Cost>
+	<QuantityOnHand>1.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">TRANSPORT</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">V</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">VATP</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+<PAW_Item xsi:type="paw:item">
+	<ID xsi:type="paw:id">VATR</ID>
+	<Last_Unit_Cost>0.00000</Last_Unit_Cost>
+	<QuantityOnHand>0.00000</QuantityOnHand>
+</PAW_Item>
+</PAW_Items>

@@ -1,6 +1,6 @@
 # WhatsApp Tyre System
 
-Unified WhatsApp-driven tyre quotation, pricing, vehicle invoice lookup, quotation PDF generation, watched item realtime monitoring, incremental sales reporting, secured dashboard (username + 2FA), advanced quotation management system with email integration, and automatic expiry tracking.
+Unified WhatsApp-driven tyre quotation, pricing, vehicle invoice lookup, quotation PDF generation, watched item realtime monitoring, incremental sales reporting, and secured dashboard (username + 2FA) with IPC control.
 
 ## 🛡️ Security Status
 
@@ -10,349 +10,110 @@ Unified WhatsApp-driven tyre quotation, pricing, vehicle invoice lookup, quotati
 
 📄 **See [SECURITY_CONFIGURATION.md](./SECURITY_CONFIGURATION.md)** for complete security details and firewall setup instructions.
 
-## 🚀 Quick Start (Windows)
+## Components
+- WhatsApp Bot (`index.js`): Parses tyre sizes & vehicle numbers, sends price/qty replies, builds quotation PDFs.
+- Pricing Engine (`jobs/TyrePriceReplyJob.js` + `utils/pricingConfig.js`): Centralized markups & rounding.
+- Daily Incremental Sales Report (`jobs/DailyTyreSalesReportJob.js` + `scheduler.js`): De-duplicates and persists invoices to SQLite.
+- Watched Item Realtime Monitor (`jobs/WatchedItemRealtimeJob.js`): Multi-pattern polling & admin alerts.
+- IPC Command Layer (`utils/ipcCommandWatcher.js`): Dashboard → Bot commands (sales report, scheduler restart, send 2FA code).
+- 2FA & Auth (`dashboard/src/app/api/auth/2fa/*`, `lib/auth.ts`, `middleware.ts`): Username/password + WhatsApp-delivered one-time code.
+- Job Status Tracking (`utils/jobStatus.js` + `job-status.json`): Status for daily report & watch job.
+- Persistence: MSSQL (operational), SQLite (reported invoices), filesystem (PDFs), JSON state (watch state, sent reports, 2FA pending).
+- **Appointment Booking System**:
+  - Database: `Appointments` table in SQL Server.
+  - API: `/api/appointments/book` (Bot) and `/api/appointments` (Next.js Proxy).
+  - Features: Reference number generation, WhatsApp confirmations, Group notifications.
+- **Royal Booking V2** (`apps/royal-booking-v2`):
+  - Next.js 15 App Router application.
+  - Mobile-first responsive design with sticky headers/footers.
+  - Real-time slot availability checking.
+  - Multiple service selection support.
+  - Integration with `WhatsAppAI` database for quotations.
+  - Runs on Port **3099**.
 
-The easiest way to run the system is using the **System Tray Launcher**.
+## Dashboard (Next.js)
+Located in `dashboard/` with API routes that read logs, quotations, invoices (SQLite), job status, and send commands via IPC.
 
-1.  Go to the `c:\whatsapp-sql-api` folder.
-2.  Right-click `lasantha-tire-launcher.ps1` and select **Run with PowerShell**.
-3.  A system tray icon (Application Icon) will appear.
-4.  **Right-click** the icon to:
-    *   🚀 **Start All Services**: Starts Bot (PM2), Bridge, and Dashboards.
-    *   🌐 **Open Dashboard**: Opens the legacy dashboard (Port 3000).
-    *   🆕 **Open Dashboard V1.0**: Opens the new dashboard (Port 3026).
-    *   📊 **Service Status**: Check if services are running.
-    *   ⏹️ **Stop All Services**: Stops everything.
+Key routes:
+```
+/api/stats
+/api/invoices
+/api/quotations
+/api/logs
+/api/job-status
+/api/jobs (POST action=trigger_sales_report|restart_scheduler)
+```
 
-### Automatic Startup
-The bot is configured to start automatically on Windows login using **PM2**.
-The launcher shortcut is also added to the Windows Startup folder.
-
-## 📂 Project Structure
-
-| Folder | Description |
-|--------|-------------|
-| `lasantha-tire-v1.0/` | **New Dashboard** (Next.js App Router). Runs on Port 3026. |
-| `lasantha-tire/` | **Legacy Dashboard** (Next.js Pages Router). Runs on Port 3000. |
-| `jobs/` | Background jobs (pricing, reports, watch). |
-| `utils/` | Utility functions (IPC, pricing, formatting). |
-| `logs/` | Application logs. |
-| `scripts/` | Maintenance and startup scripts. |
-
-## 🧩 Components
-
-### 1. WhatsApp Bot (`index.js`)
-- Parses tyre sizes & vehicle numbers.
-- Sends price/qty replies.
-- Builds quotation PDFs.
-- **NEW:** Advanced quotation tracking with auto-numbering (QT-YYYYMMDD-XXXX).
-- **NEW:** Email quotations via Gmail/Zoho SMTP.
-- **NEW:** Customer portal with OTP authentication.
-- Managed by **PM2** (`ecosystem.config.js`).
-
-### 2. Dashboards
-- **Lasantha Tire V1.0** (`lasantha-tire-v1.0`): The modern, active dashboard.
-  - **NEW:** Email configuration UI (Gmail/Zoho setup).
-  - **NEW:** Quotation analytics with charts.
-  - **NEW:** Customer portal with OTP authentication.
-  - **NEW:** Template management system.
-- **Lasantha Tire** (`lasantha-tire`): The previous version, currently running in parallel.
-
-### 3. Pricing Engine
-- `jobs/TyrePriceReplyJob.js` + `utils/pricingConfig.js`.
-- Centralized markups & rounding.
-
-### 4. Daily Incremental Sales Report
-- `jobs/DailyTyreSalesReportJob.js` + `scheduler.js`.
-- De-duplicates and persists invoices to SQLite.
-
-### 5. Watched Item Realtime Monitor
-- `jobs/WatchedItemRealtimeJob.js`.
-- Multi-pattern polling & admin alerts.
-
-### 6. **NEW: Quotation Expiry Job** 🆕
-- `jobs/QuotationExpiryJob.js`.
-- Automatic hourly check for expired quotations.
-- Marks expired quotations (IsExpired=1, Status='Expired').
-- Manual trigger via API endpoint.
-- Real-time statistics dashboard.
-
-### 7. **NEW: Email Service** 📧
-- `services/emailService.js`.
-- Gmail & Zoho SMTP support.
-- Professional HTML email templates.
-- Quotation delivery with booking links.
-- Test email functionality.
-
-### 8. IPC Command Layer
-- `utils/ipcCommandWatcher.js`.
-- Dashboard → Bot commands (sales report, scheduler restart, send 2FA code).
-
-## ⚙️ Configuration
-
+## Environment Configuration
 Copy `.env.example` → `.env` and adjust.
 
 | Variable | Purpose |
 |----------|---------|
-| `DEFAULT_ADMIN_PASSWORD` | Password for Dashboard V1.0 |
-| `SQL_USER` / `SQL_PASSWORD` | MSSQL connectivity |
-| `ADMIN_NUMBERS` | Admin numbers (raw; code appends @c.us) |
-| `REPORT_NUMBERS` | Recipients of scheduled sales report |
-| `WATCH_INTERVAL_SECONDS` | Poll interval for watched item job |
-| `DASHBOARD_PROTECT` | 1 enable auth, 0 disable (dev) |
-| `ADMIN_USER` / `ADMIN_PASS` | Legacy Dashboard credentials |
-| **`EMAIL_PROVIDER`** 🆕 | Email service provider ('gmail' or 'zoho') |
-| **`EMAIL_USER`** 🆕 | Email address for sending quotations |
-| **`EMAIL_PASSWORD`** 🆕 | App password (not regular password) |
-| **`EMAIL_FROM_NAME`** 🆕 | Sender name (default: 'Lasantha Tire Service') |
-| **`ENABLE_QUOTATION_EXPIRY_JOB`** 🆕 | Enable automatic expiry checking (true/false) |
+| SQL_USER / SQL_PASSWORD / SQL_SERVER / SQL_DATABASE | MSSQL connectivity |
+| QUOTE_DIR | Folder for generated PDFs + SQLite DB |
+| ADMIN_NUMBERS | Admin numbers (raw; code appends @c.us) |
+| REPORT_NUMBERS or DAILY_REPORT_NUMBERS | Recipients of scheduled sales report |
+| LOG_MAX_BYTES | Rotate bot log after exceeding bytes |
+| WATCH_INTERVAL_SECONDS | Poll interval for watched item job |
+| INVOICE_FILTER_TYRE_ONLY | 1 to filter invoice lines to tyre items only |
+| COST_ADD_BASE / COST_ADD_CREDIT / MIN_TYRE_COST | Pricing adjustments |
+| DASHBOARD_PROTECT | 1 enable auth, 0 disable (dev) |
+| ADMIN_USER / ADMIN_PASS | Primary credential pair |
+| TWO_FA_RATE_LIMIT_SECONDS | Min seconds between 2FA code generations |
+| TWO_FA_EXP_MINUTES | 2FA code lifetime |
+| TWO_FA_TARGET | Number receiving the 2FA code (WhatsApp) |
+| DAILY_FULL_REPORT_TIME | HH:MM 24h time for full-day tyre summary (default 20:29) |
+| DASHBOARD_KEY | Optional extra auth key (future use) |
+| **ADVANCED PROFIT CALCULATION** | |
+| REPORT_INCLUDE_PROFIT | 1 enable advanced profit calculation for daily reports |
+| REPORT_PROFIT_DEBUG | 1 enable detailed profit calculation logging |
+| REPORT_SHOW_COST | 1 show cost details in reports |
+| MONTHLY_PROFIT_INCLUDE | 1 enable advanced profit calculation for monthly reports |
+| MONTHLY_PROFIT_DEBUG | 1 enable monthly profit calculation debugging |
+| MONTHLY_SHOW_COST | 1 show cost details in monthly reports |
+| SHOP_MANAGEMENT_GROUP_ID | WhatsApp Group ID for management notifications (no bot replies) |
+| WHATSAPP_BOT_URL | URL for the bot API (e.g., https://bot.lasanthatyre.com) |
 
-## 🛠️ Manual Commands
+## Run
 
-If you prefer not to use the launcher:
-
-**Start Bot (PM2):**
-```powershell
-pm2 start ecosystem.config.js
+Bot only:
+```
+npm run bot
 ```
 
-**Start Dashboard V1.0:**
-```powershell
-cd lasantha-tire-v1.0
+Dashboard only:
+```
+npm run dashboard
+```
+
+Run both (Windows PowerShell – simple parallel):
+```
+npm run dev:all
+```
+
+Royal Booking V2:
+```
+cd apps/royal-booking-v2
 npm run dev
+# Runs on http://localhost:3099
 ```
 
-**Start Legacy Dashboard:**
-```powershell
-cd lasantha-tire
-npm run dev
-```
+Scan the QR presented in terminal to authenticate WhatsApp session.
 
-## 📊 Advanced Profit Calculation System
+Dashboard URL: http://localhost:3000
+Booking URL: http://localhost:3099 (Local) / https://book.lasanthatyre.com (Public)
 
-The system includes sophisticated profit calculation capabilities for enhanced business intelligence:
+## Manual Sales Report Trigger
+Admin WhatsApp: send `salesreport` (case/space insensitive).
 
-### Daily Reports (DailyTyreSalesReportJob.js)
-- **Size Token Extraction**: Automatically extracts tyre sizes (195/65R15, 165/70/14, etc.) from item descriptions
-- **Intelligent Cost Lookup**: Queries `tblItemMaster` table for accurate cost data using extracted size patterns
-- **Smart Matching Algorithm**: 
-  - +3 points for exact size matches
-  - +2 points for brand/model word matches
-  - Prioritizes higher cost items when scores are equal
-- **Caching System**: Optimizes performance with `_COST_CACHE` to store lookup results
-- **Fallback Strategy**: Uses SQL-based `CostPrrice` if advanced lookup fails
+Dashboard button → IPC command file → bot processes within ~5s.
 
-### Environment Control
-```bash
-# Enable advanced profit calculation
-REPORT_INCLUDE_PROFIT=1          # Daily reports
-MONTHLY_PROFIT_INCLUDE=1         # Monthly reports
-
-# Enable debugging output
-REPORT_PROFIT_DEBUG=1            # Daily debug logs
-MONTHLY_PROFIT_DEBUG=1           # Monthly debug logs
-
-# Show cost details in reports
-REPORT_SHOW_COST=1               # Daily cost visibility
-MONTHLY_SHOW_COST=1              # Monthly cost visibility
-```
-
-## 🎯 Advanced Quotation Management System 🆕
-
-Complete quotation lifecycle management with auto-numbering, email delivery, customer portal, and automatic expiry tracking.
-
-### Features
-
-#### 1. **Auto-Numbering System**
-- **Format:** `QT-YYYYMMDD-XXXX` (e.g., QT-20251207-0001)
-- **Date-based:** Resets daily for better organization
-- **Auto-increment:** Generates unique sequential numbers
-- **Dual tracking:** Both RefCode and QuotationNumber support
-
-#### 2. **Email Integration**
-- **Providers:** Gmail & Zoho SMTP support
-- **Templates:** Professional HTML email templates with branding
-- **Content:** Quotation details, items breakdown, total amount
-- **Booking Link:** Direct link to Royal Booking page
-- **Expiry Date:** Clear expiry information
-- **Test Functionality:** Send test emails to verify configuration
-
-#### 3. **Customer Portal (OTP Secured)**
-- **Authentication:** WhatsApp OTP (6-digit code, 5-minute expiry)
-- **History:** View all quotations by phone number
-- **Vehicles:** Track multiple vehicles per customer
-- **Status:** Real-time quotation status (Active/Expired/Booked)
-- **Details:** Full quotation details with items breakdown
-
-#### 4. **Analytics Dashboard**
-- **Statistics:** Total, Booked, Pending, Expired quotations
-- **Conversion Rate:** Real-time booking conversion tracking
-- **Revenue:** Total revenue, booked revenue, average quotation value
-- **Trends:** 7-day quotation trend chart
-- **Source Breakdown:** Track quotations by source (Mobile/Website/WhatsApp)
-- **Popular Items:** Top 10 most quoted items
-
-#### 5. **Template System**
-- **Pre-defined Templates:** Save common quotation configurations
-- **Quick Apply:** One-click template application
-- **Custom Items:** Flexible item combinations
-- **Reusability:** Use templates across multiple quotations
-
-#### 6. **Automatic Expiry Tracking**
-- **Schedule:** Runs every hour automatically
-- **Auto-marking:** Marks expired quotations (IsExpired=1, Status='Expired')
-- **Conditions:** Only marks unbooked quotations past expiry date
-- **Statistics:** Real-time tracking of expired vs. active quotations
-- **Manual Trigger:** API endpoint for on-demand execution
-
-### API Endpoints (45+ endpoints)
-
-#### Quotation Management:
-- `POST /api/quotations` - Create new quotation with auto-numbering
-- `GET /api/quotations/:refCode` - Get quotation by RefCode or QuotationNumber
-- `POST /api/quotations/:refCode/booked` - Mark as booked
-- `POST /api/quotations/send-email` - Email quotation to customer
-
-#### Analytics:
-- `GET /api/quotations/analytics/stats` - Dashboard statistics
-- `GET /api/quotations/analytics/items` - Popular items analysis
-- `GET /api/quotations/customer/:phone` - Customer quotation history
-
-#### OTP Authentication:
-- `POST /api/auth/send-otp` - Send OTP via WhatsApp
-- `POST /api/auth/verify-otp` - Verify OTP and generate session token
-
-#### Template Management:
-- `GET /api/quotations/templates` - List all templates
-- `POST /api/quotations/templates` - Create new template
-- `DELETE /api/quotations/templates/:id` - Delete template
-
-#### Vehicle Tracking:
-- `GET /api/customers/vehicles/:phone` - Get customer vehicles
-- `POST /api/customers/vehicles` - Add new vehicle
-
-#### Email Configuration:
-- `GET /api/config/email` - Get current email configuration
-- `POST /api/config/email` - Update email configuration
-- `POST /api/config/email/test` - Send test email
-
-#### Expiry Job Control:
-- `POST /api/jobs/expiry/run` - Manually trigger expiry job
-- `GET /api/jobs/expiry/status` - Get job status and statistics
-
-### Database Schema
-
-#### Quotations Table (19 columns):
-```sql
-- Id (PK)
-- RefCode (Unique, e.g., REF-1733574123456)
-- QuotationNumber (Unique, e.g., QT-20251207-0001)
-- TyreSize
-- Items (JSON array)
-- CustomerPhone
-- CustomerName
-- VehicleNumber
-- TotalAmount
-- MessageContent
-- CreatedAt
-- ExpiresAt
-- ExpiryDate
-- IsExpired (bit)
-- IsBooked (bit)
-- BookingReference
-- Source (Mobile App/Website/WhatsApp)
-- Status (Pending/Booked/Expired)
-- BookingRef
-```
-
-#### CustomerVehicles Table:
-```sql
-- CustomerPhone (PK)
-- CustomerName
-- VehicleNumber (PK)
-- VehicleType
-- LastServiceDate
-- TotalQuotations
-```
-
-#### QuotationTemplates Table:
-```sql
-- Id (PK)
-- TemplateName
-- Description
-- Items (JSON)
-- CreatedAt
-```
-
-### Email Setup Guide
-
-#### Gmail Setup:
-1. Go to Google Account → Security
-2. Enable 2-Step Verification
-3. Generate App Password (Mail → Other)
-4. Dashboard → Settings → Email Configuration
-5. Select "Gmail", enter email and app password
-6. Click "Save Configuration"
-7. Click "Test" to verify
-
-#### Zoho Mail Setup:
-1. Login to Zoho Mail
-2. Settings → Security → App Passwords
-3. Generate new password ("Lasantha Tire Bot")
-4. Dashboard → Settings → Email Configuration
-5. Select "Zoho Mail", enter email and app password
-6. Click "Save Configuration"
-7. Click "Test" to verify
-
-### Configuration (.env):
-```env
-# Email Configuration
-EMAIL_PROVIDER=gmail                    # gmail or zoho
-EMAIL_USER=your-email@gmail.com
-EMAIL_PASSWORD=your-app-password        # NOT regular password
-EMAIL_FROM_NAME=Lasantha Tire Service
-
-# Expiry Job
-ENABLE_QUOTATION_EXPIRY_JOB=true       # Enable automatic expiry checking
-```
-
-### Production Readiness
-
-**Status:** 86% Production Ready ✅
-
-**Completed:**
-- ✅ Database schema (19 columns, 3 tables)
-- ✅ 45+ API endpoints
-- ✅ Auto-numbering system
-- ✅ Email service (Gmail/Zoho)
-- ✅ OTP authentication
-- ✅ Customer portal
-- ✅ Analytics dashboard
-- ✅ Template system
-- ✅ Expiry job scheduler
-- ✅ Dashboard UI integration
-
-**Pending:**
-- ⏳ Email credentials configuration (user setup)
-- ⏳ End-to-end testing
-
-**Documentation:**
-- See `PRODUCTION-READINESS-REPORT.md` for detailed status
-- See `EMAIL-EXPIRY-IMPLEMENTATION-COMPLETE.md` for email/expiry features
-
----
-
-## 📝 Key Files
+## Key Files
 | Path | Description |
 |------|-------------|
-| `index.js` | WhatsApp client + message routing + 45+ API endpoints |
+| `index.js` | WhatsApp client + message routing |
 | `scheduler.js` | Cron + watch interval starter |
-| `lasantha-tire-launcher.ps1` | **System Tray Launcher Script** |
-| `ecosystem.config.js` | PM2 Configuration |
-| `jobs-config.json` | Job configuration settings |
-| `jobs/` | All discrete jobs (pricing, qty, invoices, reports, watch, **expiry**) |
-| **`jobs/QuotationExpiryJob.js`** 🆕 | Automatic quotation expiry checker |
-| **`services/emailService.js`** 🆕 | Email service (Gmail/Zoho SMTP) |
+| `jobs/` | All discrete jobs (pricing, qty, invoices, reports, watch) |
 | `utils/ipcCommandWatcher.js` | Reads dashboard-commands.json and dispatches actions |
 | `utils/jobStatus.js` | File-based status updates |
 | `job-status.json` | Current job status snapshot |
@@ -361,10 +122,6 @@ ENABLE_QUOTATION_EXPIRY_JOB=true       # Enable automatic expiry checking
 | `watched-item-state.json` | Runtime pattern state (last notified, totals) |
 | `2fa-pending.json` | Pending 2FA codes (auto-expired & rate-limited) |
 | `utils/waClientRegistry.js` | Exposes WhatsApp client to IPC for 2FA send |
-| **`lasantha-tire-v1.0/src/components/mobile/EmailSettings.tsx`** 🆕 | Email configuration UI |
-| **`lasantha-tire-v1.0/src/components/mobile/QuotationView.tsx`** 🆕 | Quotation viewer with share |
-| **`lasantha-tire-v1.0/src/components/mobile/CustomerPortal.tsx`** 🆕 | OTP-secured customer portal |
-| **`lasantha-tire-v1.0/src/components/mobile/AnalyticsDashboard.tsx`** 🆕 | Analytics with charts |
 
 ## Job Status JSON Example
 ```json
@@ -468,6 +225,126 @@ MONTHLY_SHOW_COST=1              # Monthly cost visibility
 
 ## License
 MIT
+
+---
+
+## 🖥️ PM2 Process Management
+
+All services are managed via PM2 for auto-restart, monitoring, and Windows startup.
+
+### Ecosystem Configuration
+
+**File:** `ecosystem.config.js`
+
+| Process Name | Port | Description |
+|--------------|------|-------------|
+| `whatsapp-bot` | 8585 | Main WhatsApp bot API |
+| `lasantha-tire-dashboard` | 3028 | Dashboard v1.5 (legacy) |
+| `lasantha-tire-v2.0` | 3029 | Dashboard v2.0 (production) |
+| `peachtree-bridge` | 5000 | Python ODBC bridge for Peachtree |
+| `royal-booking` | 3040 | Royal booking app |
+| `lasantha-app-tunnel` | - | Cloudflare tunnel → app.lasanthatyre.com |
+| `lasantha-bot-tunnel` | - | Cloudflare tunnel → bot.lasanthatyre.com |
+| `lasantha-fb-tunnel` | - | Cloudflare tunnel → Facebook integration |
+
+### PM2 Commands
+
+```bash
+# Start all processes
+pm2 start ecosystem.config.js
+
+# List all processes
+pm2 list
+
+# Restart specific process
+pm2 restart lasantha-tire-v2.0
+
+# View logs
+pm2 logs lasantha-tire-v2.0
+
+# Save current process list
+pm2 save
+
+# Restore saved processes
+pm2 resurrect
+```
+
+### Windows Startup (Auto-Start)
+
+A startup script runs PM2 resurrect on Windows login:
+
+**Location:** `%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\pm2-startup.bat`
+
+```batch
+@echo off
+timeout /t 10 /nobreak > nul
+pm2 resurrect
+```
+
+---
+
+## 🌐 Cloudflare Tunnel Configuration
+
+Three Cloudflare tunnels expose local services to the internet:
+
+| Tunnel Name | Public URL | Local Target | PM2 Process |
+|-------------|------------|--------------|-------------|
+| `lasantha-app` | app.lasanthatyre.com | localhost:3029 | lasantha-app-tunnel |
+| `lasantha-bot-v2` | bot.lasanthatyre.com | localhost:8585 | lasantha-bot-tunnel |
+| `lasantha-tyre-facebook` | (Facebook webhooks) | localhost:8585 | lasantha-fb-tunnel |
+
+**Cloudflared executable:** `C:\whatsapp-sql-api\cloudflared.exe`
+
+---
+
+## 📊 Dashboard Versions
+
+| Version | Port | Status | Description |
+|---------|------|--------|-------------|
+| v1.0 | 3000 | Archive | Basic dashboard |
+| v1.5 | 3028 | Running | Stable production |
+| v2.0 | 3029 | **Production** | Advanced ERP + Mobile UI |
+
+### v2.0 Features (Production)
+- **Peachtree ERP Integration** - Real-time ODBC connection
+- **Mobile-First UI** - Full-screen overlays for customers, vendors, reports
+- **Sales Force Automation** - Inventory, quotes, orders
+- **Financial Command Center** - AR/AP aging, cash balances, profit tracking
+- **Multi-port Bridge Detection** - Auto-detects bridge on port 5000 or 5001
+
+---
+
+## 🔗 Peachtree ERP Integration
+
+### Python ODBC Bridge
+
+**Script:** `peachtree-odbc-bridge-32bit.py`  
+**Port:** 5000 (configurable via `PEACHTREE_BRIDGE_PORT`)  
+**Python:** 32-bit (required for ODBC compatibility)
+
+**Endpoints:**
+- `GET /health` - Connection status
+- `GET /api/peachtree/customers` - Customer list
+- `GET /api/peachtree/vendors` - Vendor list
+- `GET /api/peachtree/chart-of-accounts` - GL accounts
+- `GET /api/peachtree/transactions` - Transaction history
+- `GET /api/peachtree/business-status/*` - AR/AP aging, cash balances
+
+### Next.js API Routes (v2.0)
+
+- `/api/peachtree-bridge` - Start/stop/status bridge
+- `/api/erp/peachtree?endpoint=...` - Proxy to bridge
+
+### Dashboard Features
+
+1. **Customers** - View, search, filter by balance/status
+2. **Vendors** - Same as customers
+3. **Chart of Accounts** - GL account tree
+4. **Transactions** - Filter by date, type, status
+5. **Business Status** - AR aging, AP aging, cash position
+6. **Reports** - PDF exports for AR/AP, financials
+
+---
  
 ## One-Click Launch (Windows)
 Added helper scripts in project root:
@@ -856,6 +733,27 @@ Call/WhatsApp: 0721222509"
 ```
 
 ---
+
+## Recent Updates (Dec 2025)
+
+### 1. Scheduled PDF Report (7:00 AM)
+- The `DailyTyreSalesPdfSendJob` is now scheduled to run at **7:00 AM** daily.
+- It generates a PDF report for the *previous day's* sales and sends it to configured recipients.
+- **Schedule:** `0 7 * * *` (Cron)
+
+### 2. Session Stability & Recovery
+- **Issue:** `wa-store-not-ready` errors during startup.
+- **Fix:** Added explicit waiting for `window.Store` injection before attempting to send media.
+- **Recovery:** If the session becomes corrupted (e.g., "Execution context destroyed"), the system now automatically clears the `.wwebjs_auth` folder and requests a fresh QR scan upon restart.
+
+### 3. AI Warranty Response Logic
+- **Change:** The AI (Gemini) has been instructed to **NEVER** volunteer warranty information unless specifically asked.
+- **Keywords:** The bot listens for "warranty", "guarantee", "durability" to trigger warranty details.
+- **Goal:** Keep price/stock inquiries concise.
+
+### 4. Mobile App (v2.0) Integration
+- The dashboard at `lasantha-tire-v2.0` provides real-time job management.
+- Job cards in the mobile menu now reflect live status updates via SSE (Server-Sent Events).
 
 ## 🛠️ **Legacy Code (Disabled)**
 

@@ -1,0 +1,18 @@
+﻿<PAW_Customers xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes" xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+  <PAW_Customer xsi:type="paw:Customer">
+    <ID xsi:type="paw:id">BHT0010</ID>
+    <Name>sdfsdf</Name>
+    <Line1>jhggj</Line1>
+    <Line2>jhgj</Line2>
+    <PhoneNumbers>
+      <PhoneNumber>65465</PhoneNumber>
+    </PhoneNumbers>
+    <Customer_Type>WARD</Customer_Type>
+    <Account_Number>5136</Account_Number>
+    <CustomFields>
+      <CustomField>
+        <Value Index ="1">5161</Value>
+      </CustomField>
+    </CustomFields>
+  </PAW_Customer>
+</PAW_Customers>

@@ -1,0 +1,7 @@
+Error: operation timed out for an unknown reason
+Stack: Error: operation timed out for an unknown reason
+    at C:\whatsapp-sql-api\node_modules\tarn\dist\PendingOperation.js:17:27
+    at runNextTicks (node:internal/process/task_queues:64:5)
+    at listOnTimeout (node:internal/timers:567:9)
+    at process.processTimers (node:internal/timers:541:7)
+PoolConfig: {"user":"sa","password":"Admin1234","server":"WIN-JIAVRTFMA0N","database":"LasanthaTire","port":1433,"options":{"encrypt":false,"trustServerCertificate":true,"cryptoCredentialsDetails":{"minVersion":"TLSv1"}},"pool":{"max":10,"min":0,"idleTimeoutMillis":30000},"stream":false,"parseJSON":false,"arrayRowMode":false,"validateConnection":true}

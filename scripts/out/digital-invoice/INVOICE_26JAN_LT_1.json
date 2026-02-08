@@ -1,0 +1,88 @@
+{
+  "metadata": {
+    "type": "INVOICE",
+    "color": "#e67e22",
+    "legalNote": "This is a computer-generated document. No signature is required.",
+    "currencyLabel": "Rs.",
+    "vatRate": 18,
+    "isVatInvoice": true,
+    "companyDisplayName": "Lasantha Tyre Traders"
+  },
+  "invoice": {
+    "number": "26JAN_LT_1",
+    "date": "2026-01-16",
+    "validUntil": "",
+    "customerName": "ANYSORT TECHNOLOGIES LANKA (PVT)LTD.",
+    "customerAddress": "",
+    "customerTel": "",
+    "customerFax": "",
+    "vehicleNo": "MX-0235",
+    "mileage": "-",
+    "rep": "srinath",
+    "paymentMethod": "Cash",
+    "quotationValidPeriod": "",
+    "deliveryPeriod": "",
+    "paymentTerms": "",
+    "availability": "",
+    "poNo": "",
+    "jobDoneBy": "LALITH",
+    "issueBy": "srinath",
+    "printedAt": "1/16/2026 7:56 PM",
+    "paidAmount": "0.00",
+    "balance": "17,300.00",
+    "customerVat": "174050260-700",
+    "taxInvoiceNo": "26JAN_LT_1",
+    "supplierTin": "743321219-7000",
+    "purchaserTin": "",
+    "amountInWords": "Rupees Seventeen Thousand Three Hundred Only"
+  },
+  "items": [
+    {
+      "index": 1,
+      "code": "120/70/17/TIM/TS690HG",
+      "description": "120/70/17 T/L -F TIMSUN TS690 HG CHINA",
+      "quantity": 1,
+      "qty": 1,
+      "brand": "TYRES",
+      "size": "120/70/17",
+      "price": "17,300.00",
+      "total": "17,300.00",
+      "rawTotal": 17300,
+      "unitPriceExVat": "14,661.02",
+      "lineTotalExVat": "14,661.02",
+      "vatAmount": "2,638.98",
+      "lineTotalInclVat": "17,300.00",
+      "warranty": ""
+    }
+  ],
+  "totals": {
+    "subtotal": "17,300.00",
+    "grandTotal": "17,300.00",
+    "subtotalExVat": "14,661.02",
+    "vatTotal": "2,638.98"
+  },
+  "company": {
+    "NAME": "Lasantha Tyre Traders",
+    "ADDRESS": "1035, Pannipitiya Road, Kumaragewattha, Battaramulla",
+    "PHONE": "0112 773 232",
+    "FAX": "0112 773 231",
+    "MOBILE": "0771 222 509",
+    "EMAIL": "lasanthatyretraders@gmail.com",
+    "WEB": "www.lasanthatyre.lk",
+    "BR_NO": "",
+    "VAT_NO": "743321219-7000",
+    "SVAT_NO": "",
+    "WARRANTY_TERMS_BULLETS": [
+      "Company warranty only.",
+      "No warranty for used, repaired, punctured, cut, or burst tires, or for visible flaws caused by wheel alignment or technical issues.",
+      "Alignment is recommended every 5,000 km for better mileage.",
+      "Damage from improper use, overloading, incorrect air pressure, poor maintenance, or third-party installations is not covered.",
+      "Customers must inspect tires upon purchase and raise concerns immediately.",
+      "Returns or exchanges are only for unused tires with the receipt.",
+      "Road hazard damage (potholes, debris, etc.) is excluded.",
+      "By purchasing, customers agree to these terms."
+    ],
+    "COLOR_PRIMARY": "#e67e22",
+    "COLOR_SECONDARY": "#2c3e50"
+  }
+}

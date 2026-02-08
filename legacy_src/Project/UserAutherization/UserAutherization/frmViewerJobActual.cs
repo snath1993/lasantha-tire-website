@@ -1,0 +1,48 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using CrystalDecisions.CrystalReports.Engine;
+using System.IO;
+using CrystalDecisions.Shared;
+
+
+namespace UserAutherization
+{
+    public partial class frmViewerJobActual : Form
+    {
+        DataSet ds = new DataSet();
+        string ReportName = string.Empty;
+
+        public frmViewerJobActual(DataSet dts,string RptName)
+        {
+            InitializeComponent();
+            ds = dts;
+            ReportName = RptName;
+        }
+
+        private void crystalReportViewer1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void frmViewerJobActual_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                string Myfullpath;
+                ReportDocument crp = new ReportDocument();
+               // Myfullpath = Path.GetFullPath(clsPara.StrRepFolder + "\\CRJobActual.rpt");
+                 Myfullpath = System.Windows.Forms.Application.StartupPath + "\\REPORTS\\"+ReportName+".rpt";
+                crp.Load(Myfullpath);
+                crp.SetDataSource(ds);
+                crvInvoice.ReportSource = crp;
+            }
+            catch { }
+
+        }
+    }
+}

@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Bot QR Code</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+        }
+        .container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            color: #128C7E;
+            margin-bottom: 1rem;
+        }
+        p {
+            color: #54656f;
+            margin-bottom: 1.5rem;
+        }
+        #qrcode {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        .instructions {
+            text-align: left;
+            background-color: #e9edef;
+            padding: 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+        .instructions ol {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+        .instructions li {
+            margin-bottom: 0.5rem;
+        }
+        .status {
+            margin-top: 1rem;
+            font-weight: bold;
+            color: #d00;
+        }
+        .timer {
+            font-size: 1.2em;
+            color: #128C7E;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Connect WhatsApp Bot</h1>
+        <p>Scan this QR code within <span id="timer" class="timer">60</span> seconds</p>
+        
+        <div id="qrcode"></div>
+        
+        <div class="instructions">
+            <ol>
+                <li>Open WhatsApp on your phone</li>
+                <li>Tap <strong>Menu</strong> (Android) or <strong>Settings</strong> (iPhone)</li>
+                <li>Tap <strong>Linked Devices</strong></li>
+                <li>Tap <strong>Link a Device</strong></li>
+                <li>Scan the QR code above</li>
+            </ol>
+        </div>
+        
+        <div id="status" class="status">Waiting for scan...</div>
+    </div>
+
+    <script>
+        // The QR code string from the bot (UPDATED 3)
+        const qrCodeString = "2@zuPGAcLzxrBX6XLRVbkbdj/NA9o0VxXRy+F87fiYG8mSwGueXHFFUFF2wqSaoEgdl/lYrFLFudKHUbDcxEKYrduFL4G1LNnAgAk=,ckFpLYPWToi4pBK7CxEjeTWDESFDY4r/XL0yeGetLS8=,lNsmLqVF+/UES3XOjANTpQQ+an6p6gm4nVD8u9jCLG4=,LHBlSdepDsR+n3CSiResVluO/YhvL9nsKDe5s+sqJYM=,1";
+        
+        // Generate QR code
+        new QRCode(document.getElementById("qrcode"), {
+            text: qrCodeString,
+            width: 256,
+            height: 256,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.M
+        });
+
+        // Countdown timer
+        let timeLeft = 60;
+        const timerElement = document.getElementById('timer');
+        const statusElement = document.getElementById('status');
+        
+        const timer = setInterval(() => {
+            timeLeft--;
+            timerElement.textContent = timeLeft;
+            
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                statusElement.textContent = "QR Code expired. Ask agent to regenerate.";
+                document.getElementById("qrcode").style.opacity = "0.3";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

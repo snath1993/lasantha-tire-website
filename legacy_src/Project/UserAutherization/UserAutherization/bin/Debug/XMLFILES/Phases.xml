@@ -1,0 +1,17 @@
+<PAW_Phases xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes"
+xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance"
+xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+<PAW_Phase xsi:type="paw:phases">
+	<ID xsi:type="paw:id">P001</ID>
+	<Description>p001</Description>
+	<CostType>Labor</CostType>
+	<isInactive>FALSE</isInactive>
+</PAW_Phase>
+<PAW_Phase xsi:type="paw:phases">
+	<ID xsi:type="paw:id">P002</ID>
+	<Description>p002</Description>
+	<CostType>Labor</CostType>
+	<UseCostCodes>_</UseCostCodes>
+	<isInactive>FALSE</isInactive>
+</PAW_Phase>
+</PAW_Phases>

@@ -31,15 +31,15 @@ export function Sidebar() {
   return (
     <aside className="fixed left-6 top-6 bottom-6 w-[280px] hidden md:flex flex-col z-50">
       {/* Floating Dock Container */}
-      <div className="flex-1 flex flex-col bg-slate-900/50 backdrop-blur-xl rounded-[2rem] shadow-2xl shadow-black/20 overflow-hidden border border-white/10 relative">
+      <div className="flex-1 flex flex-col bg-[#18181b] dark:bg-black rounded-[2rem] shadow-2xl shadow-black/10 overflow-hidden border border-white/5 relative">
         
         {/* Decorative Top Gradient */}
-        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-blue-500/10 to-transparent pointer-events-none" />
+        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-indigo-500/10 to-transparent pointer-events-none" />
 
         {/* Header */}
         <div className="p-8 relative z-10">
           <div className="flex items-center gap-4 mb-8">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/25 text-white">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/25 text-white">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -50,7 +50,7 @@ export function Sidebar() {
               <h1 className="text-xl font-bold text-white tracking-tight">
                 Lasantha
               </h1>
-              <p className="text-xs text-slate-400 font-medium tracking-wide uppercase">
+              <p className="text-xs text-zinc-400 font-medium tracking-wide uppercase">
                 Tire Service
               </p>
             </div>
@@ -72,15 +72,15 @@ export function Sidebar() {
                 className={cn(
                   "flex items-center gap-4 px-5 py-4 rounded-2xl transition-all duration-300 group relative",
                   isActive 
-                    ? "bg-blue-600 text-white shadow-lg shadow-blue-600/20" 
-                    : "text-slate-400 hover:text-white hover:bg-white/5"
+                    ? "bg-white text-black shadow-xl shadow-white/10" 
+                    : "text-zinc-400 hover:text-white hover:bg-white/5"
                 )}
               >
-                <Icon size={22} className={cn("transition-colors", isActive ? "text-white" : "text-slate-500 group-hover:text-white")} />
+                <Icon size={22} className={cn("transition-colors", isActive ? "text-indigo-600" : "text-zinc-500 group-hover:text-white")} />
                 <span className="font-medium text-sm tracking-wide">{item.label}</span>
                 
                 {isActive && (
-                  <ChevronRight size={16} className="ml-auto text-white" />
+                  <ChevronRight size={16} className="ml-auto text-indigo-600" />
                 )}
               </Link>
             );
@@ -89,14 +89,14 @@ export function Sidebar() {
 
         {/* Footer Status */}
         <div className="p-6 relative z-10">
-          <div className="bg-slate-800/50 rounded-2xl p-4 border border-white/5 backdrop-blur-sm">
+          <div className="bg-white/5 rounded-2xl p-4 border border-white/5 backdrop-blur-sm">
             <div className="flex items-center gap-3">
               <div className="relative">
                 <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
               </div>
               <div className="flex flex-col">
                 <span className="text-xs font-medium text-white">System Operational</span>
-                <span className="text-[10px] text-slate-400">Latency: 24ms</span>
+                <span className="text-[10px] text-zinc-500">Latency: 24ms</span>
               </div>
             </div>
           </div>

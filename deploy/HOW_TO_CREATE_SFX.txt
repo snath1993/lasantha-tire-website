@@ -1,0 +1,47 @@
+========================================================================
+           PROJECT INSTALLATION INSTRUCTIONS (WinRAR SFX)
+========================================================================
+
+Since I cannot create the .exe file directly (I don't have WinRAR installed here),
+you need to create the Self-Extracting (SFX) archive yourself.
+
+Follow these steps:
+
+1.  **Prepare the Folder:**
+    -   Go to `c:\whatsapp-sql-api`
+    -   Ensure all your files are there.
+    -   (Optional) Download the Node.js installer (e.g., node-v18-x64.msi) and put it in a new folder named `tools`.
+
+2.  **Open WinRAR:**
+    -   Select all files in `c:\whatsapp-sql-api`.
+    -   Right-click -> "Add to archive..."
+
+3.  **General Tab:**
+    -   Check "Create SFX archive".
+    -   Archive name: `WhatsAppBotSetup.exe`
+
+4.  **Advanced Tab -> SFX Options:**
+    -   **General (Tab):**
+        -   Path to extract: `C:\whatsapp-sql-api` (or leave blank to ask user)
+        -   "Absolute path" (if you set C:\...)
+        -   *Setup program > Run after extraction:* `deploy\install.bat`
+    -   **Modes (Tab):**
+        -   Check "Unpack to temporary folder" (ONLY if you want it temp, but usually for this project you want it PERMANENT).
+        -   BETTER: Uncheck "Unpack to temp", and set the extract path to `C:\ProjectName`.
+        -   Silent mode: "Hide all" (if you want fully silent) or "Display all".
+    -   **Advanced (Tab):**
+        -   Check "Request administrative access" (Important for Service installation).
+
+5.  **Click OK -> OK.**
+
+6.  **Result:**
+    -   You will get a `WhatsAppBotSetup.exe`.
+    -   When you run it on the client PC, it will:
+        1. Extract the files.
+        2. Automatically run `deploy\install.bat`.
+        3. Install dependencies and register the service.
+
+========================================================================
+                  BACKUP COMPLETED
+========================================================================
+Your files have been backed up to: H:\Bak with install\whatsapp-sql-api_backup

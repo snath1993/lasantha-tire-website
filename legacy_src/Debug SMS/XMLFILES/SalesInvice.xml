@@ -1,0 +1,30 @@
+﻿<PAW_Invoices xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes" xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+  <PAW_Invoice xsi:type="paw:Invoice">
+    <Customer_ID xsi:type="paw:id">CASH</Customer_ID>
+    <Date xsi:type="paw:id">10/1/2019 12:00:00 AM</Date>
+    <Invoice_Number>INV00000405</Invoice_Number>
+    <Ship_Via>Cash</Ship_Via>
+    <Sales_Representative_ID xsi:type="paw:id">Chminda</Sales_Representative_ID>
+    <Accounts_Receivable_Account xsi:type="paw:id">6500-00</Accounts_Receivable_Account>
+    <CreditMemoType>FALSE</CreditMemoType>
+    <Number_of_Distributions>2</Number_of_Distributions>
+    <SalesLines>
+      <SalesLine>
+        <Quantity>1</Quantity>
+        <Item_ID>120</Item_ID>
+        <Description>WHEEL ALIGNMENT- COMPUTERIZED CARS</Description>
+        <GL_Account xsi:type="paw:id">1000-01</GL_Account>
+        <Tax_Type>1</Tax_Type>
+        <Amount>-1350</Amount>
+      </SalesLine>
+      <SalesLine>
+        <Quantity>1</Quantity>
+        <Item_ID>147</Item_ID>
+        <Description>WHEEL ALIGNMENT REAR  CARS</Description>
+        <GL_Account xsi:type="paw:id">1000-01</GL_Account>
+        <Tax_Type>1</Tax_Type>
+        <Amount>-300</Amount>
+      </SalesLine>
+    </SalesLines>
+  </PAW_Invoice>
+</PAW_Invoices>

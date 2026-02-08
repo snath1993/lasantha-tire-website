@@ -1,0 +1,48 @@
+﻿<PAW_Purchases xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes" xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+  <PAW_Purchase xsi:type="paw:purchase">
+    <VendorID xsi:type="paw:id">TTT</VendorID>
+    <Invoice_Number>SBR000004</Invoice_Number>
+    <Date>08/21/2019</Date>
+    <AP_Account>8000-00</AP_Account>
+    <CreditMemoType>TRUE</CreditMemoType>
+    <Number_of_Distributions>4</Number_of_Distributions>
+    <PurchaseLines>
+      <PurchaseLine>
+        <Quantity>-10</Quantity>
+        <Item_ID>A</Item_ID>
+        <Description>A</Description>
+        <GL_Account>6000-02</GL_Account>
+        <Tax_Type>1</Tax_Type>
+        <Unit_Price>8.50</Unit_Price>
+        <Amount>-85.00</Amount>
+      </PurchaseLine>
+      <PurchaseLine>
+        <Quantity>-10</Quantity>
+        <Item_ID>B</Item_ID>
+        <Description>B</Description>
+        <GL_Account>6000-02</GL_Account>
+        <Tax_Type>1</Tax_Type>
+        <Unit_Price>14.00</Unit_Price>
+        <Amount>-140.00</Amount>
+      </PurchaseLine>
+      <PurchaseLine>
+        <Quantity>-10</Quantity>
+        <Item_ID>C</Item_ID>
+        <Description>C</Description>
+        <GL_Account>6000-02</GL_Account>
+        <Tax_Type>1</Tax_Type>
+        <Unit_Price>16.50</Unit_Price>
+        <Amount>-165.00</Amount>
+      </PurchaseLine>
+      <PurchaseLine>
+        <Quantity>-5</Quantity>
+        <Item_ID>D</Item_ID>
+        <Description>D</Description>
+        <GL_Account>6000-02</GL_Account>
+        <Tax_Type>1</Tax_Type>
+        <Unit_Price>16.00</Unit_Price>
+        <Amount>-80.00</Amount>
+      </PurchaseLine>
+    </PurchaseLines>
+  </PAW_Purchase>
+</PAW_Purchases>

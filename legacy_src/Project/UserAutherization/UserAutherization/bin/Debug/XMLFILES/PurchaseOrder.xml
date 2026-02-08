@@ -1,0 +1,52 @@
+<PAW_PurchaseOrders xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes"
+xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance"
+xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+<PAW_PurchaseOrder xsi:type="paw:purchase_orders">
+	<VendorID xsi:type="paw:id">TTT</VendorID>
+	<PO_Number>PO0001</PO_Number>
+	<Date xsi:type="paw:date">8/17/19</Date>
+	<PO_Closed>TRUE</PO_Closed>
+	<AP_Account xsi:type="paw:id">8000-00</AP_Account>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<DistributionNumber>1</DistributionNumber>
+	<Quantity>1.00000</Quantity>
+	<Item_ID xsi:type="paw:id">100/80/17  T/L -R/IR</Item_ID>
+	<Description>100/80/17 - R  T/L  IRC NR 73</Description>
+	<GL_Account xsi:type="paw:id">6000-01</GL_Account>
+	<Unit_Price>6852.00000</Unit_Price>
+	<Amount>6852.00</Amount>
+	<UM_ID xsi:type="paw:id">Nos</UM_ID>
+	</PurchaseLine>
+</PurchaseLines></PAW_PurchaseOrder>
+<PAW_PurchaseOrder xsi:type="paw:purchase_orders">
+	<VendorID xsi:type="paw:id">MX001</VendorID>
+	<PO_Number>PO0001</PO_Number>
+	<Date xsi:type="paw:date">8/17/19</Date>
+	<PO_Closed>FALSE</PO_Closed>
+	<AP_Account xsi:type="paw:id">8000-00</AP_Account>
+	<Number_of_Distributions>2</Number_of_Distributions>
+	<PurchaseLines>
+	<PurchaseLine>
+	<DistributionNumber>1</DistributionNumber>
+	<Quantity>5.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TEST2</Item_ID>
+	<Description>THIS IS A TEST ITEM 2</Description>
+	<GL_Account xsi:type="paw:id">6000-02</GL_Account>
+	<Unit_Price>4000.00000</Unit_Price>
+	<Amount>20000.00</Amount>
+	<UM_ID xsi:type="paw:id">Unit</UM_ID>
+	</PurchaseLine>
+	<PurchaseLine>
+	<DistributionNumber>2</DistributionNumber>
+	<Quantity>6.00000</Quantity>
+	<Item_ID xsi:type="paw:id">TEST</Item_ID>
+	<Description>THIS IS A TEST ITEM1</Description>
+	<GL_Account xsi:type="paw:id">6000-02</GL_Account>
+	<Unit_Price>2500.00000</Unit_Price>
+	<Amount>15000.00</Amount>
+	<UM_ID xsi:type="paw:id">Pcs</UM_ID>
+	</PurchaseLine>
+</PurchaseLines></PAW_PurchaseOrder>
+</PAW_PurchaseOrders>

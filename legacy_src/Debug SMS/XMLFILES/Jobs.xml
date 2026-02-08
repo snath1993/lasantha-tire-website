@@ -1,0 +1,16 @@
+<PAW_Jobs xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes"
+xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance"
+xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+<PAW_Job xsi:type="paw:job">
+	<ID xsi:type="paw:id">BOAT001</ID>
+	<Description>TEST BOAT</Description>
+	<UsePhases>FALSE</UsePhases>
+	<Customer_ID xsi:type="paw:id">A004</Customer_ID>
+</PAW_Job>
+<PAW_Job xsi:type="paw:job">
+	<ID xsi:type="paw:id">J001</ID>
+	<Description>SampleJob</Description>
+	<UsePhases>FALSE</UsePhases>
+	<Customer_ID xsi:type="paw:id">A001</Customer_ID>
+</PAW_Job>
+</PAW_Jobs>

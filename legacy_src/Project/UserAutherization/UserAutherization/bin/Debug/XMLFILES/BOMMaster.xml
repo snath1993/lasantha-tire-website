@@ -1,0 +1,42 @@
+<PAW_BillOfMaterials_Entries xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes"
+xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance"
+xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+<PAW_BillOfMaterials_Entry xsi:type="paw:item">
+	<Assembly_ID xsi:type="paw:id">ASEMBLY01</Assembly_ID>
+	<Assembly_Description>Test Assembly Item</Assembly_Description>
+	<Revision_Number>0</Revision_Number>
+	<Number_of_Components>2</Number_of_Components>
+	<Components>
+	<Component>
+	<Component_ID xsi:type="paw:id">B001</Component_ID>
+	<Component_Number>0</Component_Number>
+	<Component_Description>Test Stock Item</Component_Description>
+	<Qty_Needed>2.00000</Qty_Needed>
+	</Component>
+	<Component>
+	<Component_ID xsi:type="paw:id">B001</Component_ID>
+	<Component_Number>1</Component_Number>
+	<Component_Description>Test Stock Item</Component_Description>
+	<Qty_Needed>1.00000</Qty_Needed>
+	</Component>
+</Components></PAW_BillOfMaterials_Entry>
+<PAW_BillOfMaterials_Entry xsi:type="paw:item">
+	<Assembly_ID xsi:type="paw:id">M001</Assembly_ID>
+	<Assembly_Description>M001</Assembly_Description>
+	<Revision_Number>0</Revision_Number>
+	<Number_of_Components>2</Number_of_Components>
+	<Components>
+	<Component>
+	<Component_ID xsi:type="paw:id">A001</Component_ID>
+	<Component_Number>0</Component_Number>
+	<Component_Description>A001</Component_Description>
+	<Qty_Needed>1.00000</Qty_Needed>
+	</Component>
+	<Component>
+	<Component_ID xsi:type="paw:id">A002</Component_ID>
+	<Component_Number>1</Component_Number>
+	<Component_Description>A002</Component_Description>
+	<Qty_Needed>2.00000</Qty_Needed>
+	</Component>
+</Components></PAW_BillOfMaterials_Entry>
+</PAW_BillOfMaterials_Entries>

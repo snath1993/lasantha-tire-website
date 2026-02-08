@@ -1,0 +1,42 @@
+2026/01/31-19:45:02.398 99c Reusing MANIFEST C:\whatsapp-sql-api\.wwebjs_auth\session-lasantha-tire-bot\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/01/31-19:45:02.413 99c Recovering log #4380
+2026/01/31-19:45:02.824 99c Reusing old log C:\whatsapp-sql-api\.wwebjs_auth\session-lasantha-tire-bot\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/004380.log 
+2026/01/31-19:45:08.222 17f8 Level-0 table #4410: started
+2026/01/31-19:45:08.517 17f8 Level-0 table #4410: 1200177 bytes OK
+2026/01/31-19:45:08.545 17f8 Delete type=0 #4380
+2026/01/31-19:45:09.911 17f8 Compacting 1@0 + 2@1 files
+2026/01/31-19:45:10.015 17f8 Generated table #4411@0: 22739 keys, 520910 bytes
+2026/01/31-19:45:10.033 17f8 Generated table #4412@0: 1091 keys, 15395 bytes
+2026/01/31-19:45:10.045 17f8 Generated table #4413@0: 123 keys, 8935 bytes
+2026/01/31-19:45:10.045 17f8 Compacted 1@0 + 2@1 files => 545240 bytes
+2026/01/31-19:45:10.050 17f8 compacted to: files[ 0 3 33 113 0 0 0 ]
+2026/01/31-19:45:10.242 99c Compacting 1@1 + 16@2 files
+2026/01/31-19:45:10.494 99c Generated table #4414@1: 22715 keys, 520298 bytes
+2026/01/31-19:45:10.562 99c Generated table #4415@1: 244 keys, 2111187 bytes
+2026/01/31-19:45:10.599 99c Generated table #4416@1: 247 keys, 2114686 bytes
+2026/01/31-19:45:10.636 99c Generated table #4417@1: 335 keys, 2117244 bytes
+2026/01/31-19:45:10.847 99c Generated table #4418@1: 283 keys, 2109461 bytes
+2026/01/31-19:45:10.918 99c Generated table #4419@1: 262 keys, 2114778 bytes
+2026/01/31-19:45:10.983 99c Generated table #4420@1: 298 keys, 2110375 bytes
+2026/01/31-19:45:11.068 99c Generated table #4421@1: 261 keys, 2110095 bytes
+2026/01/31-19:45:11.105 99c Generated table #4422@1: 275 keys, 2115676 bytes
+2026/01/31-19:45:11.115 99c Generated table #4423@1: 163 keys, 16282 bytes
+2026/01/31-19:45:11.146 99c Generated table #4424@1: 269 keys, 3818 bytes
+2026/01/31-19:45:11.153 99c Generated table #4425@1: 778 keys, 11317 bytes
+2026/01/31-19:45:11.161 99c Generated table #4426@1: 962 keys, 13571 bytes
+2026/01/31-19:45:11.173 99c Generated table #4427@1: 3429 keys, 56919 bytes
+2026/01/31-19:45:11.192 99c Generated table #4428@1: 3031 keys, 51919 bytes
+2026/01/31-19:45:11.352 99c Generated table #4429@1: 70737 keys, 1815625 bytes
+2026/01/31-19:45:11.487 99c Generated table #4430@1: 86864 keys, 2234750 bytes
+2026/01/31-19:45:11.487 99c Compacted 1@1 + 16@2 files => 21628001 bytes
+2026/01/31-19:45:11.490 99c compacted to: files[ 0 2 34 113 0 0 0 ]
+2026/01/31-19:45:11.491 99c Delete type=2 #4384
+2026/01/31-19:45:11.491 99c Delete type=2 #4385
+2026/01/31-19:45:11.492 99c Delete type=2 #4410
+2026/01/31-19:45:11.493 99c Compacting 1@2 + 4@3 files
+2026/01/31-19:45:11.704 99c Generated table #4431@2: 87863 keys, 2238185 bytes
+2026/01/31-19:45:11.783 99c Generated table #4432@2: 29309 keys, 2294475 bytes
+2026/01/31-19:45:11.860 99c Generated table #4433@2: 1595 keys, 2129468 bytes
+2026/01/31-19:45:12.007 99c Generated table #4434@2: 23167 keys, 1729563 bytes
+2026/01/31-19:45:12.007 99c Compacted 1@2 + 4@3 files => 8391691 bytes
+2026/01/31-19:45:12.022 99c compacted to: files[ 0 2 33 113 0 0 0 ]

@@ -1,0 +1,30 @@
+﻿<PAW_Invoices xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes" xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+  <PAW_Invoice xsi:type="paw:Invoice">
+    <Customer_ID xsi:type="paw:id">OPD0002</Customer_ID>
+    <Date xsi:type="paw:id">08/23/2018</Date>
+    <Invoice_Number>FINV00000001</Invoice_Number>
+    <Ship_Via>Credit</Ship_Via>
+    <Sales_Representative_ID xsi:type="paw:id">DHAMMIKA</Sales_Representative_ID>
+    <Accounts_Receivable_Account xsi:type="paw:id">85000</Accounts_Receivable_Account>
+    <CreditMemoType>FALSE</CreditMemoType>
+    <Number_of_Distributions>2</Number_of_Distributions>
+    <SalesLines>
+      <SalesLine>
+        <Quantity>1</Quantity>
+        <Item_ID>1000026</Item_ID>
+        <Description>OP SCISSORS SH/BL 16.5CM</Description>
+        <GL_Account xsi:type="paw:id">10160</GL_Account>
+        <Tax_Type>1</Tax_Type>
+        <Amount>-900</Amount>
+      </SalesLine>
+      <SalesLine>
+        <Quantity>1</Quantity>
+        <Item_ID>0-9HGF</Item_ID>
+        <Description>EJELAG 30MG</Description>
+        <GL_Account xsi:type="paw:id">10160</GL_Account>
+        <Tax_Type>1</Tax_Type>
+        <Amount>-48.25</Amount>
+      </SalesLine>
+    </SalesLines>
+  </PAW_Invoice>
+</PAW_Invoices>

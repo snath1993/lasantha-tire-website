@@ -1,0 +1,790 @@
+﻿<html DIR="LTR" xmlns:tool="http://www.microsoft.com/tooltip" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+  <head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=utf-8" />
+    <META NAME="save" CONTENT="history" />
+    <title>Readme for Microsoft SQL Server Management Studio Express SP2</title>
+    
+ <Style TYPE="text/css">
+
+body
+{
+    background: #FFFFFF;
+    color: #000000;
+    font-family:    Verdana;
+    font-size: medium;
+    font-style: normal;
+    font-weight: normal;
+    margin-top: 0;
+    margin-bottom:  0;
+    margin-left:    0;
+    margin-right:   0;
+    width:  100%;
+}
+
+div.#mainSection
+{
+    font-size: 70%;
+    width: 100%;
+    padding-left:    10;
+    margin-right: 10;
+}
+
+div.#mainBody
+{
+    font-size: 90%;
+    margin-top: 10;
+    padding-bottom: 20;
+}
+
+div.#header
+{
+    background-color: #D2D2D2;
+    padding-top:    0;
+    padding-bottom: 0;
+    padding-left:   10;
+    padding-right:  0;
+    width:          100%;
+}
+
+div.#header table
+{
+    border-bottom-color: #C8CDDE;
+    border-bottom-style: solid;
+    border-bottom-width: 1;
+    width:  100%;
+}
+
+span.#runningHeaderText
+{
+    color: #003399;
+    font-size: 90%;
+}
+
+span.#nsrTitle
+{
+/*    color: #003399;*/
+    font-size: 120%;
+    font-weight: 600;
+}
+
+div.#header table td
+{
+    color: #000000;
+    font-size: 70%;
+    margin-top: 0;
+    margin-bottom:  0;
+    padding-right: 20;
+}
+
+div.#header table tr.#headerTableRow3 td
+{
+    padding-bottom: 2;
+    padding-top: 5;
+}
+
+div.#header table.#bottomTable
+{
+    border-top-color: #FFFFFF;
+    border-top-style: solid;
+    border-top-width: 1;
+    text-align: left;
+}
+
+div.#footer
+{
+    font-size: 90%;
+    margin-top: 0;
+    margin-bottom:  0;
+    margin-left:    -5;
+    margin-right:   0;
+    padding-top:    2;
+    padding-bottom: 2;
+    padding-left:   0;
+    padding-right:  0;
+    width:  100%;
+}
+
+hr.#footerHR
+{
+    border-bottom-color: #EEEEFF;
+    border-bottom-style: solid;
+    border-bottom-width: 1;
+    border-top-color: C8CDDE;
+    border-top-style: solid;
+    border-top-width: 1;
+    height: 3;
+    color: #D2D2D2;
+}
+
+div.section
+{
+    padding-top:    2;
+    padding-bottom: 2;
+    padding-right:  15;
+    width:  100%;
+}
+
+.heading
+{
+    color:          #000000;
+    font-weight:    bold;
+    margin-top:     18;
+    margin-bottom:  8;
+}
+
+h1.heading
+{
+    color: #000000;
+    font-size:  150%;
+}
+
+.subHeading
+{
+    color:          #000000;
+    font-weight:    bold;
+    font-size:      150%;
+    margin-bottom:  4;
+}
+
+h2.subHeading
+{
+    color:          #000000;
+    font-weight:    bold;
+    font-size:      130%;
+}
+h3.subHeading
+{
+    color:  #000000;
+    font-size: 125%;
+    font-weight: bold;
+}
+
+h4.subHeading
+{
+    color: #000000;
+    font-size: 110%;
+    font-weight: bold;
+}
+
+h4.procedureHeading
+{
+    color: #000080;
+    font-size: 110%;
+    font-weight: bold;
+}
+
+h5.subHeading
+{
+    color: #000000;
+    font-size: 100%;
+    font-weight: bold;
+}
+
+img
+{
+    padding-bottom: 10;
+}
+
+img.toggle
+{
+    border: 0;
+    margin-right: 5;
+    padding-bottom: 10;
+}
+
+img.copyCodeImage
+{
+    border: 0;
+    margin: 1;
+    margin-right: 3;
+    padding-bottom: 10;
+}
+
+img.downloadCodeImage
+{
+    border: 0;
+    margin-right: 3;
+    padding-bottom: 10;
+}
+
+img.viewCodeImage
+{
+    border: 0;
+    margin-right: 3;
+    padding-bottom: 10;
+}
+
+img.note
+{
+    border: 0;
+    margin-right: 3;
+    padding-bottom: 10;
+}
+
+img.#membersOptionsFilterImage
+{
+    border: 0;
+    margin-left: 10;
+    vertical-align: middle;
+    padding-bottom: 10;
+}
+
+img.#toggleAllImage
+{
+    margin-left: 4;
+    vertical-align: middle;
+    padding-bottom: 10;
+}
+
+div.#mainSection table
+{
+    border: 0;
+    font-size: 100%;
+    width:  100%;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+div.#mainSection table tr
+{
+    vertical-align: top;
+}
+
+div.#mainSection table th
+{
+    text-align: left;
+    background: #D8D8D8;
+    border-bottom-color: #D8D8D8;
+    border-bottom-style: solid;
+    border-bottom-width: 1;
+    color: #000000;
+    padding-left: 5;
+    padding-right: 5;
+}
+
+div.#mainSection table td
+{
+    background: #F2F2F2;
+    border-top-color: #D8D8D8;
+    border-top-style: solid;
+    border-top-width: 1;
+    padding-left: 5;
+    padding-right: 5;
+}
+
+div.#mainSection table td.imageCell
+{
+    white-space: nowrap;
+}
+
+div.code
+{
+	width: 98%;
+}
+
+div.code table
+{
+    border: 0;
+    font-size: 95%;
+    margin-bottom: 5;
+    width: 100%
+}
+
+div.code table th
+{   
+    text-align: left;
+    background: #D8D8D8;
+    border-bottom-color: #D8D8D8;
+    border-bottom-style: solid;
+    border-bottom-width: 1;
+    color: #000000;
+    font-weight: bold;
+    padding-left: 5;
+    padding-right: 5;
+}
+
+div.code table td
+{
+    background: #CCCCCC;
+    border-top-color: #D8D8D8;
+    border-top-style: solid;
+    border-top-width: 1;
+    padding-left: 5;
+    padding-right: 5;
+    padding-top: 5;
+}
+
+div.alert
+{
+	margin-left: 10;
+	width: 98%;
+}
+
+div.alert table
+{
+    border: 1;
+    font-size: 100%;
+    width:  100%;
+    border: solid 1 #DEDFEF;
+}
+
+div.alert table th
+{
+    text-align: left;
+    background: #D8D8D8;
+    border-bottom-width: 0;
+    color: #000000;
+    padding-left: 5;
+    padding-right: 5;
+    border: solid 1 #DEDFEF;
+}
+
+div.alert table td
+{
+    background: #FFFFFF;
+    border-top-color: #D8D8D8;
+    border-top-style: solid;
+    border-top-width: 1;
+    padding-left: 5;
+    padding-right: 5;
+    border: solid 1 #DEDFEF;
+}
+
+span.copyCode
+{
+    color: #0000ff;
+    font-size: 90%;
+    font-weight: normal;
+    cursor: hand;
+    float: right;
+    display: inline;
+    text-align: right;
+}
+
+.downloadCode
+{
+    color: #0000ff;
+    font-size: 90%;
+    font-weight: normal;
+    cursor: hand;
+}
+
+.viewCode
+{
+    color: #0000ff;
+    font-size: 90%;
+    font-weight: normal;
+    cursor: hand;
+}
+
+div.code pre
+{
+    font-family:    Monospace, Courier New, Courier;
+    font-size: 105%;
+    color:  #000000;
+}
+
+code
+{
+    font-family:    Monospace, Courier New, Courier;
+    font-size: 105%;
+    color:  #000000;
+}
+
+dl
+{
+    margin-top: 0;
+    padding-left:   1;
+}
+
+dd
+{
+    margin-bottom:  0;
+    margin-left:    0;
+    padding-left:   20;
+}
+
+dd p
+{
+    margin-top: 5;
+}
+
+ul
+{
+    margin-left: 17;
+    list-style-type: disc;
+}
+
+ul ul
+{
+    margin-bottom: 4;
+    margin-left: 17;
+    margin-top: 3;
+    list-style-type: disc;
+}
+
+ol
+{
+    margin-left: 24;
+    list-style-type: decimal;
+}
+
+ol ol
+{
+    margin-left: 24;
+    margin-top: 3;
+    list-style-type: lower-alpha;
+}
+
+li
+{
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    padding-top: 0;
+    margin-left: 5;
+}
+
+p
+{
+    margin-bottom: 15;
+}
+
+.tip
+{
+    color:  #0000FF;
+    font-style: italic;
+    cursor:hand;
+    text-decoration:underline;
+}
+
+.math
+{
+    font-family: Times New Roman;
+    font-size: 125%
+}
+.sourceCodeList
+{
+    font-family: Verdana;
+    font-size: 90%; 
+}
+
+pre.viewCode
+{
+    width: 100%;
+    overflow: auto;
+}
+
+li:hover table, li.over table
+{
+    background-color: #C0C0C0;
+}
+
+li:hover ul, li.over ul
+{ 
+    background-color: #d2d2d2;
+    border: 1px solid #000;
+    display: block;
+}
+
+</style>
+  </head>
+  <body>
+    <!--Topic built:2/12/2007-->
+
+    <div id="header">
+      <table width="100%" id="topTable">
+        <tr>
+          <td align="left">
+            <span id="nsrTitle">Readme for Microsoft SQL Server Management Studio Express SP2</span>
+          </td>
+          <td align="right">
+            <span id="headfb" class="feedbackhead">
+            </span>
+          </td>
+        </tr>
+        <tr id="headerTableRow3">
+          <td />
+          <td align="right">
+          </td>
+        </tr>
+      </table>
+      </div>
+    <div id="mainSection">
+      <div id="mainBody"><p>Updated: 2/12/2007</p>
+
+        <font color="DarkGray"> </font><p /> 
+        <span id="changeHistory">
+        </span>
+    <p>The most up-to-date version of this file is available at the <a href="http://go.microsoft.com/fwlink/?LinkId=68578" alt=""><linkText xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">Microsoft Download Center</linkText></a>.</p>
+    <h3 class="subHeading"></h3><table width="100%" cellspacing="0" cellpadding="0" border="1" style="background-color: #CCCCCC;"><tr>
+        <td>
+          <p>The SQL Server documentation team welcomes your documentation feedback. We view and investigate all documentation issues but do not answer technical support questions here. For help with technical issues not related to documentation, see <a href="http://go.microsoft.com/fwlink/?LinkId=74357" alt=""><linkText xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">Getting Assistance with SQL Server</linkText></a>. </p>
+          <p>If it is possible, <a href="mailto:sqldocfb@microsoft.com?subject=SQL%20Server%20Management%20Studio%20Express%20readme%20file(/1:SQL/2:09.00.2000.00/3:SSMSE/4:readme_express/5:ReadmeSSMSE2005.htm/6:/7:h/8:en-us/9:2006)&amp;body=---Please%20type%20comments%20here,%20leaving%20the%20subject%20line%20in%20place" alt=""><linkText xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">submit feedback</linkText></a> to us in English. </p>
+        </td>
+      </tr></table>
+  <a name="top_of_page"></a><h1 class="heading">Contents</h1><div id="sectionSection0" class="section"><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+      <p xmlns="">1.0 <a href="#Intro">Introduction</a></p>
+      <p xmlns="">2.0 <a href="#download">Downloading and Installing</a></p>
+      <p xmlns="">    2.1 <a href="#framework">.NET Framework 2.0</a></p>
+      <p xmlns="">    2.2 <a href="#msxml">MSXML 6.0 Parser</a></p>
+      <p xmlns="">    2.3 <a href="#SSMS_EE">SQL Server Management Studio Express</a></p>
+      <p xmlns="">3.0 <a href="#knownissues">Known Issues</a></p>
+      <p xmlns="">    3.1 <a href="#sxsinstall">Side-by-Side Installation</a></p>
+      <p xmlns="">    3.2 <a href="#fulltext">Full Text Catalog</a></p>
+      <p xmlns="">    3.3 <a href="#repsupport">Replication Support</a></p>
+      <p xmlns="">    3.4 <a href="#ssagent">SQL Server Agent</a></p>
+      <p xmlns="">    3.5 <a href="#help">Help Experience</a></p>
+      <p xmlns="">4.0 <a href="#add_info">Additional Information</a></p>
+      <p xmlns="">    4.1 <a href="#oe">Object Explorer Behavior</a></p>
+      <p xmlns="">    4.2 <a href="#connect_sse">Connecting to SQL Server Express</a></p>
+      <p xmlns="">    4.3 <a href="#connect_ui">Connecting to a User Instance</a></p>
+      <p xmlns="">    4.4 <a href="#configure_remote">Configuring Remote Access to SQL Server Express</a></p>
+      <p xmlns="">    4.5 <a href="#community">Community Support</a></p>
+      <p xmlns="">    4.6 <a href="#yukonbOL">Updates to SQL Server 2005 Books Online are Available</a></p>
+      <p xmlns="">
+        <a href="#top_of_page">[Top]</a>
+      </p>
+    </content></div><a name="Intro"></a><h1 class="heading">1.0 Introduction</h1><div id="sectionSection1" class="section"><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+      <p xmlns="">
+        Microsoft® SQL Server™ Management Studio Express (SSMSE) provides a graphical management tool for SQL Server™ 2005 Express Edition (SQL Server Express) and SQL Server™ 2005 Express Edition with Advanced Services (SQL Server Express) instances. SSMSE can also manage relational engine instances created by any edition of SQL Server 2005. SSMSE cannot manage Analysis Services, Integration Services, Notification Services, Reporting Services, or SQL Server Agent. SSMSE is a free Web download. </p>
+      <div class="alert" xmlns=""><table width="100%" cellspacing="0" cellpadding="0"><tr><th align="left">Note: </th></tr><tr><td>
+        This product download installs SSMSE or updates an existing SSMSE installation. SQL Server Express with Advanced Services Service Pack 2 (SP2) and SQL Server Express Toolkit SP2 also updates an existing SSMSE installation.<p></p>
+      </td></tr></table><p></p></div>
+      <p xmlns="">
+        <a href="#top_of_page">[Top]</a>
+      </p>
+    </content></div><a name="Download"></a><h1 class="heading">2.0 Downloading and Installing</h1><div id="sectionSection2" class="section"><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+      <p xmlns="">You must install the .NET Framework 2.0 and MSXML 6.0 Parser before you install SSMSE. </p>
+      <div class="alert" xmlns=""><table width="100%" cellspacing="0" cellpadding="0"><tr><th align="left">Note: </th></tr><tr><td>
+        The .NET Framework 2.0 and MSXML 6.0 Parser might be already installed if you have a computer that is running SQL Server Express. <p></p>
+      </td></tr></table><p></p></div>
+      <p xmlns="">
+        <a href="#top_of_page">[Top]</a>
+      </p>
+    </content><sections xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+      <a name="framework" xmlns=""></a><h3 class="subHeading" xmlns="">2.1 .NET Framework 2.0</h3><div class="subSection" xmlns=""><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+          <p xmlns="">You must install the .NET Framework 2.0 before you install SSMSE.</p>
+          <p xmlns="">SSMSE depends on the .NET Framework 2.0.50727.42 or a later version. If you have a different version, your SSMSE installation might function unpredictably. You can download the .NET Framework 2.0.50727.42 from this <a href="http://go.microsoft.com/fwlink/?LinkId=45988" alt=""><linkText xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">Microsoft Web site</linkText></a>.</p>
+          <p xmlns="">
+            <a href="#top_of_page">[Top]</a>
+          </p>
+        </content></div>
+      <a name="msxml" xmlns=""></a><h3 class="subHeading" xmlns="">2.2 MSXML 6.0 Parser</h3><div class="subSection" xmlns=""><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+          <p xmlns="">You must install MSXML 6.0 Parser before you install SSMSE. You can download MSXML 6.0 from this <a href="http://go.microsoft.com/fwlink/?LinkId=54583" alt=""><linkText xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">Microsoft Web site</linkText></a>. </p>
+          <p xmlns="">
+            <a href="#top_of_page">[Top]</a>
+          </p>
+        </content></div>
+      <a name="SSMS_EE" xmlns=""></a><h3 class="subHeading" xmlns="">2.3 SQL Server Management Studio Express</h3><div class="subSection" xmlns=""><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+          <p xmlns="">SSMSE is available for download at the MSDN page, <a href="http://go.microsoft.com/fwlink/?LinkId=58557" alt=""><linkText xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">SQL Server 2005 Express Edition SP2</linkText></a>.</p>
+          <div class="alert" xmlns=""><table width="100%" cellspacing="0" cellpadding="0"><tr><th align="left">Note: </th></tr><tr><td>
+            Be sure to follow the instructions provided at the download site for downloading and extracting the product.<p></p>
+          </td></tr></table><p></p></div>
+          <p xmlns="">
+            <a href="#top_of_page">[Top]</a>
+          </p>
+        </content></div>
+    </sections></div><a name="knownissues"></a><h1 class="heading">3.0 Known Issues</h1><div id="sectionSection3" class="section"><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+      <p xmlns="">This section details issues when you install or run the product.</p>
+    </content><sections xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+      <a name="sxsinstall" xmlns=""></a><h3 class="subHeading" xmlns="">3.1 Side-by-Side Installation</h3><div class="subSection" xmlns=""><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+          <p xmlns="">
+            SQL Server Management Studio and SSMSE cannot be installed side-by-side on the same computer. </p>
+          <div class="alert" xmlns=""><table width="100%" cellspacing="0" cellpadding="0"><tr><th align="left">Note: </th></tr><tr><td>
+            SQL Server Management Studio can be used to connect to SQL Server Express instances. <p></p>
+          </td></tr></table><p></p></div>
+          <p xmlns="">
+            <a href="#top_of_page">[Top]</a>
+          </p>
+        </content></div>
+      <a name="fulltext" xmlns=""></a><h3 class="subHeading" xmlns="">3.2 Full-Text Catalog</h3><div class="subSection" xmlns=""><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+          <p xmlns="">You cannot update the full-text catalog by using SSMSE because it is not supported by the tool. You can use sqlcmd utility or Windows Scheduler to update the full-text catalog. For more information, see "Creating Full-Text Indexes," "CREATE FULLTEXT CATALOG (Transact-SQL)," and "ALTER FULLTEXT CATALOG (Transact-SQL)" in SQL Server 2005 Books Online at this <a href="http://go.microsoft.com/fwlink/?LinkId=52287" alt=""><linkText xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">Microsoft Web site</linkText></a>.</p>
+          <p xmlns="">In Object Explorer, you will see the full-text catalog object, but only the Refresh command is available. </p>
+          <p xmlns="">
+            <a href="#top_of_page">[Top]</a>
+          </p>
+        </content></div>
+      <a name="repsupport" xmlns=""></a><h3 class="subHeading" xmlns="">3.3 Replication Support</h3><div class="subSection" xmlns=""><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+          <p xmlns="">Interactive Resolver, which lets you resolve conflicts manually during on-demand synchronization in Microsoft Windows Synchronization Manager, is not supported in SSMSE.</p>
+          <p xmlns="">
+            <a href="#top_of_page">[Top]</a>
+          </p>
+        </content></div>
+      <a name="ssagent" xmlns=""></a><h3 class="subHeading" xmlns="">3.4 SQL Server Agent</h3><div class="subSection" xmlns=""><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+          <p xmlns="">SSMSE does not support scheduling administrative tasks by using SQL Server Agent. In Object Explorer, only the Refresh command is available to refresh the state of the service for all SQL Server instances except SQL Server Express. This is because SQL Server Agent is not supported by SQL Server Express.</p>
+          <p xmlns="">
+            <a href="#top_of_page">[Top]</a>
+          </p>
+        </content></div>
+      <a name="help" xmlns=""></a><h3 class="subHeading" xmlns="">3.5 Help Experience</h3><div class="subSection" xmlns=""><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+        </content><sections xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+          <h4 class="subHeading" xmlns="">3.5.1 Help for SSMSE is not installed by the product</h4><div class="subSection" xmlns=""><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+              <p xmlns="">Help for SSMSE is not installed by the product. If you press F1, MSDN Online help opens. By pressing F1, you can access all F1 help topics, but you do not see a table of contents or an index for the SQL Server 2005 documentation. To add SQL Server 2005 documentation to SSMSE, install SQL Server 2005 Books Online from this <a href="http://go.microsoft.com/fwlink/?LinkId=58558" alt=""><linkText xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">Microsoft Web site</linkText></a>. After installing, in the <b>Contents</b> pane of the Books Online, you can use the <b>SQL Server Express</b> filter to hide the content that does not apply to SQL Server Express edition. </p>
+              <div class="alert" xmlns=""><table width="100%" cellspacing="0" cellpadding="0"><tr><th align="left">Important: </th></tr><tr><td>
+                When you press F1, the topics that open might refer to user interface elements or features that are not supported by SSMSE. This is because the documentation was written for SQL Server Management Studio, which is installed with SQL Server 2005. <p></p>
+              </td></tr></table><p></p></div>
+              <p xmlns="">
+                <a href="#top_of_page">[Top]</a>
+              </p>
+            </content></div>
+          <h4 class="subHeading" xmlns="">3.5.2 Help Might Not Function Properly in Integrated Mode</h4><div class="subSection" xmlns=""><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+              <p xmlns="">Some features in the Help Search and Help Favorites windows might not be functional if the Help option is set to Integrated Help Viewer. To address this situation, do the following: </p>
+              <ol xmlns=""><li>
+                  Open SQL Server Management Studio Express. <br></br>
+                </li><li>
+                  Click <b>Tools</b>, click <b>Options</b>, and then click <b>Help</b>. <br></br>
+                </li><li>
+                  Under <b>General</b>, set <b>Show Help using:</b> to <b>External Help Viewer</b>. <br></br>
+                </li></ol>
+              <p xmlns="">
+                <a href="#top_of_page">[Top]</a>
+              </p>
+            </content></div>
+        </sections></div>
+    </sections></div><a name="add_info"></a><h1 class="heading">4.0 Additional Information</h1><div id="sectionSection4" class="section"><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+    </content><sections xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+      <a name="oe" xmlns=""></a><h3 class="subHeading" xmlns="">4.1 Object Explorer Behavior</h3><div class="subSection" xmlns=""><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+          <p xmlns="">In SSMSE, Object Explorer only supports Database Engine instances. The <b>Connect to Server</b> dialog box prevents connecting to other services, such as Analysis Services.</p>
+          <p xmlns="">All objects that would ordinarily be enumerated for a specific Database Engine Object Explorer tree are still visible in SSMSE. If it is an object for an unsupported item such as full-text catalog, only the Refresh command is available.</p>
+          <p xmlns="">
+            <a href="#top_of_page">[Top]</a>
+          </p>
+        </content></div>
+      <a name="connect_sse" xmlns=""></a><h3 class="subHeading" xmlns="">4.2 Connecting to SQL Server Express</h3><div class="subSection" xmlns=""><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+          <p xmlns="">To connect to a SQL Server Express Database Engine instance, in the <b>Connect to Server </b>dialog box, specify<b> </b>any one of the following:</p>
+          <p xmlns="">.\sqlexpress, (local)\sqlexpress, or server name\sqlexpress</p>
+          <p xmlns="">
+            <b>Note</b>   The default installation of SQL Server Express uses an instance name (sqlexpress). This instance name must be supplied to connect to SQL Server Express by using SSMSE. If you have an instance name other than sqlexpress, connect by using <i>computer name\instance name</i>. </p>
+          <p xmlns="">
+            <a href="#top_of_page">[Top]</a>
+          </p>
+        </content></div>
+      <a name="connect_ui" xmlns=""></a><h3 class="subHeading" xmlns="">4.3 Connecting to a User Instance</h3><div class="subSection" xmlns=""><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+          <p xmlns="">SSMSE enables developers to administer SQL Server Express user instances. The prerequisite for using SSMSE with a SQL Server Express user instance is that the user instance should be running and active. To start a user instance, install SSEUtil.exe from this <a href="http://go.microsoft.com/fwlink/?LinkId=55969" alt=""><linkText xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">Microsoft Web site</linkText></a>. When a user instance is running, SSMSE connects to the user instance by using the named pipe protocol.</p>
+          <procedure>
+            To determine which named pipe to use to connect to the parent instance of SQL Server Express
+            <ddue:steps><ol xmlns=""><li>
+                <content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+                  <p xmlns="">To open SSMSE, click <b>Start</b>, click <b>All Programs</b>, click <b>Microsoft SQL Server 2005</b>, and then click <b>SQL Server Management Studio Express</b>. </p>
+                </content>
+              </li><li>
+                <content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+                  <p xmlns="">To open a new query editor window in SSMSE, click <b>New Query</b>.</p>
+                </content>
+              </li><li>
+                <content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+                  <p xmlns="">In the new query window, enter the following commands:</p>
+                  <div class="code" xmlns=""><span codeLanguage="other"><table width="100%" cellspacing="0" cellpadding="0"><tr><th align="left"></th></tr><tr><td colspan="2"><pre>USE master;
+GO
+SELECT owning_principal_name, instance_pipe_name FROM sys.dm_os_child_instances;
+GO</pre></td></tr></table></span></div>
+                </content>
+              </li><li>
+                <content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+                  <p xmlns="">After the results are displayed, under the <b>owning_principal_name</b> column, find the user name for which the user instance was generated. From the <b>instance_pipe_name</b> column, copy the named pipe value.</p>
+                </content>
+              </li><li>
+                <content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+                  <p xmlns="">Create a new database connection. In Object Explorer, click <b>Connect</b>. In the<b> Connect to Server </b>dialog box, paste the named pipe value, preceded by np:, as shown:</p>
+                  <p xmlns="">np:\\.\pipe\3C3DF6B1-2262-47\tsql\query</p>
+                  <p xmlns="">You can now use SSMSE to manage objects related to your user instance. </p>
+                </content>
+              </li></ol></ddue:steps>
+          </procedure>
+          <p xmlns="">For more information about user instances, see "User Instances for Non-Administrators" in SQL Server 2005 Books Online.</p>
+          <p xmlns="">
+            <a href="#top_of_page">[Top]</a>
+          </p>
+        </content></div>
+      <a name="configure_remote" xmlns=""></a><h3 class="subHeading" xmlns="">4.4 Configuring Remote Access to SQL Server Express</h3><div class="subSection" xmlns=""><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+          <p xmlns="">
+            SQL Server Express listens on local named pipes and shared memory. By using a default installation, you cannot remotely connect to SQL Server Express. You must enable TCP/IP and determine whether the firewall is enabled.</p>
+          <procedure>
+            To enable TCP/IP
+            <ddue:steps><ol xmlns=""><li>
+                <content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+                  <p xmlns="">From the <b>Start</b> menu, select <b>All Programs</b>, point to <b>Microsoft SQL Server 2005</b>, point to <b>Configuration Tools</b>, and then click <b>SQL Server Configuration Manager</b>.</p>
+                  <p xmlns="">Optionally, you can open Computer Manager by right-clicking <b>My Computer</b> and selecting <b>Manage</b>. In Computer Management, expand <b>Services and Applications</b>, expand <b>SQL Server Configuration Manager</b>.</p>
+                </content>
+              </li><li>
+                <content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+                  <p xmlns="">Expand <b>SQL</b> <b>Server 2005 Network Configuration</b>, and then click <b>Protocols</b> <b>for</b> <i>InstanceName</i>.</p>
+                </content>
+              </li><li>
+                <content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+                  <p xmlns="">In the list of protocols, right-click the protocol you want to enable, and then click <b>Enable</b>.</p>
+                  <p xmlns="">The icon for the protocol will change to show that the protocol is enabled.</p>
+                </content>
+              </li></ol></ddue:steps>
+          </procedure>
+          <procedure>
+            To enable the firewall
+            <ddue:steps><ol xmlns=""><li>
+                <content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+                  <p xmlns="">Click <b>Start</b>, click <b>Control Panel</b>, and then click <b>Network Connections</b>.</p>
+                </content>
+              </li><li>
+                <content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+                  <p xmlns="">From the navigation bar on the left, click <b>Change Windows Firewall settings</b>.</p>
+                </content>
+              </li><li>
+                <content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+                  <p xmlns="">On the <b>Exceptions</b> tab, in the <b>Programs and Services</b> box, you will probably see that SQL Server is listed, but not selected as an exception. If you select the check box, Windows will open the 1433 port to let in TCP requests. Alternatively, if you do not see SQL Server listed, do the following:</p>
+                  <ol xmlns=""><li>
+                      Click <b>Add Program</b>.<br></br>
+                    </li><li>
+                      Click <b>Browse</b>.<br></br>
+                    </li><li>
+                      Navigate to <i>drive:</i>\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\BINN<br></br>
+                    </li><li>
+                      Add the file sqlservr.exe to the list of exceptions.<br></br>
+                    </li></ol>
+                </content>
+              </li></ol></ddue:steps>
+          </procedure>
+          <p xmlns="">
+            <a href="#top_of_page">[Top]</a>
+          </p>
+        </content></div>
+      <a name="community" xmlns=""></a><h3 class="subHeading" xmlns="">4.5 Community Support</h3><div class="subSection" xmlns=""><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+          <p xmlns="">The following resources are available for information about SSMSE:</p>
+          <ul xmlns=""><li>
+              
+                <a href="http://go.microsoft.com/fwlink/?LinkId=47890" alt=""><linkText xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">MSDN Community Forums: SQL Server</linkText></a>
+              <br></br>
+              Ask a question. On this site, you can search through existing newsgroup postings for any questions that you might have. Use this as a starting point to see whether someone else has encountered a similar situation to the one that you are experiencing. To browse for SSMSE postings, click the "SQL Server Tools General" link. Do not use other Microsoft newsgroups for posting questions regarding SSMSE.<br></br>
+              <div class="alert"><table width="100%" cellspacing="0" cellpadding="0"><tr><th align="left">Note: </th></tr><tr><td>
+                 Newsgroups are supported in English only.<p></p>
+              </td></tr></table><p></p></div>
+            </li><li>
+              
+                <a href="http://go.microsoft.com/fwlink/?LinkId=51684" alt=""><linkText xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">Microsoft Connect for SQL Server</linkText></a>
+              <br></br>
+              Send feedback. On this site, you can participate in the development process by submitting suggestions and bug reports for SSMSE. You can search for bug reports and suggestions that others have submitted. Add your vote or enter a new bug report if you cannot find one that matches your scenario. Be as specific as possible in bug reports to help the development team reproduce the problem. You can also set up alerts to monitor the status of your report as changes are made by the development team.<br></br>
+            </li><li>
+              
+                <a href="http://go.microsoft.com/fwlink/?LinkId=42457" alt=""><linkText xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">SQL Server Developer Center on MSDN</linkText></a>
+              <br></br>
+              Get more information. On this site, you can find information for developers who are building SQL Server databases, reporting systems, and business intelligence solutions, and enabling their applications and Web sites to use these systems.<br></br>
+            </li></ul>
+          <p xmlns="">
+            <a href="#top_of_page">[Top]</a>
+          </p>
+        </content></div>
+      <a name="yukonBOL" xmlns=""></a><h3 class="subHeading" xmlns="">4.6 Updates to SQL Server 2005 Books Online are Available</h3><div class="subSection" xmlns=""><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+          <p xmlns="">Starting with the April 2006 update of SQL Server 2005 Books Online, a separate Books Online for SQL Server Express is unavailable. SQL Server 2005 Books Online is the primary documentation for SQL Server Express. The February 2007 update of Books Online reflects all product upgrades that are included in this service pack, and also includes other improvements to the documentation. We strongly recommend that you install this update to keep the information in the local copy of the documentation current with SQL Server Express SP2. The February 2007 update is available at this <a href="http://go.microsoft.com/fwlink/?LinkId=68575" alt=""><linkText xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">Microsoft Web site</linkText></a>. After installing Books Online, you can use the <b>SQL Server Express</b> filter in the <b>Contents</b> pane to hide the content that does not apply to your edition of SQL Server Express. For more information about SQL Server Express documentation, see "Using SQL Server Express Books Online" in SQL Server 2005 Books Online.</p>
+        </content></div>
+    </sections></div><!--[if gte IE 5]>
+			<tool:tip element="seeAlsoToolTip" avoidmouse="false"/><tool:tip element="languageFilterToolTip" avoidmouse="false"/><tool:tip element="roleInfoSpan" avoidmouse="false"/>
+		<![endif]--></div>
+      <div id="footer">
+        
+			
+			© 2007 Microsoft Corporation. All rights reserved.
+		</a>
+ 	
+      </div>
+    </div>
+  </body>
+</html>

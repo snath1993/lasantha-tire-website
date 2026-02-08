@@ -1,0 +1,23 @@
+﻿<PAW_Jobs xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes" xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+  <PAW_Job xsi:type="paw:job">
+    <ID xsi:type="paw:id">M001</ID>
+    <Description>MARRIOT Hotel</Description>
+    <UsePhases>TRUE</UsePhases>
+    <isInactive>FALSE</isInactive>
+    <Supervisor />
+    <Customer_ID xsi:type="paw:id">MARRIOTHOTEL</Customer_ID>
+    <Start_Date xsi:type="paw:date">04/01/2012</Start_Date>
+    <End_Date xsi:type="paw:date">04/01/2013</End_Date>
+    <Category />
+    <Billing_Method />
+    <Percent_Complete>0</Percent_Complete>
+    <Distributions>
+      <Distribution>
+        <PhaseID xsi:type="paw:id">MP001</PhaseID>
+        <CostID xsi:type="paw:id">MPC001</CostID>
+        <EstimatedExpense>400</EstimatedExpense>
+        <NumberOfUnits>1.00</NumberOfUnits>
+      </Distribution>
+    </Distributions>
+  </PAW_Job>
+</PAW_Jobs>

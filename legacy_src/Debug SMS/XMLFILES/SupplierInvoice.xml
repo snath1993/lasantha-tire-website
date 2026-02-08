@@ -1,0 +1,29 @@
+﻿<PAW_Purchases xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes" xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+  <PAW_Purchase xsi:type="paw:purchase">
+    <VendorID xsi:type="paw:id">ROAD WIN</VendorID>
+    <Invoice_Number>CO190732</Invoice_Number>
+    <Date>9/30/2019 12:00:00 AM</Date>
+    <Date_Due>9/30/2019 12:00:00 AM</Date_Due>
+    <CustomerInvoiceNumber>00000085</CustomerInvoiceNumber>
+    <AP_Account>8000-00</AP_Account>
+    <Number_of_Distributions>2</Number_of_Distributions>
+    <PurchaseLines>
+      <PurchaseLine>
+        <Quantity>1.0000</Quantity>
+        <Item_ID>100/90/10 F&amp; R/TIM</Item_ID>
+        <Description>100/90/10 -T/L F/ R TIMSUN TS- 600 CHINA</Description>
+        <GL_Account>6000-01</GL_Account>
+        <Unit_Price>6513</Unit_Price>
+        <Amount>4559.1</Amount>
+      </PurchaseLine>
+      <PurchaseLine>
+        <Quantity>0.0000</Quantity>
+        <Item_ID>90/100/10T/L/TIM/TS653</Item_ID>
+        <Description>90/100/10 T/L F/R TIMSUN TS-653 CHINA</Description>
+        <GL_Account>6000-01</GL_Account>
+        <Unit_Price>0</Unit_Price>
+        <Amount>0</Amount>
+      </PurchaseLine>
+    </PurchaseLines>
+  </PAW_Purchase>
+</PAW_Purchases>

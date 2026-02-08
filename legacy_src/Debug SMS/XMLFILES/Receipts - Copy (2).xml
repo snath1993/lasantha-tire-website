@@ -1,0 +1,34 @@
+<PAW_Receipts xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes"
+xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance"
+xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+<PAW_Receipt xsi:type="paw:receipt">
+	<Customer_ID xsi:type="paw:id">F001</Customer_ID>
+	<Reference>F0012</Reference>
+	<Date xsi:type="paw:date">9/1/14</Date>
+	<Payment_Method>AMEX</Payment_Method>
+	<Cash_Account xsi:type="paw:id">10000-HO-QPR</Cash_Account>
+	<Total_Paid_On_Invoices>-500.00</Total_Paid_On_Invoices>
+	<ReceiptNumber>F0013</ReceiptNumber>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<Distributions>
+	<Distribution>
+	<InvoicePaid>F001</InvoicePaid>
+	<Amount>-500.00</Amount>
+	</Distribution>
+</Distributions></PAW_Receipt>
+<PAW_Receipt xsi:type="paw:receipt">
+	<Customer_ID xsi:type="paw:id">F001</Customer_ID>
+	<Reference>F0011</Reference>
+	<Date xsi:type="paw:date">9/1/14</Date>
+	<Payment_Method>Cash</Payment_Method>
+	<Cash_Account xsi:type="paw:id">10000-HO-LTP</Cash_Account>
+	<Total_Paid_On_Invoices>-2000.00</Total_Paid_On_Invoices>
+	<ReceiptNumber>F0013</ReceiptNumber>
+	<Number_of_Distributions>1</Number_of_Distributions>
+	<Distributions>
+	<Distribution>
+	<InvoicePaid>F001</InvoicePaid>
+	<Amount>-2000.00</Amount>
+	</Distribution>
+</Distributions></PAW_Receipt>
+</PAW_Receipts>

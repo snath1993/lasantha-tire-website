@@ -1,0 +1,49 @@
+﻿<PAW_Invoices xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes" xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+  <PAW_Invoice xsi:type="paw:Receipt">
+    <Customer_ID xsi:type="paw:id">A006</Customer_ID>
+    <Invoice_Number>CR00000445</Invoice_Number>
+    <Ship_Via>Credit</Ship_Via>
+    <Sales_Representative_ID xsi:type="paw:id">pbss</Sales_Representative_ID>
+    <Date>03/13/2014</Date>
+    <Number_of_Distributions>3</Number_of_Distributions>
+    <Accounts_Receivable_Account>70000-HO-000</Accounts_Receivable_Account>
+    <CreditMemoType>FALSE</CreditMemoType>
+    <SalesLines>
+      <SalesLine>
+        <Quantity>10</Quantity>
+        <Item_ID>ART0001</Item_ID>
+        <Description>ART PAPER 150 GSM A4 MATT</Description>
+        <GL_Account>10000-HO-QPR</GL_Account>
+        <Amount>-89.2857142857143</Amount>
+        <Job_ID />
+        <Tax_Type>1</Tax_Type>
+        <SalesOrderDistributionNumber>1</SalesOrderDistributionNumber>
+        <Apply_To_Sales_Order>TRUE</Apply_To_Sales_Order>
+        <SalesOrderNumber>SO00016385</SalesOrderNumber>
+      </SalesLine>
+      <SalesLine>
+        <Quantity>1</Quantity>
+        <Item_ID>ART0002</Item_ID>
+        <Description>ART PAPER 150 GSM A4 GLOSS</Description>
+        <GL_Account>10000-HO-QPR</GL_Account>
+        <Amount>-8.92857142857143</Amount>
+        <Job_ID />
+        <Tax_Type>1</Tax_Type>
+        <SalesOrderDistributionNumber>2</SalesOrderDistributionNumber>
+        <Apply_To_Sales_Order>TRUE</Apply_To_Sales_Order>
+        <SalesOrderNumber>SO00016385</SalesOrderNumber>
+      </SalesLine>
+      <SalesLine>
+        <Quantity />
+        <GL_Account xsi:type="paw:id">85000-HO-000</GL_Account>
+        <Item_ID>VATP</Item_ID>
+        <Description>VAT Payable</Description>
+        <Job_ID />
+        <Tax_Type>1</Tax_Type>
+        <Amount>-11.7857142857143</Amount>
+        <Apply_To_Sales_Order>FALSE</Apply_To_Sales_Order>
+        <SalesOrderDistributionNumber>0</SalesOrderDistributionNumber>
+      </SalesLine>
+    </SalesLines>
+  </PAW_Invoice>
+</PAW_Invoices>

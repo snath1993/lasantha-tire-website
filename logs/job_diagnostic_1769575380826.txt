@@ -1,0 +1,9 @@
+Error: Timeout: Request failed to complete in 15000ms
+Stack: RequestError: Timeout: Request failed to complete in 15000ms
+    at C:\whatsapp-sql-api\node_modules\mssql\lib\tedious\request.js:449:19
+    at Array.forEach (<anonymous>)
+    at Request.userCallback (C:\whatsapp-sql-api\node_modules\mssql\lib\tedious\request.js:446:46)
+    at Request.callback (C:\whatsapp-sql-api\node_modules\tedious\lib\request.js:239:14)
+    at C:\whatsapp-sql-api\node_modules\tedious\lib\connection.js:2692:24
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+PoolConfig: {"user":"sa","password":"Admin1234","server":"WIN-JIAVRTFMA0N","database":"LasanthaTire","port":1433,"options":{"encrypt":false,"trustServerCertificate":true,"cryptoCredentialsDetails":{"minVersion":"TLSv1"}},"pool":{"max":10,"min":0,"idleTimeoutMillis":30000},"stream":false,"parseJSON":false,"arrayRowMode":false,"validateConnection":true}

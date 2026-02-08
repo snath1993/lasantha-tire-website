@@ -1,0 +1,529 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Bot",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"index.js"
+			],
+			"options": {
+				"env": {
+					"POSTER_TEMPLATE_DIR": "C:/Users/Cashi/Music"
+				}
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "WPF Dev (watch)",
+			"type": "shell",
+			"command": "C:/Program Files/dotnet/dotnet.exe",
+			"args": [
+				"watch",
+				"run",
+				"--project",
+				"desktop-wpf/WhatsAppSQL/WhatsAppSQL.csproj"
+			],
+			"isBackground": true,
+			"group": "build",
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "WPF Run (Debug)",
+			"type": "shell",
+			"command": "C:/Program Files/dotnet/dotnet.exe",
+			"args": [
+				"run",
+				"--project",
+				"desktop-wpf/WhatsAppSQL/WhatsAppSQL.csproj"
+			],
+			"group": "build",
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Build WPF (once)",
+			"type": "shell",
+			"command": "\"$env:ProgramFiles\\dotnet\\dotnet.exe\"",
+			"args": [
+				"build",
+				"c:\\whatsapp-sql-api\\desktop-wpf\\WhatsAppSQL\\WhatsAppSQL.csproj",
+				"-nologo"
+			],
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "build"
+		},
+		{
+			"label": "Run WPF (smoke)",
+			"type": "shell",
+			"command": "\"$env:ProgramFiles\\dotnet\\dotnet.exe\"",
+			"args": [
+				"run",
+				"--project",
+				"c:\\whatsapp-sql-api\\desktop-wpf\\WhatsAppSQL\\WhatsAppSQL.csproj"
+			],
+			"isBackground": true
+		},
+		{
+			"label": "Analyze Poster Templates",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"scripts/analyze-templates.js"
+			],
+			"options": {
+				"env": {
+					"POSTER_TEMPLATE_DIR": "C:/Users/Cashi/Music"
+				}
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Lasantha Tire Dashboard",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"dev",
+				"--prefix",
+				"lasantha-tire"
+			],
+			"isBackground": true,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Lasantha Tire Dashboard V1.0",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"dev",
+				"--prefix",
+				"lasantha-tire-v1.0"
+			],
+			"isBackground": true,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Peachtree Bridge (32-bit)",
+			"type": "shell",
+			"command": "\"C:/Program Files (x86)/nodejs/node.exe\"",
+			"args": [
+				"peachtree-bridge.js"
+			],
+			"isBackground": true,
+			"problemMatcher": [],
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			}
+		},
+		{
+			"label": "Peachtree Bridge (Python)",
+			"type": "shell",
+			"command": "c:\\whatsapp-sql-api\\python32-portable\\python.exe",
+			"args": [
+				"c:\\whatsapp-sql-api\\peachtree-odbc-bridge-32bit.py"
+			],
+			"isBackground": true,
+			"group": "none"
+		},
+		{
+			"label": "Analyze Crystal Invoice RPT Streams",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"-c",
+				"import os, re; import olefile; base=r\"E:\\\\LASANTHA\\\\LastUpdate\\\\SMS\\\\New folder\\\\Debug SMS\\\\REPORTS\"; files=['CRInvoice.rpt','CRInvoiceNonVat.rpt','CRInvoiceWithDiscount.rpt','CRInvoiceTax.rpt','CRPOSInvoicePRINT.rpt','rptInvoices.rpt']; token=re.compile(rb'(SELECT|FROM|WHERE|JOIN|tbl\\\\w+|InvoiceNo|InvoiceDate|CustomerName|VehicleNo|ItemID|NetTotal|PaidAmount|VAT|NBT)');\nfor name in files:\n  path=os.path.join(base,name); print('\\n===',name,'===');\n  if not os.path.exists(path): print('MISSING'); continue\n  ole=olefile.OleFileIO(path); entries=ole.listdir(streams=True,storages=False); print('stream_count',len(entries));\n  streams=[]\n  for e in entries:\n    try: size=ole.get_size(e)\n    except Exception: size=0\n    streams.append((size,e))\n  streams.sort(key=lambda x:x[0], reverse=True)\n  for size,e in streams[:15]: print(f\"{size:8d}  {'/'.join(e)}\")\n  hits=0\n  for _,e in streams[:50]:\n    try: data=ole.openstream(e).read()\n    except Exception: continue\n    if token.search(data): hits+=1\n  print('streams_with_sqlish_tokens_in_top50',hits)\n  ole.close()"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "Scan Crystal Invoice RPT Structure",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"scripts/crystal/analyze_invoice_reports.py",
+				"E:/LASANTHA/LastUpdate/SMS/New folder/Debug SMS/REPORTS"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "Scan CRInvoice.rpt Streams",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"scripts/crystal/analyze_invoice_reports.py",
+				"E:/LASANTHA/LastUpdate/SMS/New folder/Debug SMS/REPORTS",
+				"CRInvoice.rpt"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "Scan CRInvoiceTax.rpt Streams",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"scripts/crystal/analyze_invoice_reports.py",
+				"E:/LASANTHA/LastUpdate/SMS/New folder/Debug SMS/REPORTS",
+				"CRInvoiceTax.rpt"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "Deep Scan CRInvoice Streams",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"scripts/crystal/analyze_invoice_reports.py",
+				"E:/LASANTHA/LastUpdate/SMS/New folder/Debug SMS/REPORTS",
+				"CRInvoice.rpt"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "Deep Scan rptInvoices Streams",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"scripts/crystal/analyze_invoice_reports.py",
+				"E:/LASANTHA/LastUpdate/SMS/New folder/Debug SMS/REPORTS",
+				"rptInvoices.rpt"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "List New folder (4) contents",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"-c",
+				"import os, json; p=r'E:\\\\LASANTHA\\\\LastUpdate\\\\SMS\\\\New folder\\\\Debug SMS\\\\REPORTS\\\\New folder (4)';\nprint('exists', os.path.isdir(p));\nif os.path.isdir(p):\n  files=[]\n  for name in sorted(os.listdir(p)):\n    fp=os.path.join(p,name)\n    if os.path.isfile(fp):\n      files.append({'name':name,'size':os.path.getsize(fp)})\n  print('file_count', len(files));\n  print(json.dumps(files[:80], ensure_ascii=False))"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "Check REPORTS New folder (4)",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"python -c \"import os, json; p=r'E:\\\\LASANTHA\\\\LastUpdate\\\\SMS\\\\New folder\\\\Debug SMS\\\\REPORTS\\\\New folder (4)'; print('exists', os.path.isdir(p));\nfiles=[]\nif os.path.isdir(p):\n  import pathlib\n  for name in sorted(os.listdir(p)):\n    fp=os.path.join(p,name)\n    if os.path.isfile(fp):\n      files.append((name, os.path.getsize(fp)))\nprint('file_count', len(files));\nprint('\\n'.join([f'{n}\\t{s}' for n,s in files[:80]]))\""
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "List REPORTS New folder (4) (python)",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"-c",
+				"import os; p=r'E:\\\\LASANTHA\\\\LastUpdate\\\\SMS\\\\New folder\\\\Debug SMS\\\\REPORTS\\\\New folder (4)'; print('exists', os.path.isdir(p));\nfiles=[]\nif os.path.isdir(p):\n  files=[(f, os.path.getsize(os.path.join(p,f))) for f in sorted(os.listdir(p)) if os.path.isfile(os.path.join(p,f))]\nprint('file_count', len(files));\nprint('\\n'.join([f\"{n}\\t{s}\" for n,s in files[:80]]))"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "List REPORTS New folder (4) (one-line)",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"-c",
+				"import os; p=r'E:\\\\LASANTHA\\\\LastUpdate\\\\SMS\\\\New folder\\\\Debug SMS\\\\REPORTS\\\\New folder (4)'; print('exists', os.path.isdir(p)); files=[(f, os.path.getsize(os.path.join(p,f))) for f in sorted(os.listdir(p))] if os.path.isdir(p) else []; files=[x for x in files if os.path.isfile(os.path.join(p,x[0]))] if os.path.isdir(p) else []; print('file_count', len(files)); print('\\n'.join([f\"{n}\\t{s}\" for n,s in files[:80]]))"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "Scan New folder (4) invoice reports",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"scripts/crystal/analyze_invoice_reports.py",
+				"E:/LASANTHA/LastUpdate/SMS/New folder/Debug SMS/REPORTS/New folder (4)"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "List files in New folder (4)",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"$p='E:\\LASANTHA\\LastUpdate\\SMS\\New folder\\Debug SMS\\REPORTS\\New folder (4)'; if(Test-Path -LiteralPath $p){ Get-ChildItem -LiteralPath $p -File | Sort-Object Name | Select-Object Name,Length,LastWriteTime | ConvertTo-Json -Compress } else { 'NOT_FOUND' }"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "List files (New folder (4)) via analyzer",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"scripts/crystal/analyze_invoice_reports.py",
+				"E:/LASANTHA/LastUpdate/SMS/New folder/Debug SMS/REPORTS/New folder (4)",
+				"--list"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "Analyze 4 invoice reports (New folder (4))",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"scripts/crystal/analyze_invoice_reports.py",
+				"E:/LASANTHA/LastUpdate/SMS/New folder/Debug SMS/REPORTS/New folder (4)",
+				"--all"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "Find C# compiler + Crystal DLLs",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"$ErrorActionPreference='SilentlyContinue'; '--- csc.exe ---'; where.exe csc.exe; '--- .NET Framework csc ---'; Get-ChildItem 'C:\\Windows\\Microsoft.NET\\Framework*' -Recurse -Filter csc.exe -ErrorAction SilentlyContinue | Select-Object -First 5 -ExpandProperty FullName; '--- Crystal Engine DLL ---'; $roots=@('C:\\Program Files (x86)\\Business Objects','C:\\Program Files (x86)\\SAP BusinessObjects','C:\\Program Files\\Business Objects','C:\\Program Files\\SAP BusinessObjects'); foreach($r in $roots){ if(Test-Path $r){ Get-ChildItem -LiteralPath $r -Recurse -Filter 'CrystalDecisions.CrystalReports.Engine.dll' -ErrorAction SilentlyContinue | Select-Object -First 10 -ExpandProperty FullName } }"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "Find Crystal DLLs (short)",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"$ErrorActionPreference='SilentlyContinue'; 'CSC:'; where.exe csc.exe; 'DLL:'; $r='C:\\Program Files (x86)\\SAP BusinessObjects'; if(Test-Path $r){ Get-ChildItem -LiteralPath $r -Recurse -Filter 'CrystalDecisions.CrystalReports.Engine.dll' | Select-Object -First 5 -ExpandProperty FullName }"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "Find Crystal DLLs (escaped)",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"$ErrorActionPreference='SilentlyContinue'; Write-Output 'CSC:'; & where.exe csc.exe; Write-Output 'DLL:'; $candidates=@('C:\\Program Files (x86)\\SAP BusinessObjects','C:\\Program Files (x86)\\Business Objects'); foreach($r in $candidates){ if(Test-Path -LiteralPath $r){ Get-ChildItem -LiteralPath $r -Recurse -Filter CrystalDecisions.CrystalReports.Engine.dll -ErrorAction SilentlyContinue | Select-Object -First 3 -ExpandProperty FullName } }"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "Find Crystal runtime (python)",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"scripts/crystal/find_crystal_runtime.py"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "List CrystalDecisions DLL folder",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"-c",
+				"import os, glob; root=r'C:\\Program Files (x86)\\Business Objects\\Common\\4.0\\managed\\dotnet2'; print('exists', os.path.isdir(root));\nfor p in sorted(glob.glob(root + r'\\CrystalDecisions.*.dll')): print(p)"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "List CrystalDecisions DLL folder (fixed)",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"-c",
+				"import os, glob\nroot = r\"C:\\Program Files (x86)\\Business Objects\\Common\\4.0\\managed\\dotnet2\"\nprint('exists', os.path.isdir(root))\nfor p in sorted(glob.glob(os.path.join(root, 'CrystalDecisions.*.dll'))):\n    print(p)\n"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "List CrystalDecisions DLL folder (oneline)",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"-c",
+				"import os,glob; root=r\"C:\\Program Files (x86)\\Business Objects\\Common\\4.0\\managed\\dotnet2\"; print('exists', os.path.isdir(root)); [print(p) for p in sorted(glob.glob(os.path.join(root,'CrystalDecisions.*.dll')))]"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "List CrystalDecisions DLL folder (no single quotes)",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"-c",
+				"import os,glob; root=r\"C:\\Program Files (x86)\\Business Objects\\Common\\4.0\\managed\\dotnet2\"; print(\"exists\", os.path.isdir(root));\nfor p in sorted(glob.glob(os.path.join(root,\"CrystalDecisions.*.dll\"))):\n  print(p)\n"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "Regenerate Crystal runtime JSON",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"scripts/crystal/find_crystal_runtime.py"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "Compile CrystalRptDump.exe",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"$csc='C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\csc.exe'; $dllRoot='C:\\Program Files (x86)\\Business Objects\\Common\\4.0\\managed\\dotnet2'; $refs=@('CrystalDecisions.CrystalReports.Engine.dll','CrystalDecisions.Shared.dll','CrystalDecisions.ReportSource.dll','CrystalDecisions.Windows.Forms.dll') | ForEach-Object { Join-Path $dllRoot $_ }; & $csc /nologo /t:exe /out:scripts\\crystal\\CrystalRptDump.exe scripts\\crystal\\CrystalRptDump.cs /r:$refs; exit 0"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "Compile CrystalRptDump.exe (direct csc)",
+			"type": "shell",
+			"command": "C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\csc.exe",
+			"args": [
+				"/nologo",
+				"/t:exe",
+				"/out:scripts\\crystal\\CrystalRptDump.exe",
+				"scripts\\crystal\\CrystalRptDump.cs",
+				"/r:C:\\Program Files (x86)\\Business Objects\\Common\\4.0\\managed\\dotnet2\\CrystalDecisions.CrystalReports.Engine.dll",
+				"/r:C:\\Program Files (x86)\\Business Objects\\Common\\4.0\\managed\\dotnet2\\CrystalDecisions.Shared.dll",
+				"/r:C:\\Program Files (x86)\\Business Objects\\Common\\4.0\\managed\\dotnet2\\CrystalDecisions.ReportSource.dll",
+				"/r:C:\\Program Files (x86)\\Business Objects\\Common\\4.0\\managed\\dotnet2\\CrystalDecisions.Windows.Forms.dll"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "Compile Crystal dump tool (python)",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"scripts/crystal/compile_crystal_dump_tool.py"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "Recompile Crystal dump tool",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"scripts/crystal/compile_crystal_dump_tool.py"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "Dump New folder (4) invoice report structure",
+			"type": "shell",
+			"command": "scripts\\crystal\\CrystalRptDump.exe",
+			"args": [
+				"E:\\LASANTHA\\LastUpdate\\SMS\\New folder\\Debug SMS\\REPORTS\\New folder (4)",
+				"--all",
+				"--out",
+				"c:\\whatsapp-sql-api\\scripts\\crystal\\out\\invoice_reports_structure.txt"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "Recompile Crystal dump tool (x86)",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"scripts/crystal/compile_crystal_dump_tool.py"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		},
+		{
+			"label": "Dump New folder (4) structure (x86)",
+			"type": "shell",
+			"command": "scripts\\crystal\\CrystalRptDump.exe",
+			"args": [
+				"E:\\LASANTHA\\LastUpdate\\SMS\\New folder\\Debug SMS\\REPORTS\\New folder (4)",
+				"--all",
+				"--out",
+				"scripts\\crystal\\out\\invoice_reports_structure.txt"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "none"
+		}
+	]
+}

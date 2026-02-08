@@ -1,0 +1,23 @@
+﻿<PAW_Customers xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes" xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+  <PAW_Customer xsi:type="paw:Customer">
+    <ID xsi:type="paw:id">EARTHIANS</ID>
+    <Name>EARTHIANS (PVT) LTD</Name>
+    <Line1>92 WATTEGEDARA ROAD</Line1>
+    <Line2>MAHARAGAMA</Line2>
+    <PhoneNumbers>
+      <PhoneNumber Key="1">0112851517</PhoneNumber>
+      <PhoneNumber Key="2" />
+    </PhoneNumbers>
+    <Customer_Type />
+    <FaxNumber />
+    <EMail_Address />
+    <CustomFields>
+      <CustomField>
+        <Value Index ="1" />
+      </CustomField>
+      <CustomField>
+        <Value Index ="2" />
+      </CustomField>
+    </CustomFields>
+  </PAW_Customer>
+</PAW_Customers>

@@ -1,0 +1,8 @@
+<PAW_Employees xmlns:paw="urn:schemas-peachtree-com/paw8.02-datatypes"
+xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance"
+xmlns:xsd="http://www.w3.org/2000/10/XMLSchema-datatypes">
+<PAW_Employee xsi:type="paw:employee">
+	<ID xsi:type="paw:id">sa</ID>
+	<Name>sa sa</Name>
+</PAW_Employee>
+</PAW_Employees>

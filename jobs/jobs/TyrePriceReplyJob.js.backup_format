@@ -1,0 +1,138 @@
+// TyrePriceReplyJob
+// Main job: reply tyre price for given tyre size
+const { extractTyreSizeFlexible, extractVehicleNumber } = require('../utils/detect');
+const { parsePriceAdjustments } = require('../utils/priceAdjust');
+module.exports = async function TyrePriceReplyJob(msg, sql, sqlConfig, allowedContacts, logAndSave) {
+    const text = msg.body.trim();
+    const vehicleNo = extractVehicleNumber(text);
+    if (vehicleNo) {
+        logAndSave(`Detected vehicle number: ${vehicleNo} in message from ${msg.from.replace('@c.us', '')}`);
+    }
+    // Remove vehicle number from text before extracting tyre size
+    let textForTyre = text;
+    if (vehicleNo) {
+        textForTyre = text.replace(vehicleNo, '');
+    }
+    const { extractTyreSizeFlexible } = require('../utils/detect');
+    const tyreSize = extractTyreSizeFlexible(textForTyre);
+    const senderNumber = msg.from.replace('@c.us', '');
+    const allowedCostContacts = ['0777078700', '0777311770', '0771222509'];
+    const isAllowedContact = allowedContacts.includes(senderNumber);
+    const isAllowedCostContact = allowedCostContacts.includes(senderNumber);
+    if (vehicleNo) {
+        logAndSave(`Detected vehicle number: ${vehicleNo} in message from ${msg.from.replace('@c.us', '')}`);
+    }
+    if (tyreSize) {
+        try {
+            await sql.connect(sqlConfig);
+            const result = await sql.query`
+                SELECT im.ItemDescription, im.UnitCost, im.Categoty, im.Custom3
+                FROM tblItemMaster im
+                JOIN tblItemWhse iw ON im.ItemID = iw.ItemID
+                WHERE im.Categoty = 'TYRES'
+                  AND iw.QTY > 0
+                  AND (
+                      im.ItemDescription LIKE ${'%' + tyreSize + '%'}
+                      OR im.ItemDescription LIKE ${'%' + tyreSize.replace(/\//g, '') + '%'}
+                  )
+            `;
+            const filtered = result.recordset.filter(tyre =>
+                (tyre.ItemDescription.includes(tyreSize)
+                || tyre.ItemDescription.replace(/\//g, '').includes(tyreSize.replace(/\//g, '')))
+                && tyre.UnitCost > 3000
+            );
+            if (filtered.length > 0) {
+                // If message contains any quote/quotation spelling, send only PDF, no price list
+                const quoteMatch = text.match(/([\d]+)[^\d]*(quote|quot|qoute|qoutation|quotation|qout|quotion)/i);
+                let requestedQty = null;
+                if (quoteMatch) {
+                    // Try to extract quantity before quote/quotation
+                    const qtyMatch = text.match(/(\d+)\s*(?=(quote|quot|qoute|qoutation|quotation|qout|quotion))/i);
+                    if (qtyMatch) {
+                        requestedQty = parseInt(qtyMatch[1], 10);
+                    }
+                }
+                if (/(qty|quantity)/i.test(text)) {
+                    // If message contains qty/quantity, do not send price list
+                    return true;
+                }
+                if (/\b(quote|quot|qoute|qoutation|quotation|qout|quotion)\b/i.test(text)) {
+                    const { sendQuotationPDF } = require('./TyreQuotationPDFLibJob'); // or correct path
+                    if (typeof sendQuotationPDF === 'function') {
+                        await sendQuotationPDF(msg, filtered, tyreSize, senderNumber, requestedQty);
+                        logAndSave(`Advanced Quotation PDF sent for ${tyreSize} to ${senderNumber} with qty ${requestedQty || '-'} `);
+                    }
+                } else {
+                    let reply = `*Tyre Price List*\nTyre Size: *${tyreSize}*\n\n`;
+                    // Parse price adjustments from message
+                    const adjustments = isAllowedContact ? parsePriceAdjustments(text) : [];
+                    filtered.forEach(tyre => {
+                        const description = tyre.ItemDescription.replace(new RegExp(tyreSize, 'gi'), '').trim();
+                        const brand = tyre.Custom3 ? tyre.Custom3.trim().toUpperCase() : '';
+                        const isCostPriceRequest = /cost/i.test(text);
+                        const { normalizeBrand } = require('../utils/brandUtils');
+                        const normBrand = normalizeBrand(brand);
+                        const isMotorbike = normBrand.includes('TIMSUN') || normBrand.includes('CEAT MOTORBIKE') || (tyre.Categoty && tyre.Categoty.toUpperCase().includes('MOTOR'));
+                        let sellingPrice;
+                        // If cost request and allowed cost contact, reply only unit price (no markup)
+                        if (isCostPriceRequest && isAllowedCostContact) {
+                            sellingPrice = tyre.UnitCost;
+                        } else if (isMotorbike && (normBrand.includes('TIMSUN') || normBrand.includes('CEAT MOTORBIKE')) && ['100/90/17','90/100/10','140/60/17'].includes(tyreSize)) {
+                            sellingPrice = Math.round(tyre.UnitCost / 50) * 50 + 1000;
+                        } else if (isMotorbike && tyreSize === '400/8') {
+                            sellingPrice = Math.round(tyre.UnitCost / 50) * 50 + 1000;
+                        } else if (isCostPriceRequest && isAllowedContact) {
+                            sellingPrice = Math.round(tyre.UnitCost / 50) * 50;
+                        } else if (isAllowedContact && (normBrand === 'MAXXIS' || normBrand === 'MAXXIES')) {
+                            const maxxisAdj = adjustments.find(adj => normalizeBrand(adj.brand) === 'MAXXIS' && adj.type === 'fixed' && adj.value < 0);
+                            if (maxxisAdj) {
+                                sellingPrice = Math.round(tyre.UnitCost / 50) * 50 + maxxisAdj.value;
+                            } else {
+                                sellingPrice = Math.round(tyre.UnitCost / 50) * 50;
+                            }
+                        } else if (isAllowedContact) {
+                            const adj = adjustments.find(adj => adj.brand && normalizeBrand(adj.brand) === normBrand && adj.type === 'fixed');
+                            if (adj) {
+                                sellingPrice = Math.round(tyre.UnitCost / 50) * 50 + adj.value;
+                            } else {
+                                sellingPrice = Math.round(tyre.UnitCost / 50) * 50 + 1500;
+                            }
+                        } else if (!isAllowedContact && (normBrand === 'MAXXIS' || normBrand === 'MAXXIES')) {
+                            sellingPrice = Math.round(tyre.UnitCost / 50) * 50 + 500;
+                        } else {
+                            sellingPrice = Math.round(tyre.UnitCost / 50) * 50 + 1500 + 500;
+                        }
+                        reply += `${description} ${sellingPrice}/=\n\n`;
+                    });
+                    reply += '-----------------------------\n💵 Cash Price Per Tyre 💵';
+                    if (!isAllowedContact) {
+                        reply += '\n\n📞 *This is an AI generated message. Call this number for negotiations: 0771222509*';
+                    }
+                    msg.reply(reply.trim());
+                    logAndSave(`Reply sent for size ${tyreSize} to ${senderNumber}: ${reply.trim()}`);
+                }
+            } else {
+                msg.reply(`*${tyreSize}* is currently out of stock (QTY zero).`);
+                logAndSave(`Out of stock reply for size ${tyreSize} to ${senderNumber}`);
+            }
+        } catch (err) {
+            msg.reply('Error connecting to SQL Server.');
+            logAndSave(`SQL error: ${err.message}`);
+        } finally {
+            if (sql.connected) {
+                await sql.close();
+            }
+        }
+        return true;
+    }
+    if (!tyreSize) {
+        if (vehicleNo) {
+            // Delegate to VehicleInvoiceReplyJob for invoice reply
+            const VehicleInvoiceReplyJob = require('./VehicleInvoiceReplyJob');
+            await VehicleInvoiceReplyJob(msg, sql, sqlConfig, allowedContacts, logAndSave);
+            return true;
+        }
+        // ...existing code for other invalid messages...
+    }
+    return false;
+}
