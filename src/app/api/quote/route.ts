@@ -25,20 +25,6 @@ export async function POST(request: NextRequest) {
       formattedPhone = '94' + cleanPhone.substring(1)
     }
 
-    // Prepare the WhatsApp message
-    let message = `🔍 *New Tire Price Request*\n\n`
-    message += `👤 Customer: ${name}\n`
-    message += `📏 Tire Size: ${tireSize}\n`
-    
-    if (quantity) {
-      message += `📦 Quantity: ${quantity}\n`
-    }
-    
-    if (includeVehicle && vehicle) {
-      message += `🚗 Vehicle: ${vehicle}\n`
-    }    
-    // Log message for debugging properly (or remove if strictly not needed)
-    console.log('Prepared message:', message)
     // Price request prepared
 
     try {
