@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Calendar, User, Phone, CheckCircle2, XCircle, Loader2, ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
-import { formatPhoneNumber } from '@/utils/phoneUtils'
 
 const timeSlots = [
   '08:00 AM', '09:00 AM', '10:00 AM', '11:00 AM',
@@ -40,14 +39,10 @@ export default function BookingPage() {
   } | null>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    
-    // Format phone number using utility function
-    if (name === 'phone') {
-      setFormData({ ...formData, [name]: formatPhoneNumber(value) })
-    } else {
-      setFormData({ ...formData, [name]: value })
-    }
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -158,7 +153,7 @@ export default function BookingPage() {
                       type="text"
                       name="name"
                       required
-                      value={formData.name || ''}
+                      value={formData.name}
                       onChange={handleChange}
                       className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 outline-none"
                       placeholder="John Doe"
@@ -174,10 +169,8 @@ export default function BookingPage() {
                       type="tel"
                       name="phone"
                       required
-                      value={formData.phone || ''}
+                      value={formData.phone}
                       onChange={handleChange}
-                      pattern="[\d\s-]{10,15}"
-                      title="Please enter a valid phone number (10-15 digits)"
                       className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 outline-none"
                       placeholder="077 123 4567"
                     />
@@ -189,7 +182,7 @@ export default function BookingPage() {
                   <select
                     name="service"
                     required
-                    value={formData.service || ''}
+                    value={formData.service}
                     onChange={handleChange}
                     className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 outline-none"
                   >
@@ -203,7 +196,7 @@ export default function BookingPage() {
                   <input
                     type="text"
                     name="vehicleNo"
-                    value={formData.vehicleNo || ''}
+                    value={formData.vehicleNo}
                     onChange={handleChange}
                     className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 outline-none"
                     placeholder="CAB-1234"
@@ -217,7 +210,7 @@ export default function BookingPage() {
                     name="date"
                     required
                     min={today}
-                    value={formData.date || ''}
+                    value={formData.date}
                     onChange={handleChange}
                     className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 outline-none"
                   />
@@ -228,7 +221,7 @@ export default function BookingPage() {
                   <select
                     name="time"
                     required
-                    value={formData.time || ''}
+                    value={formData.time}
                     onChange={handleChange}
                     className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 outline-none"
                   >
@@ -243,7 +236,7 @@ export default function BookingPage() {
                 <textarea
                   name="message"
                   rows={2}
-                  value={formData.message || ''}
+                  value={formData.message}
                   onChange={handleChange}
                   className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 outline-none resize-none"
                   placeholder="Any specific requirements?"

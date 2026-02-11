@@ -3,6 +3,17 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import Gallery from '@/components/Gallery'
 import RealReviews from '@/components/RealReviews'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Gallery & Customer Reviews | Lasantha Tyre Traders',
+  description: 'See our modern tyre service facility in Battaramulla, state-of-the-art equipment, and read what our customers say about Lasantha Tyre Traders.',
+  openGraph: {
+    title: 'Gallery | Lasantha Tyre Traders',
+    description: 'Tour our state-of-the-art tyre service facility and see customer reviews.',
+    url: 'https://lasanthatyre.com/gallery',
+  },
+}
 
 export default function GalleryPage() {
   return (

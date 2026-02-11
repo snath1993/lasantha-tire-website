@@ -137,7 +137,7 @@ export default function CalculatorModal({ isOpen, onClose }: CalculatorModalProp
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             onClick={(e) => e.stopPropagation()}
-            className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl my-8 relative"
+            className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl my-8 relative max-h-[90vh] overflow-y-auto"
           >
             <button
               onClick={onClose}

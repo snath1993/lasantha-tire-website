@@ -5,6 +5,18 @@ import { ArrowRight, Clock } from 'lucide-react'
 import { blogPosts } from '@/lib/blogData'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Tyre Knowledge Center | Tips & Guides',
+  description: 'Expert tyre advice, maintenance tips, replacement guides, and fuel-saving strategies from Lasantha Tyre Traders. Stay safe and save money on the road.',
+  keywords: ['tyre care tips', 'tyre replacement guide', 'wheel alignment tips', 'tyre pressure guide sri lanka', 'fuel saving tyres'],
+  openGraph: {
+    title: 'Tyre Knowledge Center | Lasantha Tyre Traders Blog',
+    description: 'Expert advice to help you get the most out of your tyres.',
+    url: 'https://lasanthatyre.com/blog',
+  },
+}
 
 export default function BlogIndexPage() {
   return (
