@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 // Bot API configuration
-const BOT_API_URL = process.env.WHATSAPP_BOT_URL || 'http://localhost:8585'
+const BOT_API_URL = process.env.WHATSAPP_BOT_URL || 'https://bot.lasanthatyre.com'
 
 export async function POST(request: NextRequest) {
   try {
