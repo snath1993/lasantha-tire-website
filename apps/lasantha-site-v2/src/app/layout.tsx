@@ -23,6 +23,14 @@ export const metadata: Metadata = {
   },
   description: 'Get instant tyre prices via WhatsApp. Sri Lanka\'s trusted tyre center offering premium brands, expert installation, wheel alignment, and comprehensive tyre services.',
   keywords: ['tyres sri lanka', 'tyre prices sri lanka', 'wheel alignment colombo', 'wheel alignment battaramulla', 'CCD wheel alignment sri lanka', 'tyre shop near me', 'tyre shop battaramulla', 'tyre shop pannipitiya road', 'Lasantha Tyre Traders', 'car tyres', 'van tyres', 'suv tyres', 'tyre replacement', 'wheel balancing', 'nitrogen inflation sri lanka', 'best tyre prices colombo', 'tyre dealers sri lanka', 'bridgestone sri lanka', 'michelin sri lanka', 'maxxis tyres sri lanka'],
+  icons: {
+    icon: [
+      { url: '/images/lasantha-logo.png', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/images/lasantha-logo.png', type: 'image/png' },
+    ],
+  },
   alternates: {
     canonical: '/',
     languages: {
