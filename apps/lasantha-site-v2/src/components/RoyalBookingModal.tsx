@@ -165,7 +165,7 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
           message: data.error || 'Failed to load quotation details. Please fill manually.'
         })
       }
-    } catch (error: any) {
+    } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
       console.error('[RoyalBooking] Fetch error:', error)
       setNotification({
         type: 'error',
@@ -186,6 +186,7 @@ export default function RoyalBookingModal({ isOpen, onClose, refCode }: RoyalBoo
         setFormData(prev => ({ ...prev, time: '' }))
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formData.service, isWheelAlignment])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {

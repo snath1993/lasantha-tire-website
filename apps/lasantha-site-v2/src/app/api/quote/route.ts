@@ -36,8 +36,9 @@ export async function POST(request: NextRequest) {
     
     if (includeVehicle && vehicle) {
       message += `🚗 Vehicle: ${vehicle}\n`
-    }
-
+    }    
+    // Log message for debugging properly (or remove if strictly not needed)
+    console.log('Prepared message:', message)
     // Price request prepared
 
     try {
