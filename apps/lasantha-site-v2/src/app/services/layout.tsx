@@ -1,15 +1,16 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Services | Lasantha Tyre Traders - Expert Tyre Services in Battaramulla',
-  description: 'Premium tyre sales, expert installation, Italian CCD wheel alignment (TRIGON 725 PRO), warranty claims, and nitrogen inflation. Visit us at 1035 Pannipitiya Road, Battaramulla.',
-  keywords: ['tyre services battaramulla', 'wheel alignment sri lanka', 'tyre installation', 'nitrogen inflation', 'TRIGON 725 PRO', 'CCD wheel alignment', 'tyre warranty claims'],
+  title: 'Our Services | Tyre Sales, Alignment & More',
+  description: 'Premium tyre sales, Italian CCD wheel alignment, expert installation, nitrogen inflation, warranty claims and hybrid battery services at Lasantha Tyre Traders, Battaramulla.',
+  keywords: ['tyre services sri lanka', 'wheel alignment battaramulla', 'CCD wheel alignment', 'italian wheel alignment colombo', 'tyre installation', 'nitrogen inflation', 'hybrid battery service sri lanka', 'tyre shop pannipitiya road'],
+  openGraph: {
+    title: 'Services | Lasantha Tyre Traders',
+    description: 'Complete tyre services: sales, alignment, installation, nitrogen inflation, warranty claims. Book your appointment today.',
+    url: 'https://lasanthatyre.com/services',
+  },
 }
 
-export default function ServicesLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function ServicesLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>
 }
