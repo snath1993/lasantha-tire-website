@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, Lock, ArrowRight, Loader2, ShieldCheck, Car, FileText, History, AlertCircle, LogOut } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Phone, Lock, ArrowRight, Loader2, ShieldCheck, Car, FileText, Calendar, History, AlertCircle, LogOut } from 'lucide-react';
+import Link from 'next/link';
 import { getBotApiUrl } from '@/utils/getBotApiUrl';
 
 // Bot API URL - Use environment variable or default to localhost
@@ -33,6 +34,7 @@ export default function CustomerPortal() {
   const [step, setStep] = useState<'phone' | 'otp' | 'dashboard'>('phone');
   const [phone, setPhone] = useState('');
   const [otp, setOtp] = useState('');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [sessionToken, setSessionToken] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -47,7 +49,6 @@ export default function CustomerPortal() {
     const savedToken = localStorage.getItem('portal_token');
     const savedPhone = localStorage.getItem('portal_phone');
     if (savedToken && savedPhone) {
-      // Use setSessionToken inside useEffect to avoid unused var warning if it's not used elsewhere meaningfully or accept it is used for state
       setSessionToken(savedToken);
       setPhone(savedPhone);
       setStep('dashboard');
@@ -79,8 +80,9 @@ export default function CustomerPortal() {
       if (data.ok) {
         setStep('otp');
       } else {
-        throw new Error( // eslint-disable-line @typescript-eslint/no-explicit-anydata.error || 'Failed to send OTP');
+        throw new Error(data.error || 'Failed to send OTP');
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -113,7 +115,8 @@ export default function CustomerPortal() {
       } else {
         throw new Error(data.error || 'Invalid OTP');
       }
-    } catch (err: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
       setError(err.message);
     } finally {
       setLoading(false);
