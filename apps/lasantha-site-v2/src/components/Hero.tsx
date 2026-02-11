@@ -7,47 +7,38 @@ import Link from 'next/link'
 import Image from 'next/image'
 import QuoteModal from './QuoteModal'
 import CalculatorModal from './CalculatorModal'
-import BookingModal from './BookingModal'
 
 export default function Hero() {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false)
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false)
-  const [isBookingOpen, setIsBookingOpen] = useState(false)
+
+  const handleBooking = async () => {
+    try {
+      await fetch('https://book.lasanthatyre.com', { 
+        mode: 'no-cors',
+        method: 'HEAD',
+        cache: 'no-store'
+      })
+      window.location.href = 'https://book.lasanthatyre.com'
+    } catch {
+      alert('Appointments system is currently unavailable. Please call 011 2 77 32 32 to book your time.\n\nවෙබ් අඩවිය හරහා වේලාවන් වෙන් කර ගැනීම තාවකාලිකව අක්‍රියයි. කරුණාකර 011 2 77 32 32 අමතා ඔබේ වේලාව වෙන් කරවා ගන්න.')
+    }
+  }
 
   return (
     <section className="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-dark-950 pt-28 pb-12 sm:pt-32 md:pt-24 md:pb-0">
-      {/* Advanced Background */}
+      {/* Real Shop Photo Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Gradient Orbs */}
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 90, 0],
-            opacity: [0.3, 0.5, 0.3]
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-          className="absolute -top-[20%] -left-[10%] w-[300px] md:w-[800px] h-[300px] md:h-[800px] bg-primary-900/20 rounded-full blur-[80px] md:blur-[120px]"
+        <Image
+          src="/shop/shop-1.jpg"
+          alt="Lasantha Tyre Traders Shop"
+          fill
+          className="object-cover"
+          priority
         />
-        <motion.div
-          animate={{
-            scale: [1.2, 1, 1.2],
-            rotate: [90, 0, 90],
-            opacity: [0.2, 0.4, 0.2]
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-          className="absolute -bottom-[20%] -right-[10%] w-[300px] md:w-[800px] h-[300px] md:h-[800px] bg-blue-900/20 rounded-full blur-[80px] md:blur-[120px]"
-        />
-        
-        {/* Grid Pattern */}
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03]"></div>
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-dark-950/95 via-dark-950/85 to-dark-950/70"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-transparent to-dark-950/50"></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -125,7 +116,7 @@ export default function Hero() {
                   Tyre Size Calculator
                 </button>
                 <button
-                  onClick={() => setIsBookingOpen(true)}
+                  onClick={handleBooking}
                   className="group flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gray-800/50 hover:bg-gray-800 text-gray-300 hover:text-white border border-gray-700 hover:border-gray-600 transition-all backdrop-blur-sm text-sm font-medium flex-1 sm:flex-none"
                 >
                   <Calendar className="w-4 h-4 text-primary-400" />
@@ -139,18 +130,18 @@ export default function Hero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="grid grid-cols-3 gap-8 mt-16 border-t border-white/10 pt-8"
+              className="grid grid-cols-3 gap-4 md:gap-8 mt-16 border-t border-white/10 pt-8"
             >
               <div>
-                <h3 className="text-3xl font-bold text-white mb-1">22+</h3>
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-1">22+</h3>
                 <p className="text-sm text-gray-400">Years of Trust</p>
               </div>
               <div>
-                <h3 className="text-3xl font-bold text-white mb-1">50+</h3>
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-1">50+</h3>
                 <p className="text-sm text-gray-400">Global Brands</p>
               </div>
               <div>
-                <h3 className="text-3xl font-bold text-white mb-1">10k+</h3>
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-1">10k+</h3>
                 <p className="text-sm text-gray-400">Happy Clients</p>
               </div>
             </motion.div>
@@ -243,7 +234,6 @@ export default function Hero() {
       {/* Quote Modal */}
       <QuoteModal isOpen={isQuoteModalOpen} onClose={() => setIsQuoteModalOpen(false)} />
       <CalculatorModal isOpen={isCalculatorOpen} onClose={() => setIsCalculatorOpen(false)} />
-      <BookingModal isOpen={isBookingOpen} onClose={() => setIsBookingOpen(false)} />
     </section>
   )
 }

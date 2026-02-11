@@ -1,18 +1,22 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { Phone, Mail, Clock, Menu, X, ChevronRight, Calendar, Bot } from 'lucide-react'
+import { Phone, Mail, Clock, Menu, X, ChevronRight, Calendar } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import RoyalBookingModal from './RoyalBookingModal'
-import AiChatModal from './AiChatModal'
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [isBookingOpen, setIsBookingOpen] = useState(false)
-  const [isAiChatOpen, setIsAiChatOpen] = useState(false)
+
+  const navLinks = [
+    { name: 'Home', href: '/' },
+    { name: 'Services', href: '/services' },
+    { name: 'Gallery', href: '/gallery' },
+    { name: 'Contact', href: '/contact' },
+    { name: 'My Account', href: '/portal' },
+  ]
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,23 +26,32 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'Services', href: '/services' },
-    { name: 'Gallery', href: '/gallery' },
-    { name: 'Contact', href: '/contact' },
-  ]
+  const handleBooking = async () => {
+    try {
+      // Try to reach the booking subdomain
+      await fetch('https://book.lasanthatyre.com', { 
+        mode: 'no-cors',
+        method: 'HEAD',
+        cache: 'no-store'
+      })
+      // If successful (no network error), navigate
+      window.location.href = 'https://book.lasanthatyre.com'
+    } catch {
+      // If network error (site unreachable), show fallback
+      alert('Appointments system is currently unavailable. Please call 011 2 77 32 32 to book your time.\n\n?? ???? ??? ???? ?? ?? ??? ?????? ?????. ????? 011 2 77 32 32 ??? ?? ??? ?? ??? ???.')
+    }
+  }
 
   return (
     <>
-      <header 
+      <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled ? 'bg-white/95 backdrop-blur-md shadow-md py-2' : 'bg-white/80 backdrop-blur-sm py-4'
         }`}
       >
         <div className="container mx-auto px-4">
           {/* Top Bar (Hidden on Scroll) */}
-          <motion.div 
+          <motion.div
             initial={{ height: 'auto', opacity: 1 }}
             animate={{ height: isScrolled ? 0 : 'auto', opacity: isScrolled ? 0 : 1 }}
             className="hidden md:flex items-center justify-between border-b border-gray-200/50 pb-2 mb-2 overflow-hidden"
@@ -103,40 +116,29 @@ export default function Header() {
               className="hidden lg:flex items-center gap-1"
             >
               {navLinks.map((link) => (
-                <Link 
+                <Link
                   key={link.name}
-                  href={link.href} 
+                  href={link.href}
                   className="px-4 py-2 text-gray-600 hover:text-primary-600 font-semibold rounded-lg hover:bg-primary-50 transition-all text-sm"
                 >
                   {link.name}
                 </Link>
               ))}
-              
+
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 type="button"
-                onClick={() => setIsBookingOpen(true)}
+                onClick={handleBooking}
                 className="ml-4 bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-500 hover:to-primary-400 text-white px-6 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 shadow-lg shadow-primary-900/20"
               >
                 <Calendar className="w-4 h-4" />
                 <span>Book VIP Service</span>
               </motion.button>
-
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                type="button"
-                onClick={() => setIsAiChatOpen(true)}
-                className="ml-2 p-2 bg-gray-100 hover:bg-gray-200 text-primary-600 rounded-xl transition-colors shadow-sm"
-                title="Titan AI Manager"
-              >
-                <Bot className="w-5 h-5" />
-              </motion.button>
             </motion.div>
 
             {/* Mobile Menu Button */}
-            <button 
+            <button
               className="lg:hidden p-2 text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
@@ -167,11 +169,11 @@ export default function Header() {
                   <ChevronRight className="w-5 h-5 text-gray-400" />
                 </Link>
               ))}
-              
+
               <button
                 type="button"
                 onClick={() => {
-                  setIsBookingOpen(true)
+                  handleBooking()
                   setIsMobileMenuOpen(false)
                 }}
                 className="mt-4 w-full bg-primary-600 hover:bg-primary-500 text-white p-4 rounded-xl font-bold flex items-center justify-center gap-2"
@@ -179,25 +181,10 @@ export default function Header() {
                 <Calendar className="w-5 h-5" />
                 Book VIP Service
               </button>
-
-              <button
-                type="button"
-                onClick={() => {
-                  setIsAiChatOpen(true)
-                  setIsMobileMenuOpen(false)
-                }}
-                className="mt-2 w-full bg-gray-100 hover:bg-gray-200 text-gray-800 p-4 rounded-xl font-bold flex items-center justify-center gap-2"
-              >
-                <Bot className="w-5 h-5" />
-                Titan AI Manager
-              </button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-
-      <RoyalBookingModal isOpen={isBookingOpen} onClose={() => setIsBookingOpen(false)} />
-      <AiChatModal isOpen={isAiChatOpen} onClose={() => setIsAiChatOpen(false)} />
     </>
   )
 }

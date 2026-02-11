@@ -2,6 +2,7 @@ import Header from '@/components/Header'
 import Hero from '@/components/Hero'
 import WhyChooseUs from '@/components/WhyChooseUs'
 import Brands from '@/components/Brands'
+import ShopGallery from '@/components/ShopGallery'
 import ShopByVehicle from '@/components/ShopByVehicle'
 import TyreCareBlueprint from '@/components/TyreCareBlueprint'
 import BlogSection from '@/components/BlogSection'
@@ -16,6 +17,7 @@ export default function Home() {
       <Hero />
       <WhyChooseUs />
       <Brands />
+      <ShopGallery />
       <ShopByVehicle />
       <TyreCareBlueprint />
       <RealReviews />

@@ -5,6 +5,18 @@ import LocationMap from '@/components/LocationMap'
 import QuoteForm from '@/components/QuoteForm'
 import FAQ from '@/components/FAQ'
 import { Phone, MapPin, Clock } from 'lucide-react'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Contact Us | Lasantha Tyre Traders',
+  description: 'Visit Lasantha Tyre Traders at 1035 Pannipitiya Road, Battaramulla. Call 077 313 1883 for instant tyre quotes. Open 365 days, 06:30 AM - 9:00 PM.',
+  keywords: ['tyre shop battaramulla', 'tyre shop pannipitiya road', 'contact lasantha tyre', 'tyre shop phone number sri lanka', 'tyre service near me'],
+  openGraph: {
+    title: 'Contact Lasantha Tyre Traders',
+    description: 'Get in touch for quotes, appointments, or any questions. Located at 1035 Pannipitiya Road, Battaramulla.',
+    url: 'https://lasanthatyre.com/contact',
+  },
+}
 
 export default function ContactPage() {
   return (
@@ -38,7 +50,7 @@ export default function ContactPage() {
               <h3 className="text-xl font-bold mb-2">Visit Us</h3>
               <p className="text-gray-600">
                 Lasantha Tyre Traders<br />
-                High Level Road, Nugegoda
+                1035 Pannipitiya Road, Battaramulla
               </p>
             </div>
 
@@ -59,7 +71,7 @@ export default function ContactPage() {
             </div>
             <div>
               <h2 className="text-3xl font-bold mb-8">Find Us</h2>
-              <div className="h-[600px] rounded-3xl overflow-hidden shadow-lg">
+              <div className="h-[400px] md:h-[600px] rounded-3xl overflow-hidden shadow-lg">
                 <LocationMap />
               </div>
             </div>

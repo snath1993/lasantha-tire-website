@@ -157,8 +157,8 @@ export default function Footer() {
             &copy; {currentYear} Lasantha Tyre Traders. All rights reserved.
           </p>
           <div className="flex items-center gap-6 text-sm text-gray-500">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+            <span className="hover:text-white transition-colors cursor-default">Privacy Policy</span>
+            <span className="hover:text-white transition-colors cursor-default">Terms of Service</span>
           </div>
         </div>
       </div>

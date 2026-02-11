@@ -38,8 +38,7 @@ export async function POST(request: NextRequest) {
       message += `🚗 Vehicle: ${vehicle}\n`
     }
 
-    // Prepare message for logging
-    console.log('Price request:', message)
+    // Price request prepared
 
     try {
       // Check if WhatsApp number is registered
@@ -93,15 +92,7 @@ export async function POST(request: NextRequest) {
     } catch (whatsappError) {
       console.error('WhatsApp API Error:', whatsappError)
       
-      // Fallback: Log the request and inform user
-      console.log('Price request (offline mode):', {
-        name,
-        phone: formattedPhone,
-        tireSize,
-        quantity,
-        vehicle: includeVehicle ? vehicle : null,
-        timestamp: new Date().toISOString()
-      })
+      // Fallback: request received but bot offline
 
       return NextResponse.json({
         success: true,
