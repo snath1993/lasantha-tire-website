@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System Control Panel — Lasantha Tyre</title>
+<style>
+:root{--bg:#0f1117;--card:#1a1d27;--border:#2a2d3a;--text:#e4e4e7;--muted:#71717a;--green:#22c55e;--red:#ef4444;--yellow:#eab308;--blue:#3b82f6;--purple:#a855f7;--cyan:#06b6d4;--accent:#3b82f6;--card-hover:#22253a;--radius:12px;--shadow:0 4px 24px rgba(0,0,0,.3)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+a{color:var(--accent);text-decoration:none}
+button{cursor:pointer;border:none;font-family:inherit}
+
+/* ── Header ── */
+.header{background:linear-gradient(135deg,#1a1d27 0%,#1e2235 100%);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px)}
+.header-left{display:flex;align-items:center;gap:14px}
+.logo{font-size:28px}
+.header h1{font-size:18px;font-weight:600;letter-spacing:-.3px}
+.header h1 span{color:var(--muted);font-weight:400;font-size:13px;display:block;margin-top:2px}
+.header-right{display:flex;align-items:center;gap:16px}
+.conn-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:6px}
+.conn-dot.ok{background:var(--green);box-shadow:0 0 8px var(--green)}
+.conn-dot.err{background:var(--red);box-shadow:0 0 8px var(--red);animation:pulse-red 1.5s infinite}
+.conn-dot.warn{background:var(--yellow);box-shadow:0 0 8px var(--yellow)}
+.clock{color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums}
+@keyframes pulse-red{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* ── Main ── */
+.main{max-width:1400px;margin:0 auto;padding:20px 24px 40px}
+
+/* ── Hero Status ── */
+.hero{background:linear-gradient(135deg,#162312 0%,#1a2e15 100%);border:1px solid #2d4a25;border-radius:var(--radius);padding:20px 28px;margin-bottom:24px;display:flex;align-items:center;gap:18px}
+.hero.error{background:linear-gradient(135deg,#2a1215 0%,#331418 100%);border-color:#5a2028}
+.hero.warn{background:linear-gradient(135deg,#2a2512 0%,#332e14 100%);border-color:#5a4e20}
+.hero-icon{font-size:36px;line-height:1}
+.hero-text h2{font-size:16px;font-weight:600}
+.hero-text p{font-size:13px;color:var(--muted);margin-top:3px}
+
+/* ── Cards Grid ── */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:24px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;transition:border-color .2s,transform .15s}
+.card:hover{border-color:var(--accent);transform:translateY(-1px)}
+.card-label{font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.card-value{font-size:26px;font-weight:700;line-height:1.1}
+.card-sub{font-size:12px;color:var(--muted);margin-top:6px}
+.card-value.green{color:var(--green)}
+.card-value.red{color:var(--red)}
+.card-value.yellow{color:var(--yellow)}
+.card-value.blue{color:var(--blue)}
+
+/* ── Panels ── */
+.panels{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:24px}
+@media(max-width:900px){.panels{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.panel-header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.panel-header h3{font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px}
+.panel-body{padding:16px 20px}
+.panel.full-width{grid-column:1/-1}
+
+/* ── Services Table ── */
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);padding:8px 12px;border-bottom:1px solid var(--border)}
+td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,.02)}
+.status-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;text-transform:uppercase}
+.status-badge.online{background:rgba(34,197,94,.12);color:var(--green)}
+.status-badge.stopped{background:rgba(239,68,68,.12);color:var(--red)}
+.status-badge.error{background:rgba(239,68,68,.12);color:var(--red)}
+
+/* ── Buttons ── */
+.btn{padding:6px 14px;border-radius:6px;font-size:12px;font-weight:500;transition:all .2s}
+.btn-sm{padding:4px 10px;font-size:11px}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:#2563eb}
+.btn-danger{background:#dc2626;color:#fff}
+.btn-danger:hover{background:#b91c1c}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-success{background:#16a34a;color:#fff}
+.btn-success:hover{background:#15803d}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn-group{display:flex;gap:6px;flex-wrap:wrap}
+
+/* ── QR Area ── */
+.qr-container{display:flex;flex-direction:column;align-items:center;gap:12px;padding:20px}
+.qr-container img{border-radius:8px;border:2px solid var(--border);max-width:280px}
+.qr-container .qr-msg{font-size:13px;color:var(--muted);text-align:center}
+
+/* ── Logs ── */
+.log-area{background:#0a0c10;border-radius:8px;padding:12px 16px;max-height:400px;overflow-y:auto;font-family:'Cascadia Code','Fira Code',monospace;font-size:12px;line-height:1.7;white-space:pre-wrap;word-break:break-all;scrollbar-width:thin;scrollbar-color:#333 transparent}
+.log-area::-webkit-scrollbar{width:6px}
+.log-area::-webkit-scrollbar-track{background:transparent}
+.log-area::-webkit-scrollbar-thumb{background:#333;border-radius:3px}
+.log-line{display:block}
+.log-line.error{color:var(--red)}
+.log-line.warn{color:var(--yellow)}
+.log-line.info{color:#94a3b8}
+.log-line.success{color:var(--green)}
+
+/* ── Config Form ── */
+.config-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:700px){.config-grid{grid-template-columns:1fr}}
+.config-item{display:flex;flex-direction:column;gap:4px}
+.config-item label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.config-item input,.config-item select{background:#0f1117;border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:6px;font-size:13px;outline:none;transition:border-color .2s}
+.config-item input:focus{border-color:var(--accent)}
+
+/* ── Toast ── */
+.toast-container{position:fixed;bottom:20px;right:20px;z-index:1000;display:flex;flex-direction:column;gap:8px}
+.toast{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 18px;font-size:13px;box-shadow:var(--shadow);animation:slideIn .3s ease;display:flex;align-items:center;gap:8px;min-width:300px}
+.toast.success{border-left:3px solid var(--green)}
+.toast.error{border-left:3px solid var(--red)}
+.toast.info{border-left:3px solid var(--blue)}
+@keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+
+/* ── Tabs ── */
+.tab-bar{display:flex;gap:2px;padding:0 20px;background:var(--card);border-bottom:1px solid var(--border)}
+.tab{padding:10px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* ── Spinner ── */
+.spinner{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .6s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── Footer ── */
+.footer{text-align:center;padding:24px;color:var(--muted);font-size:12px;border-top:1px solid var(--border);margin-top:20px}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header class="header">
+  <div class="header-left">
+    <div class="logo">🛞</div>
+    <h1>System Control Panel<span id="headerSub">Lasantha Tyre Traders</span></h1>
+  </div>
+  <div class="header-right">
+    <span id="connStatus"><span class="conn-dot warn"></span>Connecting...</span>
+    <span class="clock" id="clock"></span>
+  </div>
+</header>
+
+<!-- ═══ MAIN ═══ -->
+<div class="main">
+
+  <!-- Hero -->
+  <div class="hero" id="hero">
+    <div class="hero-icon">⏳</div>
+    <div class="hero-text">
+      <h2 id="heroTitle">Loading System Status...</h2>
+      <p id="heroSub">Checking all services</p>
+    </div>
+  </div>
+
+  <!-- Status Cards -->
+  <div class="cards" id="statusCards">
+    <div class="card" id="cardWhatsApp">
+      <div class="card-label">📱 WhatsApp</div>
+      <div class="card-value" id="waStatus">—</div>
+      <div class="card-sub" id="waSub">Checking...</div>
+    </div>
+    <div class="card" id="cardDB">
+      <div class="card-label">🗄️ Database</div>
+      <div class="card-value" id="dbStatus">—</div>
+      <div class="card-sub" id="dbSub">Checking...</div>
+    </div>
+    <div class="card" id="cardServices">
+      <div class="card-label">⚙️ Services</div>
+      <div class="card-value" id="svcCount">—</div>
+      <div class="card-sub" id="svcSub">Checking...</div>
+    </div>
+    <div class="card" id="cardJobs">
+      <div class="card-label">📋 Jobs</div>
+      <div class="card-value" id="jobCount">—</div>
+      <div class="card-sub" id="jobSub">Checking...</div>
+    </div>
+    <div class="card" id="cardUptime">
+      <div class="card-label">⏱️ Bot Uptime</div>
+      <div class="card-value blue" id="uptimeVal">—</div>
+      <div class="card-sub" id="uptimeSub">—</div>
+    </div>
+    <div class="card" id="cardMemory">
+      <div class="card-label">💾 Memory</div>
+      <div class="card-value" id="memVal">—</div>
+      <div class="card-sub" id="memSub">—</div>
+    </div>
+  </div>
+
+  <!-- Tab Navigation -->
+  <div class="panel full-width" style="margin-bottom:24px">
+    <div class="tab-bar">
+      <div class="tab active" data-tab="services">⚙️ Services</div>
+      <div class="tab" data-tab="whatsapp">📱 WhatsApp</div>
+      <div class="tab" data-tab="jobs">📋 Jobs</div>
+      <div class="tab" data-tab="logs">📝 Logs</div>
+      <div class="tab" data-tab="actions">🎛️ Actions</div>
+    </div>
+
+    <!-- Services Tab -->
+    <div class="tab-content active" id="tab-services">
+      <div class="panel-body">
+        <table>
+          <thead>
+            <tr><th>Service</th><th>Status</th><th>CPU</th><th>Memory</th><th>Restarts</th><th>Uptime</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="servicesTable">
+            <tr><td colspan="7" style="text-align:center;color:var(--muted)">Loading services...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- WhatsApp Tab -->
+    <div class="tab-content" id="tab-whatsapp">
+      <div class="panel-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px" id="waPanel">
+          <div>
+            <h4 style="margin-bottom:12px;color:var(--muted);font-size:13px">CONNECTION STATUS</h4>
+            <div id="waDetailStatus" style="margin-bottom:16px">
+              <p style="font-size:15px;margin-bottom:8px"><strong id="waStateLabel">Checking...</strong></p>
+              <p style="font-size:12px;color:var(--muted)" id="waStateDetail">—</p>
+            </div>
+            <div class="btn-group" style="margin-top:16px">
+              <button class="btn btn-primary" onclick="reconnectWhatsApp()">🔄 Reconnect</button>
+              <button class="btn btn-danger" onclick="hardResetWhatsApp()">⚠️ Hard Reset</button>
+            </div>
+          </div>
+          <div class="qr-container" id="qrArea">
+            <p class="qr-msg">QR code will appear here when needed</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Jobs Tab -->
+    <div class="tab-content" id="tab-jobs">
+      <div class="panel-body">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <h4 style="color:var(--muted);font-size:13px">SCHEDULED JOB HISTORY</h4>
+          <button class="btn btn-sm btn-outline" onclick="refreshJobs()">🔄 Refresh</button>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Job Name</th><th>Last Run</th><th>Duration</th><th>Status</th><th>Failures</th><th>Retrying</th></tr>
+          </thead>
+          <tbody id="jobsTable">
+            <tr><td colspan="6" style="text-align:center;color:var(--muted)">Loading jobs...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Logs Tab -->
+    <div class="tab-content" id="tab-logs">
+      <div class="panel-body">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <h4 style="color:var(--muted);font-size:13px">LIVE LOGS</h4>
+          <div class="btn-group">
+            <button class="btn btn-sm btn-outline" onclick="clearLogs()">🗑️ Clear</button>
+            <button class="btn btn-sm btn-outline" onclick="refreshLogs()">🔄 Refresh</button>
+          </div>
+        </div>
+        <div class="log-area" id="logArea">Waiting for logs...\n</div>
+      </div>
+    </div>
+
+    <!-- Actions Tab -->
+    <div class="tab-content" id="tab-actions">
+      <div class="panel-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px">
+          <div class="card" style="border:none;background:#0f1117">
+            <div class="card-label">🤖 Bot Control</div>
+            <div class="btn-group" style="margin-top:10px;flex-direction:column">
+              <button class="btn btn-primary" onclick="restartService('whatsapp-bot-v2')">🔄 Restart Bot</button>
+              <button class="btn btn-outline" onclick="stopService('whatsapp-bot-v2')">⏹️ Stop Bot</button>
+              <button class="btn btn-success" onclick="startService('whatsapp-bot-v2')">▶️ Start Bot</button>
+            </div>
+          </div>
+          <div class="card" style="border:none;background:#0f1117">
+            <div class="card-label">🌐 Tunnels</div>
+            <div class="btn-group" style="margin-top:10px;flex-direction:column">
+              <button class="btn btn-outline" onclick="restartService('lasantha-app-tunnel')">🔄 App Tunnel</button>
+              <button class="btn btn-outline" onclick="restartService('lasantha-bot-tunnel')">🔄 Bot Tunnel</button>
+              <button class="btn btn-outline" onclick="restartService('lasantha-fb-tunnel')">🔄 FB Tunnel</button>
+            </div>
+          </div>
+          <div class="card" style="border:none;background:#0f1117">
+            <div class="card-label">📊 Reports</div>
+            <div class="btn-group" style="margin-top:10px;flex-direction:column">
+              <button class="btn btn-outline" onclick="triggerJob('daily-sales-pdf')">📄 Send Daily PDF</button>
+              <button class="btn btn-outline" onclick="triggerJob('db-backup')">💾 Run DB Backup</button>
+              <button class="btn btn-outline" onclick="triggerJob('daily-report')">📊 Daily Report</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toasts"></div>
+
+<!-- Footer -->
+<div class="footer">
+  Lasantha Tyre Traders — System Control Panel v1.0 &nbsp;|&nbsp; Auto-refresh: <span id="refreshInterval">5s</span>
+</div>
+
+<script>
+// ═══════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════
+const API_BASE = window.location.origin;
+const REFRESH_MS = 5000;
+const LOG_MAX = 200;
+let dashKey = new URLSearchParams(window.location.search).get('key') || '';
+let logLines = [];
+let lastOverview = null;
+
+// ═══════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════
+function $(id) { return document.getElementById(id); }
+function api(path) {
+    const sep = path.includes('?') ? '&' : '?';
+    return fetch(`${API_BASE}${path}${dashKey ? sep + 'key=' + dashKey : ''}`).then(r => r.json()).catch(() => null);
+}
+function apiPost(path) {
+    const sep = path.includes('?') ? '&' : '?';
+    return fetch(`${API_BASE}${path}${dashKey ? sep + 'key=' + dashKey : ''}`, { method: 'POST' }).then(r => r.json()).catch(() => null);
+}
+
+function toast(msg, type = 'info') {
+    const el = document.createElement('div');
+    el.className = `toast ${type}`;
+    el.innerHTML = `${type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️'} ${msg}`;
+    $('toasts').appendChild(el);
+    setTimeout(() => el.remove(), 4000);
+}
+
+function formatUptime(ms) {
+    if (!ms || ms <= 0) return '—';
+    const s = Math.floor(ms / 1000);
+    const d = Math.floor(s / 86400);
+    const h = Math.floor((s % 86400) / 3600);
+    const m = Math.floor((s % 3600) / 60);
+    if (d > 0) return `${d}d ${h}h`;
+    if (h > 0) return `${h}h ${m}m`;
+    return `${m}m`;
+}
+
+function formatBytes(b) {
+    if (!b) return '—';
+    if (b < 1024) return b + 'B';
+    if (b < 1048576) return (b / 1024).toFixed(1) + 'KB';
+    return (b / 1048576).toFixed(1) + 'MB';
+}
+
+function timeAgo(ts) {
+    if (!ts) return '—';
+    const diff = Date.now() - new Date(ts).getTime();
+    if (diff < 60000) return 'just now';
+    if (diff < 3600000) return Math.floor(diff / 60000) + 'm ago';
+    if (diff < 86400000) return Math.floor(diff / 3600000) + 'h ago';
+    return Math.floor(diff / 86400000) + 'd ago';
+}
+
+// ═══════════════════════════════════
+// TABS
+// ═══════════════════════════════════
+document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+    });
+});
+
+// ═══════════════════════════════════
+// CLOCK
+// ═══════════════════════════════════
+function updateClock() {
+    $('clock').textContent = new Date().toLocaleTimeString('en-GB', { hour12: false });
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ═══════════════════════════════════
+// DATA FETCHING
+// ═══════════════════════════════════
+async function fetchOverview() {
+    const data = await api('/api/admin/overview');
+    if (!data) {
+        setHero('error', '❌', 'Cannot reach bot API', 'Check if the bot is running');
+        $('connStatus').innerHTML = '<span class="conn-dot err"></span>Offline';
+        return;
+    }
+    lastOverview = data;
+    updateUI(data);
+}
+
+function updateUI(data) {
+    // ── Connection indicator ──
+    const waOk = data.whatsapp && data.whatsapp.isReady;
+    $('connStatus').innerHTML = waOk
+        ? '<span class="conn-dot ok"></span>Connected'
+        : '<span class="conn-dot err"></span>Disconnected';
+
+    // ── WhatsApp Card ──
+    if (waOk) {
+        $('waStatus').textContent = 'Connected';
+        $('waStatus').className = 'card-value green';
+        $('waSub').textContent = data.whatsapp.state || 'Ready';
+    } else {
+        const needsQR = data.whatsapp && data.whatsapp.qrAvailable;
+        $('waStatus').textContent = needsQR ? 'QR Needed' : 'Disconnected';
+        $('waStatus').className = 'card-value ' + (needsQR ? 'yellow' : 'red');
+        $('waSub').textContent = needsQR ? 'Scan QR code to connect' : (data.whatsapp?.state || 'Not connected');
+    }
+
+    // ── Database Card ──
+    if (data.database && data.database.connected) {
+        $('dbStatus').textContent = 'Connected';
+        $('dbStatus').className = 'card-value green';
+        $('dbSub').textContent = data.database.name || 'SQL Server';
+    } else {
+        $('dbStatus').textContent = 'Error';
+        $('dbStatus').className = 'card-value red';
+        $('dbSub').textContent = data.database?.error || 'Connection failed';
+    }
+
+    // ── Services Card ──
+    const svcs = data.services || [];
+    const online = svcs.filter(s => s.status === 'online').length;
+    const total = svcs.length;
+    $('svcCount').textContent = `${online}/${total}`;
+    $('svcCount').className = 'card-value ' + (online === total ? 'green' : online > 0 ? 'yellow' : 'red');
+    $('svcSub').textContent = online === total ? 'All services running' : `${total - online} service(s) down`;
+
+    // ── Jobs Card ──
+    const jobs = data.jobs || {};
+    const failCount = jobs.failingCount || 0;
+    const retrying = jobs.retryingCount || 0;
+    $('jobCount').textContent = failCount === 0 ? 'All OK' : `${failCount} Failed`;
+    $('jobCount').className = 'card-value ' + (failCount === 0 ? 'green' : 'red');
+    $('jobSub').textContent = retrying > 0 ? `${retrying} retrying...` : (failCount === 0 ? 'No failures' : 'Check job details');
+
+    // ── Uptime Card ──
+    const bot = svcs.find(s => s.name === 'whatsapp-bot-v2') || {};
+    $('uptimeVal').textContent = formatUptime(bot.uptimeMs);
+    $('uptimeSub').textContent = bot.restarts != null ? `${bot.restarts} restarts` : '—';
+
+    // ── Memory Card ──
+    $('memVal').textContent = formatBytes(bot.memory);
+    $('memVal').className = 'card-value ' + (bot.memory > 400 * 1048576 ? 'red' : bot.memory > 250 * 1048576 ? 'yellow' : 'green');
+    $('memSub').textContent = bot.cpu != null ? `CPU: ${bot.cpu}%` : '—';
+
+    // ── Hero ──
+    const allOk = waOk && (data.database?.connected) && (online === total) && (failCount === 0);
+    const hasIssues = !waOk || !(data.database?.connected) || (online < total);
+    if (allOk) {
+        setHero('ok', '✅', 'All Systems Operational', `${online} services running, WhatsApp connected`);
+    } else if (hasIssues) {
+        const issues = [];
+        if (!waOk) issues.push('WhatsApp disconnected');
+        if (!(data.database?.connected)) issues.push('Database error');
+        if (online < total) issues.push(`${total - online} service(s) down`);
+        setHero('error', '⚠️', 'Issues Detected', issues.join(' • '));
+    } else {
+        setHero('warn', '⚡', 'Running with Warnings', `${failCount} job failure(s)`);
+    }
+
+    // ── Services Table ──
+    renderServicesTable(svcs);
+
+    // ── WhatsApp Panel ──
+    renderWhatsAppPanel(data.whatsapp || {});
+
+    // ── Jobs Table ──
+    renderJobsTable(jobs);
+}
+
+function setHero(type, icon, title, sub) {
+    const hero = $('hero');
+    hero.className = 'hero ' + (type === 'ok' ? '' : type);
+    $('heroTitle').textContent = title;
+    $('heroSub').textContent = sub;
+    hero.querySelector('.hero-icon').textContent = icon;
+}
+
+// ═══════════════════════════════════
+// RENDER FUNCTIONS
+// ═══════════════════════════════════
+function renderServicesTable(services) {
+    const tbody = $('servicesTable');
+    if (!services.length) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--muted)">No services found</td></tr>';
+        return;
+    }
+    tbody.innerHTML = services.map(s => `
+        <tr>
+            <td><strong>${escHtml(s.name)}</strong></td>
+            <td><span class="status-badge ${s.status}">${s.status === 'online' ? '● Online' : '○ Stopped'}</span></td>
+            <td>${s.cpu != null ? s.cpu + '%' : '—'}</td>
+            <td>${formatBytes(s.memory)}</td>
+            <td>${s.restarts ?? '—'}</td>
+            <td>${formatUptime(s.uptimeMs)}</td>
+            <td>
+                <div class="btn-group">
+                    ${s.status === 'online'
+                        ? `<button class="btn btn-sm btn-outline" onclick="restartService('${escAttr(s.name)}')">🔄</button>
+                           <button class="btn btn-sm btn-danger" onclick="stopService('${escAttr(s.name)}')">⏹</button>`
+                        : `<button class="btn btn-sm btn-success" onclick="startService('${escAttr(s.name)}')">▶️</button>`}
+                </div>
+            </td>
+        </tr>
+    `).join('');
+}
+
+function renderWhatsAppPanel(wa) {
+    $('waStateLabel').textContent = wa.isReady ? '✅ Connected & Ready' : wa.qrAvailable ? '📱 QR Code Available — Scan to Connect' : '❌ Disconnected';
+    $('waStateDetail').textContent = `State: ${wa.state || 'unknown'} | Engine: ${wa.engine || 'v1'}`;
+
+    const qrArea = $('qrArea');
+    if (wa.qrAvailable) {
+        qrArea.innerHTML = `<img src="/api/whatsapp/qr-image?key=${dashKey}" alt="QR Code" style="max-width:250px"><p class="qr-msg">📱 Scan this QR code with WhatsApp</p>`;
+    } else if (wa.isReady) {
+        qrArea.innerHTML = '<p class="qr-msg" style="color:var(--green)">✅ WhatsApp is connected. No QR needed.</p>';
+    } else {
+        qrArea.innerHTML = '<p class="qr-msg">Waiting for QR code...</p>';
+    }
+}
+
+function renderJobsTable(jobs) {
+    const tbody = $('jobsTable');
+    const tracked = jobs.tracked || {};
+    const names = Object.keys(tracked);
+    if (!names.length) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted)">No job data yet</td></tr>';
+        return;
+    }
+    tbody.innerHTML = names.sort().map(name => {
+        const j = tracked[name];
+        const lastRun = j.lastExecution;
+        const dur = lastRun ? lastRun.durationMs : null;
+        const ok = lastRun && lastRun.success;
+        return `
+            <tr>
+                <td><strong>${escHtml(name)}</strong></td>
+                <td>${lastRun ? timeAgo(lastRun.endedAt || lastRun.startedAt) : '—'}</td>
+                <td>${dur != null ? (dur / 1000).toFixed(1) + 's' : '—'}</td>
+                <td><span class="status-badge ${ok ? 'online' : ok === false ? 'error' : ''}">${ok ? '✅ OK' : ok === false ? '❌ Failed' : '—'}</span></td>
+                <td>${j.consecutiveFailures || 0}</td>
+                <td>${j.retryPending ? '<span class="spinner"></span> Yes' : '—'}</td>
+            </tr>`;
+    }).join('');
+}
+
+// ═══════════════════════════════════
+// LOG VIEWER
+// ═══════════════════════════════════
+async function refreshLogs() {
+    const data = await api('/api/admin/logs?lines=100');
+    if (data && data.logs) {
+        logLines = data.logs;
+        renderLogs();
+    }
+}
+function clearLogs() { logLines = []; renderLogs(); }
+function renderLogs() {
+    const area = $('logArea');
+    area.innerHTML = logLines.map(line => {
+        let cls = 'info';
+        if (/error|fail|❌|💥/i.test(line)) cls = 'error';
+        else if (/warn|⚠/i.test(line)) cls = 'warn';
+        else if (/✅|success|completed/i.test(line)) cls = 'success';
+        return `<span class="log-line ${cls}">${escHtml(line)}</span>`;
+    }).join('\n');
+    area.scrollTop = area.scrollHeight;
+}
+
+// ═══════════════════════════════════
+// ACTIONS
+// ═══════════════════════════════════
+async function restartService(name) {
+    toast(`Restarting ${name}...`, 'info');
+    const r = await apiPost(`/api/admin/services/${name}/restart`);
+    if (r && r.ok) toast(`${name} restarted`, 'success');
+    else toast(`Failed to restart ${name}: ${r?.error || 'unknown'}`, 'error');
+    setTimeout(fetchOverview, 2000);
+}
+async function stopService(name) {
+    toast(`Stopping ${name}...`, 'info');
+    const r = await apiPost(`/api/admin/services/${name}/stop`);
+    if (r && r.ok) toast(`${name} stopped`, 'success');
+    else toast(`Failed: ${r?.error || 'unknown'}`, 'error');
+    setTimeout(fetchOverview, 2000);
+}
+async function startService(name) {
+    toast(`Starting ${name}...`, 'info');
+    const r = await apiPost(`/api/admin/services/${name}/start`);
+    if (r && r.ok) toast(`${name} started`, 'success');
+    else toast(`Failed: ${r?.error || 'unknown'}`, 'error');
+    setTimeout(fetchOverview, 2000);
+}
+async function reconnectWhatsApp() {
+    toast('Reconnecting WhatsApp...', 'info');
+    const r = await apiPost('/api/admin/whatsapp/reconnect');
+    toast(r?.ok ? 'Reconnect triggered' : 'Failed', r?.ok ? 'success' : 'error');
+}
+async function hardResetWhatsApp() {
+    if (!confirm('This will clear the WhatsApp session. You will need to scan QR again. Continue?')) return;
+    toast('Hard resetting WhatsApp session...', 'info');
+    const r = await apiPost('/api/whatsapp/hard-reset');
+    toast(r ? 'Hard reset triggered — watch for QR code' : 'Failed', r ? 'info' : 'error');
+}
+async function triggerJob(job) {
+    toast(`Triggering ${job}...`, 'info');
+    const r = await api(`/api/admin/trigger/${job}`);
+    toast(r?.ok ? `${job} triggered` : `Failed: ${r?.error || 'unknown'}`, r?.ok ? 'success' : 'error');
+}
+async function refreshJobs() { await fetchOverview(); toast('Jobs refreshed', 'info'); }
+
+// ═══════════════════════════════════
+// ESCAPING
+// ═══════════════════════════════════
+function escHtml(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+function escAttr(s) { return (s || '').replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
+
+// ═══════════════════════════════════
+// MAIN LOOP
+// ═══════════════════════════════════
+fetchOverview();
+refreshLogs();
+setInterval(fetchOverview, REFRESH_MS);
+setInterval(refreshLogs, 15000);
+
+</script>
+</body>
+</html>

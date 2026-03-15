@@ -3,10 +3,21 @@ const path = require('path');
 const os = require('os');
 const { exec } = require('child_process');
 const moment = require('moment');
-const { sendMedia } = require('../utils/waClientRegistry');
+const { sendMedia, send, getClient } = require('../utils/waClientRegistry');
 
-// Maximum file size for WhatsApp (approx 95MB to be safe)
-const MAX_WA_SIZE_BYTES = 95 * 1024 * 1024;
+// Maximum safe file size to inject into Chromium RAM via Puppeteer (12MB)
+const MAX_WA_MEDIA_BYTES = 12 * 1024 * 1024;
+
+// Helper to get local network IP
+function getLocalIp() {
+    const nets = os.networkInterfaces();
+    for (const name of Object.keys(nets)) {
+        for (const net of nets[name]) {
+            if (net.family === 'IPv4' && !net.internal) return net.address;
+        }
+    }
+    return '127.0.0.1';
+}
 
 /**
  * Backup Database and Send to WhatsApp
@@ -25,6 +36,13 @@ module.exports = async function DatabaseBackupJob(options = {}) {
 
     if (!mainPool || !mainPool.connected) {
         console.error('[DatabaseBackupJob] Database pool not connected.');
+        return;
+    }
+
+    // FIX: Check WhatsApp client readiness before attempting backup+send
+    const client = getClient() || (global && global.whatsappClient);
+    if (!client || !client.isReady) {
+        console.warn('[DatabaseBackupJob] ⚠️ WhatsApp client not ready — skipping backup send. Will retry next cycle.');
         return;
     }
 
@@ -49,76 +67,112 @@ async function processDatabase(dbName, pool, adminNumber) {
     const fileName = `${dbName}_${timestamp}.bak`;
     // Use a robust folder path. C:\ProgramData is usually accessible by Service Accounts if we set permissions.
     // Use the Network Share 'Sage' on the SQL Server machine (WIN-JIAVRTFMA0N)
-    const remoteBackupDir = '\\\\WIN-JIAVRTFMA0N\\Sage\\SQLBackups';
-    // Use Local Archive Directory on this machine (Cashier-2)
-    const localArchiveDir = 'C:\\whatsapp-sql-api\\backups\\sql_archives';
+    const remoteBackupDir = process.env.BACKUP_REMOTE_DIR || '\\\\WIN-JIAVRTFMA0N\\Sage\\SQLBackups';
+    // Use Local Archive Directory on this machine
+    const localArchiveDir = process.env.BACKUP_LOCAL_DIR || path.join(__dirname, '..', 'backups', 'sql_archives');
     
     // Ensure dirs exist
-    if (!fs.existsSync(remoteBackupDir)) {
-        try { fs.mkdirSync(remoteBackupDir, { recursive: true }); } catch (e) {}
-    }
     if (!fs.existsSync(localArchiveDir)) {
         try { fs.mkdirSync(localArchiveDir, { recursive: true }); } catch (e) {}
     }
+    // Remote dir might not be reachable — don't crash if network share is offline
+    let remoteAvailable = false;
+    try {
+        if (!fs.existsSync(remoteBackupDir)) {
+            fs.mkdirSync(remoteBackupDir, { recursive: true });
+        }
+        remoteAvailable = true;
+    } catch (e) {
+        console.warn(`[DatabaseBackupJob] Remote share not reachable: ${e.message}. Using local path only.`);
+    }
 
-    const remoteFilePath = path.join(remoteBackupDir, fileName);
+    // FIX: Use local temp path for SQL BACKUP, then copy to remote if available
     const localFilePath = path.join(localArchiveDir, fileName);
+    const remoteFilePath = remoteAvailable ? path.join(remoteBackupDir, fileName) : null;
     
-    console.log(`[DatabaseBackupJob] Backing up ${dbName} to Remote Share: ${remoteFilePath}...`);
+    // Backup to local first (more reliable) — SQL Server needs to write here
+    const sqlBackupTarget = remoteFilePath || localFilePath;
+    console.log(`[DatabaseBackupJob] Backing up ${dbName} to: ${sqlBackupTarget}...`);
 
-    // 1. Execute Backup Command to Remote Share
+    // 1. Execute Backup Command
     try {
         const request = pool.request();
-        await request.query(`BACKUP DATABASE [${dbName}] TO DISK = '${remoteFilePath}' WITH FORMAT, COMPRESSION, INIT`);
+        await request.query(`BACKUP DATABASE [${dbName}] TO DISK = '${sqlBackupTarget}' WITH FORMAT, COMPRESSION, INIT`);
     } catch (err) {
         console.warn(`[DatabaseBackupJob] Compression backup failed, trying normal backup... (${err.message})`);
-        const request = pool.request();
-        await request.query(`BACKUP DATABASE [${dbName}] TO DISK = '${remoteFilePath}' WITH FORMAT, INIT`);
+        try {
+            const request = pool.request();
+            await request.query(`BACKUP DATABASE [${dbName}] TO DISK = '${sqlBackupTarget}' WITH FORMAT, INIT`);
+        } catch (err2) {
+            console.error(`[DatabaseBackupJob] Normal backup also failed: ${err2.message}`);
+            throw err2;
+        }
     }
 
-    // 2. Copy file to Local Archive (Safety Copy on Cashier-2)
-    // User Request: Keep copy on Server AND Local Machine
-    console.log(`[DatabaseBackupJob] Copying backup to local archive: ${localFilePath}...`);
-    try {
-        fs.copyFileSync(remoteFilePath, localFilePath);
-        // fs.unlinkSync(remoteFilePath); // User asked to KEEP the file on the Server too.
-    } catch (e) {
-        console.error('[DatabaseBackupJob] Failed to copy file to local archive:', e);
-        // If move failed, we might still have it on remote, so let's continue with remote if local doesn't exist?
-        // But for simplicity, lets throw or assume localFilePath is target now.
-        // If copy failed, we can't send.
-        throw e;
+    // 2. Copy file between local/remote for redundancy
+    if (remoteFilePath && sqlBackupTarget === remoteFilePath) {
+        // Backup was made to remote — copy to local archive
+        console.log(`[DatabaseBackupJob] Copying backup to local archive: ${localFilePath}...`);
+        try {
+            fs.copyFileSync(remoteFilePath, localFilePath);
+        } catch (e) {
+            console.warn(`[DatabaseBackupJob] Failed to copy to local archive: ${e.message}. Will send from remote.`);
+        }
+    } else if (remoteFilePath && sqlBackupTarget === localFilePath) {
+        // Backup was made locally — try to copy to remote for redundancy
+        try {
+            fs.copyFileSync(localFilePath, remoteFilePath);
+            console.log(`[DatabaseBackupJob] Copied to remote share for redundancy.`);
+        } catch (e) {
+            console.warn(`[DatabaseBackupJob] Remote copy skipped: ${e.message}`);
+        }
     }
 
-    // Now work with localFilePath
-    const stats = fs.statSync(localFilePath);
-    const sizeMB = (stats.size / (1024 * 1024)).toFixed(2);
-    console.log(`[DatabaseBackupJob] Local copy secured: ${fileName} (${sizeMB} MB)`);
+    // Determine which file to send (prefer local)
+    const fileToSendPath = fs.existsSync(localFilePath) ? localFilePath 
+                         : (remoteFilePath && fs.existsSync(remoteFilePath) ? remoteFilePath : null);
     
-    let fileToSend = localFilePath;
+    if (!fileToSendPath) {
+        throw new Error(`Backup file not found at local (${localFilePath}) or remote paths`);
+    }
+
+    // Now work with fileToSendPath
+    const stats = fs.statSync(fileToSendPath);
+    const sizeMB = (stats.size / (1024 * 1024)).toFixed(2);
+    console.log(`[DatabaseBackupJob] Backup ready: ${fileName} (${sizeMB} MB)`);
+    
+    let fileToSend = fileToSendPath;
     let cleanupFile = false; // Do not cleanup the Archive (User Request: "Crash protection")
 
-    if (stats.size > MAX_WA_SIZE_BYTES) {
-        const zipPath = localFilePath + '.zip';
-        console.log(`[DatabaseBackupJob] File too large (${sizeMB} MB), zipping locally...`);
+    if (stats.size > MAX_WA_MEDIA_BYTES) {
+        const zipPath = fileToSendPath + '.zip';
+        console.log(`[DatabaseBackupJob] File too large (${sizeMB} MB), zipping...`);
         
-        await zipFile(localFilePath, zipPath);
+        await zipFile(fileToSendPath, zipPath);
         
         const zipStats = fs.statSync(zipPath);
         const zipSizeMB = (zipStats.size / (1024 * 1024)).toFixed(2);
         
-        // We send the Zip, but we keep the original BAK or ZIP in archive?
-        // Let's keep the ZIP if we made one, and delete the huge BAK to save space?
-        // Or keep header.
-        
-        fileToSend = zipPath;
-        
-        if (zipStats.size > MAX_WA_SIZE_BYTES) {
-            console.error(`[DatabaseBackupJob] Even zipped file is too large: ${zipSizeMB} MB`);
+        if (zipStats.size > MAX_WA_MEDIA_BYTES) {
+            console.error(`[DatabaseBackupJob] Even zipped file is too large: ${zipSizeMB} MB. Generating Web Link...`);
+            
+            // Generate a network download link by moving to Dashboard's public folder
+            const dashboardPublicDir = path.join(__dirname, '..', 'lasantha-tire-v2.0', 'public', 'backups');
+            if (!fs.existsSync(dashboardPublicDir)) fs.mkdirSync(dashboardPublicDir, { recursive: true });
+            
+            const destNext = path.join(dashboardPublicDir, path.basename(zipPath));
+            fs.copyFileSync(zipPath, destNext);
+
+            const localIp = getLocalIp();
+            const downloadUrl = `http://${localIp}:3029/backups/${path.basename(zipPath)}`;
+            
+            const msg = `✅ Backup Successful: ${dbName} (${timestamp})\n📦 Size: ${zipSizeMB} MB\n\n⚠️ File is too large to send safely over WhatsApp.\n\n📥 Download it securely from the shop network here:\n${downloadUrl}`;
+            
             const { send } = require('../utils/waClientRegistry');
-            await send(adminNumber, `⚠️ Backup for ${dbName} is too large to send via WhatsApp (${zipSizeMB} MB). Archived locally at: ${localFilePath}`);
-            // We keep the local file.
-            try { fs.unlinkSync(zipPath); } catch(e){} // Delete the failed zip wrapper
+            await send(adminNumber, msg);
+            
+            // Delete the huge BAK since we have the zip, to save space. Leave the zip in sql_archives
+            try { fs.unlinkSync(fileToSendPath); } catch(e){} 
             return;
         }
 
@@ -131,9 +185,8 @@ async function processDatabase(dbName, pool, adminNumber) {
             console.log(`[DatabaseBackupJob] Sent successfully.`);
             const { send } = require('../utils/waClientRegistry');
             await send(adminNumber, `✅ Backup Successful: ${dbName} (${timestamp})\nSize: ${zipSizeMB} MB`);
-            // Cleanup ZIP only (Keep BAK?) or Keep ZIP and delete BAK?
-            // To save space, let's keep ZIP and delete BAK.
-            try { fs.unlinkSync(localFilePath); } catch(e){} // Delete BAK
+            // Cleanup ZIP only — keep BAK in archive.
+            try { fs.unlinkSync(fileToSendPath); } catch(e){} // Delete BAK
             // We LEAVE the .zip file in the archive folder.
         } else {
             console.error(`[DatabaseBackupJob] Failed to send media: ${mediaResult.error}`);
@@ -143,7 +196,7 @@ async function processDatabase(dbName, pool, adminNumber) {
     } else {
         // Size is okay, send original BAK
         console.log(`[DatabaseBackupJob] Sending ${fileName}...`);
-        const fileData = fs.readFileSync(localFilePath);
+        const fileData = fs.readFileSync(fileToSendPath);
         const mediaResult = await sendMedia(adminNumber, 'application/octet-stream', fileData, fileName);
         
         if (mediaResult.ok) {
@@ -160,7 +213,7 @@ function zipFile(source, destination) {
     return new Promise((resolve, reject) => {
         // Use PowerShell to zip
         const cmd = `powershell -NoProfile -Command "Compress-Archive -Path '${source}' -DestinationPath '${destination}' -Force"`;
-        exec(cmd, (error, stdout, stderr) => {
+        exec(cmd, { windowsHide: true }, (error, stdout, stderr) => {
             if (error) {
                 reject(error);
             } else {

@@ -4,6 +4,9 @@ const EmailService = require('./services/emailService');
 const emailService = new EmailService();
 const { ConfigService } = require('./utils/ConfigService');
 const BrandStockCheckHandler = require('./handlers/BrandStockCheckHandler'); // New Handler
+const mountAdminRoutes = require('./routes/adminRoutes');
+const ProcessMonitor = require('./utils/ProcessMonitor');
+const QRNotifier = require('./utils/QRNotifier');
 // =====================================================
 // REVERTED TO WHATSAPP-WEB.JS
 // Using original library as requested
@@ -1406,6 +1409,23 @@ app.get('/api/whatsapp/qr-image', async (req, res) => {
 
         // Hard reset: clears LocalAuth session and forces a fresh QR.
         // Use when QR scanning fails repeatedly or session keeps auto-logging out.
+        app.post('/api/bot/swap', async (req, res) => {
+            try {
+                const envPath = require('path').join(__dirname, '.env');
+                let envData = require('fs').readFileSync(envPath, 'utf8');
+                let currentEngine = process.env.WHATSAPP_ENGINE || 'v1';
+                let nextEngine = currentEngine === 'v2' ? 'v1' : 'v2';
+                if (envData.includes('WHATSAPP_ENGINE=')) {
+                    envData = envData.replace(/WHATSAPP_ENGINE=v[12]/, 'WHATSAPP_ENGINE=' + nextEngine);
+                } else {
+                    envData += '\nWHATSAPP_ENGINE=' + nextEngine + '\n';
+                }
+                require('fs').writeFileSync(envPath, envData, 'utf8');
+                res.json({ ok: true, msg: 'Switched to Engine ' + nextEngine });
+                setTimeout(() => { process.exit(0); }, 1500);
+            } catch (err) { res.status(500).json({ ok: false, error: err.message }); }
+        });
+
         app.post('/api/whatsapp/hard-reset', async (req, res) => {
             const sleep = (ms) => new Promise(r => setTimeout(r, ms));
             const rmrfWithRetries = async (targetPath, retries = 6, delayMs = 800) => {
@@ -1504,7 +1524,7 @@ app.get('/login', (req, res) => {
                         <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
                             <button id="btnConnect" class="btn btnPrimary">Connect / Generate QR</button>
                             <button id="btnReset" class="btn">Hard Reset (Fix QR)</button>
-                            <button id="btnReload" class="btn">Reload QR</button>
+                            <button id="btnReload" class="btn">Reload QR</button><button id="btnSwap" class="btn" style="background:#e3a008; color:#fff; border-color:#e3a008; width:100%; margin-top:5px;">Swap Bot Engine (Now: ${process.env.WHATSAPP_ENGINE === 'v2' ? 'V2 Fast' : 'V1 Browser'})</button>
                         </div>
                         <div class="small">
                             On your phone: WhatsApp → <b>Linked devices</b> → <b>Link a device</b> → scan.
@@ -1520,6 +1540,7 @@ app.get('/login', (req, res) => {
             const btnConnect = document.getElementById('btnConnect');
             const btnReset = document.getElementById('btnReset');
             const btnReload = document.getElementById('btnReload');
+              const btnSwap = document.getElementById('btnSwap');
 
             function setPill(text, kind) {
                 pill.className = 'pill ' + (kind || 'warn');
@@ -1551,6 +1572,20 @@ app.get('/login', (req, res) => {
                 try {
                     setPill('Starting…', 'warn');
                     await fetch('/connect', { method: 'POST' });
+                } catch (e) {
+                    setPill('Generate error: ' + e.message, 'bad');
+                }
+            });
+
+            btnSwap.addEventListener('click', async () => {
+                try {
+                    setPill('Swapping Engine & Restarting...', 'warn');
+                    await fetch('/api/bot/swap', { method: 'POST' });
+                    setTimeout(() => location.reload(), 4000);
+                } catch (e) {
+                    setPill('Swap failed: ' + e.message, 'bad');
+                }
+            });
                     await loadQrImage();
                 } catch (e) {
                     setPill('Connect failed: ' + e.message, 'bad');
@@ -1600,6 +1635,41 @@ app.get('/login', (req, res) => {
         </script>
     </body>
 </html>`);
+});
+
+// Job Retry Monitor Status API
+app.get('/api/job-retry-status', (req, res) => {
+    try {
+        const { getFailureSummary, getJobHistory, isRetryPending } = require('./utils/JobRetryManager');
+        const summary = getFailureSummary();
+        
+        // Enrich with pending retry info
+        const enriched = summary.map(j => ({
+            ...j,
+            retryPending: isRetryPending(j.jobName)
+        }));
+        
+        res.json({
+            ok: true,
+            timestamp: new Date().toISOString(),
+            jobs: enriched,
+            totalTracked: summary.length,
+            failing: summary.filter(j => j.consecutiveFailures > 0).length,
+            retrying: summary.filter(j => isRetryPending(j.jobName)).length
+        });
+    } catch (error) {
+        res.status(500).json({ ok: false, error: error.message });
+    }
+});
+
+app.get('/api/job-retry-history/:jobName', (req, res) => {
+    try {
+        const { getJobHistory } = require('./utils/JobRetryManager');
+        const history = getJobHistory(req.params.jobName, parseInt(req.query.limit) || 20);
+        res.json({ ok: true, jobName: req.params.jobName, history });
+    } catch (error) {
+        res.status(500).json({ ok: false, error: error.message });
+    }
 });
 
 // Job Execution Manager Status (Advanced Conflict Prevention System)
@@ -2724,6 +2794,40 @@ function connectMainDb(initial = false) {
 
 connectMainDb(true);
 
+// ========================================
+// ADMIN DASHBOARD & MONITORING
+// ========================================
+mountAdminRoutes(app, { mainPool });
+
+// Process Monitor — detects PM2 restarts/crashes and sends WhatsApp alerts
+const processMonitor = new ProcessMonitor({
+    checkIntervalMs: 30000,
+    alertCooldownMs: 300000,
+    adminNumbers: (process.env.SUPER_ADMIN_NUMBERS || '94777311770,94771222509').split(',').map(n => n.trim() + '@c.us'),
+    sendFn: async (number, message) => {
+        try {
+            const c = global.whatsappClient;
+            if (c && c.isReady) await c.sendMessage(number, message);
+        } catch {}
+    }
+});
+
+// QR Notifier — sends periodic alerts when QR scan is needed
+const qrNotifier = new QRNotifier({
+    intervalMinutes: parseInt(process.env.QR_NOTIFY_INTERVAL_MINUTES || '5', 10),
+    adminNumbers: (process.env.SUPER_ADMIN_NUMBERS || '94777311770,94771222509').split(',').map(n => n.trim() + '@c.us'),
+    dashboardUrl: `http://localhost:${process.env.BOT_API_PORT || 8585}/admin`,
+    maxReminders: 20,
+    emailFn: async (subject, body) => {
+        try {
+            const em = process.env.QR_NOTIFY_EMAIL;
+            if (em && emailService && typeof emailService.sendEmail === 'function') {
+                await emailService.sendEmail({ to: em, subject, text: body });
+            }
+        } catch {}
+    }
+});
+
 
 
 // Load allowed contacts from jobs-config.json (root-level allowedContacts or union of job contactNumbers)
@@ -3092,6 +3196,12 @@ function setupClientEventHandlers(clientInstance) {
             fs.writeFileSync(STATUS_FILE, JSON.stringify({ qr, ready: false }), 'utf8');
         } catch {}
         sseBroadcast('qr', { qr, dataUrl: currentQRCodeDataUrl, timestamp: qrCodeTimestamp });
+
+        // Expose QR globally for admin dashboard
+        global.lastQR = qr;
+
+        // QR Notification — alert admins that scan is needed
+        try { qrNotifier.onQRGenerated(qr); } catch (e) { console.error('[QRNotifier]', e.message); }
     });
 
     clientInstance.on('loading_screen', (percent, message) => {
@@ -3102,6 +3212,10 @@ function setupClientEventHandlers(clientInstance) {
     clientInstance.on('authenticated', () => {
         logAndSave('[Auth] ✅ Session authenticated successfully - credentials saved');
         sseBroadcast('authenticated', { status: 'Session loaded from disk' });
+
+        // Clear QR notification reminders — scan was successful
+        global.lastQR = null;
+        try { qrNotifier.onAuthenticated(); } catch {}
 
         // WATCHDOG: Ensure 'ready' fires. If not, trigger it manually if we are connected.
         setTimeout(async () => {
@@ -3216,9 +3330,13 @@ let reconnectAttempts = 0;
 let browserLockRetryCount = 0;
 let ipcWatcherStarted = false;
 let reconnectTimer = null;
-const MAX_RECONNECT_ATTEMPTS = 3; // Reduced from 5 to avoid infinite loops
-const BASE_RECONNECT_INTERVAL = 15000; // 15 seconds base
-const MAX_RECONNECT_INTERVAL = 60000; // 1 minute max
+let connectionStableAt = null;          // timestamp when the last stable connection started
+let totalReconnectsToday = 0;           // daily reconnect counter (reset at midnight)
+const MAX_RECONNECT_ATTEMPTS = 10;      // Increased: 10 quick retries before cooldown
+const BASE_RECONNECT_INTERVAL = 10000;  // 10 seconds base (was 15s)
+const MAX_RECONNECT_INTERVAL = 60000;   // 1 minute max for quick-retry phase
+const COOLDOWN_RECONNECT_INTERVAL = 300000; // 5 minutes cooldown between infinite-retry cycles
+const INFINITE_RECONNECT = true;        // Never give up permanently — always try again after cooldown
 
 async function promoteClientToReady(ci, { forced = false } = {}) {
     try {
@@ -3330,6 +3448,16 @@ async function promoteClientToReady(ci, { forced = false } = {}) {
         } catch (backupErr) {
             logAndSave(`[Ready] Session backup failed to start: ${backupErr.message}`);
         }
+
+        // Start Process Monitor (crash detection + daily health summary)
+        try {
+            if (!global.__processMonitorStarted) {
+                processMonitor.start();
+                global.__processMonitorStarted = true;
+            }
+        } catch (monErr) {
+            logAndSave(`[Ready] ProcessMonitor start failed: ${monErr.message}`);
+        }
     } catch {}
 }
 
@@ -3378,7 +3506,7 @@ foreach ($p in $targets) {
 "killed=" + (($targets | Select-Object -ExpandProperty ProcessId) -join ',')
 `;
 
-                const out = execFileSync('powershell', ['-NoProfile', '-Command', ps], { stdio: ['ignore', 'pipe', 'pipe'] });
+                const out = execFileSync('powershell', ['-NoProfile', '-Command', ps], { stdio: ['ignore', 'pipe', 'pipe'], windowsHide: true });
                 try {
                         const s = Buffer.isBuffer(out) ? out.toString('utf8') : String(out || '');
                         if (s && s.trim()) logAndSave(`[Cleanup] Chromium kill result: ${s.trim()}`);
@@ -3499,9 +3627,18 @@ async function initializeClient(force = false) {
         // Give it a moment to fully clean up
         await new Promise(resolve => setTimeout(resolve, 2000));
         
-        // Create a FRESH client instance (whatsapp-web.js doesn't support re-initializing same instance)
-        logAndSave('[Init] Creating new client instance...');
-        client = new Client(getClientOptions());
+        // Create a client instance based on the engine toggle in .env
+        const engine = process.env.WHATSAPP_ENGINE || 'v1';
+        
+        if (engine === 'v2') {
+            logAndSave('[Init] 🚀 Using V2 Baileys Engine (No Browser)...');
+            const V2ClientAdapter = require('./v2_adapter');
+            client = new V2ClientAdapter();
+        } else {
+            logAndSave('[Init] 🐢 Using V1 Legacy Engine (Puppeteer/Browser)...');
+            client = new Client(getClientOptions());
+        }
+        
         global.whatsappClient = client;
         
         // Set up event handlers for the new client
@@ -3550,22 +3687,38 @@ function handleReconnection() {
         logAndSave('[Reconnect] Attempt already scheduled, skipping duplicate trigger');
         return;
     }
+
+    totalReconnectsToday++;
     
     if (reconnectAttempts >= MAX_RECONNECT_ATTEMPTS) {
-        logAndSave(`[Reconnect] ⚠️  Max reconnection attempts (${MAX_RECONNECT_ATTEMPTS}) reached.`);
-        logAndSave('[Reconnect] Manual restart required. Use dashboard Connect button or restart bot.');
-        
-        // Reset attempts after 5 minutes to allow retry
-        setTimeout(() => {
-            logAndSave('[Reconnect] Reconnection attempts reset after cooldown');
-            reconnectAttempts = 0;
-        }, 300000); // 5 minutes
+        if (INFINITE_RECONNECT) {
+            // PERMANENT FIX: Never give up — enter cooldown then retry cycle
+            logAndSave(`[Reconnect] ⚠️  Quick-retry phase exhausted (${MAX_RECONNECT_ATTEMPTS} attempts).`);
+            logAndSave(`[Reconnect] 🔄 Entering cooldown (${COOLDOWN_RECONNECT_INTERVAL/1000}s) then will retry...`);
+            logAndSave(`[Reconnect] Total reconnects today: ${totalReconnectsToday}`);
+            
+            reconnectTimer = setTimeout(() => {
+                reconnectTimer = null;
+                reconnectAttempts = 0; // Reset for new quick-retry cycle
+                logAndSave('[Reconnect] 🔄 Cooldown complete — starting new reconnection cycle');
+                initializeClient(true);
+            }, COOLDOWN_RECONNECT_INTERVAL);
+        } else {
+            logAndSave(`[Reconnect] ⚠️  Max reconnection attempts (${MAX_RECONNECT_ATTEMPTS}) reached.`);
+            logAndSave('[Reconnect] Manual restart required. Use dashboard Connect button or restart bot.');
+            
+            // Reset attempts after 5 minutes to allow retry
+            setTimeout(() => {
+                logAndSave('[Reconnect] Reconnection attempts reset after cooldown');
+                reconnectAttempts = 0;
+            }, 300000); // 5 minutes
+        }
         return;
     }
     
     reconnectAttempts++;
     
-    // Exponential backoff: 15s, 30s, 60s
+    // Exponential backoff: 10s, 20s, 40s, 60s, 60s...
     const delay = Math.min(
         BASE_RECONNECT_INTERVAL * Math.pow(2, reconnectAttempts - 1),
         MAX_RECONNECT_INTERVAL
@@ -3578,6 +3731,10 @@ function handleReconnection() {
         initializeClient(true);
     }, delay);
 }
+
+// Expose for admin dashboard routes
+global.handleReconnection = handleReconnection;
+global.initializeClient = initializeClient;
 
 function triggerSessionRecovery(context, message) {
     const detail = message || 'unknown';
@@ -3612,20 +3769,20 @@ function triggerSessionRecovery(context, message) {
 initializeClient();
 
 
-// Session health monitor - checks every 10 minutes if session is still valid
-// IMPORTANT: Only restart if real 'ready' event was seen and then lost.
-// If we never got 'ready', restarting won't help and just causes loops.
+// Session health monitor - checks every 5 minutes if session is still valid
+// ENABLED by default for permanent connection stability.
+// Set WA_DISABLE_HEALTH_MONITOR=true in env to disable.
 setInterval(async () => {
-    const DISABLE_HEALTH_MONITOR = String(process.env.WA_DISABLE_HEALTH_MONITOR || 'true').toLowerCase() === 'true';
+    const DISABLE_HEALTH_MONITOR = String(process.env.WA_DISABLE_HEALTH_MONITOR || 'false').toLowerCase() === 'true';
     if (DISABLE_HEALTH_MONITOR) return;
 
     if (!isInitialized || !global.whatsappClient) {
-        return; // Skip if not initialized
+        return; // Skip if not initialized — dead-client watchdog handles this case
     }
 
-    // Only do health checks if we had a real 'ready' event.
-    // Force-ready sessions have broken inbound anyway, restarting won't help.
-    if (!readyEventSeen) {
+    // Check both real-ready and forced-ready sessions.
+    // Even forced-ready can benefit from health monitoring for connectivity changes.
+    if (!readyEventSeen && !forcedReady) {
         return;
     }
 
@@ -3669,7 +3826,29 @@ setInterval(async () => {
             handleReconnection();
         }
     }
-}, 600000); // Check every 10 minutes (600000ms) - less aggressive
+}, 300000); // Check every 5 minutes (300000ms)
+
+// Daily reconnect counter reset — midnight
+setInterval(() => {
+    if (totalReconnectsToday > 0) {
+        logAndSave(`[Health] 📊 Daily reconnect count: ${totalReconnectsToday} — resetting`);
+    }
+    totalReconnectsToday = 0;
+}, 86400000); // 24 hours
+
+// Dead-client watchdog: If client was never initialized (no QR scanned, or stuck), 
+// and no reconnect is scheduled, try to reinitialize every 10 minutes.
+setInterval(async () => {
+    // Skip if already initialized or a reconnect is in progress/scheduled
+    if (isInitialized || isInitializing || reconnectTimer) return;
+    
+    // Skip if we've been running for less than 2 minutes (startup grace period)
+    if (process.uptime() < 120) return;
+    
+    logAndSave('[Watchdog] ⚠️ Client not initialized and no reconnect scheduled — triggering recovery');
+    reconnectAttempts = 0; // Fresh start
+    handleReconnection();
+}, 600000); // Check every 10 minutes
 
 // --- AI Helper Functions ---
 
@@ -3765,11 +3944,13 @@ function setupMessageHandler(clientInstance) {
                 // Update diagnostics
                 global.__waDiag.lastOutboundAt = Date.now();
                 global.__waDiag.lastOutboundTo = msg?.to || null;
-                global.__waDiag.lastOutboundBody = (msg.body || '').slice(0, 200);
+                // FIX: msg.body can be a Buffer/Object for media — always coerce to string
+                const safeBody = (typeof msg.body === 'string') ? msg.body : String(msg.body || '');
+                global.__waDiag.lastOutboundBody = safeBody.slice(0, 200);
 
                 sseBroadcast('message_create', {
                     id: msg.id,
-                    body: msg.body,
+                    body: safeBody,
                     timestamp: msg.timestamp,
                     from: msg.from,
                     to: msg.to,
@@ -3862,6 +4043,72 @@ function setupMessageHandler(clientInstance) {
         if (text === '!id') {
             const r = await safeReply(msg, clientInstance, msg.from, `Chat ID: ${msg.from}`);
             logAndSave(`[Diag] !id from ${msg.from} -> ${r && r.ok ? 'ok' : 'fail'} via=${(r && r.via) || 'n/a'}`);
+            return;
+        }
+
+        // ========================================
+        // JOB MONITORING COMMANDS (ADMIN ONLY)
+        // ========================================
+        const JOB_ADMIN_NUMBERS = ['94777311770', '94771222509'];
+        const isJobAdmin = JOB_ADMIN_NUMBERS.includes(senderNumber);
+        
+        if (text === '!jobstatus' && isJobAdmin) {
+            try {
+                const { getFailureSummary, getJobHistory } = require('./utils/JobRetryManager');
+                const summary = getFailureSummary();
+                let reply = '📊 *Job Monitor Status*\n\n';
+                
+                if (summary.length === 0) {
+                    reply += '✅ No job failures recorded.';
+                } else {
+                    for (const job of summary) {
+                        const icon = job.consecutiveFailures > 0 ? '❌' : '✅';
+                        reply += `${icon} *${job.jobName}*\n`;
+                        reply += `   Consecutive fails: ${job.consecutiveFailures}\n`;
+                        reply += `   Last: ${job.lastStatus} (${new Date(job.lastRunAt).toLocaleString()})\n`;
+                        if (job.lastError) reply += `   Error: ${job.lastError.substring(0, 80)}\n`;
+                        reply += '\n';
+                    }
+                }
+                
+                // Also show pending retries
+                const { isRetryPending } = require('./utils/JobRetryManager');
+                const pendingJobs = summary.filter(j => isRetryPending(j.jobName));
+                if (pendingJobs.length > 0) {
+                    reply += `\n⏳ *Pending Retries:* ${pendingJobs.map(j => j.jobName).join(', ')}`;
+                }
+                
+                await safeReply(msg, clientInstance, msg.from, reply);
+            } catch (e) {
+                await safeReply(msg, clientInstance, msg.from, `❌ Error: ${e.message}`);
+            }
+            return;
+        }
+        
+        if (text.startsWith('!jobhistory ') && isJobAdmin) {
+            try {
+                const { getJobHistory } = require('./utils/JobRetryManager');
+                const jobName = text.replace('!jobhistory ', '').trim();
+                const history = getJobHistory(jobName, 10);
+                let reply = `📋 *Last 10 runs: ${jobName}*\n\n`;
+                
+                if (history.length === 0) {
+                    reply += 'No execution history found.';
+                } else {
+                    for (const entry of history) {
+                        const icon = entry.status === 'success' ? '✅' : (entry.status === 'retry_success' ? '🔄✅' : '❌');
+                        reply += `${icon} ${new Date(entry.timestamp).toLocaleString()}\n`;
+                        reply += `   Duration: ${(entry.durationMs / 1000).toFixed(1)}s`;
+                        if (entry.attempt > 1) reply += ` (attempt ${entry.attempt})`;
+                        if (entry.error) reply += `\n   Error: ${entry.error.substring(0, 60)}`;
+                        reply += '\n\n';
+                    }
+                }
+                
+                await safeReply(msg, clientInstance, msg.from, reply);
+            } catch (e) {
+                await safeReply(msg, clientInstance, msg.from, `❌ Error: ${e.message}`);
+            }
             return;
         }
 
@@ -4031,6 +4278,8 @@ function setupMessageHandler(clientInstance) {
             },
             allowedContacts,
             logAndSave,
+            client: clientInstance,   // ← CRITICAL: Jobs need this for safeReply
+            safeReply,               // ← Pass safeReply directly so jobs don't need to import it
             context: {
                 senderNumber,
                 text,
@@ -4765,6 +5014,7 @@ async function listenOnPort(port) {
     console.log(`📡 Health endpoint: http://localhost:${selected}/health`);
     console.log(`📊 Stats endpoint: http://localhost:${selected}/stats`);
     console.log(`🎣 Facebook webhook: http://localhost:${selected}/facebook/webhook`);
+    console.log(`🖥️  Admin Dashboard: http://localhost:${selected}/admin`);
 
     global.httpServer.on('error', (err) => {
         console.error('💥 HTTP server error:', err);
@@ -4817,11 +5067,25 @@ setTimeout(async () => {
     };
 
     if (!(await checkAndStart())) {
-        console.warn('⚠️  Digital Invoice Processor: Dependencies not ready. Retrying in 10s...');
-        setTimeout(() => {
-             if (!checkAndStart()) {
-                 console.error('❌ Digital Invoice Processor Start Failed: Dependencies still missing after retry.');
-             }
+        console.warn('⚠️  Digital Invoice Processor: Dependencies not ready. Retrying (max 6 attempts, 10s each)...');
+        let attempts = 0;
+        const maxAttempts = 6;
+        const retryTimer = setInterval(async () => {
+            attempts++;
+            try {
+                if (await checkAndStart()) {
+                    clearInterval(retryTimer);
+                    return;
+                }
+            } catch (e) {
+                console.warn(`⚠️  Digital Invoice Processor: Attempt ${attempts} error: ${e.message}`);
+            }
+            if (attempts >= maxAttempts) {
+                clearInterval(retryTimer);
+                console.error('❌ Digital Invoice Processor Start Failed: Dependencies still missing after ' + maxAttempts + ' retries.');
+            } else {
+                console.warn(`⚠️  Digital Invoice Processor: Attempt ${attempts}/${maxAttempts} - not ready yet...`);
+            }
         }, 10000);
     }
 }, 5000); // Wait 5s for main systems to settle
