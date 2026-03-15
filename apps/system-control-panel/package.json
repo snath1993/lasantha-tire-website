@@ -1,0 +1,38 @@
+{
+  "name": "lasantha-tyre-control-panel",
+  "version": "1.0.0",
+  "description": "Lasantha Tyre House — System Control Panel Desktop Application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win"
+  },
+  "build": {
+    "appId": "com.lasanthatyre.controlpanel",
+    "productName": "Lasantha Tyre Control Panel",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**/*",
+      "assets/**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.13.3"
+  }
+}

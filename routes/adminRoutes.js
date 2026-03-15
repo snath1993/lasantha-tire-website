@@ -144,6 +144,66 @@ module.exports = function mountAdminRoutes(app, deps = {}) {
         }
     });
 
+    // ═══════════════════════════════════
+    //  GET /api/admin/whatsapp/qr
+    //  Returns current QR code for scanning
+    // ═══════════════════════════════════
+    app.get('/api/admin/whatsapp/qr', authCheck, (req, res) => {
+        const qr = global.lastQR || null;
+        const dataUrl = global.currentQRCodeDataUrl || null;
+        if (!qr) return res.json({ available: false });
+        res.json({ available: true, qr, dataUrl });
+    });
+
+    // ═══════════════════════════════════
+    //  GET /api/admin/config/:file
+    //  Read configuration files
+    // ═══════════════════════════════════
+    app.get('/api/admin/config/:file', authCheck, (req, res) => {
+        const allowed = {
+            'env': '.env',
+            'jobs-config': 'jobs-config.json',
+            'ecosystem': 'ecosystem.config.js',
+            'watched-items': 'watched-item-config.json',
+        };
+        const file = allowed[req.params.file];
+        if (!file) return res.json({ ok: false, error: 'Unknown config file' });
+        const filePath = path.join(__dirname, '..', file);
+        try {
+            const content = fs.existsSync(filePath) ? fs.readFileSync(filePath, 'utf8') : '';
+            res.json({ ok: true, name: file, content });
+        } catch (err) {
+            res.json({ ok: false, error: err.message });
+        }
+    });
+
+    // ═══════════════════════════════════
+    //  POST /api/admin/config/:file
+    //  Write configuration files
+    // ═══════════════════════════════════
+    app.post('/api/admin/config/:file', authCheck, express.json(), (req, res) => {
+        const allowed = {
+            'env': '.env',
+            'jobs-config': 'jobs-config.json',
+            'ecosystem': 'ecosystem.config.js',
+            'watched-items': 'watched-item-config.json',
+        };
+        const file = allowed[req.params.file];
+        if (!file) return res.json({ ok: false, error: 'Unknown config file' });
+        const filePath = path.join(__dirname, '..', file);
+        try {
+            // Create a backup first
+            if (fs.existsSync(filePath)) {
+                const backupPath = filePath + '.bak';
+                fs.copyFileSync(filePath, backupPath);
+            }
+            fs.writeFileSync(filePath, req.body.content || '', 'utf8');
+            res.json({ ok: true, message: `${file} saved` });
+        } catch (err) {
+            res.json({ ok: false, error: err.message });
+        }
+    });
+
     console.log('[AdminRoutes] ✅ Admin dashboard routes mounted at /admin');
 };
 

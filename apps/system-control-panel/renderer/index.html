@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:;">
+<title>Lasantha Tyre Control Panel</title>
+<style>
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/*  CSS VARIABLES & RESET                */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+:root {
+    --bg-primary: #0f0f1a;
+    --bg-secondary: #161625;
+    --bg-card: #1c1c30;
+    --bg-card-hover: #222240;
+    --bg-input: #12121f;
+    --text-primary: #e2e8f0;
+    --text-secondary: #94a3b8;
+    --text-muted: #5a6078;
+    --accent: #7c3aed;
+    --accent-hover: #6d28d9;
+    --accent-glow: rgba(124, 58, 237, .25);
+    --success: #10b981;
+    --success-bg: rgba(16, 185, 129, .12);
+    --warning: #f59e0b;
+    --warning-bg: rgba(245, 158, 11, .12);
+    --error: #ef4444;
+    --error-bg: rgba(239, 68, 68, .12);
+    --info: #3b82f6;
+    --border: #2a2a42;
+    --sidebar-w: 210px;
+    --titlebar-h: 38px;
+    --statusbar-h: 30px;
+    --radius: 10px;
+    --radius-sm: 6px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; overflow: hidden; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 13px; color: var(--text-primary); background: var(--bg-primary); user-select: none; }
+
+/* ── Title Bar ── */
+#titlebar { display: flex; align-items: center; height: var(--titlebar-h);
+    background: #0b0b15; border-bottom: 1px solid var(--border); -webkit-app-region: drag; padding: 0 12px; }
+#titlebar .logo { font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: .5px; }
+#titlebar .logo span { color: var(--text-secondary); font-weight: 400; margin-left: 6px; }
+#titlebar .win-controls { margin-left: auto; display: flex; gap: 2px; -webkit-app-region: no-drag; }
+#titlebar .win-controls button { width: 36px; height: 28px; border: none; background: transparent;
+    color: var(--text-secondary); font-size: 14px; cursor: pointer; border-radius: 4px; }
+#titlebar .win-controls button:hover { background: #2a2a42; color: #fff; }
+#titlebar .win-controls button.close:hover { background: var(--error); color: #fff; }
+
+/* ── Layout ── */
+#app { display: flex; height: calc(100vh - var(--titlebar-h) - var(--statusbar-h)); }
+
+/* ── Sidebar ── */
+#sidebar { width: var(--sidebar-w); min-width: var(--sidebar-w); background: var(--bg-secondary);
+    border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 8px 0; overflow-y: auto; }
+.nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 18px; cursor: pointer;
+    color: var(--text-secondary); font-size: 13px; border-left: 3px solid transparent; transition: all .15s; }
+.nav-item:hover { background: var(--bg-card); color: var(--text-primary); }
+.nav-item.active { color: var(--accent); border-left-color: var(--accent); background: var(--accent-glow); font-weight: 600; }
+.nav-item .icon { font-size: 16px; width: 22px; text-align: center; }
+.nav-sep { height: 1px; background: var(--border); margin: 6px 18px; }
+
+/* ── Main Content ── */
+#content { flex: 1; overflow-y: auto; padding: 20px 24px; }
+.page { display: none; }
+.page.active { display: block; }
+.page-title { font-size: 18px; font-weight: 700; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+.page-title .badge { font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+
+/* ── Cards Grid ── */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; margin-bottom: 20px; }
+.card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 16px; transition: border-color .2s, transform .2s; }
+.card:hover { border-color: var(--accent); transform: translateY(-1px); }
+.card .card-icon { font-size: 22px; margin-bottom: 6px; }
+.card .card-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 4px; }
+.card .card-value { font-size: 22px; font-weight: 700; }
+.card .card-sub { font-size: 11px; color: var(--text-secondary); margin-top: 4px; }
+
+/* ── Status badges ── */
+.status { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px;
+    border-radius: 20px; font-size: 11px; font-weight: 600; }
+.status.online, .status.connected, .status.healthy, .status.success { background: var(--success-bg); color: var(--success); }
+.status.stopped, .status.error, .status.failed { background: var(--error-bg); color: var(--error); }
+.status.warning, .status.degraded { background: var(--warning-bg); color: var(--warning); }
+.status::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+
+/* ── Tables ── */
+.table-wrap { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 20px; }
+table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+th { background: var(--bg-secondary); padding: 10px 14px; text-align: left;
+    font-size: 11px; text-transform: uppercase; letter-spacing: .8px; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+td { padding: 10px 14px; border-bottom: 1px solid #1f1f36; }
+tr:hover td { background: rgba(124, 58, 237, .04); }
+
+/* ── Buttons ── */
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border: none;
+    border-radius: var(--radius-sm); font-size: 12px; font-weight: 600; cursor: pointer; transition: all .15s; }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: var(--accent-hover); box-shadow: 0 0 12px var(--accent-glow); }
+.btn-success { background: var(--success); color: #fff; }
+.btn-success:hover { opacity: .9; }
+.btn-danger { background: var(--error); color: #fff; }
+.btn-danger:hover { opacity: .9; }
+.btn-warning { background: var(--warning); color: #111; }
+.btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--text-secondary); }
+.btn-ghost:hover { background: var(--bg-card); color: var(--text-primary); }
+.btn-sm { padding: 4px 10px; font-size: 11px; }
+.btn:disabled { opacity: .4; cursor: not-allowed; }
+.btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+
+/* ── Inputs ── */
+.input, textarea, select { background: var(--bg-input); border: 1px solid var(--border);
+    color: var(--text-primary); border-radius: var(--radius-sm); padding: 8px 12px; font-size: 13px; font-family: inherit; outline: none; }
+.input:focus, textarea:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-glow); }
+textarea { resize: vertical; }
+select { cursor: pointer; }
+label { font-size: 12px; color: var(--text-secondary); margin-bottom: 4px; display: block; }
+
+/* ── Section panels ── */
+.panel { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 18px; margin-bottom: 16px; }
+.panel-title { font-size: 14px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.panel-title .icon { font-size: 16px; }
+
+/* ── QR Code Area ── */
+.qr-container { display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 24px; min-height: 280px; }
+.qr-container img { border-radius: 12px; border: 3px solid var(--accent); padding: 8px; background: #fff; max-width: 260px; }
+.qr-container .qr-placeholder { width: 220px; height: 220px; border: 2px dashed var(--border);
+    border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 14px; }
+.qr-label { margin-top: 12px; font-size: 13px; color: var(--text-secondary); text-align: center; }
+
+/* ── Log viewer ── */
+#log-output { background: #0a0a14; border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 12px; font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace; font-size: 11.5px;
+    line-height: 1.6; height: 420px; overflow-y: auto; white-space: pre-wrap; word-break: break-all; color: #a0aec0; }
+.log-line-err { color: #ef4444; }
+.log-line-warn { color: #f59e0b; }
+.log-line-ok { color: #10b981; }
+.log-line-info { color: #60a5fa; }
+
+/* ── Config editor ── */
+#config-editor { width: 100%; min-height: 420px; font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+    font-size: 12px; line-height: 1.5; background: #0a0a14; color: #e2e8f0;
+    border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; }
+
+/* ── Actions grid ── */
+.actions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+.action-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; }
+.action-card h3 { font-size: 14px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.action-card .btn { width: 100%; justify-content: center; margin-bottom: 6px; }
+
+/* ── Settings form ── */
+.form-group { margin-bottom: 14px; }
+.form-group label { margin-bottom: 6px; }
+.form-row { display: flex; align-items: center; gap: 10px; }
+.form-row .input, .form-row select { flex: 1; }
+.toggle { position: relative; width: 42px; height: 22px; cursor: pointer; }
+.toggle input { display: none; }
+.toggle .slider { position: absolute; inset: 0; background: var(--border); border-radius: 11px; transition: .2s; }
+.toggle .slider::after { content: ''; position: absolute; left: 3px; top: 3px; width: 16px; height: 16px;
+    background: #fff; border-radius: 50%; transition: .2s; }
+.toggle input:checked + .slider { background: var(--accent); }
+.toggle input:checked + .slider::after { left: 23px; }
+
+/* ── Status Bar ── */
+#statusbar { height: var(--statusbar-h); background: var(--accent); display: flex; align-items: center;
+    padding: 0 14px; gap: 16px; font-size: 11px; color: #fff; font-weight: 500; }
+#statusbar .sb-item { display: flex; align-items: center; gap: 5px; }
+#statusbar .sb-dot { width: 7px; height: 7px; border-radius: 50%; }
+#statusbar .sb-dot.on { background: #4ade80; }
+#statusbar .sb-dot.off { background: #ef4444; }
+#statusbar .sb-right { margin-left: auto; display: flex; gap: 14px; }
+
+/* ── Toast ── */
+#toast-container { position: fixed; bottom: 40px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; }
+.toast { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 10px 16px; font-size: 12px; box-shadow: 0 4px 20px rgba(0,0,0,.4); animation: toastIn .3s; max-width: 340px; }
+.toast.success { border-left: 3px solid var(--success); }
+.toast.error { border-left: 3px solid var(--error); }
+.toast.info { border-left: 3px solid var(--info); }
+@keyframes toastIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+
+/* ── Misc ── */
+.mt-4 { margin-top: 16px; }
+.mb-2 { margin-bottom: 8px; }
+.text-muted { color: var(--text-muted); }
+.text-sm { font-size: 11px; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; }
+.mono { font-family: 'Cascadia Code', 'Consolas', monospace; }
+.gap-8 { gap: 8px; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #3a3a5a; }
+</style>
+</head>
+<body>
+
+<!-- ━━━━ TITLE BAR ━━━━ -->
+<div id="titlebar">
+    <div class="logo">LASANTHA TYRE<span>Control Panel</span></div>
+    <div class="win-controls">
+        <button onclick="api.minimize()" title="Minimize">─</button>
+        <button onclick="api.maximize()" title="Maximize">☐</button>
+        <button class="close" onclick="api.close()" title="Close">✕</button>
+    </div>
+</div>
+
+<!-- ━━━━ APP ━━━━ -->
+<div id="app">
+
+<!-- ── Sidebar ── -->
+<nav id="sidebar">
+    <div class="nav-item active" data-page="overview"><span class="icon">🏠</span>Overview</div>
+    <div class="nav-item" data-page="whatsapp"><span class="icon">📱</span>WhatsApp</div>
+    <div class="nav-item" data-page="services"><span class="icon">⚙️</span>Services</div>
+    <div class="nav-item" data-page="jobs"><span class="icon">📋</span>Jobs</div>
+    <div class="nav-item" data-page="database"><span class="icon">🗄️</span>Database</div>
+    <div class="nav-sep"></div>
+    <div class="nav-item" data-page="logs"><span class="icon">📜</span>Logs</div>
+    <div class="nav-item" data-page="config"><span class="icon">🔧</span>Configuration</div>
+    <div class="nav-sep"></div>
+    <div class="nav-item" data-page="actions"><span class="icon">⚡</span>Actions</div>
+    <div class="nav-item" data-page="settings"><span class="icon">🔩</span>Settings</div>
+</nav>
+
+<!-- ── Content ── -->
+<main id="content">
+
+<!-- ═══════════════ OVERVIEW ═══════════════ -->
+<section id="page-overview" class="page active">
+    <div class="page-title">🏠 System Overview <span class="badge status" id="ov-health">Loading...</span></div>
+    <div class="cards" id="ov-cards">
+        <div class="card"><div class="card-icon">📱</div><div class="card-label">WhatsApp</div><div class="card-value" id="ov-wa">—</div><div class="card-sub" id="ov-wa-sub"></div></div>
+        <div class="card"><div class="card-icon">🗄️</div><div class="card-label">Database</div><div class="card-value" id="ov-db">—</div><div class="card-sub" id="ov-db-sub"></div></div>
+        <div class="card"><div class="card-icon">⚙️</div><div class="card-label">Services</div><div class="card-value" id="ov-svc">—</div><div class="card-sub" id="ov-svc-sub"></div></div>
+        <div class="card"><div class="card-icon">📋</div><div class="card-label">Jobs</div><div class="card-value" id="ov-jobs">—</div><div class="card-sub" id="ov-jobs-sub"></div></div>
+        <div class="card"><div class="card-icon">⏱️</div><div class="card-label">Bot Uptime</div><div class="card-value" id="ov-uptime">—</div><div class="card-sub" id="ov-uptime-sub"></div></div>
+        <div class="card"><div class="card-icon">💾</div><div class="card-label">Memory</div><div class="card-value" id="ov-mem">—</div><div class="card-sub" id="ov-mem-sub"></div></div>
+        <div class="card"><div class="card-icon">🔄</div><div class="card-label">Restarts</div><div class="card-value" id="ov-restarts">—</div><div class="card-sub" id="ov-restarts-sub"></div></div>
+        <div class="card"><div class="card-icon">🖥️</div><div class="card-label">System</div><div class="card-value" id="ov-sys">—</div><div class="card-sub" id="ov-sys-sub"></div></div>
+    </div>
+    <div class="panel">
+        <div class="panel-title"><span class="icon">📊</span> Recent Job Executions</div>
+        <div class="table-wrap"><table>
+            <thead><tr><th>Job</th><th>Last Run</th><th>Status</th><th>Duration</th></tr></thead>
+            <tbody id="ov-job-table"></tbody>
+        </table></div>
+    </div>
+</section>
+
+<!-- ═══════════════ WHATSAPP ═══════════════ -->
+<section id="page-whatsapp" class="page">
+    <div class="page-title">📱 WhatsApp Management</div>
+    <div class="cards" style="grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));">
+        <div class="card"><div class="card-label">Status</div><div class="card-value"><span class="status" id="wa-status">—</span></div></div>
+        <div class="card"><div class="card-label">Engine</div><div class="card-value" id="wa-engine">—</div></div>
+        <div class="card"><div class="card-label">Reconnects</div><div class="card-value" id="wa-reconnects">0</div></div>
+    </div>
+    <div class="panel">
+        <div class="panel-title"><span class="icon">📸</span> QR Code Scanner</div>
+        <div class="qr-container" id="qr-area">
+            <div class="qr-placeholder" id="qr-placeholder">QR code will appear here when needed</div>
+            <img id="qr-image" src="" alt="QR Code" style="display:none;">
+            <div class="qr-label" id="qr-label">WhatsApp is connected — no QR needed</div>
+        </div>
+        <div class="btn-row" style="justify-content:center;">
+            <button class="btn btn-primary" onclick="App.reconnectWA()">🔄 Reconnect</button>
+            <button class="btn btn-danger" onclick="App.hardResetWA()">⚡ Hard Reset</button>
+            <button class="btn btn-ghost" onclick="App.refreshQR()">📸 Refresh QR</button>
+        </div>
+    </div>
+    <div class="panel">
+        <div class="panel-title"><span class="icon">💬</span> Send Test Message</div>
+        <div class="form-group">
+            <label>Phone Number (with country code, e.g. 94777311770)</label>
+            <input class="input" id="wa-test-number" placeholder="94777311770" style="width:280px;">
+        </div>
+        <div class="form-group">
+            <label>Message</label>
+            <textarea id="wa-test-msg" rows="3" style="width:100%;" placeholder="Type a test message..."></textarea>
+        </div>
+        <button class="btn btn-primary" onclick="App.sendTestMsg()">📤 Send Message</button>
+    </div>
+</section>
+
+<!-- ═══════════════ SERVICES ═══════════════ -->
+<section id="page-services" class="page">
+    <div class="page-title">⚙️ PM2 Services</div>
+    <div class="btn-row">
+        <button class="btn btn-ghost" onclick="App.refreshServices()">🔄 Refresh</button>
+        <button class="btn btn-primary btn-sm" onclick="App.serviceActionAll('restart')">🔄 Restart All</button>
+        <button class="btn btn-danger btn-sm" onclick="App.serviceActionAll('stop')">⏸ Stop All</button>
+    </div>
+    <div class="table-wrap"><table>
+        <thead><tr><th>Name</th><th>Status</th><th>CPU</th><th>Memory</th><th>Restarts</th><th>Uptime</th><th>PID</th><th>Actions</th></tr></thead>
+        <tbody id="svc-table"></tbody>
+    </table></div>
+</section>
+
+<!-- ═══════════════ JOBS ═══════════════ -->
+<section id="page-jobs" class="page">
+    <div class="page-title">📋 Scheduled Jobs</div>
+    <div class="btn-row">
+        <button class="btn btn-ghost" onclick="App.refreshJobs()">🔄 Refresh</button>
+        <button class="btn btn-primary btn-sm" onclick="App.triggerJob('daily-sales-pdf')">📄 Send PDF Now</button>
+        <button class="btn btn-success btn-sm" onclick="App.triggerJob('db-backup')">💾 Backup Now</button>
+        <button class="btn btn-warning btn-sm" onclick="App.triggerJob('daily-report')">📊 Daily Report</button>
+    </div>
+    <div class="panel">
+        <div class="panel-title"><span class="icon">📊</span> Job Status</div>
+        <div class="table-wrap"><table>
+            <thead><tr><th>Job Name</th><th>Last Run</th><th>Status</th><th>Duration</th><th>Failures</th></tr></thead>
+            <tbody id="jobs-table"></tbody>
+        </table></div>
+    </div>
+    <div class="panel">
+        <div class="panel-title"><span class="icon">📜</span> Job Configuration</div>
+        <div class="table-wrap"><table>
+            <thead><tr><th>Job ID</th><th>Schedule</th><th>Enabled</th></tr></thead>
+            <tbody id="jobs-config-table"></tbody>
+        </table></div>
+    </div>
+</section>
+
+<!-- ═══════════════ DATABASE ═══════════════ -->
+<section id="page-database" class="page">
+    <div class="page-title">🗄️ Database Management</div>
+    <div class="cards" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));">
+        <div class="card"><div class="card-label">Connection</div><div class="card-value"><span class="status" id="db-status">—</span></div></div>
+        <div class="card"><div class="card-label">Database</div><div class="card-value" id="db-name">—</div></div>
+    </div>
+    <div class="btn-row">
+        <button class="btn btn-success" onclick="App.triggerBackup()">💾 Backup Now</button>
+        <button class="btn btn-ghost" onclick="App.openFolder('backups\\sql_archives')">📂 Open Archive Folder</button>
+        <button class="btn btn-ghost" onclick="App.refreshBackups()">🔄 Refresh</button>
+    </div>
+    <div class="panel">
+        <div class="panel-title"><span class="icon">📁</span> Backup Files</div>
+        <div class="table-wrap"><table>
+            <thead><tr><th>File Name</th><th>Size</th><th>Date</th></tr></thead>
+            <tbody id="backup-table"></tbody>
+        </table></div>
+    </div>
+</section>
+
+<!-- ═══════════════ LOGS ═══════════════ -->
+<section id="page-logs" class="page">
+    <div class="page-title">📜 Log Viewer</div>
+    <div class="btn-row" style="align-items:flex-end;">
+        <div class="form-group" style="margin-bottom:0;">
+            <label>Service</label>
+            <select id="log-service" style="width:200px;">
+                <option value="whatsapp-bot-v2">whatsapp-bot-v2</option>
+                <option value="lasantha-tire-dashboard">lasantha-tire-dashboard</option>
+                <option value="lasantha-tire-v2.0">lasantha-tire-v2.0</option>
+                <option value="peachtree-bridge">peachtree-bridge</option>
+                <option value="royal-booking-v2">royal-booking-v2</option>
+            </select>
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+            <label>Lines</label>
+            <input class="input" id="log-lines" type="number" value="200" min="10" max="2000" style="width:80px;">
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+            <label>Search</label>
+            <input class="input" id="log-search" placeholder="Filter..." style="width:160px;">
+        </div>
+        <button class="btn btn-primary" onclick="App.refreshLogs()">🔄 Fetch Logs</button>
+        <button class="btn btn-ghost" onclick="App.copyLogs()">📋 Copy</button>
+    </div>
+    <div id="log-output" class="mt-4"></div>
+</section>
+
+<!-- ═══════════════ CONFIGURATION ═══════════════ -->
+<section id="page-config" class="page">
+    <div class="page-title">🔧 Configuration Editor</div>
+    <div class="btn-row" style="align-items:flex-end;">
+        <div class="form-group" style="margin-bottom:0;">
+            <label>Config File</label>
+            <select id="config-select" onchange="App.loadConfigFile()" style="width:260px;"></select>
+        </div>
+        <button class="btn btn-primary" onclick="App.saveConfig()">💾 Save</button>
+        <button class="btn btn-ghost" onclick="App.loadConfigFile()">↩ Revert</button>
+        <button class="btn btn-danger" onclick="App.saveConfigAndRestart()">💾 Save & Restart Bot</button>
+    </div>
+    <p class="text-sm text-muted mb-2 mt-4">⚠️ Changes to .env require a bot restart to take effect. A backup (.bak) is created before saving.</p>
+    <textarea id="config-editor"></textarea>
+</section>
+
+<!-- ═══════════════ ACTIONS ═══════════════ -->
+<section id="page-actions" class="page">
+    <div class="page-title">⚡ Quick Actions</div>
+    <div class="actions-grid">
+        <div class="action-card">
+            <h3>🤖 Bot Control</h3>
+            <button class="btn btn-primary" onclick="App.svcAction('whatsapp-bot-v2','restart')">🔄 Restart Bot</button>
+            <button class="btn btn-danger" onclick="App.svcAction('whatsapp-bot-v2','stop')">⏸ Stop Bot</button>
+            <button class="btn btn-ghost" onclick="App.svcAction('whatsapp-bot-v2','start')">▶ Start Bot</button>
+        </div>
+        <div class="action-card">
+            <h3>🌐 Tunnels</h3>
+            <button class="btn btn-primary" onclick="App.restartAllTunnels()">🔄 Restart All Tunnels</button>
+            <button class="btn btn-ghost" onclick="App.svcAction('lasantha-bot-tunnel','restart')">Bot Tunnel</button>
+            <button class="btn btn-ghost" onclick="App.svcAction('lasantha-app-tunnel','restart')">App Tunnel</button>
+            <button class="btn btn-ghost" onclick="App.svcAction('lasantha-fb-tunnel','restart')">FB Tunnel</button>
+        </div>
+        <div class="action-card">
+            <h3>📋 Jobs</h3>
+            <button class="btn btn-primary" onclick="App.triggerJob('daily-sales-pdf')">📄 Daily Sales PDF</button>
+            <button class="btn btn-success" onclick="App.triggerJob('db-backup')">💾 Database Backup</button>
+            <button class="btn btn-warning" onclick="App.triggerJob('daily-report')">📊 Daily Report</button>
+        </div>
+        <div class="action-card">
+            <h3>📂 Folders</h3>
+            <button class="btn btn-ghost" onclick="App.openFolder('.')">📁 Project Root</button>
+            <button class="btn btn-ghost" onclick="App.openFolder('backups')">📁 Backups</button>
+            <button class="btn btn-ghost" onclick="App.openFolder('logs')">📁 Logs</button>
+            <button class="btn btn-ghost" onclick="App.openFolder('whatsapp-auth')">📁 WhatsApp Session</button>
+        </div>
+        <div class="action-card">
+            <h3>🌐 Web Dashboard</h3>
+            <button class="btn btn-primary" onclick="api.openDashboardWeb()">🖥️ Open in Browser</button>
+        </div>
+        <div class="action-card">
+            <h3>🔍 Diagnostics</h3>
+            <button class="btn btn-ghost" onclick="App.refreshOverview()">🩺 Health Check</button>
+            <button class="btn btn-ghost" onclick="App.sendTestMsg()">📱 Send Test Message</button>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ SETTINGS ═══════════════ -->
+<section id="page-settings" class="page">
+    <div class="page-title">🔩 Settings</div>
+    <div class="panel" style="max-width:560px;">
+        <div class="panel-title">General</div>
+        <div class="form-group">
+            <label>Bot API Port</label>
+            <input class="input" id="set-port" type="number" style="width:120px;">
+        </div>
+        <div class="form-group">
+            <label>Dashboard Key</label>
+            <input class="input" id="set-key" type="text" placeholder="(empty = no auth)" style="width:240px;">
+        </div>
+        <div class="form-group">
+            <label>Refresh Interval</label>
+            <select id="set-refresh" style="width:150px;">
+                <option value="2000">2 seconds</option>
+                <option value="5000">5 seconds</option>
+                <option value="10000">10 seconds</option>
+                <option value="30000">30 seconds</option>
+                <option value="60000">1 minute</option>
+            </select>
+        </div>
+        <div class="form-group form-row">
+            <label style="margin-bottom:0;">Minimize to tray on close</label>
+            <label class="toggle">
+                <input type="checkbox" id="set-tray">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="form-group form-row">
+            <label style="margin-bottom:0;">Start minimized</label>
+            <label class="toggle">
+                <input type="checkbox" id="set-startmin">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="btn-row mt-4">
+            <button class="btn btn-primary" onclick="App.saveAppSettings()">💾 Save Settings</button>
+        </div>
+    </div>
+    <div class="panel mt-4" style="max-width:560px;">
+        <div class="panel-title">About</div>
+        <div id="about-info" class="text-sm" style="line-height:1.8; color: var(--text-secondary);"></div>
+    </div>
+</section>
+
+</main>
+</div>
+
+<!-- ━━━━ STATUS BAR ━━━━ -->
+<div id="statusbar">
+    <div class="sb-item"><div class="sb-dot" id="sb-wa-dot"></div><span id="sb-wa-text">WhatsApp</span></div>
+    <div class="sb-item"><div class="sb-dot" id="sb-db-dot"></div><span id="sb-db-text">Database</span></div>
+    <div class="sb-item"><div class="sb-dot" id="sb-bot-dot"></div><span>Bot</span></div>
+    <div class="sb-right">
+        <div class="sb-item" id="sb-svc-count">Services: —</div>
+        <div class="sb-item" id="sb-time">—</div>
+    </div>
+</div>
+
+<!-- Toast -->
+<div id="toast-container"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

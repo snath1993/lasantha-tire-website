@@ -3199,6 +3199,7 @@ function setupClientEventHandlers(clientInstance) {
 
         // Expose QR globally for admin dashboard
         global.lastQR = qr;
+        global.currentQRCodeDataUrl = currentQRCodeDataUrl;
 
         // QR Notification — alert admins that scan is needed
         try { qrNotifier.onQRGenerated(qr); } catch (e) { console.error('[QRNotifier]', e.message); }
