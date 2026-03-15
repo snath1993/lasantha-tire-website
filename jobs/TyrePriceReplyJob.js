@@ -51,7 +51,7 @@ function computeSellingPrice({ tyre, tyreSize, normBrand, isMotorbike, isCostReq
     return rounded + pricing.publicBaseMarkup + pricing.publicExtraBuffer;
 }
 
-module.exports = async function TyrePriceReplyJob(msg, sql, sqlConfig, allowedContacts, logAndSave) {
+module.exports = async function TyrePriceReplyJob(msg, sql, sqlConfig, allowedContacts, logAndSave, client) {
     // Ignore WhatsApp system/broadcast/status messages (they are not user commands)
     // Examples include: 'status@broadcast', messages from broadcast lists, or other system senders
     if (typeof msg.from === 'string' && /broadcast|status@/i.test(msg.from)) {
@@ -82,7 +82,7 @@ module.exports = async function TyrePriceReplyJob(msg, sql, sqlConfig, allowedCo
     if (!tyreSize) {
         if (vehicleNo) {
             const VehicleInvoiceReplyJob = require('./VehicleInvoiceReplyJob');
-            await VehicleInvoiceReplyJob(msg, sql, sqlConfig, allowedContacts, logAndSave);
+            await VehicleInvoiceReplyJob(msg, sql, sqlConfig, allowedContacts, logAndSave, client);
             return true;
         }
         return false; // let other jobs attempt
@@ -96,7 +96,7 @@ module.exports = async function TyrePriceReplyJob(msg, sql, sqlConfig, allowedCo
     // If this is a cost request, delegate to CostPriceReplyJob (independent job)
     if (isCostRequest) {
         const CostPriceReplyJob = require('./CostPriceReplyJob');
-        const handled = await CostPriceReplyJob(msg, sql, sqlConfig, allowedContacts, logAndSave);
+        const handled = await CostPriceReplyJob(msg, sql, sqlConfig, allowedContacts, logAndSave, client);
         if (handled) return true;
         // if not handled (e.g., not allowed), continue to normal flow
     }
@@ -123,7 +123,7 @@ module.exports = async function TyrePriceReplyJob(msg, sql, sqlConfig, allowedCo
         );
 
         if (tyres.length === 0) {
-            await safeReply(msg, undefined, msg.from, `*${tyreSize}* is currently out of stock (QTY zero).`);
+            await safeReply(msg, client, msg.from, `*${tyreSize}* is currently out of stock (QTY zero).`);
             logAndSave(`Out of stock reply for size ${tyreSize} to ${senderNumber}`);
             return true;
         }
@@ -182,13 +182,13 @@ module.exports = async function TyrePriceReplyJob(msg, sql, sqlConfig, allowedCo
             if (!isAllowedContact) {
                 reply += '\n\n📞 *This is an AI generated message. Call this number for negotiations: 0771222509*';
             }
-                await safeReply(msg, undefined, msg.from, reply.trim());
+                await safeReply(msg, client, msg.from, reply.trim());
                 logAndSave(`Reply sent for size ${tyreSize} to ${senderNumber}: ${reply.trim().slice(0,200)}...`);
             return true;
         }
     } catch (err) {
         try {
-            await safeReply(msg, undefined, msg.from, 'Error connecting to SQL Server.');
+            await safeReply(msg, client, msg.from, 'Error connecting to SQL Server.');
         } catch (replyError) {
             logAndSave(`TyrePriceReplyJob: failed to send SQL error reply - ${replyError.message}`);
         }

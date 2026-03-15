@@ -143,6 +143,12 @@ async function safeGetNumberId(norm) {
     return { _serialized: String(norm).endsWith('@c.us') ? String(norm) : `${String(norm)}@c.us` };
   } catch (e) {
     console.error('[WA] getNumberId error:', e.message);
+    // If it's a detached frame / evaluation error, the number might still be valid.
+    // Return a fallback JID so the send can be attempted instead of wrongly rejecting as "unregistered".
+    if (/detached Frame|Evaluation failed|Protocol error|Target closed/i.test(e.message)) {
+      console.warn('[WA] getNumberId detached-frame bypass: assuming number is valid:', norm);
+      return { _serialized: String(norm).endsWith('@c.us') ? String(norm) : `${String(norm)}@c.us` };
+    }
     return null;
   }
 }
@@ -220,10 +226,9 @@ async function sendMedia(number, mimeType, buffer, filename, options = {}) {
 
     let MessageMedia;
     try {
-      // BAILEYS MIGRATION: Use wrapper
-      ({ MessageMedia } = require('./baileysWrapper'));
+      ({ MessageMedia } = require('whatsapp-web.js'));
     } catch (e) {
-      return { ok: false, error: 'baileys-wrapper-not-available' };
+      return { ok: false, error: 'whatsapp-web.js-not-available' };
     }
 
     // Resolve JID
@@ -266,9 +271,12 @@ async function sendMedia(number, mimeType, buffer, filename, options = {}) {
         lastErr = e;
         const msg = (e && e.message) ? e.message : String(e);
         const isReadinessError = /Evaluation failed/i.test(msg)
-          || /Cannot read properties of undefined \(reading 'getChat'\)/i.test(msg)
-          || /Cannot read properties of undefined \(reading 'WidFactory'\)/i.test(msg)
-          || /Cannot read properties of undefined \(reading 'markedUnread'\)/i.test(msg)
+          || /Cannot read properties of undefined/i.test(msg)
+          || /detached Frame/i.test(msg)
+          || /Invalid value/i.test(msg)
+          || /Protocol error/i.test(msg)
+          || /Session closed/i.test(msg)
+          || /Target closed/i.test(msg)
           || /getChat/i.test(msg)
           || /WidFactory/i.test(msg)
           || /wa-store-not-ready/i.test(msg);

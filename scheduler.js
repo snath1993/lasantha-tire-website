@@ -22,33 +22,19 @@ const { start: startFbCommentResponder } = require('./jobs/FacebookCommentRespon
 const { loadConfig: loadWatchedCfg } = require('./utils/watchedItemConfig');
 const { sendWhatsAppMessage, logAndSave } = require('./utils/schedulerUtils');
 const { updateJobStatus, computeNextRun } = require('./utils/jobStatus');
+const { runWithRetry } = require('./utils/JobRetryManager');
 const fs = require('fs');
 const path = require('path');
 
 // Incremental run every 2 hours at minute 0 (e.g., 00:00, 02:00, 04:00, ...)
 const CRON_SPEC = '0 */2 * * *';
 cron.schedule(CRON_SPEC, async () => {
-    const started = new Date();
     logAndSave('Running scheduled DailyTyreSalesReportJob...');
-    try {
-        // Get mainPool connection
+    await runWithRetry('DailyTyreSalesReportJob', async () => {
         const mainPool = await getPool();
-        // In scheduled runs prefer reading from local SQLite (sales_sync.db) which is kept in sync
         await DailyTyreSalesReportJob(sql, sqlConfig, sendWhatsAppMessage, logAndSave, { useSQLite: true, mainPool });
-        updateJobStatus('DailyTyreSalesReportJob', {
-            lastRun: started.toISOString(),
-            lastSuccess: true,
-            lastError: null,
-            nextRun: computeNextRun(CRON_SPEC)
-        });
-    } catch (e) {
-        updateJobStatus('DailyTyreSalesReportJob', {
-            lastRun: started.toISOString(),
-            lastSuccess: false,
-            lastError: e.message,
-            nextRun: computeNextRun(CRON_SPEC)
-        });
-    }
+    }, { maxRetries: 3, retryDelayMs: 120000, logger: logAndSave });
+    updateJobStatus('DailyTyreSalesReportJob', { nextRun: computeNextRun(CRON_SPEC) });
 }, {
     recoverMissedExecutions: true
 });
@@ -59,17 +45,12 @@ console.log('Scheduler started: DailyTyreSalesReportJob will run every 2 hours.'
 // Next-day PDF send (7:00 AM): send yesterday's PDF report (separate from the night summary message)
 const PDF_CRON_SPEC = '0 7 * * *';
 cron.schedule(PDF_CRON_SPEC, async () => {
-    const started = new Date();
     const reportDate = moment().subtract(1, 'day').format('YYYY-MM-DD');
     logAndSave(`[Daily Sales PDF] Running scheduled PDF send for ${reportDate}...`);
-    try {
+    await runWithRetry('DailyTyreSalesPdfSendJob', async () => {
         const mainPool = await getPool();
         await DailyTyreSalesPdfSendJob(logAndSave, { date: reportDate, mainPool });
-        updateJobStatus('DailyTyreSalesPdfSendJob', { lastRun: started.toISOString(), lastSuccess: true, lastError: null, date: reportDate });
-    } catch (e) {
-        logAndSave(`[Daily Sales PDF] Failed: ${e.message}`);
-        updateJobStatus('DailyTyreSalesPdfSendJob', { lastRun: started.toISOString(), lastSuccess: false, lastError: e.message, date: reportDate });
-    }
+    }, { maxRetries: 3, retryDelayMs: 180000, logger: logAndSave });
 }, {
     recoverMissedExecutions: true
 });
@@ -81,9 +62,8 @@ logAndSave(`[Daily Sales PDF] Scheduled: ${PDF_CRON_SPEC} (sends yesterday's rep
 // Backs up LasanthaTire and sends to Admin
 const BACKUP_CRON_SPEC = '45 23 * * *';
 cron.schedule(BACKUP_CRON_SPEC, async () => {
-    const started = new Date();
     logAndSave(`[Database Backup] Starting scheduled backup...`);
-    try {
+    await runWithRetry('DatabaseBackupJob', async () => {
         const mainPool = await getPool();
         // Collect all admin numbers from .env and jobs-config
         const adminNumbers = new Set();
@@ -115,12 +95,7 @@ cron.schedule(BACKUP_CRON_SPEC, async () => {
                 adminNumber: adminNum 
             });
         }
-        
-        updateJobStatus('DatabaseBackupJob', { lastRun: started.toISOString(), lastSuccess: true, lastError: null });
-    } catch (e) {
-        logAndSave(`[Database Backup] Failed: ${e.message}`);
-        updateJobStatus('DatabaseBackupJob', { lastRun: started.toISOString(), lastSuccess: false, lastError: e.message });
-    }
+    }, { maxRetries: 2, retryDelayMs: 300000, logger: logAndSave });
 }, {
     recoverMissedExecutions: false 
 });
@@ -201,16 +176,12 @@ function rescheduleFullDayJob() {
     }
     const cronSpec = getFullDayCron();
     fullDayTask = cron.schedule(cronSpec, async () => {
-        const started = new Date();
         logAndSave('Running full-day DailyTyreSalesReportJob summary...');
-        try {
-            // Get mainPool connection
+        await runWithRetry('FullDaySummary', async () => {
             const mainPool = await getPool();
             await DailyTyreSalesReportJob(sql, sqlConfig, sendWhatsAppMessage, logAndSave, { fullDay: true, useSQLite: true, mainPool });
-            updateJobStatus('DailyTyreSalesReportJob', { lastFullSummary: started.toISOString() });
-        } catch (e) {
-            logAndSave('Full-day summary error: ' + e.message);
-        }
+            updateJobStatus('DailyTyreSalesReportJob', { lastFullSummary: new Date().toISOString() });
+        }, { maxRetries: 3, retryDelayMs: 120000, logger: logAndSave });
     }, {
         recoverMissedExecutions: true
     });
@@ -382,31 +353,23 @@ const { aiPoolConnect, aiPool } = require('./utils/aiDbConnection');
 // 1. Primary Run: 8:00 PM Daily
 cron.schedule('0 20 * * *', async () => {
     logAndSave('Running scheduled ReOrderingJob (Primary 8 PM)...');
-    try {
+    await runWithRetry('ReOrderingJob', async () => {
         const mainPool = await getPool();
         await aiPoolConnect;
-        // Use configured contacts or defaults
         const contacts = ['0777311770', '0771222509']; 
         await ReOrderingJob(global.whatsappClient, mainPool, aiPool, contacts, logAndSave);
-        updateJobStatus('ReOrderingJob', { lastRun: new Date().toISOString(), lastSuccess: true });
-    } catch (e) {
-        logAndSave(`❌ ReOrderingJob failed: ${e.message}`);
-        updateJobStatus('ReOrderingJob', { lastRun: new Date().toISOString(), lastSuccess: false, lastError: e.message });
-    }
+    }, { maxRetries: 3, retryDelayMs: 120000, logger: logAndSave });
 });
 
 // 2. Fail-Safe Run: 8:00 AM Daily (Catches missed runs from previous night)
 cron.schedule('0 8 * * *', async () => {
     logAndSave('Running scheduled ReOrderingJob (Fail-Safe 8 AM)...');
-    try {
+    await runWithRetry('ReOrderingJob_FailSafe', async () => {
         const mainPool = await getPool();
         await aiPoolConnect;
         const contacts = ['0777311770', '0771222509'];
         await ReOrderingJob(global.whatsappClient, mainPool, aiPool, contacts, logAndSave);
-        updateJobStatus('ReOrderingJob', { lastRun: new Date().toISOString(), lastSuccess: true });
-    } catch (e) {
-        logAndSave(`❌ ReOrderingJob (Fail-Safe) failed: ${e.message}`);
-    }
+    }, { maxRetries: 2, retryDelayMs: 180000, logger: logAndSave });
 });
 
 // 3. Daily Sales PDF Report: 9:00 PM Daily (DISABLED by user request)
@@ -429,16 +392,12 @@ cron.schedule('0 21 * * *', async () => {
 // 4. Weekly Aging Report: Monday 8:00 AM
 cron.schedule('0 8 * * 1', async () => {
     logAndSave('Running scheduled PeachtreeAgingReportJob (Weekly)...');
-    try {
+    await runWithRetry('PeachtreeAgingReportJob', async () => {
         const mainPool = await getPool();
         await aiPoolConnect;
         const contacts = ['0777311770', '0771222509'];
         await PeachtreeAgingReportJob(global.whatsappClient, mainPool, aiPool, contacts, logAndSave);
-        updateJobStatus('PeachtreeAgingReportJob', { lastRun: new Date().toISOString(), lastSuccess: true });
-    } catch (e) {
-        logAndSave(`❌ PeachtreeAgingReportJob failed: ${e.message}`);
-        updateJobStatus('PeachtreeAgingReportJob', { lastRun: new Date().toISOString(), lastSuccess: false, lastError: e.message });
-    }
+    }, { maxRetries: 3, retryDelayMs: 300000, logger: logAndSave });
 });
 
 // --- ONE-TIME TRIGGER FOR TESTING ---

@@ -14,6 +14,7 @@ export default function BotQrPage() {
   const [status, setStatus] = useState<Status>({ isConnected: false, phoneNumber: null, status: "offline" });
   const [qr, setQr] = useState<string | null>(null);
   const [connecting, setConnecting] = useState(false);
+  const [swapping, setSwapping] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const eventSrcRef = useRef<EventSource | null>(null);
 
@@ -125,6 +126,28 @@ export default function BotQrPage() {
     }
   };
 
+  const doSwap = async () => {
+    setSwapping(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/whatsapp/swap", {
+        method: "POST"
+      });
+      if (!res.ok) throw new Error("Swap request failed");
+      
+      setError("Swapping engine & restarting...");
+      setTimeout(() => {
+        fetchStatus();
+        fetchQrFallback();
+        setError(null);
+      }, 5000);
+    } catch(e: any) {
+      setError(e?.message || "Failed to swap");
+    } finally {
+      setSwapping(false);
+    }
+  };
+
   return (
     <div className="min-h-[calc(100vh-80px)] p-4">
       <div className="max-w-md mx-auto bg-slate-800/50 border border-slate-700 rounded-2xl p-5 space-y-4">
@@ -210,6 +233,18 @@ export default function BotQrPage() {
             {error}
           </div>
         )}
+
+        {/* Engine Swap */}
+        <div className="pt-2 mt-2 border-t border-slate-700">
+          <button
+            onClick={doSwap}
+            disabled={swapping}
+            className="w-full py-2 bg-amber-600 hover:bg-amber-500 disabled:bg-slate-700 text-white rounded-xl flex items-center justify-center gap-2 font-medium"
+          >
+            <RefreshCw className={`w-4 h-4 ${swapping ? 'animate-spin' : ''}`} />
+            {swapping ? "Restarting Engine..." : "Swap Bot Engine (V2 Fast / V1 Browser)"}
+          </button>
+        </div>
       </div>
     </div>
   );

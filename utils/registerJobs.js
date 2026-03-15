@@ -59,8 +59,8 @@ function registerAllJobs() {
         canHandlePartial: true,
         estimatedResponseTime: 800,
         handler: async (msg, deps) => {
-            const { sql, sqlConfig, allowedContacts, logAndSave } = deps;
-            return await TyrePriceReplyJob(msg, sql, sqlConfig, allowedContacts, logAndSave);
+            const { sql, sqlConfig, allowedContacts, logAndSave, client } = deps;
+            return await TyrePriceReplyJob(msg, sql, sqlConfig, allowedContacts, logAndSave, client);
         }
     });
 
@@ -82,8 +82,8 @@ function registerAllJobs() {
         canHandlePartial: false,
         estimatedResponseTime: 600,
         handler: async (msg, deps) => {
-            const { sql, sqlConfig, allowedContacts, logAndSave } = deps;
-            return await TyreQtyReplyJob(msg, sql, sqlConfig, allowedContacts, logAndSave);
+            const { sql, sqlConfig, allowedContacts, logAndSave, client } = deps;
+            return await TyreQtyReplyJob(msg, sql, sqlConfig, allowedContacts, logAndSave, client);
         }
     });
 
@@ -103,8 +103,8 @@ function registerAllJobs() {
         canHandlePartial: false,
         estimatedResponseTime: 700,
         handler: async (msg, deps) => {
-            const { sql, sqlConfig, allowedContacts, logAndSave } = deps;
-            return await VehicleInvoiceReplyJob(msg, sql, sqlConfig, allowedContacts, logAndSave);
+            const { sql, sqlConfig, allowedContacts, logAndSave, client } = deps;
+            return await VehicleInvoiceReplyJob(msg, sql, sqlConfig, allowedContacts, logAndSave, client);
         }
     });
 
@@ -126,14 +126,14 @@ function registerAllJobs() {
         canHandlePartial: false,
         estimatedResponseTime: 600,
         handler: async (msg, deps) => {
-            const { sql, sqlConfig, allowedContacts, logAndSave, entities } = deps;
+            const { sql, sqlConfig, allowedContacts, logAndSave, entities, client } = deps;
             
             // Only handle if explicitly asking for cost
             if (!entities.intent || entities.intent !== 'cost') {
                 return false; // Let TyrePriceReply handle it
             }
             
-            return await CostPriceReplyJob(msg, sql, sqlConfig, allowedContacts, logAndSave);
+            return await CostPriceReplyJob(msg, sql, sqlConfig, allowedContacts, logAndSave, client);
         }
     });
 
@@ -154,8 +154,8 @@ function registerAllJobs() {
         canHandlePartial: true,
         estimatedResponseTime: 2000,
         handler: async (msg, deps) => {
-            const { sql, sqlConfig, logAndSave } = deps;
-            return await TyreQuotationPDFLibJob(msg, sql, sqlConfig, logAndSave);
+            const { sql, sqlConfig, logAndSave, client } = deps;
+            return await TyreQuotationPDFLibJob(msg, sql, sqlConfig, logAndSave, client);
         }
     });
 

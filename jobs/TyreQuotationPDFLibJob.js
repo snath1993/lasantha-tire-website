@@ -7,6 +7,7 @@ const { extractTyreSizeFlexible } = require('../utils/detect');
 const { parsePriceAdjustments } = require('../utils/priceAdjust');
 const { parseAlignmentBalancing } = require('../utils/alignmentBalancing');
 const { loadAllowedQuotationConfig, roundToStep } = require('../utils/quotationConfig');
+const safeReply = require('../utils/safeReply');
 
 const seqFile = path.join(__dirname, '../quotation-seq.json');
 function getNextQuotationNumber() {
@@ -22,7 +23,7 @@ function getNextQuotationNumber() {
     return `QTN-${year}-${String(seq.lastNumber).padStart(4, '0')}`;
 }
 
-module.exports = async function TyreQuotationPDFLibJob(msg, sql, sqlConfig, logAndSave) {
+module.exports = async function TyreQuotationPDFLibJob(msg, sql, sqlConfig, logAndSave, client) {
     const text = msg.body.trim();
     // Extract vehicle number first
     const { extractVehicleNumber } = require('../utils/detect');
@@ -95,6 +96,7 @@ module.exports = async function TyreQuotationPDFLibJob(msg, sql, sqlConfig, logA
             const isAllowedContact = true; // Quotation PDF is only for allowed contacts in your logic
             if (result.recordset.length > 0) {
                 // Only include tyres with enough stock for requestedQty
+                let maxxisAdjustmentAttempted = false;
                 let tyres = result.recordset
                     .filter(tyre => (tyre.QTY >= requestedQty || tyre.Categoty === 'WHEEL ALIGNMENT') && tyre.UnitCost > pricing.minimumUnitCost)
                     .map((tyre, i) => {
@@ -138,9 +140,9 @@ module.exports = async function TyreQuotationPDFLibJob(msg, sql, sqlConfig, logA
                                         }
                                     }
                                 });
-                                // If user tried to adjust MAXXIS/MAXXIES, send feedback
+                                // If user tried to adjust MAXXIS/MAXXIES, flag for feedback (sent once after map)
                                 if (adjustmentAttemptedForMaxxis && (tyreBrand === 'MAXXIS' || tyreBrand === 'MAXXIES')) {
-                                    msg.reply('Note: MAXXIS/MAXXIES prices are fixed and cannot be adjusted.');
+                                    maxxisAdjustmentAttempted = true;
                                 }
                             }
                             return {
@@ -153,6 +155,11 @@ module.exports = async function TyreQuotationPDFLibJob(msg, sql, sqlConfig, logA
                             };
                         }
                     });
+
+                // Send MAXXIS adjustment note once (was duplicated inside .map loop before)
+                if (maxxisAdjustmentAttempted) {
+                    await safeReply(msg, client, msg.from, 'Note: MAXXIS/MAXXIES prices are fixed and cannot be adjusted.');
+                }
 
                 // Add alignment/balancing if requested
                 const { alignment, balancing } = parseAlignmentBalancing(text);
@@ -242,7 +249,7 @@ module.exports = async function TyreQuotationPDFLibJob(msg, sql, sqlConfig, logA
                 }
                 logAndSave('DEBUG: Filtered tyres for QTY >= ' + requestedQty + ': ' + JSON.stringify(tyres));
                 if (tyres.length === 0) {
-                    msg.reply(`No tyres available with requested quantity (${requestedQty}) for size ${tyreSize}.`);
+                    await safeReply(msg, client, msg.from, `No tyres available with requested quantity (${requestedQty}) for size ${tyreSize}.`);
                     logAndSave(`No tyres with enough stock for ${tyreSize} qty ${requestedQty}`);
                     return true;
                 }
@@ -294,15 +301,14 @@ module.exports = async function TyreQuotationPDFLibJob(msg, sql, sqlConfig, logA
                     .filter(Boolean)
                     .join('\n');
                 if (adjustmentSummary) {
-                    await msg.reply(`*Special Price Adjustments Applied:*
-${adjustmentSummary}`);
+                    await safeReply(msg, client, msg.from, `*Special Price Adjustments Applied:*\n${adjustmentSummary}`);
                 }
             } else {
                 // Only reply if no tyres found (error case)
                 logAndSave(`No tyres for advanced quotation: ${tyreSize}`);
             }
         } catch (err) {
-            msg.reply('Error connecting to SQL Server.');
+            await safeReply(msg, client, msg.from, 'Error connecting to SQL Server.');
             logAndSave(`SQL error: ${err.message}`);
         } finally {
             await sql.close();

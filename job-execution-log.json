@@ -1,0 +1,80 @@
+{
+  "DailyTyreSalesReportJob_Manual6AM": [
+    {
+      "timestamp": "2026-03-15T03:46:16.609Z",
+      "status": "success",
+      "attempt": 1,
+      "duration": 167,
+      "isRetry": false
+    }
+  ],
+  "TestJob": [
+    {
+      "timestamp": "2026-03-15T04:18:53.559Z",
+      "status": "success",
+      "attempt": 1,
+      "durationMs": 0,
+      "isRetry": false
+    }
+  ],
+  "DailyTyreSalesReportJob": [
+    {
+      "timestamp": "2026-03-15T04:30:00.034Z",
+      "status": "success",
+      "attempt": 1,
+      "durationMs": 1253,
+      "isRetry": false
+    },
+    {
+      "timestamp": "2026-03-15T04:30:00.067Z",
+      "status": "success",
+      "attempt": 1,
+      "duration": 1225,
+      "isRetry": false
+    },
+    {
+      "timestamp": "2026-03-15T04:30:00.028Z",
+      "status": "success",
+      "attempt": 1,
+      "durationMs": 2069,
+      "isRetry": false
+    },
+    {
+      "timestamp": "2026-03-15T06:30:00.070Z",
+      "status": "success",
+      "attempt": 1,
+      "durationMs": 2714,
+      "isRetry": false
+    },
+    {
+      "timestamp": "2026-03-15T08:30:00.090Z",
+      "status": "success",
+      "attempt": 1,
+      "durationMs": 2910,
+      "isRetry": false
+    },
+    {
+      "timestamp": "2026-03-15T10:30:00.050Z",
+      "status": "success",
+      "attempt": 1,
+      "durationMs": 4536,
+      "isRetry": false
+    },
+    {
+      "timestamp": "2026-03-15T12:30:00.063Z",
+      "status": "success",
+      "attempt": 1,
+      "durationMs": 4258,
+      "isRetry": false
+    }
+  ],
+  "DailyTyreSalesPdfSendJob_Manual": [
+    {
+      "timestamp": "2026-03-15T04:36:26.322Z",
+      "status": "success",
+      "attempt": 1,
+      "durationMs": 6810,
+      "isRetry": false
+    }
+  ]
+}

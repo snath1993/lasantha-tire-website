@@ -8,7 +8,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const AUTH_PATH = path.join(__dirname, '..', '.wwebjs_auth');
+// Must match AUTH_PATH in index.js (LocalAuth dataPath)
+const AUTH_PATH = path.join(__dirname, '..', '.wwebjs_auth_TEST_V3');
 const BACKUP_PATH = path.join(__dirname, '..', 'whatsapp-auth-backup');
 const BACKUP_INTERVAL = 3600000; // Backup every 1 hour (3600000ms)
 const MAX_BACKUPS = 5; // Keep last 5 backups only

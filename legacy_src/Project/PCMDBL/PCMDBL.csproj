@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PCMDBL</RootNamespace>
     <AssemblyName>PCMDBL</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -44,7 +44,7 @@
     <Reference Include="Infragistics2.Win.v9.2, Version=9.2.20092.1003, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
     <Reference Include="Interop.PeachwServer, Version=19.0.0.0, Culture=neutral, PublicKeyToken=d06c16dde04d83e4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
       <HintPath>..\UserAutherization\UserAutherization\bin\Debug\Interop.PeachwServer.dll</HintPath>
     </Reference>
     <Reference Include="PCMBeans, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -52,6 +52,7 @@
       <HintPath>..\PCMBeans\bin\Debug\PCMBeans.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />

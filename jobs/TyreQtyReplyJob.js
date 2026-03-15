@@ -2,7 +2,8 @@
 // Reply with tyre description and quantity for allowed contacts only (unless job marked as allowEveryone)
 const { extractTyreSizeFlexible } = require('../utils/detect');
 const { isJobAllowEveryone } = require('../utils/jobsConfigReader');
-module.exports = async function TyreQtyReplyJob(msg, sql, sqlConfig, allowedContacts, logAndSave) {
+const safeReply = require('../utils/safeReply');
+module.exports = async function TyreQtyReplyJob(msg, sql, sqlConfig, allowedContacts, logAndSave, client) {
     const text = msg.body.trim();
     const tyreSize = extractTyreSizeFlexible(text);
     const senderNumber = msg.from.replace('@c.us', '');
@@ -34,14 +35,14 @@ module.exports = async function TyreQtyReplyJob(msg, sql, sqlConfig, allowedCont
                 filtered.forEach(tyre => {
                     reply += `Description: ${tyre.ItemDescription}\nQuantity: ${tyre.QTY}\n\n`;
                 });
-                msg.reply(reply.trim());
+                await safeReply(msg, client, msg.from, reply.trim());
                 logAndSave(`Qty reply for size ${tyreSize} to ${senderNumber}: ${reply.trim()}`);
             } else {
-                msg.reply(`*${tyreSize}* is currently out of stock (QTY zero).`);
+                await safeReply(msg, client, msg.from, `*${tyreSize}* is currently out of stock (QTY zero).`);
                 logAndSave(`Out of stock qty reply for size ${tyreSize} to ${senderNumber}`);
             }
         } catch (err) {
-            msg.reply('Error connecting to SQL Server.');
+            await safeReply(msg, client, msg.from, 'Error connecting to SQL Server.');
             logAndSave(`SQL error: ${err.message}`);
         } finally {
             await sql.close();

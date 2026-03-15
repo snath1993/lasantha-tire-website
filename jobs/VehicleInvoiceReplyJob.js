@@ -2,7 +2,8 @@
 // Reply invoice details for given vehicle number
 const { extractVehicleNumber } = require('../utils/detect');
 const { isJobAllowEveryone } = require('../utils/jobsConfigReader');
-module.exports = async function VehicleInvoiceReplyJob(msg, sql, sqlConfig, allowedContacts, logAndSave) {
+const safeReply = require('../utils/safeReply');
+module.exports = async function VehicleInvoiceReplyJob(msg, sql, sqlConfig, allowedContacts, logAndSave, client) {
     const text = msg.body.trim();
     const vehicleNumber = extractVehicleNumber(text);
     const senderNumber = msg.from.replace('@c.us', '');
@@ -36,9 +37,9 @@ module.exports = async function VehicleInvoiceReplyJob(msg, sql, sqlConfig, allo
                     // Found records but none match the filter (e.g. only services)
                     // We should probably still reply something or lax the filter?
                     // For now, let's behave as if no records found if nothing relevant to tyres
-                    msg.reply(`No tyre/alignment history found for ${vehicleNumber}`);
+                    await safeReply(msg, client, msg.from, `No tyre/alignment history found for ${vehicleNumber}`);
                     logAndSave(`Vehicle ${vehicleNumber} found but no relevant history`);
-                    return;
+                    return true;
                 }
 
                 filtered.forEach(row => {
@@ -53,14 +54,14 @@ module.exports = async function VehicleInvoiceReplyJob(msg, sql, sqlConfig, allo
                     const effUnit = (Number(row.UnitPrice) || 0) * (1 - disc/100);
                     reply += `Invoice No: ${row.InvoiceNo}\nMileage: ${row.Mileage}\nDescription: ${row.Description}\nQuantity: ${row.Qty}\nUnit Price: ${effUnit}/=\n---------------------\n`;
                 });
-                msg.reply(reply.trim());
+                await safeReply(msg, client, msg.from, reply.trim());
                 logAndSave(`Invoice history reply sent for ${vehicleNumber} to ${senderNumber} (lines=${filtered.length})`);
             } else {
-                msg.reply(`No invoice found for vehicle number: ${vehicleNumber}`);
+                await safeReply(msg, client, msg.from, `No invoice found for vehicle number: ${vehicleNumber}`);
                 logAndSave(`No invoice for vehicle ${vehicleNumber}`);
             }
         } catch (err) {
-            msg.reply('Error connecting to SQL Server.');
+            await safeReply(msg, client, msg.from, 'Error connecting to SQL Server.');
             logAndSave(`SQL error: ${err.message}`);
         } finally {
             await sql.close();

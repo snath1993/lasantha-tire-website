@@ -1,10 +1,14 @@
 // utils/brandUtils.js
 // Utility for brand name normalization
 
-// Brand name mapping to handle spelling variations and unify brand names
+// Brand name mapping to handle spelling variations, trailing spaces, and unify brand names
 const BRAND_NAME_MAPPING = {
     'MAXXIES': 'MAXXIS',
-    'GOOD YEAR': 'GOODYEAR'
+    'GOOD YEAR': 'GOODYEAR',
+    'GT CHINA': 'GT',
+    'GT ': 'GT',             // GT with trailing space
+    'CEAT MOTOR BIKE': 'CEAT MOTORBIKE',
+    'MAXXIES ': 'MAXXIS',
 };
 
 function normalizeBrand(brand) {

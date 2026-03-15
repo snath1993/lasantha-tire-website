@@ -208,7 +208,8 @@ module.exports = async function DailyTyreSalesReportJob(sql, sqlConfig, sendWhat
                         console.error('[WA] No recipients configured for DailyTyreSalesReportJob');
                         return { ok: false, error: 'no-recipients' };
                     }
-                    let lastResult = { ok: true };
+                    let anySuccess = false;
+                    let lastError = null;
                     for (let i = 0; i < recipients.length; i++) {
                         const num = recipients[i];
                         
@@ -220,15 +221,19 @@ module.exports = async function DailyTyreSalesReportJob(sql, sqlConfig, sendWhat
                         const r = await sendWhatsAppMessage(num, a);
                         // Some send overrides (debug/testing) may not return a structured result; treat undefined as success
                         if (r === undefined) {
-                          // assume success for debug senders that only log
+                          anySuccess = true;
                           continue;
                         }
                         if (!r || !r.ok) {
                             console.error('[WA] send to', num, 'failed:', r && r.error);
-                            lastResult = { ok: false, error: r && r.error };
+                            lastError = r && r.error;
+                        } else {
+                            anySuccess = true;
                         }
                     }
-                    return lastResult;
+                    // Return ok:true if at least one recipient received the message
+                    // This ensures invoices are saved and not re-sent on next run
+                    return anySuccess ? { ok: true } : { ok: false, error: lastError };
                 }
                 // two-arg form: (number, message)
                 return await sendWhatsAppMessage(a, b);
@@ -387,7 +392,7 @@ module.exports = async function DailyTyreSalesReportJob(sql, sqlConfig, sendWhat
                                     discount: discountPercentage 
                                 });
             }
-            invoices.push({ invNo, date: normalizeInvoiceDate(items[0].InvoiceDate) || moment(items[0].InvoiceDate).format('YYYY-MM-DD HH:mm'), units: invUnits, amount: invAmt, profit: invProfit, lines: itemLines, isAiAttributed });
+            invoices.push({ invNo, date: normalizeInvoiceDate(items[0].InvoiceDate) || moment(items[0].InvoiceDate).format('YYYY-MM-DD HH:mm'), units: invUnits, amount: invAmt, profit: invProfit, lines: itemLines, isAiAttributed, customer: (items[0].CustomerName || '').trim(), vehicle: (items[0].VehicleNo || '').trim() });
         }
 
         // If after filtering there are no invoices to report, do not send an empty "0 tyres" report
@@ -404,45 +409,60 @@ module.exports = async function DailyTyreSalesReportJob(sql, sqlConfig, sendWhat
             return;
         }
 
-        // Build report with emoji and classic layout
-        const header = `${isFullDayReport ? '📊 *FULL DAY SALES REPORT*\nDate: ' + moment(today).format('MMMM DD, YYYY') + '\n───────────────────\n\n' : '📊 '}Summary\n`;
-        const summary = `Total Sales Records: ${totalLineItems}\nTotal Invoices: ${invoices.length}\nTotal Quantity: ${totalUnits}\nTotal Amount: LKR ${formatCurrency(totalAmount)}\nTotal Profit: LKR ${formatCurrency(totalProfit)}${REPORT_INCLUDE_PROFIT ? `\nMargin Rate: ${totalAmount ? ((totalProfit/totalAmount)*100).toFixed(1) : '0.0'}%` : ''}\n\n🤖 AI Attributed Sales: LKR ${formatCurrency(totalAiAttributedAmount)}\n\n📝 Detailed Report\n`;
+        // Build clean professional report
+        const now = moment();
+        const nextUpdateHour = Math.ceil((now.hour() + 1) / 2) * 2;
+        const nextUpdate = nextUpdateHour >= 24 ? 'Tomorrow' : moment().startOf('day').add(nextUpdateHour, 'hours').format('h:mm A');
 
-        let body = '';
-        for (const inv of invoices) {
-            body += `\n📋 Invoice: ${inv.invNo} ${inv.isAiAttributed ? '🤖' : ''}\n`;
-            for (const L of inv.lines) {
-                body += `🔸 ${L.desc}\n`;
-                body += `Quantity: ${L.qty}\n`;
-                body += `Unit Price: Rs.${formatCurrency(L.unitPrice)}\n`;
-                body += `Unit Cost: Rs.${formatCurrency(L.unitCost)}\n`;
-                body += `Total: Rs.${formatCurrency(L.amount)}\n`;
-                if (REPORT_INCLUDE_PROFIT) {
-                    const margin = L.amount > 0 ? ((L.profit / L.amount) * 100).toFixed(1) : '0.0';
-                    body += `💰 Profit: Rs.${formatCurrency(L.profit)} (Margin: ${margin}%)\n`;
-                }
-                body += `📦 Stock Available: [*${L.stock}*]\n`;
-            }
-            body += `──────────\n`;
+        let report = '';
+        if (isFullDayReport) {
+            report += `📊 *FULL DAY SALES REPORT*\n`;
+            report += `📅 ${moment(today).format('MMM DD, YYYY')}\n`;
+        } else {
+            report += `📅 ${moment(today).format('MMM DD, YYYY')} | ⏰ ${now.format('h:mm A')}\n`;
         }
-        const sendResult = await deliver(header + summary + body);
+        report += `Invoices: ${invoices.length} | Qty: ${totalUnits} | Revenue: LKR ${formatCurrency(totalAmount)}\n`;
+        report += `\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
 
-        // If send succeeded (ok true or undefined for debug senders), persist sent invoice numbers
-        if (sendResult === undefined || (sendResult && sendResult.ok)) {
-            try {
-                const invNos = invoices.map(i => i.invNo);
-                if (invNos.length) {
-                    // Also save AI attributed sales to SQLite
-                    const aiSales = invoices.filter(i => i.isAiAttributed).map(i => ({
-                        invoiceNo: i.invNo,
-                        amount: i.amount,
-                        date: i.date,
-                    }));
-                    await salesCtrl.saveSentInvoices(invNos, isFullDayReport ? 'MANUAL' : 'AUTO', aiSales);
-                }
-            } catch (e) {
-                console.warn('Could not persist sent invoice numbers:', e && e.message ? e.message : e);
+        for (const inv of invoices) {
+            const custLabel = inv.customer ? ` | ${inv.customer}` : '';
+            const vehicleLabel = inv.vehicle ? ` | ${inv.vehicle}` : '';
+            report += `\n📋 *${inv.invNo}*${custLabel}${vehicleLabel}\n`;
+            for (const L of inv.lines) {
+                const lineProfit = L.amount - ((L.unitCost || 0) * L.qty);
+                report += `│ 🔸 ${L.desc}\n`;
+                report += `│    ${L.qty} × Rs.${formatCurrency(L.unitPrice)}  = Rs.${formatCurrency(L.amount)}\n`;
+                report += `│    💰 Profit: Rs.${formatCurrency(lineProfit)}\n`;
+                report += `│    📦 Stock: ${L.stock}\n`;
             }
+            report += `──────────\n`;
+        }
+
+        if (!isFullDayReport) {
+            report += `\n🕐 Next update: ${nextUpdate}`;
+        }
+
+        const sendResult = await deliver(report);
+
+        // ALWAYS persist sent invoice numbers to prevent duplicates on restart.
+        // Even if send failed, we record them so they won't be re-sent endlessly.
+        // The full-day report (11:37 PM) will still include everything regardless.
+        try {
+            const invNos = invoices.map(i => i.invNo);
+            if (invNos.length) {
+                // Also save AI attributed sales to SQLite
+                const aiSales = invoices.filter(i => i.isAiAttributed).map(i => ({
+                    invoiceNo: i.invNo,
+                    amount: i.amount,
+                    date: i.date,
+                }));
+                await salesCtrl.saveSentInvoices(invNos, isFullDayReport ? 'MANUAL' : 'AUTO', aiSales);
+            }
+        } catch (e) {
+            console.warn('Could not persist sent invoice numbers:', e && e.message ? e.message : e);
+        }
+
+        if (sendResult === undefined || (sendResult && sendResult.ok)) {
 
             // Send comprehensive sales summary after full day tyre report
             if (isFullDayReport && !options.replyToMsg) {

@@ -72,3 +72,61 @@ PORTABLE-PACKAGE/
 # Unnecessary large files (moved)
 unnecessary_files/
 
+# Temp/debug/test scripts (root level)
+_tmp_*.js
+tmp_*.js
+check*.js
+fix.js
+clear_cooldown.js
+force_clear_*.js
+trigger_reorder.js
+test_reorder_format.js
+test-large.txt
+build-output*.txt
+all_logs.txt
+bot_recent_logs.txt
+pm2_all_logs.txt
+
+# Cloudflare binary (large, platform-specific)
+cloudflared.exe
+
+# Temp folders
+12/
+New folder*/
+tmp/
+
+# Legacy binary artifacts
+legacy_src/**/bin/
+legacy_src/**/obj/
+
+# Runtime diagnostic logs
+logs/job_diagnostic_*.txt
+
+# IPC response snapshots (debug/runtime)
+ipc-responses/
+
+# Processed social media images (generated)
+post/processed/
+
+# v2 migration attempt folders
+v2_adapter.js
+v2_config/
+v2_core/
+v2_database/
+v2_sessions/
+v2_utils/
+
+# WhatsApp queue backups (runtime)
+wa-queued.backup.*.json
+wa-queued.backup..json
+
+# Dashboard build output
+lasantha-tire-v2.0/build_out.txt
+
+# Sequence tracking (runtime)
+quotation-seq.json
+
+# Python compiled cache files
+**/__pycache__/
+*.pyc
+

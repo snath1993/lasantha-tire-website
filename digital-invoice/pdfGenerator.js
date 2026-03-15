@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer-core');
 const fs = require('fs');
 const path = require('path');
 const config = require('./config');
+const { buildComparisonTableHtml, buildServicesSection } = require('./comparisonBuilder');
 
 // Find Chrome executable path
 const findChrome = () => {
@@ -119,13 +120,27 @@ class PdfGenerator {
                         description: it.description,
                         brand: it.brand,
                         size: it.size,
+                        country: it.country || '',
                         quantity: (it.quantity !== undefined ? it.quantity : it.qty),
                         price: it.price,
                         total: it.total,
+                        rawTotal: it.rawTotal || 0,
                         unitPriceExVat: it.unitPriceExVat,
+                        lineTotalExVat: it.lineTotalExVat || '',
                         vatAmount: it.vatAmount,
                         lineTotalInclVat: it.lineTotalInclVat,
-                        warranty: it.warranty
+                        rawLineExVat: it.rawLineExVat || 0,
+                        rawVatAmount: it.rawVatAmount || 0,
+                        warranty: it.warranty,
+                        itemClass: it.itemClass != null ? it.itemClass : null,
+                        foc: it.foc || 0,
+                        wac: it.wac || '',
+                        wbc: it.wbc || '',
+                        n2Rate: it.n2Rate || '',
+                        plyRate: it.plyRate || '',
+                        yom: it.yom || '',
+                        lsSymbol: it.lsSymbol || '',
+                        discount: it.discount || 0
                     })) : []
                 };
             }
@@ -199,12 +214,15 @@ class PdfGenerator {
                 ? 'TAX INVOICE'
                 : safe(normalized.docType, 'INVOICE'));
 
-        // Use a single invoice layout for both VAT and non-VAT invoices.
-        const templatePath = (docTypeUpper === 'QUOTATION' && config.TEMPLATE_PATH_QUOTATION)
-            ? config.TEMPLATE_PATH_QUOTATION
-            : ((docTypeUpper === 'INVOICE' && config.TEMPLATE_PATH_TAX_INVOICE)
-                ? config.TEMPLATE_PATH_TAX_INVOICE
-                : (config.TEMPLATE_PATH_INVOICE || config.TEMPLATE_PATH));
+        // Quotation uses comparison layout; invoices use tax-invoice layout.
+        const isComparisonQuotation = (docTypeUpper === 'QUOTATION') && Array.isArray(normalized.items) && normalized.items.length > 0;
+        const templatePath = isComparisonQuotation
+            ? (config.TEMPLATE_PATH_COMPARISON_QUOTATION || config.TEMPLATE_PATH_QUOTATION)
+            : ((docTypeUpper === 'QUOTATION' && config.TEMPLATE_PATH_QUOTATION)
+                ? config.TEMPLATE_PATH_QUOTATION
+                : ((docTypeUpper === 'INVOICE' && config.TEMPLATE_PATH_TAX_INVOICE)
+                    ? config.TEMPLATE_PATH_TAX_INVOICE
+                    : (config.TEMPLATE_PATH_INVOICE || config.TEMPLATE_PATH)));
 
         try {
             // 1. Read Template
@@ -245,6 +263,29 @@ class PdfGenerator {
                 if (!Number.isFinite(n)) return '';
                 return new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n);
             };
+
+            // 2a. Build comparison table HTML for quotations (before main replacement)
+            if (isComparisonQuotation) {
+                // Separate tyre items (comparison table) from service items (services section)
+                const tyreItems = normalized.items.filter(it => it.itemClass !== 7);
+                const serviceItems = normalized.items.filter(it => it.itemClass === 7);
+
+                const comparisonHtml = buildComparisonTableHtml(
+                    tyreItems.length > 0 ? tyreItems : normalized.items,
+                    hasVatBreakdown,
+                    normalized.vatRate || null
+                );
+                html = html.replace(/{{comparison_table_html}}/g, comparisonHtml);
+
+                // Build services section from service items + WAC/WBC/N2Rate from tyre rows
+                const servicesHtml = buildServicesSection(
+                    tyreItems,
+                    serviceItems,
+                    hasVatBreakdown,
+                    normalized.vatRate || 18
+                );
+                html = html.replace(/{{services_html}}/g, servicesHtml);
+            }
 
             // 2. Inject Data (Manual Templating for speed - faster than EJS/Handlebars)
             // Replace simple keys

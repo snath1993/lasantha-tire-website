@@ -2,10 +2,11 @@
 // Handles 'size cost' requests and replies with item description (wrapped in ~~) and UnitCost
 const { extractTyreSizeFlexible, extractVehicleNumber } = require('../utils/detect');
 const { parsePriceAdjustments } = require('../utils/priceAdjust');
+const safeReply = require('../utils/safeReply');
 
 const ALLOWED_COST_CONTACTS = ['0777078700', '0777311770', '0771222509'];
 
-module.exports = async function CostPriceReplyJob(msg, sql, sqlConfig, allowedContacts, logAndSave) {
+module.exports = async function CostPriceReplyJob(msg, sql, sqlConfig, allowedContacts, logAndSave, client) {
     const rawText = msg.body.trim();
     const senderNumber = msg.from.replace('@c.us', '');
     const vehicleNo = extractVehicleNumber(rawText);
@@ -39,17 +40,17 @@ module.exports = async function CostPriceReplyJob(msg, sql, sqlConfig, allowedCo
         );
 
         if (!tyres || tyres.length === 0) {
-            msg.reply('No cost price found.');
+            await safeReply(msg, client, msg.from, 'No cost price found.');
             logAndSave(`No cost price found for ${tyreSize} to ${senderNumber}`);
             return true;
         }
 
         const costList = tyres.map(t => `~~${t.ItemDescription}~~\n${t.UnitCost}`).join('\n\n');
-        msg.reply(costList);
+        await safeReply(msg, client, msg.from, costList);
         logAndSave(`Cost prices sent for size ${tyreSize} to ${senderNumber} (${tyres.length} items)`);
         return true;
     } catch (err) {
-        msg.reply('Error connecting to SQL Server.');
+        await safeReply(msg, client, msg.from, 'Error connecting to SQL Server.');
         logAndSave(`CostPriceReplyJob SQL error: ${err.message}`);
         return true;
     } finally {

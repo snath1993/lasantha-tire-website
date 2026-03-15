@@ -57,7 +57,9 @@ module.exports = async function DailyTyreSalesPdfSendJob(logAndSave = console.lo
   // eslint-disable-next-line global-require
   const generatePdf = require('../utils/generateDailyTyreSalesPdf');
 
+  logAndSave(`[Daily Sales PDF] Generating PDF for ${dayISO}...`);
   const { buffer, fileName } = await generatePdf(mainPool, dayISO);
+  logAndSave(`[Daily Sales PDF] PDF generated. Buffer length: ${buffer ? buffer.length : 'null'}`);
   const caption = `📄 Daily Sales PDF - ${moment(dayISO).format('MMMM DD, YYYY')} (sent ${moment().format('MMMM DD, YYYY HH:mm')})`;
 
   let okCount = 0;

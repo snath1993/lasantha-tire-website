@@ -63,7 +63,8 @@ function derivePattern(itemDescription, custom3) {
 }
 
 module.exports = async function TyrePhotoReplyJob(msg, deps) {
-  const { sql: SQL, sqlConfig, allowedContacts, logAndSave, entities = {} } = deps || {};
+  const { sql: SQL, sqlConfig, allowedContacts, logAndSave, entities = {}, client, safeReply: _replySafe } = deps || {};
+  const replySafe = _replySafe || require('../utils/safeReply');
 
   const rawText = (msg.body || '').trim();
   const senderNumber = msg.from.replace('@c.us', '');
@@ -133,7 +134,7 @@ module.exports = async function TyrePhotoReplyJob(msg, deps) {
     const items = result.recordset || [];
 
     if (items.length === 0) {
-      await msg.reply(`Sorry, couldn't find a matching item for *${tyreSize}*${brand ? ' ' + brand : ''}.`);
+      await replySafe(msg, client, msg.from, `Sorry, couldn't find a matching item for *${tyreSize}*${brand ? ' ' + brand : ''}.`);
       logAndSave && logAndSave(`[PhotoJob] No items found for ${tyreSize} ${brand || ''}`);
       return true; // handled with message
     }
@@ -150,7 +151,7 @@ module.exports = async function TyrePhotoReplyJob(msg, deps) {
 
     if (!brand) {
       // Ask user to specify a brand if we truly cannot determine
-      await msg.reply(`Please specify a brand for *${tyreSize}* (e.g., MAXXIS, DURATURN) to send the correct photo.`);
+      await replySafe(msg, client, msg.from, `Please specify a brand for *${tyreSize}* (e.g., MAXXIS, DURATURN) to send the correct photo.`);
       return true;
     }
 
@@ -244,7 +245,7 @@ module.exports = async function TyrePhotoReplyJob(msg, deps) {
     }
 
     if (!sent) {
-      await msg.reply(`Sorry, couldn't find a photo for *${tyreSize}* ${brand}.`);
+      await replySafe(msg, client, msg.from, `Sorry, couldn't find a photo for *${tyreSize}* ${brand}.`);
       logAndSave && logAndSave(`[PhotoJob] Exhausted candidates without image for ${tyreSize} ${brand}`);
     }
 
@@ -252,7 +253,7 @@ module.exports = async function TyrePhotoReplyJob(msg, deps) {
   } catch (err) {
     logAndSave && logAndSave(`[PhotoJob] Error: ${err.message}`);
     try { await SQL.close(); } catch {}
-    await msg.reply('Sorry, an error occurred while retrieving the photo.');
+    await replySafe(msg, client, msg.from, 'Sorry, an error occurred while retrieving the photo.');
     return true;
   } finally {
     try { await SQL.close(); } catch {}

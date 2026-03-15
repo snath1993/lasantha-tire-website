@@ -11,7 +11,7 @@ const { send, getClient } = require('./waClientRegistry');
 const moment = require('moment');
 
 // Helps verify which version is running under PM2
-console.log('[IPC] ipcCommandWatcher loaded (supports: send, logout, daily-sales-pdf, accounting-report)');
+console.log('[IPC] ipcCommandWatcher loaded (supports: send, logout, daily-sales-pdf, accounting-report, reorder)');
 
 const CMD_DIR = path.join(__dirname, '..', 'ipc-commands');
 const RESP_DIR = path.join(__dirname, '..', 'ipc-responses');
@@ -92,6 +92,59 @@ async function processCommandFile(filePath, logCb) {
         logCb && logCb('[IPC] Error sending accounting report: ' + err.message);
         writeResponse(base, { ok: false, error: err.message });
       }
+    } else if (cmd.type === 'database-backup') {
+      const client = getClient();
+      if (!client) {
+        writeResponse(base, { ok: false, error: 'client-not-ready' });
+        logCb && logCb('[IPC] database-backup requested but client not ready');
+        return;
+      }
+      try {
+        logCb && logCb('[IPC] Triggering Manual DatabaseBackupJob');
+        const DatabaseBackupJob = require('../jobs/DatabaseBackupJob');
+        const { getPool } = require('./sqlPool');
+        const mainPool = await getPool();
+        const adminNumbers = [process.env.ADMIN_WHATSAPP_NUMBER, process.env.ADMIN_NUMBER, '0777311770'].filter(Boolean);
+        // de-dup
+        const recipients = Array.from(new Set(adminNumbers));
+        
+        for (const adminNum of recipients) {
+            await DatabaseBackupJob({ 
+                mainPool, 
+                databases: ['LasanthaTire', 'WhatsAppAI'], 
+                adminNumber: adminNum 
+            });
+        }
+        writeResponse(base, { ok: true });
+        logCb && logCb('[IPC] DatabaseBackupJob completed successfully');
+      } catch (err) {
+        logCb && logCb('[IPC] Error sending DatabaseBackupJob: ' + err.message);
+        writeResponse(base, { ok: false, error: err.message });
+      }
+    } else if (cmd.type === 'reorder') {
+      // Triggers ReOrderingJob inside the running bot process
+      // Command example: { "type": "reorder" }
+      const client = getClient();
+      if (!client) {
+        writeResponse(base, { ok: false, error: 'client-not-ready' });
+        logCb && logCb('[IPC] reorder requested but client not ready');
+        return;
+      }
+      try {
+        logCb && logCb('[IPC] Triggering Manual ReOrderingJob v2.0...');
+        const ReOrderingJob = require('../jobs/ReOrderingJob');
+        const { getPool } = require('./sqlPool');
+        const { aiPoolConnect, aiPool: aiDbPool } = require('./aiDbConnection');
+        const mainPool = await getPool();
+        await aiPoolConnect;
+        const contacts = ['0777311770', '0771222509'];
+        await ReOrderingJob(client, mainPool, aiDbPool, contacts, logCb || console.log);
+        writeResponse(base, { ok: true });
+        logCb && logCb('[IPC] ReOrderingJob completed successfully');
+      } catch (err) {
+        logCb && logCb('[IPC] ReOrderingJob failed: ' + err.message);
+        writeResponse(base, { ok: false, error: err.message });
+      }
     } else if (cmd.type === 'logout') {
       const client = getClient();
       if (client && typeof client.logout === 'function') {
@@ -133,7 +186,7 @@ function startWatcher(logCb) {
         if (fs.existsSync(full)) processCommandFile(full, logCb);
       }, 100);
     });
-    logCb && logCb('[IPC] Command watcher active (types: send, logout, daily-sales-pdf)');
+    logCb && logCb('[IPC] Command watcher active (types: send, logout, daily-sales-pdf, reorder)');
   } catch (e) {
     logCb && logCb('[IPC] Failed to start watcher: ' + (e && e.message));
   }

@@ -1,1 +1,0 @@
-Data Source=SDEV-002\SQLEXPRESS;Initial Catalog=Distributiondb;Integrated Security=True
