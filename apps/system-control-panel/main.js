@@ -61,21 +61,34 @@ function botApi(endpoint, method = 'GET', body = null) {
         const port = getBotApiPort();
         const sep = endpoint.includes('?') ? '&' : '?';
         const keyParam = settings.dashboardKey ? `${sep}key=${encodeURIComponent(settings.dashboardKey)}` : '';
-        const options = {
-            hostname: '127.0.0.1', port,
-            path: endpoint + keyParam, method,
-            headers: { 'Content-Type': 'application/json' },
-            timeout: 10000
-        };
-        const req = http.request(options, res => {
-            let data = '';
-            res.on('data', c => data += c);
-            res.on('end', () => { try { resolve(JSON.parse(data)); } catch { resolve({ raw: data }); } });
-        });
-        req.on('error', reject);
-        req.on('timeout', () => { req.destroy(); reject(new Error('Timeout')); });
-        if (body) req.write(JSON.stringify(body));
-        req.end();
+        const fullPath = endpoint + keyParam;
+
+        function makeRequest(reqPath, redirectsLeft) {
+            const options = {
+                hostname: '127.0.0.1', port,
+                path: reqPath, method,
+                headers: { 'Content-Type': 'application/json' },
+                timeout: 15000
+            };
+            const req = http.request(options, res => {
+                // Follow HTTP redirects (301, 302, 307, 308)
+                if ([301, 302, 307, 308].includes(res.statusCode) && res.headers.location && redirectsLeft > 0) {
+                    res.resume(); // consume & discard redirect body
+                    const loc = res.headers.location;
+                    const redirectPath = loc.startsWith('http') ? new URL(loc).pathname + new URL(loc).search : loc;
+                    return makeRequest(redirectPath, redirectsLeft - 1);
+                }
+                let data = '';
+                res.on('data', c => data += c);
+                res.on('end', () => { try { resolve(JSON.parse(data)); } catch { resolve({ raw: data }); } });
+            });
+            req.on('error', reject);
+            req.on('timeout', () => { req.destroy(); reject(new Error('Timeout')); });
+            if (body) req.write(JSON.stringify(body));
+            req.end();
+        }
+
+        makeRequest(fullPath, 3);
     });
 }
 
