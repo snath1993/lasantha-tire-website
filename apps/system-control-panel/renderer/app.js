@@ -92,18 +92,29 @@ function toast(msg, type = 'info') {
 // ━━━━━━━━━━━━━━━━━━━━
 //  PROGRESS MODAL
 // ━━━━━━━━━━━━━━━━━━━━
+let progressDismissTimer = null;
 function showProgress(title) {
     $('progress-title').textContent = title;
     $('progress-msg').textContent = 'Initializing...';
     $('progress-bar').style.width = '0%';
     $('progress-pct').textContent = '0%';
+    $('progress-dismiss-btn').style.display = 'none';
     $('progress-overlay').classList.add('show');
+    // Show dismiss button after 30s as safety net
+    if (progressDismissTimer) clearTimeout(progressDismissTimer);
+    progressDismissTimer = setTimeout(() => { $('progress-dismiss-btn').style.display = 'inline-flex'; }, 30000);
 }
-function hideProgress() { $('progress-overlay').classList.remove('show'); }
+function hideProgress() {
+    $('progress-overlay').classList.remove('show');
+    if (progressDismissTimer) { clearTimeout(progressDismissTimer); progressDismissTimer = null; }
+}
 function updateProgress(data) {
     $('progress-msg').textContent = data.message || '';
     $('progress-bar').style.width = (data.progress || 0) + '%';
     $('progress-pct').textContent = (data.progress || 0) + '%';
+    if ((data.progress || 0) >= 100) {
+        $('progress-dismiss-btn').style.display = 'inline-flex';
+    }
 }
 
 // Listen for progress events from main process
@@ -484,13 +495,14 @@ App.openFolder = (p) => api.openFolder(p);
 // ━━━━━━━━━━━━━━━━━━━━
 App.refreshLogs = async () => {
     try {
+        $('log-output').innerHTML = '<span class="text-muted">Loading logs...</span>';
         const service = $('log-service').value;
         const lines = parseInt($('log-lines').value) || 200;
         const search = $('log-search').value.toLowerCase();
         const data = await api.getLogs({ service, lines });
         let logs = data.logs || [];
         if (search) logs = logs.filter(l => l.toLowerCase().includes(search));
-        $('log-output').innerHTML = logs.map(colorLogLine).join('\n');
+        $('log-output').innerHTML = logs.length > 0 ? logs.map(colorLogLine).join('\n') : '<span class="text-muted">No log entries found</span>';
         $('log-output').scrollTop = $('log-output').scrollHeight;
     } catch (e) {
         $('log-output').textContent = 'Error loading logs: ' + e.message;
@@ -526,6 +538,7 @@ App.initConfigPage = async () => {
     try {
         const select = $('config-select');
         if (select.children.length === 0) {
+            $('config-editor').value = 'Loading file list...';
             const list = await api.getConfigList();
             for (const item of list) {
                 const opt = document.createElement('option');
@@ -534,15 +547,16 @@ App.initConfigPage = async () => {
             }
         }
         App.loadConfigFile();
-    } catch {}
+    } catch (e) { $('config-editor').value = 'Error loading config list: ' + (e.message || e); }
 };
 
 App.loadConfigFile = async () => {
     const key = $('config-select').value;
     if (!key) return;
+    $('config-editor').value = 'Loading...';
     try {
         const data = await api.getConfigFile(key);
-        $('config-editor').value = data.content || '';
+        $('config-editor').value = data.ok === false ? `Error: ${data.error}` : (data.content || '(empty file)');
     } catch (e) { $('config-editor').value = 'Error loading file: ' + e.message; }
 };
 

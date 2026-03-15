@@ -160,7 +160,7 @@ function createWindow() {
     mainWindow.loadFile(path.join(__dirname, 'renderer', 'index.html'));
     mainWindow.once('ready-to-show', () => { if (!settings.startMinimized) mainWindow.show(); });
     mainWindow.on('close', e => {
-        if (settings.minimizeToTray && tray) { e.preventDefault(); mainWindow.hide(); }
+        if (!app.isQuitting && settings.minimizeToTray && tray) { e.preventDefault(); mainWindow.hide(); }
     });
     mainWindow.on('closed', () => { mainWindow = null; });
 }
