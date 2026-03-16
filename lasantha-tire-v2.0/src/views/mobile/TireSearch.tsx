@@ -1,43 +1,35 @@
 ﻿'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { 
   Search, Mic, ShoppingCart, Loader2, AlertCircle, X, Check, Tag, Percent, Zap, Share,
-  Car, Bus, Truck, CircleDashed, CircleDot, Edit, CheckSquare, Trash2, BarChart3, RotateCcw, Bot
+  Car, Bus, Truck, CircleDashed, CircleDot, Edit, CheckSquare, Trash2, BarChart3, RotateCcw, Bot, Clock, WifiOff
 } from 'lucide-react';
 import NumericKeypad from './NumericKeypad';
 import { useModal } from '@/core/contexts/ModalContext';
 import { useToast } from '@/core/contexts/ToastContext';
 import { authenticatedFetch } from '@/core/lib/client-auth';
 import { saveQuotationToDb } from '@/core/lib/quotationShare';
+import { useSearchHistory } from '@/core/hooks/useSearchHistory';
+import {
+  type TireProduct,
+  type PricingMode,
+  SERVICE_IDS,
+  SERVICE_ID_LIST,
+  ALIGNMENT_IDS,
+  COMMON_SIZES,
+  calculateItemPrice,
+} from '@/core/types/erp';
 
-interface TireProduct {
-  ItemId: string;
-  Description: string;
-  Brand: string;
-  Quantity: number;
-  Price?: number;
-  SellingPrice?: number;
-  UnitCost?: number;
-  LastGRN?: {
-    No: string;
-    Date: string;
-    Qty: number;
-    History?: Array<{
-        InvReferenceNo: string;
-        InvoiceDate: string;
-        Qty: number;
-    }>;
-  } | null;
-}
-
-export default function TireSearch({ onAddToQuote, quoteItems = [] }: { onAddToQuote: (item: TireProduct) => void, quoteItems?: any[] }) {
+export default function TireSearch({ onAddToQuote, quoteItems = [] }: { onAddToQuote: (item: TireProduct) => void, quoteItems?: TireProduct[] }) {
   const router = useRouter();
+  const { history: searchHistory, addSearch: addSearchToHistory } = useSearchHistory();
   const [width, setWidth] = useState('');
   const [profile, setProfile] = useState('');
   const [rim, setRim] = useState('');
   const [loading, setLoading] = useState(false);
+  const [searchError, setSearchError] = useState(''); // NEW: error state
   const [results, setResults] = useState<TireProduct[]>([]);
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState('');
@@ -50,7 +42,6 @@ export default function TireSearch({ onAddToQuote, quoteItems = [] }: { onAddToQ
   const [isSharing, setIsSharing] = useState(false);
   
   // New Pricing State
-  type PricingMode = 'cost_plus' | 'wholesale' | 'cash' | 'selling' | 'custom';
   const [pricingMode, setPricingMode] = useState<PricingMode>('selling');
   const [customMarkup, setCustomMarkup] = useState<string>('');
 
@@ -67,31 +58,6 @@ export default function TireSearch({ onAddToQuote, quoteItems = [] }: { onAddToQ
   const { showToast } = useToast();
 
   const [suggestions, setSuggestions] = useState<string[]>([]);
-
-  // Common Tire Sizes for Suggestions
-  const COMMON_SIZES = [
-    // Cars (12-16 inch)
-    '145/70R12', '155/65R13', '155/70R13', '155/80R13', '165/65R13', '165/70R13', '175/70R13',
-    '165/65R14', '165/70R14', '175/65R14', '175/70R14', '185/65R14', '185/70R14', '195/70R14',
-    '175/65R15', '185/60R15', '185/65R15', '195/55R15', '195/60R15', '195/65R15', '205/65R15',
-    '185/55R16', '195/50R16', '195/55R16', '205/55R16', '205/60R16', '215/60R16', '215/65R16',
-    
-    // SUVs / Jeeps (16-18 inch)
-    '215/70R16', '225/70R16', '235/70R16', '245/70R16', '265/70R16',
-    '215/55R17', '225/60R17', '225/65R17', '265/65R17',
-    '225/45R18', '235/55R18', '265/60R18',
-
-    // Vans / Commercial
-    '195R15', '195R14', '185R14', '175R14', '165R13LT', '155R12',
-
-    // Three Wheelers
-    '4.00-8', '4.00-10', '4.00-12', '4.50-10', '5.00-10',
-
-    // Motorcycles
-    '90/90-17', '100/90-17', '120/80-17', '140/70-17',
-    '2.75-17', '3.00-17', '3.00-18', '2.75-18', '90/90-18',
-    '3.50-10', '90/90-10', '90/100-10', '100/90-10', '120/70-12', '130/70-12'
-  ];
 
   // Update suggestions when input changes
   useEffect(() => {
@@ -186,25 +152,8 @@ export default function TireSearch({ onAddToQuote, quoteItems = [] }: { onAddToQ
     }
   };
 
-  // Hardcoded Service IDs
-  const SERVICE_IDS = {
-      ALIGNMENT_CAR: '120',
-      ALIGNMENT_JEEP: '121',
-      ALIGNMENT_LORRY: '161',
-      ALIGNMENT_BUS: '144',
-      BALANCING: '122',
-      TUBELESS_NECK: '114',
-  };
-
   // Fetch specific item by ID and add it
   const addServiceById = async (itemId: string) => {
-    const ALIGNMENT_IDS = [
-        SERVICE_IDS.ALIGNMENT_CAR,
-        SERVICE_IDS.ALIGNMENT_JEEP,
-        SERVICE_IDS.ALIGNMENT_LORRY,
-        SERVICE_IDS.ALIGNMENT_BUS
-    ];
-
     // Check if already in results
     const isAlreadyInResults = results.some(r => r.ItemId === itemId);
 
@@ -276,65 +225,22 @@ export default function TireSearch({ onAddToQuote, quoteItems = [] }: { onAddToQ
     setSelectedItems(newSelected);
   };
 
-  // Helper to calculate price based on current mode
-  const calculatePrice = (item: TireProduct) => {
-    // Check for custom override first (for normal items)
+  // Unified price calculator using shared utility
+  const calculatePrice = useCallback((item: TireProduct) => {
+    // Custom override prices take precedence
     if (customItemPrices[item.ItemId] !== undefined) {
-        return customItemPrices[item.ItemId];
+      return customItemPrices[item.ItemId];
     }
-
-    // If item is a service, return SellingPrice directly (no markup)
-    if (Object.values(SERVICE_IDS).includes(item.ItemId)) {
-        if (focItems.has(item.ItemId)) return 0;
-        if (customServicePrices[item.ItemId] !== undefined) return customServicePrices[item.ItemId];
-        return Number(item.SellingPrice) || Number(item.UnitCost) || 0;
+    if (SERVICE_ID_LIST.includes(item.ItemId) && customServicePrices[item.ItemId] !== undefined) {
+      return customServicePrices[item.ItemId];
     }
-
-    const cost = Number(item.UnitCost) || 0;
-    let finalPrice = cost;
-
-    // Maxxis Exception: Fixed price (Cost = Selling), no markups allowed
-    const brand = (item.Brand || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
-    if (brand === 'MAXXIS' || brand === 'MAXXIES') {
-        const discount = maxxisDiscounts[item.ItemId];
-        if (discount) {
-            finalPrice = cost * (1 - discount / 100);
-        } else {
-            finalPrice = cost;
-        }
-        return Math.ceil(finalPrice / 50) * 50;
-    }
-    
-    switch (pricingMode) {
-        case 'cost_plus':
-            finalPrice = cost + 500;
-            break;
-        case 'wholesale':
-            finalPrice = cost + 1000;
-            break;
-        case 'cash':
-            finalPrice = cost + 1500;
-            break;
-        case 'selling':
-            finalPrice = cost + 2000;
-            break;
-        case 'custom':
-            if (!customMarkup) {
-                finalPrice = cost;
-            } else if (customMarkup.endsWith('%')) {
-                const pct = parseFloat(customMarkup.replace('%', ''));
-                finalPrice = isNaN(pct) ? cost : cost + (cost * pct / 100);
-            } else {
-                const val = parseFloat(customMarkup);
-                finalPrice = isNaN(val) ? cost : cost + val;
-            }
-            break;
-        default:
-            finalPrice = Number(item.SellingPrice) || (cost + 2000);
-    }
-    
-    return Math.ceil(finalPrice / 50) * 50;
-  };
+    return calculateItemPrice(item, {
+      mode: pricingMode,
+      customMarkup,
+      maxxisDiscount: maxxisDiscounts[item.ItemId],
+      isFOC: focItems.has(item.ItemId),
+    });
+  }, [pricingMode, customMarkup, customItemPrices, customServicePrices, maxxisDiscounts, focItems]);
 
   const toggleDiscount = (itemId: string, e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent selecting the item row
@@ -391,7 +297,7 @@ export default function TireSearch({ onAddToQuote, quoteItems = [] }: { onAddToQ
       const price = calculatePrice(item);
       const isFoc = focItems.has(item.ItemId);
       const priceDisplay = isFoc ? 'FOC' : `Rs. ${price.toLocaleString()}`;
-      const isService = Object.values(SERVICE_IDS).includes(item.ItemId);
+      const isService = SERVICE_ID_LIST.includes(item.ItemId);
 
       let desc = item.Description;
       
@@ -453,7 +359,7 @@ export default function TireSearch({ onAddToQuote, quoteItems = [] }: { onAddToQ
 
     const sizeStr = width && rim ? (profile ? `${width}/${profile}R${rim}` : `${width}R${rim}`) : '';
     const baseMessage = buildShareMessage(itemsToShare, sizeStr);
-    const serviceIds = Object.values(SERVICE_IDS);
+    const serviceIds = SERVICE_ID_LIST;
 
     const payloadItems = itemsToShare.map((item) => ({
       itemId: item.ItemId,
@@ -478,18 +384,13 @@ export default function TireSearch({ onAddToQuote, quoteItems = [] }: { onAddToQ
         source: 'Mobile App - TireSearch',
       });
 
-      console.log('🔍 TireSearch saveQuotationToDb result:', result);
-
       const finalMessage = buildShareMessage(itemsToShare, sizeStr, {
         quotationNumber: result?.quotationNumber,
         bookingUrl: result?.bookingUrl,
       });
 
-      console.log('📤 Final message booking URL:', result?.bookingUrl || 'default');
-
       await shareTextViaDevice(finalMessage);
     } catch (error) {
-      console.error('Error creating quotation before sharing:', error);
       showToast('error', 'Failed to save quotation');
       await shareTextViaDevice(baseMessage);
     } finally {
@@ -505,6 +406,7 @@ export default function TireSearch({ onAddToQuote, quoteItems = [] }: { onAddToQ
     if (!qWidth || !qRim) return;
     
     setLoading(true);
+    setSearchError('');
     try {
       // Construct query params
       const params = new URLSearchParams();
@@ -516,11 +418,15 @@ export default function TireSearch({ onAddToQuote, quoteItems = [] }: { onAddToQ
       const res = await authenticatedFetch(`/api/erp/inventory?${params.toString()}`);
       if (res.ok) {
         const data = await res.json();
-        // Trust the backend search results
         setResults(data.data);
+        // Save to search history
+        const sizeLabel = qProfile ? `${qWidth}/${qProfile}R${qRim}` : `${qWidth}R${qRim}`;
+        addSearchToHistory(sizeLabel, data.data?.length || 0);
+      } else {
+        setSearchError('Search failed — please try again');
       }
     } catch (error) {
-      console.error('Search failed', error);
+      setSearchError(navigator.onLine ? 'Search failed — server error' : 'No internet connection');
     } finally {
       setLoading(false);
     }
@@ -896,6 +802,10 @@ export default function TireSearch({ onAddToQuote, quoteItems = [] }: { onAddToQ
                 placeholder="0"
                 className="w-full bg-transparent border-none text-white placeholder:text-slate-800 text-6xl font-bold tracking-tighter text-right focus:outline-none"
                 />
+                {/* Search error message */}
+                {searchError && (
+                  <p className="text-rose-400 text-xs mt-2 font-medium animate-in fade-in duration-200">{searchError}</p>
+                )}
             </div>
             
             {/* Controls (Voice & Clear) */}
@@ -931,6 +841,29 @@ export default function TireSearch({ onAddToQuote, quoteItems = [] }: { onAddToQ
                                     {size}
                                 </button>
                             ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* Recent Searches - Show when input is empty */}
+                {!searchInput && searchHistory.length > 0 && suggestions.length === 0 && (
+                    <div className="absolute bottom-full left-0 right-0 mb-3 z-40 animate-in fade-in duration-300 pointer-events-none">
+                        <div className="bg-slate-800/90 backdrop-blur-xl border border-white/10 rounded-2xl p-3 shadow-xl pointer-events-auto">
+                            <p className="text-slate-500 text-[10px] font-bold uppercase tracking-wider mb-2 flex items-center gap-1">
+                                <Clock className="w-3 h-3" /> Recent
+                            </p>
+                            <div className="flex gap-2 flex-wrap">
+                                {searchHistory.slice(0, 6).map((entry) => (
+                                    <button
+                                        key={entry.query}
+                                        onClick={() => handleSuggestionClick(entry.query)}
+                                        className="px-3 py-1.5 bg-slate-700/60 text-slate-300 text-sm font-mono rounded-xl active:scale-95 transition-all hover:bg-blue-600 hover:text-white flex items-center gap-1.5"
+                                    >
+                                        {entry.query}
+                                        <span className="text-[10px] text-slate-500">({entry.resultCount})</span>
+                                    </button>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 )}
@@ -1003,7 +936,7 @@ export default function TireSearch({ onAddToQuote, quoteItems = [] }: { onAddToQ
                 
                 const brand = (item.Brand || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
                 const isMaxxis = brand === 'MAXXIS' || brand === 'MAXXIES';
-                const isService = Object.values(SERVICE_IDS).includes(item.ItemId);
+                const isService = SERVICE_ID_LIST.includes(item.ItemId);
 
                 return (
                 <div 

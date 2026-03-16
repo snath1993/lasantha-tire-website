@@ -135,22 +135,11 @@ export function cleanupExpiredSessions(): number {
   return cleaned;
 }
 
-// Get session ID from request headers (custom header)
+// Get session ID from request headers (custom header only — URL params removed for security)
 export function getSessionIdFromRequest(request: NextRequest): string | null {
-  // Try custom header first (most secure)
+  // Custom header only — prevents session fixation via URL/referrer/logs
   const headerSessionId = request.headers.get('x-session-id');
-  if (headerSessionId) {
-    return headerSessionId;
-  }
-
-  // Try URL parameter (for GET requests, less secure)
-  const url = new URL(request.url);
-  const paramSessionId = url.searchParams.get('sessionId');
-  if (paramSessionId) {
-    return paramSessionId;
-  }
-
-  return null;
+  return headerSessionId || null;
 }
 
 // Get active session count

@@ -1,10 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getSessionIdFromRequest, getSession } from '@/core/lib/session';
 
 const BOT_API_URL = process.env.BOT_API_URL || 'http://localhost:8585';
 
-// Proxy all requests to bot API (quotations endpoint)
+// Proxy all requests to bot API (quotations endpoint) — requires auth
 export async function POST(request: NextRequest) {
   try {
+    // Auth check
+    const sessionId = getSessionIdFromRequest(request);
+    if (!sessionId || !getSession(sessionId)) {
+      return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const body = await request.json();
 
     // Forward request to bot API quotations endpoint

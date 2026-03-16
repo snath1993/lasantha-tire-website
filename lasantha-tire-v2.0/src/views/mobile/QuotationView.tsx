@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { 
   FileText, Plus, Trash2, Share2, Download, X, Search, 
   User, Truck, Calendar, Check, ChevronRight, Loader2, Tag, Edit2,
@@ -8,46 +8,19 @@ import {
 } from 'lucide-react';
 import { exportQuotationPDF } from '@/core/utils/pdfExports';
 import NumericKeypad from './NumericKeypad';
+import ConfirmDialog from '@/components/ConfirmDialog';
 import { useToast } from '@/core/contexts/ToastContext';
 import { authenticatedFetch } from '@/core/lib/client-auth';
-
-interface QuotationItem {
-  ItemId: string;
-  Description: string;
-  Brand: string;
-  Size: string;
-  Quantity: number;
-  UnitPrice: number;
-  UnitCost: number;
-  DiscountPercent?: number;
-  Category?: string;
-  isFOC?: boolean;
-  SellingPrice?: number;
-  LastGRN?: {
-    No: string;
-    Date: string;
-    Qty: number;
-    History?: Array<{
-        InvReferenceNo: string;
-        InvoiceDate: string;
-        Qty: number;
-    }>;
-  } | null;
-}
-
-type PricingMode = 'cost_plus' | 'wholesale' | 'cash' | 'selling' | 'custom';
-
-// Hardcoded Service IDs
-const SERVICE_IDS = {
-    ALIGNMENT_CAR: '120', // WHEEL ALIGNMENT- COMPUTERIZED CARS
-    ALIGNMENT_JEEP: '121', // WHEEL ALIGNMENT- COMPUTERIZED VANS/JEEPS (1500)
-    ALIGNMENT_LORRY: '161', // WHEEL ALIGNMENT LORRY (6 WHEEL ) (0) - Wait, 0 price? Maybe it's custom.
-    ALIGNMENT_BUS: '144', // WHEEL ALIGNMENT- COMPUTERIZED BUS/TIPPER (0)
-    BALANCING: '122', // WHEEL BALANCING
-    TUBELESS_NECK: '114', // TUBE LESS NECK
-    
-    // Let's stick to the IDs found. If price is 0, user can edit.
-};
+import { useCustomerHistory } from '@/core/hooks/useCustomerHistory';
+import {
+  type QuotationItem,
+  type PricingMode,
+  SERVICE_IDS,
+  SERVICE_ID_LIST,
+  ALIGNMENT_IDS,
+  calculateItemPrice,
+  isServiceItem,
+} from '@/core/types/erp';
 
 const QuantityPicker = ({ value, onChange }: { value: number, onChange: (val: number) => void }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -129,6 +102,9 @@ export default function QuotationView() {
   const [serviceSearchQuery, setServiceSearchQuery] = useState('');
   const [selectedPopupItems, setSelectedPopupItems] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(false);
+  const [isSaving, setIsSaving] = useState(false); // Double-tap guard
+  const [showResetConfirm, setShowResetConfirm] = useState(false); // Confirm dialog for reset
+  const [customerSuggestions, setCustomerSuggestions] = useState<{ name: string; phone?: string; vehicleNo?: string }[]>([]); // Customer auto-complete
   
   // VAT State
   const [includeVat, setIncludeVat] = useState(false);
@@ -149,6 +125,7 @@ export default function QuotationView() {
   const [editingQuote, setEditingQuote] = useState<{ id: number; quotationNo: string; includeVat: boolean } | null>(null);
   
   const { showToast } = useToast();
+  const { saveCustomer, searchCustomers } = useCustomerHistory();
 
   // Prevent background page scrolling when overlays are open
   useEffect(() => {
@@ -162,10 +139,23 @@ export default function QuotationView() {
     };
   }, [showHistory, selectedHistoryQuote]);
 
+  // Customer name auto-complete
+  useEffect(() => {
+    if (customerName.length >= 2) {
+      setCustomerSuggestions(searchCustomers(customerName));
+    } else {
+      setCustomerSuggestions([]);
+    }
+  }, [customerName, searchCustomers]);
+
   // Reset all form state for a fresh quotation
   const resetForm = () => {
-    if (items.length === 0 && !vehicleNo && !customerName) return; // Nothing to reset
-    if (!window.confirm('Clear everything and start a fresh quotation?')) return;
+    if (items.length === 0 && !vehicleNo && !customerName) return;
+    setShowResetConfirm(true);
+  };
+
+  const doReset = () => {
+    setShowResetConfirm(false);
 
     // Quotation details
     setVehicleNo('');
@@ -363,7 +353,6 @@ export default function QuotationView() {
   // Save Quotation to Database (New SQL Implementation)
   const saveQuotationToSQL = async () => {
       try {
-          console.log('Preparing payload...');
         const safeItems = buildSafeItems(items);
 
           const payload = {
@@ -377,7 +366,6 @@ export default function QuotationView() {
               meta: buildMeta(),
           };
 
-          console.log('Sending fetch...');
             const res = await fetch('/api/sql-quotations/save', {
               method: 'POST',
               headers: { 
@@ -387,7 +375,6 @@ export default function QuotationView() {
               body: JSON.stringify(payload)
           });
           
-            console.log('Fetch response:', res.status);
             const rawText = await res.text();
             let data: any = null;
 
@@ -484,59 +471,10 @@ export default function QuotationView() {
     }));
   };
 
-  // Helper to calculate price based on current mode
-  const calculatePrice = (item: any, mode: PricingMode = pricingMode, customVal: string = customMarkup) => {
-    const cost = Number(item.UnitCost) || 0;
-    let finalPrice = cost;
-
-    // Maxxis Exception: Fixed price (Cost = Selling), no markups allowed
-    const brand = (item.Brand || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
-    if (brand === 'MAXXIS' || brand === 'MAXXIES') {
-        return Math.ceil(cost / 50) * 50; 
-    }
-    
-    // Services usually don't follow tyre pricing logic (Cost+500 etc). 
-    // They usually have a fixed SellingPrice or UnitCost.
-    // If Category is NOT TYRES, we should probably just return the UnitCost or SellingPrice if available.
-    // However, the API returns SellingPrice = UnitCost for services currently.
-    // Let's assume for Services, we just use the cost/price as is, maybe rounded.
-    if (item.Category && item.Category !== 'TYRES') {
-        // If item has a SellingPrice (from API), use it. Otherwise use UnitCost.
-        // Note: For services, API maps PriceLevel1 to SellingPrice.
-        const price = Number(item.SellingPrice) || cost;
-        return Math.ceil(price / 50) * 50;
-    }
-
-    switch (mode) {
-        case 'cost_plus':
-            finalPrice = cost + 500;
-            break;
-        case 'wholesale':
-            finalPrice = cost + 1000;
-            break;
-        case 'cash':
-            finalPrice = cost + 1500;
-            break;
-        case 'selling':
-            finalPrice = cost + 2000;
-            break;
-        case 'custom':
-            if (!customVal) {
-                finalPrice = cost;
-            } else if (customVal.endsWith('%')) {
-                const pct = parseFloat(customVal.replace('%', ''));
-                finalPrice = isNaN(pct) ? cost : cost + (cost * pct / 100);
-            } else {
-                const val = parseFloat(customVal);
-                finalPrice = isNaN(val) ? cost : cost + val;
-            }
-            break;
-        default:
-            finalPrice = Number(item.SellingPrice) || (cost + 2000);
-    }
-    
-    return Math.ceil(finalPrice / 50) * 50;
-  };
+  // Unified price calculator using shared utility
+  const calculatePrice = useCallback((item: QuotationItem, mode: PricingMode = pricingMode, customVal: string = customMarkup) => {
+    return calculateItemPrice(item, { mode, customMarkup: customVal });
+  }, [pricingMode, customMarkup]);
 
   // Fetch specific item by ID and add it
   const addServiceById = async (itemId: string) => {
@@ -643,17 +581,12 @@ export default function QuotationView() {
 
   // Search Items
   const searchItems = async (size: string) => {
-    console.log('Searching for:', size);
     if (!size) return;
     setLoading(true);
     setSelectedPopupItems(new Set()); // Clear selection on new search
     try {
-      console.log('Calling API...');
       const res = await authenticatedFetch(`/api/erp/inventory?type=search&query=${encodeURIComponent(size)}`);
-      console.log('API Response Status:', res.status);
-      
       const data = await res.json();
-      console.log('API Data:', data);
 
       if (data.data) {
         if (data.data.length === 0) {
@@ -1050,6 +983,26 @@ export default function QuotationView() {
               placeholder="Select or type name"
               className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-10 pr-4 text-white placeholder:text-slate-600 focus:border-blue-500 focus:outline-none"
             />
+            {/* Customer auto-complete suggestions */}
+            {customerSuggestions.length > 0 && (
+              <div className="absolute z-20 left-0 right-0 top-full mt-1 bg-slate-800 border border-slate-700 rounded-xl shadow-xl overflow-hidden max-h-40 overflow-y-auto">
+                {customerSuggestions.map((c, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => {
+                      setCustomerName(c.name);
+                      if (c.vehicleNo && !vehicleNo) setVehicleNo(c.vehicleNo);
+                      setCustomerSuggestions([]);
+                    }}
+                    className="w-full text-left px-4 py-2.5 hover:bg-slate-700 transition-colors flex justify-between items-center"
+                  >
+                    <span className="text-sm text-white">{c.name}</span>
+                    {c.vehicleNo && <span className="text-xs text-slate-400 font-mono">{c.vehicleNo}</span>}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
@@ -1509,21 +1462,21 @@ export default function QuotationView() {
       {items.length > 0 && (
         <div className="space-y-3">
           <button
+            disabled={isSaving}
             onClick={async () => {
+                if (isSaving) return;
+                setIsSaving(true);
                 try {
                     if (items.length === 0) {
                         showToast('error', 'Add items first');
                         return;
                     }
                     
-                    console.log('Starting save...');
                     // Save (or update) first to get the correct quotation no
                     const quotationNo = await persistQuotationForPdf();
-                    console.log('Save result:', quotationNo);
                     
                     if (!quotationNo) return;
 
-                    console.log('Generating PDF...');
                     await exportQuotationPDF(
                         {
                             vehicleNo,
@@ -1543,21 +1496,26 @@ export default function QuotationView() {
                           } : undefined
                       }
                     );
-                    console.log('PDF Generated.');
+                    if (customerName) saveCustomer({ name: customerName, vehicleNo });
                     showToast('success', `Saved as ${quotationNo}`);
                 } catch (err: any) {
                     console.error('Error in download handler:', err);
                     showToast('error', `Error: ${err.message}`);
+                } finally {
+                    setIsSaving(false);
                 }
             }}
-            className="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white rounded-2xl shadow-lg shadow-blue-900/20 font-bold text-lg flex items-center justify-center gap-3 active:scale-95 transition-all"
+            className="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white rounded-2xl shadow-lg shadow-blue-900/20 font-bold text-lg flex items-center justify-center gap-3 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <Download className="w-6 h-6" />
-            Download PDF
+            {isSaving ? <Loader2 className="w-6 h-6 animate-spin" /> : <Download className="w-6 h-6" />}
+            {isSaving ? 'Saving...' : 'Download PDF'}
           </button>
           
           <button
+            disabled={isSaving}
             onClick={async () => {
+                if (isSaving) return;
+                setIsSaving(true);
                 try {
                     if (items.length === 0) {
                         showToast('error', 'Add items first');
@@ -1587,16 +1545,19 @@ export default function QuotationView() {
                           } : undefined
                       }
                     );
+                    if (customerName) saveCustomer({ name: customerName, vehicleNo });
                     showToast('success', `Saved as ${quotationNo}`);
                 } catch (err: any) {
                     console.error('Error in share handler:', err);
                     showToast('error', `Error: ${err.message}`);
+                } finally {
+                    setIsSaving(false);
                 }
             }}
-            className="w-full py-4 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-500 hover:to-emerald-600 text-white rounded-2xl shadow-lg shadow-green-900/20 font-bold text-lg flex items-center justify-center gap-3 active:scale-95 transition-all"
+            className="w-full py-4 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-500 hover:to-emerald-600 text-white rounded-2xl shadow-lg shadow-green-900/20 font-bold text-lg flex items-center justify-center gap-3 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <Share2 className="w-6 h-6" />
-            Share with Booking Link
+            {isSaving ? <Loader2 className="w-6 h-6 animate-spin" /> : <Share2 className="w-6 h-6" />}
+            {isSaving ? 'Saving...' : 'Share with Booking Link'}
           </button>
         </div>
       )}
@@ -2098,6 +2059,17 @@ export default function QuotationView() {
           </div>
         </div>
       )}
+
+      {/* Reset Confirmation Dialog */}
+      <ConfirmDialog
+        open={showResetConfirm}
+        title="Clear Quotation?"
+        message="This will clear all items, customer details, and start a fresh quotation."
+        confirmLabel="Clear All"
+        variant="danger"
+        onConfirm={doReset}
+        onCancel={() => setShowResetConfirm(false)}
+      />
     </div>
   );
 }

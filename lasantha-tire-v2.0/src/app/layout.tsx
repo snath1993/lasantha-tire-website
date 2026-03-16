@@ -3,14 +3,16 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import GlobalSplash from '@/views/shared/ui/GlobalSplash';
 import WakeUpProvider from '@/components/providers/WakeUpProvider';
+import ErrorBoundary from '@/components/ErrorBoundary';
+import NetworkStatus from '@/components/NetworkStatus';
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
+  maximumScale: 5,
+  userScalable: true,
 };
 
 export const metadata: Metadata = {
@@ -38,10 +40,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} overflow-x-hidden w-full bg-slate-50`}>
-        <WakeUpProvider>
-          <GlobalSplash />
-          {children}
-        </WakeUpProvider>
+        <ErrorBoundary>
+          <NetworkStatus />
+          <WakeUpProvider>
+            <GlobalSplash />
+            {children}
+          </WakeUpProvider>
+        </ErrorBoundary>
       </body>
     </html>
   );

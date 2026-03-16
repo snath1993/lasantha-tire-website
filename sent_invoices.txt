@@ -1,6 +1,6 @@
 # Daily Sales Report - Sent Invoice Numbers
 
-# Sales for 2026-03-16 (AUTO)
+# Sales for 2026-03-16 (MANUAL)
 NLT00008390
 NLT00008397
 NLT00008403

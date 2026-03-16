@@ -1,10 +1,9 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { Send, Trash2, FileText, X, Share2, Wrench, Disc, Loader2 } from 'lucide-react';
 import { saveQuotationToDb, normalizePhoneNumber, formatPhoneForWhatsApp } from '@/core/lib/quotationShare';
-
-const SERVICE_IDS = ['120', '121', '161', '144', '122', '114'];
+import { SERVICE_ID_LIST } from '@/core/types/erp';
 
 interface QuoteItem {
   ItemId: string;
@@ -70,11 +69,11 @@ export default function QuickQuote({
     brand: item.Brand,
     price: getPrice(item),
     quantity: getItemQuantity(idx),
-    isService: SERVICE_IDS.includes(item.ItemId)
+    isService: SERVICE_ID_LIST.includes(item.ItemId)
   }));
 
   const deriveTyreSize = () => {
-    return items.find(i => !SERVICE_IDS.includes(i.ItemId))?.Description?.match(/\d+\/?\d*R?\d+/)?.[0] || '';
+    return items.find(i => !SERVICE_ID_LIST.includes(i.ItemId))?.Description?.match(/\d+\/?\d*R?\d+/)?.[0] || '';
   };
 
   const generateMessage = (quotationNumber?: string, bookingUrl?: string) => {
@@ -82,13 +81,13 @@ export default function QuickQuote({
     message += `Quotation for ${customerName || 'Customer'}\n`;
     
     if (quotationNumber) {
-      message += `📋 *Ref: ${quotationNumber}*\n`;
+      message += `ðŸ“‹ *Ref: ${quotationNumber}*\n`;
     }
     
     message += `------------------------\n`;
     
-    const tyreItems = items.map((item, idx) => ({...item, originalIdx: idx})).filter(i => !SERVICE_IDS.includes(i.ItemId));
-    const serviceItems = items.map((item, idx) => ({...item, originalIdx: idx})).filter(i => SERVICE_IDS.includes(i.ItemId));
+    const tyreItems = items.map((item, idx) => ({...item, originalIdx: idx})).filter(i => !SERVICE_ID_LIST.includes(i.ItemId));
+    const serviceItems = items.map((item, idx) => ({...item, originalIdx: idx})).filter(i => SERVICE_ID_LIST.includes(i.ItemId));
 
     if (tyreItems.length > 0) {
         message += `*Tyres*\n`;
@@ -96,9 +95,9 @@ export default function QuickQuote({
             const qty = getItemQuantity(item.originalIdx);
             const price = getPrice(item);
             
-            message += `🛠️ ${item.Description}\n`;
-            message += `🏷️ ${item.Brand}\n`;
-            message += `💰 Rs. ${price.toLocaleString()}/=\n`;
+            message += `ðŸ› ï¸ ${item.Description}\n`;
+            message += `ðŸ·ï¸ ${item.Brand}\n`;
+            message += `ðŸ’° Rs. ${price.toLocaleString()}/=\n`;
             
             if (qty > 1) {
                 message += `Qty: ${qty} | Total: Rs ${(price * qty).toLocaleString()}\n`;
@@ -125,7 +124,7 @@ export default function QuickQuote({
     }
     
     if (bookingUrl) {
-      message += `\n📅 *Reserve Your Appointment:*\n${bookingUrl}\n`;
+      message += `\nðŸ“… *Reserve Your Appointment:*\n${bookingUrl}\n`;
     }
     
     message += `\nThank you!`;
@@ -175,6 +174,13 @@ export default function QuickQuote({
 
   const handleSendWhatsApp = async () => {
     if (items.length === 0) return;
+
+    // Validate phone number
+    const cleaned = phone.replace(/[\s\-\(\)]/g, '');
+    if (!cleaned || !/^(?:0\d{9}|\+94\d{9}|94\d{9})$/.test(cleaned)) {
+      alert('Please enter a valid phone number (e.g. 0771234567)');
+      return;
+    }
 
     setIsSaving(true);
     
@@ -242,14 +248,14 @@ export default function QuickQuote({
           ) : (
             <>
                 {/* Tyres Section */}
-                {items.some(i => !SERVICE_IDS.includes(i.ItemId)) && (
+                {items.some(i => !SERVICE_ID_LIST.includes(i.ItemId)) && (
                     <div className="space-y-3">
                         <div className="flex items-center gap-2 text-slate-400 px-1">
                             <Disc className="w-4 h-4" />
                             <h4 className="text-xs font-bold uppercase tracking-wider">Tyres</h4>
                         </div>
                         {items.map((item, idx) => ({ item, idx }))
-                             .filter(({ item }) => !SERVICE_IDS.includes(item.ItemId))
+                             .filter(({ item }) => !SERVICE_ID_LIST.includes(item.ItemId))
                              .map(({ item, idx }) => {
                                 const qty = getItemQuantity(idx);
                                 const price = getPrice(item);
@@ -299,14 +305,14 @@ export default function QuickQuote({
                 )}
 
                 {/* Services Section */}
-                {items.some(i => SERVICE_IDS.includes(i.ItemId)) && (
+                {items.some(i => SERVICE_ID_LIST.includes(i.ItemId)) && (
                     <div className="space-y-3">
                         <div className="flex items-center gap-2 text-indigo-400 px-1">
                             <Wrench className="w-4 h-4" />
                             <h4 className="text-xs font-bold uppercase tracking-wider">Services</h4>
                         </div>
                         {items.map((item, idx) => ({ item, idx }))
-                             .filter(({ item }) => SERVICE_IDS.includes(item.ItemId))
+                             .filter(({ item }) => SERVICE_ID_LIST.includes(item.ItemId))
                              .map(({ item, idx }) => {
                                 const qty = getItemQuantity(idx);
                                 const price = getPrice(item);
@@ -389,7 +395,7 @@ export default function QuickQuote({
                 disabled={items.length === 0}
                 className="px-3 py-3 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-700 text-white rounded-xl font-medium transition-colors text-sm"
               >
-                {showSaveSuccess ? '✓ Saved' : 'Save'}
+                {showSaveSuccess ? 'âœ“ Saved' : 'Save'}
               </button>
               <button
                 onClick={onClear}

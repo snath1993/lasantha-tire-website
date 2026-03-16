@@ -3,26 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Package, Loader2, AlertCircle, ArrowDown, Filter, ChevronRight, ArrowLeft, Layers } from 'lucide-react';
 import { authenticatedFetch } from '@/core/lib/client-auth';
-
-interface TireProduct {
-  ItemId: string;
-  Description: string;
-  Brand: string;
-  Quantity: number;
-  Price?: number;
-  SellingPrice?: number;
-  UnitCost?: number;
-  LastGRN?: {
-    No: string;
-    Date: string;
-    Qty: number;
-    History?: Array<{
-        InvReferenceNo: string;
-        InvoiceDate: string;
-        Qty: number;
-    }>;
-  } | null;
-}
+import type { TireProduct } from '@/core/types/erp';
 
 interface BrandInfo {
   Brand: string;

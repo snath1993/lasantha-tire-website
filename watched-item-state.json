@@ -3,7 +3,7 @@
     "165/70/14 YOKOHAMA ES32 # JAPAN": {
       "lastNotified": [],
       "totalQtyToday": 0,
-      "lastUpdate": "2026-03-16T17:55:43.373Z"
+      "lastUpdate": "2026-03-16T19:00:59.006Z"
     },
     "185/65/15 YOKOHAMA ES32 # JAPAN": {
       "lastNotified": [
@@ -11,19 +11,19 @@
         "NLT00008247"
       ],
       "totalQtyToday": 0,
-      "lastUpdate": "2026-03-16T17:55:43.373Z"
+      "lastUpdate": "2026-03-16T19:00:59.006Z"
     },
     "195/65/15 YOKOHAMA ES32 # JAPAN": {
       "lastNotified": [],
       "totalQtyToday": 0,
-      "lastUpdate": "2026-03-16T17:55:43.373Z"
+      "lastUpdate": "2026-03-16T19:00:59.006Z"
     },
     "155/65/14 DUNLOP ENASAVE EC203 # JAPAN": {
       "lastNotified": [
         "NLT00008120"
       ],
       "totalQtyToday": 0,
-      "lastUpdate": "2026-03-16T17:55:43.373Z"
+      "lastUpdate": "2026-03-16T19:00:59.006Z"
     }
   }
 }
