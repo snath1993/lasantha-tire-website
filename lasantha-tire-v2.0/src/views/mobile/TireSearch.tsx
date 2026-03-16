@@ -855,11 +855,11 @@ export default function TireSearch({ onAddToQuote, quoteItems = [] }: { onAddToQ
                             <div className="flex gap-2 flex-wrap">
                                 {searchHistory.slice(0, 6).map((entry) => (
                                     <button
-                                        key={entry.query}
-                                        onClick={() => handleSuggestionClick(entry.query)}
+                                        key={entry.size}
+                                        onClick={() => handleSuggestionClick(entry.size)}
                                         className="px-3 py-1.5 bg-slate-700/60 text-slate-300 text-sm font-mono rounded-xl active:scale-95 transition-all hover:bg-blue-600 hover:text-white flex items-center gap-1.5"
                                     >
-                                        {entry.query}
+                                        {entry.size}
                                         <span className="text-[10px] text-slate-500">({entry.resultCount})</span>
                                     </button>
                                 ))}

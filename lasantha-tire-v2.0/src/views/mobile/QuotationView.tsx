@@ -742,17 +742,18 @@ export default function QuotationView() {
   const toggleMaxxisDiscount = (index: number, percent: number) => {
     setItems(prev => prev.map((item, i) => {
         if (i === index) {
+            const cost = item.UnitCost || 0;
             // Toggle off if same percent clicked
             if (item.DiscountPercent === percent) {
                 return { 
                     ...item, 
-                    UnitPrice: item.UnitCost, // Reset to cost (Fixed Price)
+                    UnitPrice: cost, // Reset to cost (Fixed Price)
                     DiscountPercent: undefined 
                 };
             }
 
             // Apply new discount
-            const discountedPrice = item.UnitCost * (1 - percent / 100);
+            const discountedPrice = cost * (1 - percent / 100);
             const roundedPrice = Math.ceil(discountedPrice / 50) * 50;
             return { 
                 ...item, 
