@@ -248,8 +248,10 @@ setInterval(async () => {
     try {
         const cfg = loadWatchedCfg();
         if ((!cfg.pattern || !cfg.pattern.trim()) && (!cfg.patterns || cfg.patterns.length === 0)) return; // nothing configured
-        const mainPool = await getPool();
-        await WatchedItemRealtimeJob(sql, sqlConfig, sendWhatsAppMessage, logAndSave, { mainPool });
+        await runWithRetry('WatchedItemRealtimeJob', async () => {
+            const mainPool = await getPool();
+            await WatchedItemRealtimeJob(sql, sqlConfig, sendWhatsAppMessage, logAndSave, { mainPool });
+        }, { maxRetries: 1, retryDelayMs: 10000, alertOnFailure: false, logger: logAndSave });
     } catch (e) {
         logAndSave('WatchedItemRealtimeJob interval error: ' + e.message);
     } finally {
@@ -262,8 +264,10 @@ logAndSave(`WatchedItemRealtimeJob interval started (${watchIntervalMs/1000}s)`)
 const queueProcessorIntervalMs = 60000; // 1 minute
 setInterval(async () => {
     try {
-        const mainPool = await getPool();
-        await DeletionQueueProcessorJob(sql, sqlConfig, sendWhatsAppMessage, logAndSave, { mainPool });
+        await runWithRetry('DeletionQueueProcessorJob', async () => {
+            const mainPool = await getPool();
+            await DeletionQueueProcessorJob(sql, sqlConfig, sendWhatsAppMessage, logAndSave, { mainPool });
+        }, { maxRetries: 1, retryDelayMs: 15000, alertOnFailure: false, logger: logAndSave });
     } catch (e) {
         logAndSave('DeletionQueueProcessorJob interval error: ' + e.message);
     }

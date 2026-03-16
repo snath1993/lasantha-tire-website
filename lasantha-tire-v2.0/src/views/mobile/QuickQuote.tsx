@@ -125,7 +125,7 @@ export default function QuickQuote({
     }
     
     if (bookingUrl) {
-      message += `\n📅 *Book Your Appointment:*\n${bookingUrl}\n`;
+      message += `\n📅 *Reserve Your Appointment:*\n${bookingUrl}\n`;
     }
     
     message += `\nThank you!`;

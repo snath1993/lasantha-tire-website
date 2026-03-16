@@ -416,7 +416,7 @@ export default function TireSearch({ onAddToQuote, quoteItems = [] }: { onAddToQ
     }).join('\n\n');
 
     text += `\n\n------------------------\n\n`;
-    text += `⏳ *Skip the Queue! Book Now:*\n${appointmentLink}\n\n`;
+    text += `📅 *Reserve Your Appointment:*\n${appointmentLink}\n\n`;
     text += `🕒 *Opening Hours:*\n`;
     text += `   Shop: 6:30 AM - 9:00 PM\n`;
     text += `   Alignment: 7:30 AM - 6:00 PM\n\n`;

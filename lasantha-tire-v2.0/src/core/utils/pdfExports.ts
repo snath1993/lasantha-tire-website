@@ -563,8 +563,97 @@ export const exportFinancialReportPDF = (
   doc.save(fileName);
 };
 
-// Export Quotation PDF (Professional A4 Format)
-export const exportQuotationPDF = (
+// Export Quotation PDF — Professional HTML template (matches digital-invoice design)
+export const exportQuotationPDF = async (
+  quotationDetails: {
+    vehicleNo: string;
+    customerName: string;
+    terms: string;
+    date: string;
+    quotationNo: string;
+    expiryDate?: string;
+  },
+  items: any[],
+  options?: { 
+      includeVat: boolean; 
+      vatRate: number; 
+      customerVatNo?: string;
+      warrantyInfo?: { km: string; years: string };
+  }
+) => {
+  // Use professional HTML template via html2pdf.js
+  const { buildQuotationHtml } = await import('./quotationPdfTemplate');
+
+  const htmlString = buildQuotationHtml(quotationDetails, items, {
+    includeVat: options?.includeVat,
+    vatRate: options?.vatRate,
+    customerVatNo: options?.customerVatNo,
+    warrantyInfo: options?.warrantyInfo,
+  });
+
+  // Create hidden container to render HTML
+  const container = document.createElement('div');
+  container.style.position = 'fixed';
+  container.style.left = '-9999px';
+  container.style.top = '0';
+  container.style.width = '794px';
+  container.innerHTML = htmlString;
+  document.body.appendChild(container);
+
+  const pageElement = (container.querySelector('.page') as HTMLElement) || container;
+
+  try {
+    // Dynamic import html2pdf.js (client-side only)
+    const html2pdfModule = await import('html2pdf.js');
+    const html2pdf = html2pdfModule.default || html2pdfModule;
+
+    const opt = {
+      margin: 0,
+      filename: `Quotation_${quotationDetails.quotationNo}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: {
+        scale: 2,
+        useCORS: true,
+        letterRendering: true,
+        logging: false,
+        width: 794,
+      },
+      jsPDF: { unit: 'px', format: [794, 1123] as [number, number], orientation: 'portrait' as const },
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const pdfBlob: Blob = await html2pdf().set(opt as any).from(pageElement).outputPdf('blob');
+
+    // Open in new tab
+    const blobUrl = URL.createObjectURL(pdfBlob);
+    window.open(blobUrl, '_blank');
+
+    // Native share on mobile
+    if (navigator.share) {
+      const file = new File(
+        [pdfBlob],
+        `Quotation_${quotationDetails.quotationNo}.pdf`,
+        { type: 'application/pdf' }
+      );
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        navigator.share({
+          files: [file],
+          title: `Quotation ${quotationDetails.quotationNo}`,
+          text: `Here is the quotation for ${quotationDetails.customerName}`,
+        }).catch(console.error);
+      }
+    }
+  } catch (e) {
+    console.error('[QuotationPDF] html2pdf error, falling back to jsPDF:', e);
+    // Fallback: use old jsPDF method if html2pdf fails
+    exportQuotationPDFFallback(quotationDetails, items, options);
+  } finally {
+    document.body.removeChild(container);
+  }
+};
+
+// Legacy fallback (original jsPDF-based generation)
+const exportQuotationPDFFallback = (
   quotationDetails: {
     vehicleNo: string;
     customerName: string;

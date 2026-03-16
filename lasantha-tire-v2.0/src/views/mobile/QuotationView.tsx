@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { 
   FileText, Plus, Trash2, Share2, Download, X, Search, 
   User, Truck, Calendar, Check, ChevronRight, Loader2, Tag, Edit2,
-  Car, Bus, Bike, MoreHorizontal, Wrench, CircleDashed, CircleDot, AlertCircle, Clock, ShieldCheck
+  Car, Bus, Bike, MoreHorizontal, Wrench, CircleDashed, CircleDot, AlertCircle, Clock, ShieldCheck, RotateCcw
 } from 'lucide-react';
 import { exportQuotationPDF } from '@/core/utils/pdfExports';
 import NumericKeypad from './NumericKeypad';
@@ -161,6 +161,58 @@ export default function QuotationView() {
       document.body.style.overflow = previousOverflow;
     };
   }, [showHistory, selectedHistoryQuote]);
+
+  // Reset all form state for a fresh quotation
+  const resetForm = () => {
+    if (items.length === 0 && !vehicleNo && !customerName) return; // Nothing to reset
+    if (!window.confirm('Clear everything and start a fresh quotation?')) return;
+
+    // Quotation details
+    setVehicleNo('');
+    setCustomerName('');
+    setTerms('Cash');
+    setDefaultQuantity(1);
+    setItems([]);
+
+    // Pricing
+    setPricingMode('selling');
+    setCustomMarkup('');
+
+    // Item editing
+    setEditingIndex(null);
+    setEditPrice('');
+
+    // Selection
+    setSelectedIndices(new Set());
+
+    // UI / Popups
+    setShowAddPopup(false);
+    setShowItemSelectPopup(false);
+    setShowServicePopup(false);
+    setSearchSize('');
+    setSearchResults([]);
+    setServiceResults([]);
+    setServiceCategories([]);
+    setSelectedCategory('');
+    setServiceSearchQuery('');
+    setSelectedPopupItems(new Set());
+
+    // VAT
+    setIncludeVat(false);
+    setCustomerVatNo('');
+
+    // Warranty
+    setIncludeWarranty(false);
+    setWarrantyKm('40000');
+    setWarrantyYears('4');
+
+    // History / editing
+    setShowHistory(false);
+    setSelectedHistoryQuote(null);
+    setEditingQuote(null);
+
+    showToast('success', 'Form cleared — ready for a new quotation');
+  };
 
     const isVatQuotation = (q: any): boolean => {
       if (q?.IncludeVat === true) return true;
@@ -880,7 +932,7 @@ export default function QuotationView() {
       expiryDate: expiryDate
     };
 
-    exportQuotationPDF(quotationDetails, items, { includeVat, vatRate });
+    await exportQuotationPDF(quotationDetails, items, { includeVat, vatRate });
     showToast('success', `Quotation PDF generated (${quotationNumber})`);
   };
 
@@ -929,7 +981,7 @@ export default function QuotationView() {
 
     message += `------------------------\n`;
     message += `*Total: Rs ${totalAmount.toLocaleString()}*\n`;
-    message += `\n📅 *Book Your Appointment:*\n${bookingUrl}\n`;
+    message += `\n📅 *Reserve Your Appointment:*\n${bookingUrl}\n`;
     message += `\nThank you!`;
 
     if (navigator.share) {
@@ -958,7 +1010,14 @@ export default function QuotationView() {
     <div className="pb-24 space-y-4 p-4">
       {/* Header */}
       <div className="flex items-center justify-between mb-2">
-        <h1 className="text-2xl font-bold text-white">New Quotation <span className="text-xs text-emerald-400 bg-emerald-900/30 px-2 py-0.5 rounded-full border border-emerald-800">v2.0</span></h1>
+        <button
+          onClick={resetForm}
+          className="flex items-center gap-2 text-2xl font-bold text-white active:scale-95 transition-transform"
+          title="Tap to clear and start fresh"
+        >
+          <RotateCcw className="w-5 h-5 text-emerald-400" />
+          New Quotation <span className="text-xs text-emerald-400 bg-emerald-900/30 px-2 py-0.5 rounded-full border border-emerald-800">v2.0</span>
+        </button>
         <div className="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-xs font-mono">
           {new Date().toLocaleDateString()}
         </div>
@@ -1465,7 +1524,7 @@ export default function QuotationView() {
                     if (!quotationNo) return;
 
                     console.log('Generating PDF...');
-                    exportQuotationPDF(
+                    await exportQuotationPDF(
                         {
                             vehicleNo,
                             customerName,
@@ -1509,7 +1568,7 @@ export default function QuotationView() {
                 const quotationNo = await persistQuotationForPdf();
                     if (!quotationNo) return;
 
-                    exportQuotationPDF(
+                    await exportQuotationPDF(
                         {
                             vehicleNo,
                             customerName,
