@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Package, Loader2, AlertCircle, ArrowDown, Filter, ChevronRight, ArrowLeft, Layers } from 'lucide-react';
+import { Package, Loader2, AlertCircle, ArrowDown, Filter, ChevronRight, ArrowLeft, Layers, RefreshCw } from 'lucide-react';
 import { authenticatedFetch } from '@/core/lib/client-auth';
 import type { TireProduct } from '@/core/types/erp';
+import ReorderView from './ReorderView';
 
 interface BrandInfo {
   Brand: string;
@@ -22,6 +23,7 @@ export default function StockView() {
   const [touchStartY, setTouchStartY] = useState<number | null>(null);
   const [translateX, setTranslateX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [showReorder, setShowReorder] = useState(false);
 
   // Fetch available brands on mount
   useEffect(() => {
@@ -118,7 +120,16 @@ export default function StockView() {
     return (
       <div className="pb-24 space-y-4">
         <div className="px-1">
-          <h1 className="text-2xl font-bold text-zinc-900 mb-4">Select Brand</h1>
+          <div className="flex items-center justify-between mb-4">
+            <h1 className="text-2xl font-bold text-zinc-900">Select Brand</h1>
+            <button
+              onClick={() => setShowReorder(true)}
+              className="flex items-center gap-1.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-3 py-2 rounded-xl text-xs font-bold shadow-md active:scale-95 transition-transform"
+            >
+              <RefreshCw size={14} />
+              Re-Order
+            </button>
+          </div>
           <div className="grid grid-cols-1 gap-3">
             {brands.map((brand, index) => (
               <button
@@ -162,6 +173,7 @@ export default function StockView() {
              </div>
           )}
         </div>
+        <ReorderView open={showReorder} onClose={() => setShowReorder(false)} />
       </div>
     );
   }
