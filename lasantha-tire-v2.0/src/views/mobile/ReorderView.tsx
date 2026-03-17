@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import {
   X, Loader2, AlertTriangle, Package, CheckCircle2, Circle, Minus, Plus,
   Send, ChevronDown, Clock, Copy, CheckCheck,
-  Search, Share2, XCircle
+  Search, Share2, XCircle, Filter
 } from 'lucide-react';
 import { authenticatedFetch } from '@/core/lib/client-auth';
 
@@ -76,6 +76,7 @@ export default function ReorderView({ open, onClose }: Props) {
   const [selected, setSelected] = useState<Map<string, SelectedItem>>(new Map());
   const [searchQ, setSearchQ] = useState('');
   const [showPreview, setShowPreview] = useState(false);
+  const [soldLast30Only, setSoldLast30Only] = useState(true);
 
   // WhatsApp send state
   const [sending, setSending] = useState(false);
@@ -105,24 +106,32 @@ export default function ReorderView({ open, onClose }: Props) {
 
   // ─── Brand stats ────────────────────────────────────────────────────
   const brandStats = useMemo(() => {
-    if (!data) return new Map<string, { total: number; out: number; critical: number; low: number; dead: number }>();
-    const stats = new Map<string, { total: number; out: number; critical: number; low: number; dead: number }>();
+    if (!data) return new Map<string, { total: number; out: number; critical: number; low: number; dead: number; sold30: number }>();
+    const stats = new Map<string, { total: number; out: number; critical: number; low: number; dead: number; sold30: number }>();
     data.items.forEach(item => {
-      if (!stats.has(item.brand)) stats.set(item.brand, { total: 0, out: 0, critical: 0, low: 0, dead: 0 });
+      // Skip items with no sales in last 30 days if filter is on
+      if (soldLast30Only && item.sales.last30 === 0) return;
+      if (!stats.has(item.brand)) stats.set(item.brand, { total: 0, out: 0, critical: 0, low: 0, dead: 0, sold30: 0 });
       const s = stats.get(item.brand)!;
       s.total++;
+      s.sold30 += item.sales.last30;
       if (item.stockStatus === 'out') s.out++;
       else if (item.stockStatus === 'critical') s.critical++;
       else if (item.stockStatus === 'low') s.low++;
       else if (item.stockStatus === 'dead') s.dead++;
     });
     return stats;
-  }, [data]);
+  }, [data, soldLast30Only]);
 
   // ─── Filtered items for selected brand ──────────────────────────────
   const brandItems = useMemo(() => {
     if (!data || !selectedBrand) return [];
     let items = data.items.filter(i => i.brand === selectedBrand && i.stockStatus !== 'dead');
+
+    // Filter: only items sold in last 30 days
+    if (soldLast30Only) {
+      items = items.filter(i => i.sales.last30 > 0);
+    }
 
     if (searchQ) {
       const q = searchQ.toLowerCase();
@@ -142,7 +151,7 @@ export default function ReorderView({ open, onClose }: Props) {
     });
 
     return items;
-  }, [data, selectedBrand, searchQ]);
+  }, [data, selectedBrand, searchQ, soldLast30Only]);
 
   // ─── Toggle item ────────────────────────────────────────────────────
   const toggleItem = (item: ReorderItem) => {
@@ -367,10 +376,10 @@ export default function ReorderView({ open, onClose }: Props) {
                 className="w-full appearance-none bg-white border-2 border-zinc-200 rounded-xl px-4 py-3 pr-10 text-sm font-semibold text-zinc-900 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-colors"
               >
                 <option value="">— Choose a brand —</option>
-                {data.brands.map(brand => {
-                  const stats = brandStats.get(brand);
-                  const urgent = stats ? stats.out + stats.critical : 0;
-                  const total = stats ? stats.total - stats.dead : 0;
+                {data.brands.filter(brand => brandStats.has(brand)).map(brand => {
+                  const stats = brandStats.get(brand)!;
+                  const urgent = stats.out + stats.critical;
+                  const total = stats.total - stats.dead;
                   return (
                     <option key={brand} value={brand}>
                       {brand} ({total} items{urgent > 0 ? ` · ${urgent} urgent` : ''})
@@ -380,6 +389,20 @@ export default function ReorderView({ open, onClose }: Props) {
               </select>
               <ChevronDown size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
             </div>
+
+            {/* Sold in last 30 days filter */}
+            <button
+              onClick={() => setSoldLast30Only(!soldLast30Only)}
+              className={`mt-2 flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold transition-all ${
+                soldLast30Only
+                  ? 'bg-indigo-50 text-indigo-700 border border-indigo-200'
+                  : 'bg-zinc-50 text-zinc-400 border border-zinc-200'
+              }`}
+            >
+              <Filter size={12} />
+              Last 30 Days Sales Only
+              {soldLast30Only && <span className="bg-indigo-600 text-white text-[9px] px-1.5 py-0.5 rounded-full">ON</span>}
+            </button>
           </div>
 
           {/* ─── No brand selected ─────────────────────────────────── */}
@@ -523,11 +546,22 @@ export default function ReorderView({ open, onClose }: Props) {
                               item.stockStatus === 'low' ? 'bg-amber-100 text-amber-700' :
                               'bg-emerald-100 text-emerald-700'
                             }`}>
-                              {item.stockStatus === 'out' ? '⛔ OUT' : `📦 ${item.currentStock}`}
+                              {item.stockStatus === 'out' ? '⛔ OUT' : `📦 Stock: ${item.currentStock}`}
                             </span>
-                            <span className="text-[10px] text-zinc-400">
-                              Sold 30d: <span className="font-bold text-zinc-600">{item.sales.last30}</span>
+                            <span className="text-[10px] bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full font-bold">
+                              Sold 30d: {item.sales.last30}
                             </span>
+                            {item.currentStock > 0 && item.sales.last30 > 0 && (
+                              <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+                                Math.ceil(item.currentStock / (item.sales.last30 / 30)) <= 7
+                                  ? 'bg-rose-50 text-rose-600'
+                                  : Math.ceil(item.currentStock / (item.sales.last30 / 30)) <= 14
+                                    ? 'bg-amber-50 text-amber-600'
+                                    : 'bg-emerald-50 text-emerald-600'
+                              }`}>
+                                ~{Math.ceil(item.currentStock / (item.sales.last30 / 30))}d left
+                              </span>
+                            )}
                           </div>
 
                           {/* Description */}
