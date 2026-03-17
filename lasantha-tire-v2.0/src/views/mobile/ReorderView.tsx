@@ -4,8 +4,9 @@ import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import {
   X, Loader2, AlertTriangle, Package, TrendingUp, TrendingDown, Flame,
   CheckCircle2, Circle, Minus, Plus, Send, Brain, Copy, ChevronDown,
-  ChevronUp, AlertCircle, Clock, Zap, BarChart3, Sparkles, Filter,
-  ArrowUpDown, MessageSquare, ExternalLink, CheckCheck, Search
+  ChevronUp, AlertCircle, Clock, BarChart3, Sparkles, Filter,
+  ArrowUpDown, MessageSquare, CheckCheck, Search, Eye, EyeOff,
+  Skull, XCircle
 } from 'lucide-react';
 import { authenticatedFetch } from '@/core/lib/client-auth';
 
@@ -106,7 +107,7 @@ export default function ReorderView({ open, onClose }: Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   
-  // Basic tab state
+  // Shared state
   const [brandFilter, setBrandFilter] = useState<string>('all');
   const [selected, setSelected] = useState<Map<string, SelectedItem>>(new Map());
   const [sortBy, setSortBy] = useState<'stock' | 'velocity' | 'brand'>('stock');
@@ -115,7 +116,12 @@ export default function ReorderView({ open, onClose }: Props) {
   const [showAiPrompt, setShowAiPrompt] = useState(false);
   const [aiPromptCopied, setAiPromptCopied] = useState(false);
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc');
+  const [hideDead, setHideDead] = useState(true);  // Hide dead stock by default
   const promptRef = useRef<HTMLTextAreaElement>(null);
+
+  // WhatsApp send state
+  const [sending, setSending] = useState(false);
+  const [sendResult, setSendResult] = useState<{ success: boolean; message: string } | null>(null);
 
   // Fetch data on open
   useEffect(() => {
@@ -148,6 +154,8 @@ export default function ReorderView({ open, onClose }: Props) {
   const autoSelectSmartItems = (items: ReorderItem[]) => {
     const sel = new Map<string, SelectedItem>();
     items.forEach(item => {
+      // Skip dead stock from auto-select
+      if (item.stockStatus === 'dead') return;
       if (item.stockStatus === 'out' || item.stockStatus === 'critical') {
         if (!item.pendingOrder) {
           sel.set(item.itemId, { itemId: item.itemId, orderQty: item.suggestedQty });
@@ -189,7 +197,7 @@ export default function ReorderView({ open, onClose }: Props) {
   const selectAll = () => {
     const sel = new Map(selected);
     filteredItems.forEach(item => {
-      if (!sel.has(item.itemId)) {
+      if (!sel.has(item.itemId) && item.stockStatus !== 'dead') {
         sel.set(item.itemId, { itemId: item.itemId, orderQty: item.suggestedQty || 1 });
       }
     });
@@ -206,6 +214,10 @@ export default function ReorderView({ open, onClose }: Props) {
     
     if (brandFilter !== 'all') {
       items = items.filter(i => i.brand === brandFilter);
+    }
+    // Dead stock filter
+    if (hideDead) {
+      items = items.filter(i => i.stockStatus !== 'dead');
     }
     if (searchQ) {
       const q = searchQ.toLowerCase();
@@ -229,7 +241,29 @@ export default function ReorderView({ open, onClose }: Props) {
     });
     
     return items;
-  }, [data, brandFilter, sortBy, sortDir, searchQ]);
+  }, [data, brandFilter, sortBy, sortDir, searchQ, hideDead]);
+
+  // Brand stats for filter
+  const brandStats = useMemo(() => {
+    if (!data) return [];
+    const stats = new Map<string, { total: number; out: number; critical: number; low: number; dead: number }>();
+    data.items.forEach(item => {
+      if (!stats.has(item.brand)) {
+        stats.set(item.brand, { total: 0, out: 0, critical: 0, low: 0, dead: 0 });
+      }
+      const s = stats.get(item.brand)!;
+      s.total++;
+      if (item.stockStatus === 'out') s.out++;
+      if (item.stockStatus === 'critical') s.critical++;
+      if (item.stockStatus === 'low') s.low++;
+      if (item.stockStatus === 'dead') s.dead++;
+    });
+    return [...stats.entries()].sort((a, b) => {
+      const urgA = a[1].out + a[1].critical;
+      const urgB = b[1].out + b[1].critical;
+      return urgB - urgA;
+    });
+  }, [data]);
 
   // ─── Brand-wise WhatsApp Messages ────────────────────────────────────
   const generateWhatsAppMessages = useCallback((): Map<string, string> => {
@@ -407,6 +441,57 @@ export default function ReorderView({ open, onClose }: Props) {
 
   const whatsappMessages = useMemo(() => generateWhatsAppMessages(), [generateWhatsAppMessages]);
 
+  // Count active items (excl dead) for display
+  const activeCount = useMemo(() => {
+    if (!data) return 0;
+    return data.items.filter(i => i.stockStatus !== 'dead').length;
+  }, [data]);
+
+  // ─── Send via WhatsApp Bot ──────────────────────────────────────────
+  const sendViaWhatsApp = async (brandToSend?: string) => {
+    const msgs = generateWhatsAppMessages();
+    if (msgs.size === 0) return;
+
+    const toSend = brandToSend
+      ? [{ brand: brandToSend, message: msgs.get(brandToSend)! }].filter(m => m.message)
+      : [...msgs].map(([brand, message]) => ({ brand, message }));
+
+    if (toSend.length === 0) return;
+
+    try {
+      setSending(true);
+      setSendResult(null);
+
+      const res = await authenticatedFetch('/api/erp/reorder/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: toSend }),
+      });
+
+      const result = await res.json();
+
+      if (result.success) {
+        setSendResult({
+          success: true,
+          message: `✅ ${result.sentCount}/${result.totalCount} messages sent to "${result.groupName}" group`,
+        });
+      } else {
+        setSendResult({
+          success: false,
+          message: result.error || 'Failed to send messages',
+        });
+      }
+    } catch (e: any) {
+      setSendResult({
+        success: false,
+        message: e.message || 'Network error',
+      });
+    } finally {
+      setSending(false);
+      setTimeout(() => setSendResult(null), 5000);
+    }
+  };
+
   if (!open) return null;
 
   // ═══════════════════════════════════════════════════════════════════
@@ -419,7 +504,7 @@ export default function ReorderView({ open, onClose }: Props) {
         <div>
           <h2 className="font-bold text-lg leading-tight">Re-Order Manager</h2>
           <p className="text-indigo-200 text-[10px] mt-0.5">
-            {data ? `${data.summary.total} items need attention` : 'Loading...'}
+            {data ? `${activeCount} items need ordering${hideDead ? ` · ${data.summary.deadStock} dead hidden` : ''}` : 'Loading...'}
           </p>
         </div>
         <button onClick={onClose} className="p-2 rounded-full hover:bg-white/10 transition-colors">
@@ -483,6 +568,16 @@ export default function ReorderView({ open, onClose }: Props) {
         </div>
       )}
 
+      {/* ─── Send Result Toast ────────────────────────────────────── */}
+      {sendResult && (
+        <div className={`mx-4 mt-2 p-3 rounded-xl flex items-center gap-2 text-sm font-medium ${
+          sendResult.success ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-rose-50 text-rose-700 border border-rose-200'
+        }`}>
+          {sendResult.success ? <CheckCircle2 size={16} /> : <XCircle size={16} />}
+          {sendResult.message}
+        </div>
+      )}
+
       {/* ─── Content ─────────────────────────────────────────────────── */}
       {!loading && !error && data && (
         <div className="flex-1 overflow-y-auto">
@@ -493,12 +588,15 @@ export default function ReorderView({ open, onClose }: Props) {
               selected={selected}
               brandFilter={brandFilter}
               setBrandFilter={setBrandFilter}
+              brandStats={brandStats}
               sortBy={sortBy}
               setSortBy={setSortBy}
               sortDir={sortDir}
               setSortDir={setSortDir}
               searchQ={searchQ}
               setSearchQ={setSearchQ}
+              hideDead={hideDead}
+              setHideDead={setHideDead}
               toggleItem={toggleItem}
               updateQty={updateQty}
               selectAll={selectAll}
@@ -506,6 +604,8 @@ export default function ReorderView({ open, onClose }: Props) {
               whatsappMessages={whatsappMessages}
               copiedBrand={copiedBrand}
               copyBrandMessage={copyBrandMessage}
+              sendViaWhatsApp={sendViaWhatsApp}
+              sending={sending}
             />
           ) : (
             <SmartTab
@@ -515,6 +615,9 @@ export default function ReorderView({ open, onClose }: Props) {
               healthScore={healthScore}
               brandFilter={brandFilter}
               setBrandFilter={setBrandFilter}
+              brandStats={brandStats}
+              hideDead={hideDead}
+              setHideDead={setHideDead}
               toggleItem={toggleItem}
               updateQty={updateQty}
               showAiPrompt={showAiPrompt}
@@ -526,6 +629,8 @@ export default function ReorderView({ open, onClose }: Props) {
               whatsappMessages={whatsappMessages}
               copiedBrand={copiedBrand}
               copyBrandMessage={copyBrandMessage}
+              sendViaWhatsApp={sendViaWhatsApp}
+              sending={sending}
             />
           )}
         </div>
@@ -538,22 +643,27 @@ export default function ReorderView({ open, onClose }: Props) {
 // BASIC TAB
 // ═══════════════════════════════════════════════════════════════════════
 function BasicTab({
-  data, items, selected, brandFilter, setBrandFilter, sortBy, setSortBy,
-  sortDir, setSortDir, searchQ, setSearchQ,
+  data, items, selected, brandFilter, setBrandFilter, brandStats,
+  sortBy, setSortBy, sortDir, setSortDir, searchQ, setSearchQ,
+  hideDead, setHideDead,
   toggleItem, updateQty, selectAll, clearAll,
   whatsappMessages, copiedBrand, copyBrandMessage,
+  sendViaWhatsApp, sending,
 }: {
   data: ReorderData;
   items: ReorderItem[];
   selected: Map<string, SelectedItem>;
   brandFilter: string;
   setBrandFilter: (v: string) => void;
+  brandStats: [string, { total: number; out: number; critical: number; low: number; dead: number }][];
   sortBy: string;
   setSortBy: (v: 'stock' | 'velocity' | 'brand') => void;
   sortDir: string;
   setSortDir: (v: 'asc' | 'desc') => void;
   searchQ: string;
   setSearchQ: (v: string) => void;
+  hideDead: boolean;
+  setHideDead: (v: boolean) => void;
   toggleItem: (item: ReorderItem) => void;
   updateQty: (itemId: string, delta: number) => void;
   selectAll: () => void;
@@ -561,6 +671,8 @@ function BasicTab({
   whatsappMessages: Map<string, string>;
   copiedBrand: string | null;
   copyBrandMessage: (brand: string, msg: string) => void;
+  sendViaWhatsApp: (brand?: string) => void;
+  sending: boolean;
 }) {
   const [showSendPanel, setShowSendPanel] = useState(false);
   
@@ -571,7 +683,7 @@ function BasicTab({
         <SummaryCard label="Out" value={data.summary.outOfStock} color="rose" />
         <SummaryCard label="Critical" value={data.summary.critical} color="orange" />
         <SummaryCard label="Low" value={data.summary.lowStock} color="amber" />
-        <SummaryCard label="Dead" value={data.summary.deadStock} color="zinc" />
+        <SummaryCard label="Dead" value={data.summary.deadStock} color="zinc" icon={<Skull size={12} />} />
       </div>
 
       {/* Search */}
@@ -588,37 +700,15 @@ function BasicTab({
         </div>
       </div>
 
-      {/* Brand Filter Chips */}
-      <div className="px-3 mb-2 overflow-x-auto">
-        <div className="flex gap-1.5 min-w-max">
-          <button
-            onClick={() => setBrandFilter('all')}
-            className={`px-3 py-1.5 rounded-full text-xs font-bold transition-colors ${
-              brandFilter === 'all'
-                ? 'bg-indigo-600 text-white'
-                : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'
-            }`}
-          >
-            All ({data.items.length})
-          </button>
-          {data.brands.map(brand => {
-            const count = data.items.filter(i => i.brand === brand).length;
-            return (
-              <button
-                key={brand}
-                onClick={() => setBrandFilter(brand)}
-                className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-colors ${
-                  brandFilter === brand
-                    ? 'bg-indigo-600 text-white'
-                    : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'
-                }`}
-              >
-                {brand} ({count})
-              </button>
-            );
-          })}
-        </div>
-      </div>
+      {/* Advanced Brand Filter */}
+      <BrandFilterBar
+        brandStats={brandStats}
+        brandFilter={brandFilter}
+        setBrandFilter={setBrandFilter}
+        totalCount={data.items.length}
+        hideDead={hideDead}
+        setHideDead={setHideDead}
+      />
 
       {/* Sort & Select Bar */}
       <div className="px-3 mb-2 flex items-center justify-between gap-2">
@@ -695,32 +785,52 @@ function BasicTab({
                 className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-xl font-bold text-sm shadow-lg active:scale-95 transition-transform"
               >
                 <MessageSquare size={16} />
-                Send via WhatsApp
+                WhatsApp
               </button>
             </div>
           ) : (
-            <div className="max-h-[60vh] overflow-y-auto">
-              <div className="p-3 flex items-center justify-between border-b border-zinc-100">
-                <h3 className="font-bold text-zinc-900">WhatsApp Messages</h3>
-                <button onClick={() => setShowSendPanel(false)} className="text-zinc-400 p-1">
-                  <ChevronDown size={18} />
-                </button>
+            <div className="max-h-[65vh] overflow-y-auto">
+              <div className="p-3 flex items-center justify-between border-b border-zinc-100 sticky top-0 bg-white z-10">
+                <h3 className="font-bold text-zinc-900">WhatsApp — Brand Messages</h3>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => sendViaWhatsApp()}
+                    disabled={sending}
+                    className="flex items-center gap-1.5 bg-green-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold disabled:opacity-50"
+                  >
+                    {sending ? <Loader2 size={12} className="animate-spin" /> : <Send size={12} />}
+                    Send All
+                  </button>
+                  <button onClick={() => setShowSendPanel(false)} className="text-zinc-400 p-1">
+                    <ChevronDown size={18} />
+                  </button>
+                </div>
               </div>
               <div className="p-3 space-y-3">
                 {[...whatsappMessages].map(([brand, msg]) => (
                   <div key={brand} className="bg-zinc-50 rounded-xl overflow-hidden border border-zinc-100">
-                    <div className="p-3 flex items-center justify-between">
+                    <div className="p-3 flex items-center justify-between gap-2">
                       <span className="font-bold text-sm text-zinc-900">{brand}</span>
-                      <button
-                        onClick={() => copyBrandMessage(brand, msg)}
-                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors ${
-                          copiedBrand === brand
-                            ? 'bg-green-100 text-green-700'
-                            : 'bg-green-600 text-white active:bg-green-700'
-                        }`}
-                      >
-                        {copiedBrand === brand ? <><CheckCheck size={12} /> Copied!</> : <><Copy size={12} /> Copy</>}
-                      </button>
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          onClick={() => copyBrandMessage(brand, msg)}
+                          className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-bold transition-colors ${
+                            copiedBrand === brand
+                              ? 'bg-green-100 text-green-700'
+                              : 'bg-zinc-200 text-zinc-700 active:bg-zinc-300'
+                          }`}
+                        >
+                          {copiedBrand === brand ? <><CheckCheck size={10} /> Copied</> : <><Copy size={10} /> Copy</>}
+                        </button>
+                        <button
+                          onClick={() => sendViaWhatsApp(brand)}
+                          disabled={sending}
+                          className="flex items-center gap-1 bg-green-600 text-white px-2.5 py-1.5 rounded-lg text-[11px] font-bold disabled:opacity-50 active:bg-green-700"
+                        >
+                          {sending ? <Loader2 size={10} className="animate-spin" /> : <Send size={10} />}
+                          Send
+                        </button>
+                      </div>
                     </div>
                     <pre className="px-3 pb-3 text-[11px] text-zinc-600 whitespace-pre-wrap font-sans leading-relaxed">
                       {msg}
@@ -740,11 +850,13 @@ function BasicTab({
 // SMART TAB
 // ═══════════════════════════════════════════════════════════════════════
 function SmartTab({
-  data, items, selected, healthScore, brandFilter, setBrandFilter,
+  data, items, selected, healthScore, brandFilter, setBrandFilter, brandStats,
+  hideDead, setHideDead,
   toggleItem, updateQty,
   showAiPrompt, setShowAiPrompt, generateAIPrompt, copyAIPrompt,
   aiPromptCopied, promptRef,
   whatsappMessages, copiedBrand, copyBrandMessage,
+  sendViaWhatsApp, sending,
 }: {
   data: ReorderData;
   items: ReorderItem[];
@@ -752,6 +864,9 @@ function SmartTab({
   healthScore: number;
   brandFilter: string;
   setBrandFilter: (v: string) => void;
+  brandStats: [string, { total: number; out: number; critical: number; low: number; dead: number }][];
+  hideDead: boolean;
+  setHideDead: (v: boolean) => void;
   toggleItem: (item: ReorderItem) => void;
   updateQty: (itemId: string, delta: number) => void;
   showAiPrompt: boolean;
@@ -763,6 +878,8 @@ function SmartTab({
   whatsappMessages: Map<string, string>;
   copiedBrand: string | null;
   copyBrandMessage: (brand: string, msg: string) => void;
+  sendViaWhatsApp: (brand?: string) => void;
+  sending: boolean;
 }) {
   const [expandedSection, setExpandedSection] = useState<string | null>('critical');
   const [showWhatsApp, setShowWhatsApp] = useState(false);
@@ -826,33 +943,17 @@ function SmartTab({
         </div>
       </div>
 
-      {/* Brand Filter for Smart Tab */}
-      <div className="px-4 mb-3 overflow-x-auto">
-        <div className="flex gap-1.5 min-w-max">
-          <button
-            onClick={() => setBrandFilter('all')}
-            className={`px-3 py-1.5 rounded-full text-xs font-bold transition-colors ${
-              brandFilter === 'all'
-                ? 'bg-violet-600 text-white'
-                : 'bg-zinc-100 text-zinc-600'
-            }`}
-          >
-            All Brands
-          </button>
-          {data.brands.map(brand => (
-            <button
-              key={brand}
-              onClick={() => setBrandFilter(brand)}
-              className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-colors ${
-                brandFilter === brand
-                  ? 'bg-violet-600 text-white'
-                  : 'bg-zinc-100 text-zinc-600'
-              }`}
-            >
-              {brand}
-            </button>
-          ))}
-        </div>
+      {/* Advanced Brand Filter */}
+      <div className="px-1">
+        <BrandFilterBar
+          brandStats={brandStats}
+          brandFilter={brandFilter}
+          setBrandFilter={setBrandFilter}
+          totalCount={data.items.length}
+          hideDead={hideDead}
+          setHideDead={setHideDead}
+          variant="violet"
+        />
       </div>
 
       {/* AI Prompt Generator Button */}
@@ -1023,7 +1124,7 @@ function SmartTab({
       {deadStock.length > 0 && (
         <SmartSection
           title="Dead Stock"
-          icon={<AlertCircle size={14} />}
+          icon={<Skull size={14} />}
           count={deadStock.length}
           color="zinc"
           expanded={expandedSection === 'dead'}
@@ -1063,32 +1164,52 @@ function SmartTab({
                 className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-xl font-bold text-sm shadow-lg active:scale-95 transition-transform"
               >
                 <MessageSquare size={16} />
-                WhatsApp Messages
+                WhatsApp
               </button>
             </div>
           ) : (
-            <div className="max-h-[60vh] overflow-y-auto">
-              <div className="p-3 flex items-center justify-between border-b border-zinc-100">
-                <h3 className="font-bold text-zinc-900">Brand-wise Messages</h3>
-                <button onClick={() => setShowWhatsApp(false)} className="text-zinc-400 p-1">
-                  <ChevronDown size={18} />
-                </button>
+            <div className="max-h-[65vh] overflow-y-auto">
+              <div className="p-3 flex items-center justify-between border-b border-zinc-100 sticky top-0 bg-white z-10">
+                <h3 className="font-bold text-zinc-900">WhatsApp — Brand Messages</h3>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => sendViaWhatsApp()}
+                    disabled={sending}
+                    className="flex items-center gap-1.5 bg-green-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold disabled:opacity-50"
+                  >
+                    {sending ? <Loader2 size={12} className="animate-spin" /> : <Send size={12} />}
+                    Send All
+                  </button>
+                  <button onClick={() => setShowWhatsApp(false)} className="text-zinc-400 p-1">
+                    <ChevronDown size={18} />
+                  </button>
+                </div>
               </div>
               <div className="p-3 space-y-3">
                 {[...whatsappMessages].map(([brand, msg]) => (
                   <div key={brand} className="bg-zinc-50 rounded-xl overflow-hidden border border-zinc-100">
-                    <div className="p-3 flex items-center justify-between">
+                    <div className="p-3 flex items-center justify-between gap-2">
                       <span className="font-bold text-sm text-zinc-900">{brand}</span>
-                      <button
-                        onClick={() => copyBrandMessage(brand, msg)}
-                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors ${
-                          copiedBrand === brand
-                            ? 'bg-green-100 text-green-700'
-                            : 'bg-green-600 text-white'
-                        }`}
-                      >
-                        {copiedBrand === brand ? <><CheckCheck size={12} /> Copied!</> : <><Copy size={12} /> Copy</>}
-                      </button>
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          onClick={() => copyBrandMessage(brand, msg)}
+                          className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-bold transition-colors ${
+                            copiedBrand === brand
+                              ? 'bg-green-100 text-green-700'
+                              : 'bg-zinc-200 text-zinc-700 active:bg-zinc-300'
+                          }`}
+                        >
+                          {copiedBrand === brand ? <><CheckCheck size={10} /> Copied</> : <><Copy size={10} /> Copy</>}
+                        </button>
+                        <button
+                          onClick={() => sendViaWhatsApp(brand)}
+                          disabled={sending}
+                          className="flex items-center gap-1 bg-green-600 text-white px-2.5 py-1.5 rounded-lg text-[11px] font-bold disabled:opacity-50 active:bg-green-700"
+                        >
+                          {sending ? <Loader2 size={10} className="animate-spin" /> : <Send size={10} />}
+                          Send
+                        </button>
+                      </div>
                     </div>
                     <pre className="px-3 pb-3 text-[11px] text-zinc-600 whitespace-pre-wrap font-sans leading-relaxed">{msg}</pre>
                   </div>
@@ -1231,6 +1352,90 @@ function ItemCard({
 }
 
 // ═══════════════════════════════════════════════════════════════════════
+// ADVANCED BRAND FILTER
+// ═══════════════════════════════════════════════════════════════════════
+function BrandFilterBar({
+  brandStats,
+  brandFilter,
+  setBrandFilter,
+  totalCount,
+  hideDead,
+  setHideDead,
+  variant = 'indigo',
+}: {
+  brandStats: [string, { total: number; out: number; critical: number; low: number; dead: number }][];
+  brandFilter: string;
+  setBrandFilter: (v: string) => void;
+  totalCount: number;
+  hideDead: boolean;
+  setHideDead: (v: boolean) => void;
+  variant?: 'indigo' | 'violet';
+}) {
+  const activeColor = variant === 'violet' ? 'bg-violet-600 text-white' : 'bg-indigo-600 text-white';
+  const deadCount = brandStats.reduce((s, [, v]) => s + v.dead, 0);
+
+  return (
+    <div className="px-3 mb-2">
+      {/* Dead Stock Toggle */}
+      <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center gap-2">
+          <Filter size={12} className="text-zinc-400" />
+          <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Brand Filter</span>
+        </div>
+        <button
+          onClick={() => setHideDead(!hideDead)}
+          className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold transition-colors ${
+            hideDead
+              ? 'bg-zinc-800 text-white'
+              : 'bg-zinc-100 text-zinc-500 border border-zinc-200'
+          }`}
+        >
+          {hideDead ? <EyeOff size={10} /> : <Eye size={10} />}
+          Dead Stock ({deadCount})
+          {hideDead && <span className="text-zinc-400">hidden</span>}
+        </button>
+      </div>
+
+      {/* Brand Chips */}
+      <div className="overflow-x-auto pb-1">
+        <div className="flex gap-1.5 min-w-max">
+          <button
+            onClick={() => setBrandFilter('all')}
+            className={`px-3 py-1.5 rounded-full text-xs font-bold transition-colors ${
+              brandFilter === 'all' ? activeColor : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'
+            }`}
+          >
+            All ({totalCount})
+          </button>
+          {brandStats.map(([brand, stats]) => {
+            const urgentDots = stats.out + stats.critical;
+            return (
+              <button
+                key={brand}
+                onClick={() => setBrandFilter(brand)}
+                className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-colors flex items-center gap-1 ${
+                  brandFilter === brand ? activeColor : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'
+                }`}
+              >
+                {brand}
+                <span className="opacity-75">({stats.total - (hideDead ? stats.dead : 0)})</span>
+                {urgentDots > 0 && (
+                  <span className={`w-4 h-4 rounded-full text-[8px] font-black flex items-center justify-center ${
+                    brandFilter === brand ? 'bg-white/30' : 'bg-rose-500 text-white'
+                  }`}>
+                    {urgentDots}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════
 // SMART SECTION (collapsible)
 // ═══════════════════════════════════════════════════════════════════════
 function SmartSection({
@@ -1279,7 +1484,7 @@ function SmartSection({
 // ═══════════════════════════════════════════════════════════════════════
 // SUMMARY CARD
 // ═══════════════════════════════════════════════════════════════════════
-function SummaryCard({ label, value, color }: { label: string; value: number; color: string }) {
+function SummaryCard({ label, value, color, icon }: { label: string; value: number; color: string; icon?: React.ReactNode }) {
   const colorMap: Record<string, string> = {
     rose: 'text-rose-700 bg-rose-50 border-rose-200',
     orange: 'text-orange-700 bg-orange-50 border-orange-200',
@@ -1290,7 +1495,7 @@ function SummaryCard({ label, value, color }: { label: string; value: number; co
 
   return (
     <div className={`rounded-xl border p-2 text-center ${cls}`}>
-      <div className="text-xl font-black">{value}</div>
+      <div className="text-xl font-black flex items-center justify-center gap-1">{icon}{value}</div>
       <div className="text-[9px] font-bold uppercase tracking-wider">{label}</div>
     </div>
   );
