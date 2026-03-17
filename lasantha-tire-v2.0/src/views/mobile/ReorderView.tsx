@@ -362,7 +362,7 @@ export default function ReorderView({ open, onClose }: Props) {
 
       {/* ─── Main Content ────────────────────────────────────────────── */}
       {!loading && !error && data && (
-        <div className="flex-1 overflow-y-auto pb-28">
+        <div className="flex-1 overflow-y-auto pb-4">
 
           {/* ─── Brand Dropdown ────────────────────────────────────── */}
           <div className="px-4 pt-4 pb-2">
@@ -620,7 +620,7 @@ export default function ReorderView({ open, onClose }: Props) {
       {/* SHARE BUTTON — only when items selected                        */}
       {/* ═══════════════════════════════════════════════════════════════ */}
       {totalSelected > 0 && !showPreview && (
-        <div className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-white via-white to-transparent z-50">
+        <div className="shrink-0 p-4 bg-white border-t border-zinc-200">
           <button
             onClick={() => setShowPreview(true)}
             className="w-full bg-green-600 text-white py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-green-200 active:scale-[0.98] transition-transform"
