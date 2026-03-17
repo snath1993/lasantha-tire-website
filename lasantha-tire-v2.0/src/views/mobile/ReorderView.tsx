@@ -383,7 +383,7 @@ export default function ReorderView({ open, onClose }: Props) {
 
       {/* ─── Main Content ────────────────────────────────────────────── */}
       {!loading && !error && data && (
-        <div className="flex-1 overflow-y-auto pb-4">
+        <div className={`flex-1 overflow-y-auto ${selectedBrand ? 'pb-24' : 'pb-4'}`}>
 
           {/* ─── Brand Dropdown ────────────────────────────────────── */}
           <div className="px-4 pt-4 pb-2">
@@ -638,20 +638,20 @@ export default function ReorderView({ open, onClose }: Props) {
       )}
 
       {/* ═══════════════════════════════════════════════════════════════ */}
-      {/* SHARE BAR — always visible when brand selected                  */}
+      {/* SHARE BAR — fixed at bottom when brand selected                */}
       {/* ═══════════════════════════════════════════════════════════════ */}
-      {selectedBrand && !showPreview && (
-        <div className="shrink-0 px-4 py-3 bg-white border-t border-zinc-200 shadow-[0_-4px_12px_rgba(0,0,0,0.05)]">
+      {selectedBrand && !showPreview && !loading && data && (
+        <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 55, padding: '12px 16px', background: '#fff', borderTop: '1px solid #e4e4e7', boxShadow: '0 -4px 12px rgba(0,0,0,0.08)' }}>
           {totalSelected > 0 ? (
             <button
               onClick={() => setShowPreview(true)}
-              className="w-full bg-green-600 text-white py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-green-200 active:scale-[0.98] transition-transform"
+              style={{ width: '100%', background: '#16a34a', color: '#fff', padding: '14px', borderRadius: '16px', fontWeight: 700, fontSize: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', border: 'none', cursor: 'pointer' }}
             >
               <Share2 size={18} />
               Share Order ({totalSelected} items)
             </button>
           ) : (
-            <div className="w-full bg-zinc-100 text-zinc-400 py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2">
+            <div style={{ width: '100%', background: '#f4f4f5', color: '#a1a1aa', padding: '14px', borderRadius: '16px', fontWeight: 700, fontSize: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
               <Share2 size={18} />
               Select items to share
             </div>
