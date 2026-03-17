@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Package, Loader2, AlertCircle, ArrowDown, Filter, ChevronRight, ArrowLeft, Layers, RefreshCw } from 'lucide-react';
+import { Package, Loader2, AlertCircle, ArrowDown, Filter, ChevronRight, ArrowLeft, Layers, RefreshCw, Eye, EyeOff } from 'lucide-react';
 import { authenticatedFetch } from '@/core/lib/client-auth';
 import type { TireProduct } from '@/core/types/erp';
 import ReorderView from './ReorderView';
@@ -24,6 +24,7 @@ export default function StockView() {
   const [translateX, setTranslateX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [showReorder, setShowReorder] = useState(false);
+  const [hideZeroStock, setHideZeroStock] = useState(true);
 
   // Fetch available brands on mount
   useEffect(() => {
@@ -122,16 +123,29 @@ export default function StockView() {
         <div className="px-1">
           <div className="flex items-center justify-between mb-4">
             <h1 className="text-2xl font-bold text-zinc-900">Select Brand</h1>
-            <button
-              onClick={() => setShowReorder(true)}
-              className="flex items-center gap-1.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-3 py-2 rounded-xl text-xs font-bold shadow-md active:scale-95 transition-transform"
-            >
-              <RefreshCw size={14} />
-              Re-Order
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setHideZeroStock(!hideZeroStock)}
+                className={`p-2 rounded-xl border transition-colors ${
+                  hideZeroStock 
+                    ? 'bg-zinc-800 text-white border-zinc-800' 
+                    : 'bg-white text-zinc-500 border-zinc-200 hover:bg-zinc-50'
+                }`}
+                title={hideZeroStock ? "Show out of stock brands" : "Hide out of stock brands"}
+              >
+                {hideZeroStock ? <EyeOff size={16} /> : <Eye size={16} />}
+              </button>
+              <button
+                onClick={() => setShowReorder(true)}
+                className="flex items-center gap-1.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-3 py-2 rounded-xl text-xs font-bold shadow-md active:scale-95 transition-transform"
+              >
+                <RefreshCw size={14} />
+                Re-Order
+              </button>
+            </div>
           </div>
           <div className="grid grid-cols-1 gap-3">
-            {brands.map((brand, index) => (
+            {brands.filter(b => !hideZeroStock || b.TotalQty > 0).map((brand, index) => (
               <button
                 key={brand.Brand}
                 onClick={() => setSelectedBrand(brand.Brand)}

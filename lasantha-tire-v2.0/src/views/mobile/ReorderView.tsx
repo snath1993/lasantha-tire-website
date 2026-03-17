@@ -108,7 +108,7 @@ export default function ReorderView({ open, onClose }: Props) {
   const [error, setError] = useState('');
   
   // Shared state
-  const [brandFilter, setBrandFilter] = useState<string>('all');
+  const [activeBrands, setActiveBrands] = useState<string[]>([]);
   const [selected, setSelected] = useState<Map<string, SelectedItem>>(new Map());
   const [sortBy, setSortBy] = useState<'stock' | 'velocity' | 'brand'>('stock');
   const [searchQ, setSearchQ] = useState('');
@@ -149,6 +149,17 @@ export default function ReorderView({ open, onClose }: Props) {
     } finally {
       setLoading(false);
     }
+  };
+
+  const toggleBrand = (brand: string) => {
+    if (brand === 'all') {
+      setActiveBrands([]);
+      return;
+    }
+    setActiveBrands(prev => {
+      if (prev.includes(brand)) return prev.filter(b => b !== brand);
+      return [...prev, brand];
+    });
   };
 
   const autoSelectSmartItems = (items: ReorderItem[]) => {
@@ -211,9 +222,9 @@ export default function ReorderView({ open, onClose }: Props) {
   const filteredItems = useMemo(() => {
     if (!data) return [];
     let items = [...data.items];
-    
-    if (brandFilter !== 'all') {
-      items = items.filter(i => i.brand === brandFilter);
+
+    if (activeBrands.length > 0) {
+      items = items.filter(i => activeBrands.includes(i.brand));
     }
     // Dead stock filter
     if (hideDead) {
@@ -241,7 +252,7 @@ export default function ReorderView({ open, onClose }: Props) {
     });
     
     return items;
-  }, [data, brandFilter, sortBy, sortDir, searchQ, hideDead]);
+  }, [data, activeBrands, sortBy, sortDir, searchQ, hideDead]);
 
   // Brand stats for filter
   const brandStats = useMemo(() => {
@@ -586,8 +597,8 @@ export default function ReorderView({ open, onClose }: Props) {
               data={data}
               items={filteredItems}
               selected={selected}
-              brandFilter={brandFilter}
-              setBrandFilter={setBrandFilter}
+              activeBrands={activeBrands}
+              toggleBrand={toggleBrand}
               brandStats={brandStats}
               sortBy={sortBy}
               setSortBy={setSortBy}
@@ -613,8 +624,8 @@ export default function ReorderView({ open, onClose }: Props) {
               items={filteredItems}
               selected={selected}
               healthScore={healthScore}
-              brandFilter={brandFilter}
-              setBrandFilter={setBrandFilter}
+              activeBrands={activeBrands}
+              toggleBrand={toggleBrand}
               brandStats={brandStats}
               hideDead={hideDead}
               setHideDead={setHideDead}
@@ -643,7 +654,7 @@ export default function ReorderView({ open, onClose }: Props) {
 // BASIC TAB
 // ═══════════════════════════════════════════════════════════════════════
 function BasicTab({
-  data, items, selected, brandFilter, setBrandFilter, brandStats,
+  data, items, selected, activeBrands, toggleBrand, brandStats,
   sortBy, setSortBy, sortDir, setSortDir, searchQ, setSearchQ,
   hideDead, setHideDead,
   toggleItem, updateQty, selectAll, clearAll,
@@ -653,8 +664,8 @@ function BasicTab({
   data: ReorderData;
   items: ReorderItem[];
   selected: Map<string, SelectedItem>;
-  brandFilter: string;
-  setBrandFilter: (v: string) => void;
+  activeBrands: string[];
+  toggleBrand: (v: string) => void;
   brandStats: [string, { total: number; out: number; critical: number; low: number; dead: number }][];
   sortBy: string;
   setSortBy: (v: 'stock' | 'velocity' | 'brand') => void;
@@ -703,8 +714,8 @@ function BasicTab({
       {/* Advanced Brand Filter */}
       <BrandFilterBar
         brandStats={brandStats}
-        brandFilter={brandFilter}
-        setBrandFilter={setBrandFilter}
+        activeBrands={activeBrands}
+        toggleBrand={toggleBrand}
         totalCount={data.items.length}
         hideDead={hideDead}
         setHideDead={setHideDead}
@@ -784,8 +795,8 @@ function BasicTab({
                 onClick={() => setShowSendPanel(true)}
                 className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-xl font-bold text-sm shadow-lg active:scale-95 transition-transform"
               >
-                <MessageSquare size={16} />
-                WhatsApp
+                <CheckCheck size={16} />
+                Generate Order Options
               </button>
             </div>
           ) : (
@@ -850,7 +861,7 @@ function BasicTab({
 // SMART TAB
 // ═══════════════════════════════════════════════════════════════════════
 function SmartTab({
-  data, items, selected, healthScore, brandFilter, setBrandFilter, brandStats,
+  data, items, selected, healthScore, activeBrands, toggleBrand, brandStats,
   hideDead, setHideDead,
   toggleItem, updateQty,
   showAiPrompt, setShowAiPrompt, generateAIPrompt, copyAIPrompt,
@@ -862,8 +873,8 @@ function SmartTab({
   items: ReorderItem[];
   selected: Map<string, SelectedItem>;
   healthScore: number;
-  brandFilter: string;
-  setBrandFilter: (v: string) => void;
+  activeBrands: string[];
+  toggleBrand: (v: string) => void;
   brandStats: [string, { total: number; out: number; critical: number; low: number; dead: number }][];
   hideDead: boolean;
   setHideDead: (v: boolean) => void;
@@ -947,8 +958,8 @@ function SmartTab({
       <div className="px-1">
         <BrandFilterBar
           brandStats={brandStats}
-          brandFilter={brandFilter}
-          setBrandFilter={setBrandFilter}
+          activeBrands={activeBrands}
+          toggleBrand={toggleBrand}
           totalCount={data.items.length}
           hideDead={hideDead}
           setHideDead={setHideDead}
@@ -1163,8 +1174,8 @@ function SmartTab({
                 onClick={() => setShowWhatsApp(true)}
                 className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-xl font-bold text-sm shadow-lg active:scale-95 transition-transform"
               >
-                <MessageSquare size={16} />
-                WhatsApp
+                <CheckCheck size={16} />
+                Generate Order Options
               </button>
             </div>
           ) : (
@@ -1240,19 +1251,22 @@ function ItemCard({
   showPending?: boolean;
 }) {
   return (
-    <div className={`bg-white border rounded-xl overflow-hidden transition-colors ${
-      isSelected ? 'border-indigo-300 bg-indigo-50/30' : 'border-zinc-100'
-    }`}>
+    <div
+      onClick={onToggle}
+      className={`bg-white border rounded-xl overflow-hidden transition-colors cursor-pointer active:scale-[0.99] ${
+        isSelected ? 'border-indigo-300 bg-indigo-50/30' : 'border-zinc-100'
+      }`}
+    >
       <div className="p-3">
         <div className="flex items-start gap-2">
           {/* Checkbox */}
-          <button onClick={onToggle} className="mt-0.5 shrink-0">
+          <div className="mt-0.5 shrink-0">
             {isSelected ? (
               <CheckCircle2 size={20} className="text-indigo-600" />
             ) : (
               <Circle size={20} className="text-zinc-300" />
             )}
-          </button>
+          </div>
 
           {/* Content */}
           <div className="flex-1 min-w-0">
@@ -1326,18 +1340,18 @@ function ItemCard({
 
           {/* Qty Controls */}
           {isSelected && (
-            <div className="flex flex-col items-center gap-0.5 shrink-0">
+            <div className="flex flex-col items-center gap-0.5 shrink-0" onClick={e => e.stopPropagation()}>
               <span className="text-[8px] font-bold text-zinc-400 uppercase">Order</span>
               <div className="flex items-center bg-zinc-100 rounded-lg overflow-hidden">
                 <button
-                  onClick={() => onUpdateQty(-1)}
+                  onClick={(e) => { e.stopPropagation(); onUpdateQty(-1); }}
                   className="w-7 h-7 flex items-center justify-center text-zinc-600 hover:bg-zinc-200 active:bg-zinc-300 transition-colors"
                 >
                   <Minus size={12} />
                 </button>
                 <span className="w-7 text-center text-sm font-bold text-indigo-700">{orderQty}</span>
                 <button
-                  onClick={() => onUpdateQty(1)}
+                  onClick={(e) => { e.stopPropagation(); onUpdateQty(1); }}
                   className="w-7 h-7 flex items-center justify-center text-zinc-600 hover:bg-zinc-200 active:bg-zinc-300 transition-colors"
                 >
                   <Plus size={12} />
@@ -1356,16 +1370,16 @@ function ItemCard({
 // ═══════════════════════════════════════════════════════════════════════
 function BrandFilterBar({
   brandStats,
-  brandFilter,
-  setBrandFilter,
+  activeBrands,
+  toggleBrand,
   totalCount,
   hideDead,
   setHideDead,
   variant = 'indigo',
 }: {
   brandStats: [string, { total: number; out: number; critical: number; low: number; dead: number }][];
-  brandFilter: string;
-  setBrandFilter: (v: string) => void;
+  activeBrands: string[];
+  toggleBrand: (v: string) => void;
   totalCount: number;
   hideDead: boolean;
   setHideDead: (v: boolean) => void;
@@ -1400,28 +1414,29 @@ function BrandFilterBar({
       <div className="overflow-x-auto pb-1">
         <div className="flex gap-1.5 min-w-max">
           <button
-            onClick={() => setBrandFilter('all')}
+            onClick={() => toggleBrand('all')}
             className={`px-3 py-1.5 rounded-full text-xs font-bold transition-colors ${
-              brandFilter === 'all' ? activeColor : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'
+              activeBrands.length === 0 ? activeColor : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'
             }`}
           >
             All ({totalCount})
           </button>
           {brandStats.map(([brand, stats]) => {
             const urgentDots = stats.out + stats.critical;
+            const isSelected = activeBrands.includes(brand);
             return (
               <button
                 key={brand}
-                onClick={() => setBrandFilter(brand)}
+                onClick={() => toggleBrand(brand)}
                 className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-colors flex items-center gap-1 ${
-                  brandFilter === brand ? activeColor : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'
+                  isSelected ? activeColor : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'
                 }`}
               >
                 {brand}
                 <span className="opacity-75">({stats.total - (hideDead ? stats.dead : 0)})</span>
                 {urgentDots > 0 && (
                   <span className={`w-4 h-4 rounded-full text-[8px] font-black flex items-center justify-center ${
-                    brandFilter === brand ? 'bg-white/30' : 'bg-rose-500 text-white'
+                    isSelected ? 'bg-white/30 text-white' : 'bg-rose-500 text-white'
                   }`}>
                     {urgentDots}
                   </span>
