@@ -78,6 +78,27 @@ export default function ReorderView({ open, onClose }: Props) {
   const [showPreview, setShowPreview] = useState(false);
   const [soldLast30Only, setSoldLast30Only] = useState(true);
 
+  // Auto-select urgent items when brand changes
+  useEffect(() => {
+    if (!data || !selectedBrand) return;
+    const sel = new Map(selected);
+    // Clear previous brand's selections
+    data.items.forEach(item => {
+      if (item.brand !== selectedBrand) return;
+      sel.delete(item.itemId);
+    });
+    // Auto-select out-of-stock and critical items for this brand
+    data.items.forEach(item => {
+      if (item.brand !== selectedBrand) return;
+      if (item.stockStatus === 'dead') return;
+      if (soldLast30Only && item.sales.last30 === 0) return;
+      if (item.stockStatus === 'out' || item.stockStatus === 'critical') {
+        sel.set(item.itemId, { itemId: item.itemId, orderQty: item.suggestedQty || 1 });
+      }
+    });
+    setSelected(sel);
+  }, [selectedBrand, data]);
+
   // WhatsApp send state
   const [sending, setSending] = useState(false);
   const [sendResult, setSendResult] = useState<{ success: boolean; message: string } | null>(null);
@@ -617,17 +638,24 @@ export default function ReorderView({ open, onClose }: Props) {
       )}
 
       {/* ═══════════════════════════════════════════════════════════════ */}
-      {/* SHARE BUTTON — only when items selected                        */}
+      {/* SHARE BAR — always visible when brand selected                  */}
       {/* ═══════════════════════════════════════════════════════════════ */}
-      {totalSelected > 0 && !showPreview && (
-        <div className="shrink-0 p-4 bg-white border-t border-zinc-200">
-          <button
-            onClick={() => setShowPreview(true)}
-            className="w-full bg-green-600 text-white py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-green-200 active:scale-[0.98] transition-transform"
-          >
-            <Share2 size={18} />
-            Share Order ({totalSelected} items)
-          </button>
+      {selectedBrand && !showPreview && (
+        <div className="shrink-0 px-4 py-3 bg-white border-t border-zinc-200 shadow-[0_-4px_12px_rgba(0,0,0,0.05)]">
+          {totalSelected > 0 ? (
+            <button
+              onClick={() => setShowPreview(true)}
+              className="w-full bg-green-600 text-white py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-green-200 active:scale-[0.98] transition-transform"
+            >
+              <Share2 size={18} />
+              Share Order ({totalSelected} items)
+            </button>
+          ) : (
+            <div className="w-full bg-zinc-100 text-zinc-400 py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2">
+              <Share2 size={18} />
+              Select items to share
+            </div>
+          )}
         </div>
       )}
 
